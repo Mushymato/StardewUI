@@ -442,12 +442,7 @@ public abstract class ViewMenu<T> : IClickableMenu, IDisposable
         {
             var overlayData = GetOverlayLayoutData(overlay);
             var overlayLocalPosition = screenPoint.ToVector2() - overlayData.Position;
-            if (
-                overlayLocalPosition.X < 0
-                || overlayLocalPosition.Y < 0
-                || overlayLocalPosition.X >= overlay.View.OuterSize.X
-                || overlayLocalPosition.Y >= overlay.View.OuterSize.Y
-            )
+            if (!overlay.View.ContainsPoint(overlayLocalPosition))
             {
                 overlayContext.Pop();
             }
