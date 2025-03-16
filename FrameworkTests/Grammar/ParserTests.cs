@@ -409,7 +409,7 @@ public class ParserTests
 
         var document = Document.Parse(markup);
 
-        Assert.Equal("lane", document.Root.Tag);
+        Assert.Equal("lane", document.Root!.Tag);
         Assert.Collection(
             document.Root.Attributes,
             attr => Assert.Equal(new("orientation", "vertical"), attr),

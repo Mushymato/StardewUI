@@ -213,16 +213,4 @@ public record SAttribute(
         };
         return new(argumentType, Value, ContextRedirect);
     }
-
-    /// <summary>
-    /// Creates a copy of this attribute with a different <see cref="Name"/> and <see cref="Type"/>, and all other
-    /// properties the same.
-    /// </summary>
-    /// <param name="name">The new attribute name.</param>
-    /// <param name="type">The new attribute type.</param>
-    /// <returns>The renamed attribute.</returns>
-    public SAttribute WithNameAndType(string name, AttributeType type)
-    {
-        return new(name, Value, type, ValueType, IsNegated, ContextRedirect);
-    }
 }

@@ -52,6 +52,7 @@ This is very similar to a [Label](label.md) inside a [Frame](frame.md), but uses
 | [BorderSize](../view.md#bordersize) | The layout size (not edge thickness) of the entire drawn area including the border, i.e. the [InnerSize](../view.md#innersize) plus any borders defined in [GetBorderThickness()](../view.md#getborderthickness). Does not include the [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ClipOrigin](../view.md#cliporigin) | Origin position for the [ClipSize](../iview.md#clipsize).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ClipSize](../view.md#clipsize) | Size of the clipping rectangle, outside which content will not be displayed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Color](#color) | The text color. | 
 | [ContentBounds](../view.md#contentbounds) | The true bounds of this view's content; i.e. [ActualBounds](../iview.md#actualbounds) excluding margins.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ContentSize](../view.md#contentsize) | The size of the view's content, which is drawn inside the padding. Subclasses set this in their [OnMeasure(Vector2)](../view.md#onmeasurevector2) method and padding, margins, etc. are handled automatically.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Draggable](../view.md#draggable) | Whether or not this view should fire drag events such as [DragStart](../view.md#dragstart) and [Drag](../view.md#drag).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -189,6 +190,20 @@ public StardewUI.Layout.Edges BackgroundBorderThickness { get; set; }
 ##### Remarks
 
 This property has no effect on the appearance of the [Background](banner.md#background), but affects how content is positioned inside the border. It is often correct to set it to the same value as the [FixedEdges](../graphics/sprite.md#fixededges) of the [Background](banner.md#background) sprite, but the values are considered independent.
+
+-----
+
+#### Color
+
+The text color.
+
+```cs
+public Microsoft.Xna.Framework.Color? Color { get; set; }
+```
+
+##### Property Value
+
+[Nullable](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1)<[Color](https://docs.monogame.net/api/Microsoft.Xna.Framework.Color.html)>
 
 -----
 

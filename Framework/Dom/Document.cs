@@ -8,7 +8,7 @@ namespace StardewUI.Framework.Dom;
 /// </summary>
 /// <param name="Root">The primary content node.</param>
 /// <param name="Templates">List of template nodes for inline expansion.</param>
-public record Document(SNode Root, IReadOnlyList<SNode> Templates)
+public record Document(SNode? Root, IReadOnlyList<SNode> Templates)
 {
     /// <summary>
     /// Parses a <see cref="Document"/> from its original markup text.
@@ -28,9 +28,7 @@ public record Document(SNode Root, IReadOnlyList<SNode> Templates)
             var node = SNode.Parse(ref reader);
             if (node.Tag.Equals("template", StringComparison.OrdinalIgnoreCase))
             {
-                var nameAttribute = node.Attributes.FirstOrDefault(attr =>
-                    attr.Name.Equals("name", StringComparison.OrdinalIgnoreCase)
-                );
+                var nameAttribute = node.Attributes.Find("name");
                 if (nameAttribute is null)
                 {
                     throw new ParserException("<template> element is missing a 'name' attribute.", position);
@@ -47,6 +45,25 @@ public record Document(SNode Root, IReadOnlyList<SNode> Templates)
                 {
                     throw new ParserException("<template> element has an empty 'name' attribute.", position);
                 }
+                var srcAttribute = node.Attributes.Find("src");
+                if (srcAttribute is not null && !string.IsNullOrEmpty(srcAttribute.Value))
+                {
+                    if (node.ChildNodes.Count > 0)
+                    {
+                        throw new ParserException(
+                            "<template> element with non-empty 'src' attribute must not contain any child elements.",
+                            position
+                        );
+                    }
+                    if (srcAttribute.ValueType != AttributeValueType.Literal)
+                    {
+                        throw new ParserException(
+                            "<template> element's 'src' attribute must be a literal value; "
+                                + $"'{srcAttribute.Value}' ({srcAttribute.ValueType}) is not allowed.",
+                            position
+                        );
+                    }
+                }
                 templates.Add(node);
             }
             else
@@ -60,10 +77,6 @@ public record Document(SNode Root, IReadOnlyList<SNode> Templates)
                 }
                 root = node;
             }
-        }
-        if (root is null)
-        {
-            throw new ParserException("Document is missing a content node.", 0);
         }
         return new(root, templates.ToImmutable());
     }

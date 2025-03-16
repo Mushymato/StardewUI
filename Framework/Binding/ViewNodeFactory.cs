@@ -34,6 +34,10 @@ public class ViewNodeFactory(
     /// <inheritdoc />
     public IViewNode CreateNode(Document document)
     {
+        if (document.Root is null)
+        {
+            throw new BindingException("Cannot create a view node from an empty or template-only document.");
+        }
         var scope = resolutionScopeFactory.CreateForDocument(document);
         var nodeTransformers = GetNodeTransformers(document);
         return CreateNode(document.Root, nodeTransformers, scope);
@@ -125,12 +129,18 @@ public class ViewNodeFactory(
                 assetCache,
                 resolutionScope,
                 doc =>
-                    CreateNodeChild(
+                {
+                    if (doc.Root is null)
+                    {
+                        throw new BindingException("Cannot create a node from an empty or template-only document.");
+                    }
+                    return CreateNodeChild(
                         doc.Root,
                         GetNodeTransformers(doc),
                         switchContext,
                         resolutionScopeFactory.CreateForDocument(doc)
-                    ).Node,
+                    ).Node;
+                },
                 assetNameAttribute,
                 structuralAttributes.Context
             );
@@ -192,11 +202,34 @@ public class ViewNodeFactory(
         }
     }
 
-    private static IReadOnlyList<INodeTransformer> GetNodeTransformers(Document document)
+    private IReadOnlyList<INodeTransformer> GetNodeTransformers(Document document)
     {
         // Transformers could be cached by document, but since TemplateNodeTransformer is just a wrapper around the
         // template that we already have access to here, it's unlikely to be worth the cost.
-        return document.Templates.Select(template => new TemplateNodeTransformer(template)).ToArray();
+        return document
+            .Templates.Select(template =>
+            {
+                if (template.Attributes.Find("src") is { } srcAttribute && !string.IsNullOrEmpty(srcAttribute.Value))
+                {
+                    var name = template.Attributes.Find("name")?.Value ?? "";
+                    template = LoadExternalTemplate(srcAttribute.Value, name);
+                }
+                return new TemplateNodeTransformer(template);
+            })
+            .ToArray();
+    }
+
+    private SNode LoadExternalTemplate(string assetName, string templateName)
+    {
+        var externalDoc = assetCache.Get<Document>(assetName);
+        if (!externalDoc.IsValid)
+        {
+            throw new BindingException($"Asset cache returned an invalid entry for document asset '{assetName}'.");
+        }
+        return externalDoc.Asset.FindTemplate(templateName)
+            ?? throw new BindingException(
+                $"Document '{assetName}' does not contain a template named '{templateName}'."
+            );
     }
 
     class StructuralAttributes

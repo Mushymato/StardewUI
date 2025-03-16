@@ -67,12 +67,22 @@ public class TemplateNodeTransformer(SNode template) : INodeTransformer
             .ToArray();
         var transformedAttributes = templateNode
             .Attributes.Select(attr =>
-                attr.ValueType == Grammar.AttributeValueType.TemplateBinding
-                    ? sourceAttributes.TryGetValue(attr.Value, out var injectAttr)
-                        ? injectAttr.WithNameAndType(attr.Name, attr.Type)
-                        : null
-                    : attr
-            )
+            {
+                if (attr.ValueType == Grammar.AttributeValueType.TemplateBinding)
+                {
+                    var (parameterName, defaultValue) = ParseTemplateAttribute(attr);
+                    if (sourceAttributes.TryGetValue(parameterName, out var injectAttr))
+                    {
+                        return injectAttr with { Name = attr.Name, Type = attr.Type };
+                    }
+                    else if (!string.IsNullOrEmpty(defaultValue))
+                    {
+                        return attr with { Value = defaultValue, ValueType = Grammar.AttributeValueType.Literal };
+                    }
+                    return null;
+                }
+                return attr;
+            })
             .Where(attr => attr is not null)
             .Cast<SAttribute>();
         if (structuralAttributes.Length > 0)
@@ -154,5 +164,14 @@ public class TemplateNodeTransformer(SNode template) : INodeTransformer
         return attribute.Type == Grammar.AttributeType.Structural
             // Don't propagate *outlet because that has special meaning in template contents.
             && !attribute.Name.Equals("outlet", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static (string parameterName, string defaultValue) ParseTemplateAttribute(SAttribute attribute)
+    {
+        var value = attribute.Value;
+        var separatorIndex = value.IndexOf('=');
+        var parameterName = separatorIndex > 0 ? value[..separatorIndex] : value;
+        var defaultValue = separatorIndex > 0 ? value[(separatorIndex + 1)..] : "";
+        return (parameterName, defaultValue);
     }
 }
