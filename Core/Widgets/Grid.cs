@@ -189,6 +189,18 @@ public partial class Grid : View
     {
         var cellPosition = GetCellAt(contentPosition);
         LogFocusSearch($"Current cell position: {cellPosition}");
+        var contentChildIndex = GetChildIndexAt(cellPosition);
+        if (contentChildIndex >= 0 && contentChildIndex < childPositions.Count)
+        {
+            LogFocusSearch("Cell position is inside existing child; attempting delegated focus search first.");
+            var contentChildResult = childPositions[contentChildIndex].FocusSearch(contentPosition, direction);
+            if (contentChildResult is not null)
+            {
+                LogFocusSearch("Accepted focus search within already-focused content.");
+                return contentChildResult;
+            }
+            LogFocusSearch("Focused child has nothing else to focus; advancing in the grid.");
+        }
         // If we could guarantee that the implementation were perfect, then there would not really be any need to track
         // the previous index. As it is, this helps prevent an infinite loop in case of an unexpected layout bug.
         int previousCheckedIndex = -1;
@@ -388,7 +400,7 @@ public partial class Grid : View
             return countBeforeWrap;
         }
         var cellLength = itemLength + PrimaryOrientation.Get(ItemSpacing);
-        return Math.Clamp((int)(axisPosition / cellLength), 0, countBeforeWrap);
+        return Math.Clamp((int)(axisPosition / cellLength), 0, countBeforeWrap - 1);
     }
 
     private int FindSecondaryIndex(Vector2 position)
@@ -428,7 +440,10 @@ public partial class Grid : View
         // having a column > max on the final row, or vice versa for vertical orientation. Consequently, we allow
         // exceeding the actual item count in that specific case, and the caller must confirm if the navigation is valid
         // (i.e. was in the perpendicular direction).
-        if (secondary >= secondaryStartPositions.Count)
+        //
+        // N.B. We still don't allow the primary to exceed the max count for *any* row, only the reduced count on the
+        // final row.
+        if (primary >= countBeforeWrap || secondary >= secondaryStartPositions.Count)
         {
             return -1;
         }

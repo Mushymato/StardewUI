@@ -103,7 +103,6 @@ public partial class Banner : View
         }
     }
 
-
     /// <summary>
     /// Base color for the text shadow, before applying <see cref="TextShadowAlpha"/>.
     /// </summary>
@@ -226,7 +225,13 @@ public partial class Banner : View
                         );
                     }
                 }
-                SpriteText.drawStringHorizontallyCenteredAt(wb, Text, (int)(origin.X + centerX), (int)origin.Y, color: Color);
+                SpriteText.drawStringHorizontallyCenteredAt(
+                    wb,
+                    Text,
+                    (int)(origin.X + centerX),
+                    (int)origin.Y,
+                    color: Color
+                );
             }
         );
     }
