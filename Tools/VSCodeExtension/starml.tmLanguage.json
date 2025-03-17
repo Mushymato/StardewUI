@@ -157,10 +157,16 @@
     },
     "binding-constant": {
       "name": "variable.other.constant.sml",
-      "match": "([@#&])([\\w\\.\\/:]+)",
+      "match": "([@#&])([\\w\\.\\/:-]+)(=([^}]+))?",
       "captures": {
         "1": {
           "name": "keyword.operator.sml"
+        },
+        "3": {
+          "name": "keyword.operator.sml"
+        },
+        "4": {
+          "name": "string.quoted.double.sml"
         }
       }
     },
