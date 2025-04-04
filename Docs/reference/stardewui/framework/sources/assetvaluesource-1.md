@@ -45,7 +45,8 @@ The type of asset to retrieve.
 
  | Name | Description |
 | --- | --- |
-| [AssetValueSource&lt;T&gt;(IAssetCache, string)](#assetvaluesourcetiassetcache-string) | Value source that looks up an asset registered with SMAPI's content manager. | 
+| [AssetValueSource&lt;T&gt;(IAssetCache, IValueSource&lt;string&gt;)](#assetvaluesourcetiassetcache-ivaluesourcestring) | Value source that looks up an asset registered with SMAPI's content manager. | 
+| [AssetValueSource&lt;T&gt;(IAssetCache, string)](#assetvaluesourcetiassetcache-string) | Initializes an [AssetValueSource&lt;T&gt;](assetvaluesource-1.md) instance using a constant asset name. | 
 
 ### Properties
 
@@ -68,9 +69,27 @@ The type of asset to retrieve.
 
 ### Constructors
 
-#### AssetValueSource&lt;T&gt;(IAssetCache, string)
+#### AssetValueSource&lt;T&gt;(IAssetCache, IValueSource&lt;string&gt;)
 
 Value source that looks up an asset registered with SMAPI's content manager.
+
+```cs
+public AssetValueSource<T>(StardewUI.Framework.Content.IAssetCache cache, StardewUI.Framework.Sources.IValueSource<string> nameSource);
+```
+
+##### Parameters
+
+**`cache`** &nbsp; [IAssetCache](../content/iassetcache.md)  
+Asset cache used to obtain current value/status.
+
+**`nameSource`** &nbsp; [IValueSource](ivaluesource-1.md)<[string](https://learn.microsoft.com/en-us/dotnet/api/system.string)>  
+Secondary source that provides the name of the asset as it would be supplied to SMAPI in Load&lt;T&gt;(string).
+
+-----
+
+#### AssetValueSource&lt;T&gt;(IAssetCache, string)
+
+Initializes an [AssetValueSource&lt;T&gt;](assetvaluesource-1.md) instance using a constant asset name.
 
 ```cs
 public AssetValueSource<T>(StardewUI.Framework.Content.IAssetCache cache, string name);

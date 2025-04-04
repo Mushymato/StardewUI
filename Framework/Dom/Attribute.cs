@@ -72,6 +72,8 @@ public interface IAttribute
             AttributeValueType.OutputBinding => ("{>", "}"),
             AttributeValueType.TwoWayBinding => ("{<>", "}"),
             AttributeValueType.AssetBinding => ("{@", "}"),
+            AttributeValueType.AssetInputBinding => ("{@<", "}"),
+            AttributeValueType.AssetOneTimeBinding => ("{@:", "}"),
             AttributeValueType.TranslationBinding => ("{#", "}"),
             AttributeValueType.TemplateBinding => ("{&", "}"),
             _ => throw new ArgumentException($"Invalid attribute value type: {type}", nameof(type)),

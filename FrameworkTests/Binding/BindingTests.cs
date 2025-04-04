@@ -421,6 +421,104 @@ public partial class BindingTests
         Assert.Equal("Bar", label.Tooltip);
     }
 
+    partial class AssetBindingModel : INotifyPropertyChanged
+    {
+        [Notify]
+        private string assetName = "";
+    }
+
+    [Fact]
+    public void WhenAssetInputBinding_BindsInitialAsset()
+    {
+        // Asset + model bindings are most likely to be used for images, but those are much more difficult to test as
+        // they require game content to be loaded, so we make do with just another string.
+        assetCache.Put("LabelText", "Some Text");
+
+        string markup = @"<label text={@<AssetName} />";
+        var model = new AssetBindingModel { AssetName = "LabelText" };
+        var tree = BuildTreeFromMarkup(markup, model);
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Some Text", label.Text);
+    }
+
+    [Fact]
+    public void WhenAssetInputBinding_UpdatesWhenNameChanges()
+    {
+        assetCache.Put("LabelText1", "First Text");
+        assetCache.Put("LabelText2", "Second Text");
+
+        string markup = @"<label text={@<AssetName} />";
+        var model = new AssetBindingModel { AssetName = "LabelText1" };
+        var tree = BuildTreeFromMarkup(markup, model);
+        model.AssetName = "LabelText2";
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Second Text", label.Text);
+    }
+
+    [Fact]
+    public void WhenAssetInputBinding_UpdatesWhenAssetChanges()
+    {
+        assetCache.Put("LabelText", "First Text");
+
+        string markup = @"<label text={@<AssetName} />";
+        var model = new AssetBindingModel { AssetName = "LabelText" };
+        var tree = BuildTreeFromMarkup(markup, model);
+        assetCache.Put("LabelText", "Second Text");
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Second Text", label.Text);
+    }
+
+    [Fact]
+    public void WhenAssetOneTimeBinding_BindsInitialAsset()
+    {
+        // Asset + model bindings are most likely to be used for images, but those are much more difficult to test as
+        // they require game content to be loaded, so we make do with just another string.
+        assetCache.Put("LabelText", "Some Text");
+
+        string markup = @"<label text={@:AssetName} />";
+        var model = new AssetBindingModel { AssetName = "LabelText" };
+        var tree = BuildTreeFromMarkup(markup, model);
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Some Text", label.Text);
+    }
+
+    [Fact]
+    public void WhenAssetOneTimeBinding_IgnoresUpdateWhenNameChanges()
+    {
+        assetCache.Put("LabelText1", "First Text");
+        assetCache.Put("LabelText2", "Second Text");
+
+        string markup = @"<label text={@:AssetName} />";
+        var model = new AssetBindingModel { AssetName = "LabelText1" };
+        var tree = BuildTreeFromMarkup(markup, model);
+        model.AssetName = "LabelText2";
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("First Text", label.Text);
+    }
+
+    [Fact]
+    public void WhenAssetOneTimeBinding_UpdatesWhenAssetChanges()
+    {
+        assetCache.Put("LabelText", "First Text");
+
+        string markup = @"<label text={@:AssetName} />";
+        var model = new AssetBindingModel { AssetName = "LabelText" };
+        var tree = BuildTreeFromMarkup(markup, model);
+        assetCache.Put("LabelText", "Second Text");
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Second Text", label.Text);
+    }
+
     partial class DropDownTestModel : INotifyPropertyChanged
     {
         public Func<object, string> FormatItem { get; } = item => $"Item {item}";

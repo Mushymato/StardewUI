@@ -1,3 +1,4 @@
+using StardewUI.Framework.Dom;
 using StardewUI.Framework.Grammar;
 
 namespace StardewUI.Framework.Tests.Grammar;
@@ -340,6 +341,37 @@ public class LexerTests
                     new(TokenType.Quote, "\""),
                     new(TokenType.Literal, "<!-- comment body -->"),
                     new(TokenType.Quote, "\""),
+                    new(TokenType.SelfClosingTagEnd, "/>"),
+                ]
+            },
+            {
+                @"<image sprite={@<FirstImage} />",
+                [
+                    new(TokenType.OpeningTagStart, "<"),
+                    new(TokenType.Name, "image"),
+                    new(TokenType.Name, "sprite"),
+                    new(TokenType.Assignment, "="),
+                    new(TokenType.BindingStart, "{"),
+                    new(TokenType.BindingModifier, "@<"),
+                    new(TokenType.Literal, "FirstImage"),
+                    new(TokenType.BindingEnd, "}"),
+                    new(TokenType.SelfClosingTagEnd, "/>"),
+                ]
+            },
+            {
+                "<image sprite={@:~AncestorModel.SecondImage} />",
+                [
+                    new(TokenType.OpeningTagStart, "<"),
+                    new(TokenType.Name, "image"),
+                    new(TokenType.Name, "sprite"),
+                    new(TokenType.Assignment, "="),
+                    new(TokenType.BindingStart, "{"),
+                    new(TokenType.BindingModifier, "@:"),
+                    new(TokenType.ContextAncestor, "~"),
+                    new(TokenType.Literal, "AncestorModel"),
+                    new(TokenType.NameSeparator, "."),
+                    new(TokenType.Literal, "SecondImage"),
+                    new(TokenType.BindingEnd, "}"),
                     new(TokenType.SelfClosingTagEnd, "/>"),
                 ]
             },

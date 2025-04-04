@@ -294,6 +294,8 @@ public ref struct DocumentReader(Lexer lexer)
             "<:" or ":" => AttributeValueType.OneTimeBinding,
             "<" => AttributeValueType.InputBinding,
             ">" => AttributeValueType.OutputBinding,
+            "@<" => AttributeValueType.AssetInputBinding,
+            "@:" => AttributeValueType.AssetOneTimeBinding,
             "@" => AttributeValueType.AssetBinding,
             "#" => AttributeValueType.TranslationBinding,
             "&" => AttributeValueType.TemplateBinding,

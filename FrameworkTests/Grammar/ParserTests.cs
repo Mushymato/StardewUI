@@ -329,6 +329,31 @@ public class ParserTests
                     new("template", IsClosingTag: true),
                 ]
             },
+            {
+                @"<lane>
+                    <image sprite={@<FirstImage} />
+                    <image sprite={@:~AncestorModel.SecondImage} />
+                </lane>
+                ",
+                [
+                    new("lane"),
+                    new("image", [new("sprite", "FirstImage", ValueType: AttributeValueType.AssetInputBinding)]),
+                    new("image", IsClosingTag: true),
+                    new(
+                        "image",
+                        [
+                            new(
+                                "sprite",
+                                "SecondImage",
+                                ValueType: AttributeValueType.AssetOneTimeBinding,
+                                ContextRedirect: new ContextRedirect.Type("AncestorModel")
+                            ),
+                        ]
+                    ),
+                    new("image", IsClosingTag: true),
+                    new("lane", IsClosingTag: true),
+                ]
+            },
         };
 
     [Theory]

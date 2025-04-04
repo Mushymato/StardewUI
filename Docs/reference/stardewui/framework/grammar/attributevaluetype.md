@@ -35,10 +35,12 @@ public enum AttributeValueType
 | --- | --- | --- |
 | <a id="literal">Literal</a> | 0 | The value is the literal string in the markup, i.e. it is the actual string representation of the target data type such as an integer, enumeration or another string. | 
 | <a id="assetbinding">AssetBinding</a> | 1 | A read-only binding which obtains the value from a named game asset. | 
-| <a id="translationbinding">TranslationBinding</a> | 2 | A read-only binding which obtains the value from a translation key registered with SMAPI. | 
-| <a id="inputbinding">InputBinding</a> | 3 | A one-way data binding which obtains the value from the context data and assigns it to the view. | 
-| <a id="onetimebinding">OneTimeBinding</a> | 4 | A special type of [InputBinding](attributevaluetype.md#inputbinding) that only reads the value a single time, and does not update subsequently afterward. | 
-| <a id="outputbinding">OutputBinding</a> | 5 | A one-way data binding which obtains the value from the view and assigns it to the context data. | 
-| <a id="twowaybinding">TwoWayBinding</a> | 6 | A two-way data binding which both assigns the context data's value to the view, and the view's value to the context data, depending on which one was most recently changed. | 
-| <a id="templatebinding">TemplateBinding</a> | 7 | Binds to the attribute value of the containing template; only valid within a template node. | 
+| <a id="assetinputbinding">AssetInputBinding</a> | 2 | A one-way data binding which obtains the value from the context data and uses it as the asset name for a subsequent asset binding. | 
+| <a id="assetonetimebinding">AssetOneTimeBinding</a> | 3 | A one-way data binding which obtains only the initial value from the context data and uses it as the asset name for a subsequent asset binding. | 
+| <a id="translationbinding">TranslationBinding</a> | 4 | A read-only binding which obtains the value from a translation key registered with SMAPI. | 
+| <a id="inputbinding">InputBinding</a> | 5 | A one-way data binding which obtains the value from the context data and assigns it to the view. | 
+| <a id="onetimebinding">OneTimeBinding</a> | 6 | A special type of [InputBinding](attributevaluetype.md#inputbinding) that only reads the value a single time, and does not update subsequently afterward. | 
+| <a id="outputbinding">OutputBinding</a> | 7 | A one-way data binding which obtains the value from the view and assigns it to the context data. | 
+| <a id="twowaybinding">TwoWayBinding</a> | 8 | A two-way data binding which both assigns the context data's value to the view, and the view's value to the context data, depending on which one was most recently changed. | 
+| <a id="templatebinding">TemplateBinding</a> | 9 | Binds to the attribute value of the containing template; only valid within a template node. | 
 

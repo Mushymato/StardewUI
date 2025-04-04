@@ -177,6 +177,14 @@ public class ValueSourceFactory(IAssetCache assetCache) : IValueSourceFactory
             // because it only matters for the return value, and for attributes, nullness only matters in the context of
             // the particular binding/conversion happening.
             AttributeValueType.AssetBinding => new AssetValueSource<T>(assetCache, attribute.Value),
+            AttributeValueType.AssetInputBinding or AttributeValueType.AssetOneTimeBinding => new AssetValueSource<T>(
+                assetCache,
+                new ContextPropertyValueSource<string>(
+                    context?.Redirect(attribute.ContextRedirect),
+                    attribute.Value,
+                    attribute.ValueType != AttributeValueType.AssetOneTimeBinding
+                )
+            ),
 #nullable enable
             AttributeValueType.TranslationBinding => (IValueSource<T>)
                 new TranslationValueSource(resolutionScope, attribute.Value),
@@ -222,7 +230,9 @@ public class ValueSourceFactory(IAssetCache assetCache) : IValueSourceFactory
             AttributeValueType.InputBinding
             or AttributeValueType.OneTimeBinding
             or AttributeValueType.OutputBinding
-            or AttributeValueType.TwoWayBinding => context
+            or AttributeValueType.TwoWayBinding
+            or AttributeValueType.AssetInputBinding
+            or AttributeValueType.AssetOneTimeBinding => context
                 ?.Redirect(attribute.ContextRedirect)
                 ?.Descriptor.GetProperty(attribute.Value)
                 .ValueType,

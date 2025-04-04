@@ -107,6 +107,26 @@ public enum AttributeValueType
     AssetBinding,
 
     /// <summary>
+    /// A one-way data binding which obtains the value from the context data and uses it as the asset name for a
+    /// subsequent asset binding.
+    /// </summary>
+    /// <remarks>
+    /// Combines an outer <see cref="AssetBinding"/> with an inner <see cref="InputBinding"/>.
+    /// </remarks>
+    AssetInputBinding,
+
+    /// <summary>
+    /// A one-way data binding which obtains only the initial value from the context data and uses it as the asset name
+    /// for a subsequent asset binding.
+    /// </summary>
+    /// <remarks>
+    /// This has the same relation to <see cref="AssetInputBinding"/> as <see cref="OneTimeBinding"/> does to
+    /// <see cref="InputBinding"/>. The binding will ignore changes to the model, but will still reflect changes to the
+    /// underlying game asset if it is invalidated by the content pipeline.
+    /// </remarks>
+    AssetOneTimeBinding,
+
+    /// <summary>
     /// A read-only binding which obtains the value from a translation key registered with SMAPI.
     /// </summary>
     TranslationBinding,
@@ -156,6 +176,8 @@ public static class AttributeValueTypeExtensions
         return valueType == AttributeValueType.InputBinding
             || valueType == AttributeValueType.OneTimeBinding
             || valueType == AttributeValueType.OutputBinding
-            || valueType == AttributeValueType.TwoWayBinding;
+            || valueType == AttributeValueType.TwoWayBinding
+            || valueType == AttributeValueType.AssetInputBinding
+            || valueType == AttributeValueType.AssetOneTimeBinding;
     }
 }

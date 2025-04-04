@@ -7,9 +7,9 @@ namespace StardewUI.Framework.Sources;
 /// </summary>
 /// <typeparam name="T">The type of asset to retrieve.</typeparam>
 /// <param name="cache">Asset cache used to obtain current value/status.</param>
-/// <param name="name">The asset name/path as it would be supplied to SMAPI in
+/// <param name="nameSource">Secondary source that provides the name of the asset as it would be supplied to SMAPI in
 /// <see cref="StardewModdingAPI.IGameContentHelper.Load{T}(string)"/>.</param>
-public class AssetValueSource<T>(IAssetCache cache, string name) : IValueSource<T>, IDisposable
+public class AssetValueSource<T>(IAssetCache cache, IValueSource<string> nameSource) : IValueSource<T>, IDisposable
     where T : notnull
 {
     /// <inheritdoc />
@@ -19,7 +19,7 @@ public class AssetValueSource<T>(IAssetCache cache, string name) : IValueSource<
     public bool CanWrite => false;
 
     /// <inheritdoc />
-    public string DisplayName => $"Asset@{name}";
+    public string DisplayName => $"Asset@{nameSource.Value}";
 
     /// <inheritdoc />
     public T? Value
@@ -39,6 +39,15 @@ public class AssetValueSource<T>(IAssetCache cache, string name) : IValueSource<
 
     private IAssetCacheEntry<T>? cacheEntry;
 
+    /// <summary>
+    /// Initializes an <see cref="AssetValueSource{T}"/> instance using a constant asset name.
+    /// </summary>
+    /// <param name="cache">Asset cache used to obtain current value/status.</param>
+    /// <param name="name">The asset name/path as it would be supplied to SMAPI in
+    /// <see cref="StardewModdingAPI.IGameContentHelper.Load{T}(string)"/>.</param>
+    public AssetValueSource(IAssetCache cache, string name)
+        : this(cache, new ConstantValueSource<string>(name)) { }
+
     /// <inheritdoc />
     public void Dispose()
     {
@@ -53,9 +62,10 @@ public class AssetValueSource<T>(IAssetCache cache, string name) : IValueSource<
     /// <see cref="Value"/> was still current.</returns>
     public bool Update(bool force = false)
     {
-        if (force || cacheEntry is null || !cacheEntry.IsValid)
+        bool nameChanged = nameSource.Update(force);
+        if (force || nameChanged || cacheEntry is null || !cacheEntry.IsValid)
         {
-            cacheEntry = cache.Get<T>(name);
+            cacheEntry = !string.IsNullOrEmpty(nameSource.Value) ? cache.Get<T>(nameSource.Value) : null;
             return true;
         }
         return false;
