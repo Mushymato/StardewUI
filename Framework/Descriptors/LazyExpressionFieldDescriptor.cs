@@ -111,6 +111,12 @@ public class LazyExpressionFieldDescriptor<TValue> : IPropertyDescriptor<TValue>
     public Type ValueType => descriptor.ValueType;
 
     /// <inheritdoc />
+    public object? GetUntypedValue(object source)
+    {
+        return GetValue(source);
+    }
+
+    /// <inheritdoc />
     public TValue GetValue(object source)
     {
         return descriptor.GetValue(source);

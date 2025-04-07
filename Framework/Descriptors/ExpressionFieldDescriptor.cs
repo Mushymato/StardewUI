@@ -62,6 +62,12 @@ public class ExpressionFieldDescriptor<T, TValue> : IPropertyDescriptor<TValue>
     }
 
     /// <inheritdoc />
+    public object? GetUntypedValue(object source)
+    {
+        return GetValue(source);
+    }
+
+    /// <inheritdoc />
     public TValue GetValue(object source)
     {
         return getter((T)source);

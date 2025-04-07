@@ -122,6 +122,12 @@ public class ReflectionPropertyDescriptor<T, TValue> : IPropertyDescriptor<TValu
     }
 
     /// <inheritdoc />
+    public object? GetUntypedValue(object source)
+    {
+        return GetValue(source);
+    }
+
+    /// <inheritdoc />
     public TValue GetValue(object source)
     {
         if (getter is null)

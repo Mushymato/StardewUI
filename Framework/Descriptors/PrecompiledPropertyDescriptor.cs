@@ -40,6 +40,12 @@ public class PrecompiledPropertyDescriptor<TTarget, TProperty>(
     public Type ValueType => typeof(TProperty);
 
     /// <inheritdoc />
+    public object? GetUntypedValue(object source)
+    {
+        return GetValue(source);
+    }
+
+    /// <inheritdoc />
     public TProperty GetValue(object source)
     {
         if (getter is null)

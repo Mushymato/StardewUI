@@ -37,9 +37,15 @@ public class ReflectionFieldDescriptor<TValue>(FieldInfo field) : IPropertyDescr
     public Type ValueType => field.FieldType;
 
     /// <inheritdoc />
+    public object? GetUntypedValue(object source)
+    {
+        return field.GetValue(source);
+    }
+
+    /// <inheritdoc />
     public TValue GetValue(object source)
     {
-        return (TValue)field.GetValue(source)!;
+        return (TValue)GetUntypedValue(source)!;
     }
 
     /// <inheritdoc />

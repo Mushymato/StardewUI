@@ -136,11 +136,9 @@ public class ValueSourceFactory(IAssetCache assetCache) : IValueSourceFactory
         return argument.Type switch
         {
             ArgumentExpressionType.Literal => (IValueSource<T>)new ConstantValueSource<string>(argument.Expression),
-            ArgumentExpressionType.ContextBinding => new ContextPropertyValueSource<T>(
-                context?.Redirect(argument.ContextRedirect),
-                argument.Expression,
-                false
-            ),
+            ArgumentExpressionType.ContextBinding => context
+                ?.Redirect(argument.ContextRedirect)
+                ?.CreatePropertyOrPathValueSource<T>(argument.Expression, false) ?? NullValueSource<T>.Instance,
             _ => throw new ArgumentException(
                 $"Invalid or unsupported argument type {argument.Type}.",
                 nameof(argument)
@@ -191,12 +189,13 @@ public class ValueSourceFactory(IAssetCache assetCache) : IValueSourceFactory
             AttributeValueType.InputBinding
             or AttributeValueType.OneTimeBinding
             or AttributeValueType.OutputBinding
-            or AttributeValueType.TwoWayBinding => new ContextPropertyValueSource<T>(
-                context?.Redirect(attribute.ContextRedirect),
-                attribute.Value,
-                attribute.ValueType != AttributeValueType.OneTimeBinding
-                    && attribute.ValueType != AttributeValueType.OutputBinding
-            ),
+            or AttributeValueType.TwoWayBinding => context
+                ?.Redirect(attribute.ContextRedirect)
+                ?.CreatePropertyOrPathValueSource<T>(
+                    attribute.Value,
+                    attribute.ValueType != AttributeValueType.OneTimeBinding
+                        && attribute.ValueType != AttributeValueType.OutputBinding
+                ) ?? NullValueSource<T>.Instance,
             _ => throw new ArgumentException($"Invalid attribute type {attribute.ValueType}.", nameof(attribute)),
         };
     }
@@ -210,8 +209,7 @@ public class ValueSourceFactory(IAssetCache assetCache) : IValueSourceFactory
             ArgumentExpressionType.Literal => typeof(string),
             ArgumentExpressionType.ContextBinding => context
                 ?.Redirect(argument.ContextRedirect)
-                ?.Descriptor.GetProperty(argument.Expression)
-                .ValueType,
+                ?.GetPropertyOrPathType(argument.Expression),
             _ => throw new ArgumentException(
                 $"Invalid or unsupported argument type {argument.Type}.",
                 nameof(argument)
@@ -234,8 +232,7 @@ public class ValueSourceFactory(IAssetCache assetCache) : IValueSourceFactory
             or AttributeValueType.AssetInputBinding
             or AttributeValueType.AssetOneTimeBinding => context
                 ?.Redirect(attribute.ContextRedirect)
-                ?.Descriptor.GetProperty(attribute.Value)
-                .ValueType,
+                ?.GetPropertyOrPathType(attribute.Value),
             _ => throw new ArgumentException($"Invalid attribute type {attribute.ValueType}.", nameof(attribute)),
         };
     }
@@ -264,5 +261,47 @@ public class ValueSourceFactory(IAssetCache assetCache) : IValueSourceFactory
                 );
             }
         );
+    }
+}
+
+file static class ContextExtensions
+{
+    public static IValueSource<T> CreatePropertyOrPathValueSource<T>(
+        this BindingContext context,
+        string expression,
+        bool allowUpdates
+    )
+    {
+        return expression.Contains('.')
+            ? new ContextPathValueSource<T>(context, ParsePropertyPath(context, expression).ToArray(), allowUpdates)
+            : new ContextPropertyValueSource<T>(context, expression, allowUpdates);
+    }
+
+    public static Type GetPropertyOrPathType(this BindingContext context, string expression)
+    {
+        var property = expression.Contains('.')
+            ? ParsePropertyPath(context, expression).Last()
+            : context.Descriptor.GetProperty(expression);
+        return property.ValueType;
+    }
+
+    private static IEnumerable<IPropertyDescriptor> ParsePropertyPath(BindingContext context, string expression)
+    {
+        var currentDescriptor = context.Descriptor;
+        var propertyNames = expression.Split('.');
+        foreach (var propertyName in propertyNames)
+        {
+            if (propertyName.Length == 0)
+            {
+                throw new ArgumentException(
+                    $"Property expression '{expression}' is invalid because it contains an empty segment. "
+                        + "Check for a trailing dot (.) or two consecutive dots.",
+                    nameof(expression)
+                );
+            }
+            var nextProperty = currentDescriptor.GetProperty(propertyName);
+            yield return nextProperty;
+            currentDescriptor = DescriptorFactory.GetObjectDescriptor(nextProperty.ValueType, lazy: true);
+        }
     }
 }

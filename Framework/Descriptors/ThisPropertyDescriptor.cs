@@ -68,6 +68,12 @@ public class ThisPropertyDescriptor<T> : IPropertyDescriptor<T>
     private ThisPropertyDescriptor() { }
 
     /// <inheritdoc />
+    public object? GetUntypedValue(object source)
+    {
+        return source;
+    }
+
+    /// <inheritdoc />
     public T GetValue(object source)
     {
         return (T)source;

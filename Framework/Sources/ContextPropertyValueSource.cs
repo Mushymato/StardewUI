@@ -47,7 +47,7 @@ public class ContextPropertyValueSource<T> : IValueSource<T>, IDisposable
     /// <inheritdoc />
     public Type ValueType => typeof(T);
 
-    private static readonly string oneTimeBindingTip =
+    internal static readonly string OneTimeBindingTip =
         "If this was intentional, consider using a one-time binding to suppress this warning, by prefixing the "
         + "property name with the ':' character.";
 
@@ -88,7 +88,7 @@ public class ContextPropertyValueSource<T> : IValueSource<T>, IDisposable
                     Logger.LogOnce(
                         $"Binding to field '{context!.Descriptor.TargetType.Name}.{propertyName}' will receive no "
                             + "updates or inconsistent updates. To receive updates, bind to a property instead. "
-                            + oneTimeBindingTip,
+                            + OneTimeBindingTip,
                         LogLevel.Warn
                     );
                 }
@@ -99,7 +99,7 @@ public class ContextPropertyValueSource<T> : IValueSource<T>, IDisposable
                             + "inconsistent updates because it appears to be an auto-implemented property, and will "
                             + "not emit PropertyChanged events even if the declaring type implements "
                             + "INotifyPropertyChanged. "
-                            + oneTimeBindingTip,
+                            + OneTimeBindingTip,
                         LogLevel.Warn
                     );
                 }
@@ -109,7 +109,7 @@ public class ContextPropertyValueSource<T> : IValueSource<T>, IDisposable
                 Logger.LogOnce(
                     $"Binding to property '{context!.Descriptor.TargetType.Name}.{propertyName}' will not receive "
                         + "updates because the type does not implement INotifyPropertyChanged. "
-                        + oneTimeBindingTip,
+                        + OneTimeBindingTip,
                     LogLevel.Warn
                 );
             }

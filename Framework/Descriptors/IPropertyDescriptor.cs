@@ -50,6 +50,18 @@ public interface IPropertyDescriptor : IMemberDescriptor
     /// The property's value type.
     /// </summary>
     Type ValueType { get; }
+
+    /// <summary>
+    /// Reads the current property value as an <see cref="Object"/>.
+    /// </summary>
+    /// <remarks>
+    /// This method may be less efficient than <see cref="IPropertyDescriptor{T}.GetValue(object)"/> and should only be
+    /// used in situations where the actual property type cannot be known ahead of time and therefore the cost of
+    /// dynamically creating generic types/methods would be higher.
+    /// </remarks>
+    /// <param name="source">An instance of the property's <see cref="IMemberDescriptor.DeclaringType"/>.</param>
+    /// <returns>The current property value.</returns>
+    object? GetUntypedValue(object source);
 }
 
 /// <summary>
