@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using PropertyChanged.SourceGenerator;
+using StardewUI.Framework.Binding;
 using StardewUI.Widgets;
 using Xunit.Abstractions;
 
@@ -136,5 +137,89 @@ public partial class ModelValueTests(ITestOutputHelper output) : BindingTests(ou
 
         Assert.Equal("Foo", label.Text);
         Assert.Equal("Bar", label.Tooltip);
+    }
+
+    partial class PathOuterModel
+    {
+        [Notify]
+        private PathMiddleModel middle = new();
+
+        public PathOuterModel(string? innerText = null)
+        {
+            if (!string.IsNullOrEmpty(innerText))
+            {
+                Middle.Inner = new() { Text = innerText };
+            }
+            ;
+        }
+    }
+
+    partial class PathMiddleModel
+    {
+        [Notify]
+        private PathInnerModel? inner;
+    }
+
+    partial class PathInnerModel
+    {
+        [Notify]
+        private string text = "";
+    }
+
+    [Fact]
+    public void WhenPathBinding_AndRootChanged_UpdatesView()
+    {
+        string markup = @"<label text={Middle.Inner.Text} />";
+        var tree = BuildTreeFromMarkup(markup, new PathOuterModel());
+
+        tree.Context = BindingContext.Create(
+            new PathOuterModel() { Middle = new() { Inner = new() { Text = "Inner Text" } } }
+        );
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Inner Text", label.Text);
+    }
+
+    [Fact]
+    public void WhenPathBinding_AndOuterPropertyChanged_UpdatesView()
+    {
+        string markup = @"<label text={Middle.Inner.Text} />";
+        var model = new PathOuterModel();
+        var tree = BuildTreeFromMarkup(markup, model);
+
+        model.Middle = new PathMiddleModel() { Inner = new() { Text = "Inner Text" } };
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Inner Text", label.Text);
+    }
+
+    [Fact]
+    public void WhenPathBinding_AndMiddlePropertyChanged_UpdatesView()
+    {
+        string markup = @"<label text={Middle.Inner.Text} />";
+        var model = new PathOuterModel("Inner Text 1");
+        var tree = BuildTreeFromMarkup(markup, model);
+
+        model.Middle.Inner = new() { Text = "Inner Text 2" };
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Inner Text 2", label.Text);
+    }
+
+    [Fact]
+    public void WhenPathBinding_AndInnerPropertyChanged_UpdatesView()
+    {
+        string markup = @"<label text={Middle.Inner.Text} />";
+        var model = new PathOuterModel("Inner Text 1");
+        var tree = BuildTreeFromMarkup(markup, model);
+
+        model.Middle.Inner!.Text = "Inner Text 2";
+        tree.Update();
+
+        var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
+        Assert.Equal("Inner Text 2", label.Text);
     }
 }
