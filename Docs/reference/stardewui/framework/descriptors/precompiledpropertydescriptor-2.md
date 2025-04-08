@@ -68,6 +68,7 @@ The property value type.
 
  | Name | Description |
 | --- | --- |
+| [GetUntypedValue(Object)](#getuntypedvalueobject) | Reads the current property value as an [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object). | 
 | [GetValue(Object)](#getvalueobject) | Reads the current property value. | 
 | [SetValue(Object, TProperty)](#setvalueobject-tproperty) | Writes a new property value. | 
 
@@ -213,6 +214,31 @@ public System.Type ValueType { get; }
 -----
 
 ### Methods
+
+#### GetUntypedValue(Object)
+
+Reads the current property value as an [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object).
+
+```cs
+public System.Object GetUntypedValue(System.Object source);
+```
+
+##### Parameters
+
+**`source`** &nbsp; [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)  
+An instance of the property's [DeclaringType](imemberdescriptor.md#declaringtype).
+
+##### Returns
+
+[Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)
+
+  The current property value.
+
+##### Remarks
+
+This method may be less efficient than [GetValue(Object)](ipropertydescriptor-1.md#getvalueobject) and should only be used in situations where the actual property type cannot be known ahead of time and therefore the cost of dynamically creating generic types/methods would be higher.
+
+-----
 
 #### GetValue(Object)
 

@@ -16,9 +16,11 @@ search:
 | --- | --- |
 | [AssetValueSource&lt;T&gt;](assetvaluesource-1.md) | Value source that looks up an asset registered with SMAPI's content manager. |
 | [ConstantValueSource&lt;T&gt;](constantvaluesource-1.md) | Value source with a constant value, generally used to hold the literal (text) value of an attribute. |
+| [ContextPathValueSource&lt;T&gt;](contextpathvaluesource-1.md) | Value source that obtains its value from a property path, starting from some root data and traversing the list of properties to reach the final value. |
 | [ContextPropertyValueSource&lt;T&gt;](contextpropertyvaluesource-1.md) | Value source that obtains its value from a context (or "model") property. |
 | [ConvertedValueSource](convertedvaluesource.md) | Helpers for creating instances of the generic [ConvertedValueSource&lt;TSource, T&gt;](convertedvaluesource-2.md) when some of the types are unknown at compile time. |
 | [ConvertedValueSource&lt;TSource, T&gt;](convertedvaluesource-2.md) | A value source that wraps another [IValueSource&lt;T&gt;](ivaluesource-1.md) and performs automatic conversion. |
+| [NullValueSource&lt;T&gt;](nullvaluesource-1.md) | Value source that always provides a null/default value, and does not allow writing. |
 | [TranslationValueSource](translationvaluesource.md) | Value source that reads the localized string from a translation key. |
 | [ValueSourceFactory](valuesourcefactory.md) | Default implementation of the [IValueSourceFactory](ivaluesourcefactory.md) supporting all binding types. |
 

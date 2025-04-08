@@ -42,6 +42,12 @@ public interface IPropertyDescriptor :
 | [IsField](#isfield) | Whether or not the underlying member is a field, rather than a real property. | 
 | [ValueType](#valuetype) | The property's value type. | 
 
+### Methods
+
+ | Name | Description |
+| --- | --- |
+| [GetUntypedValue(Object)](#getuntypedvalueobject) | Reads the current property value as an [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object). | 
+
 ## Details
 
 ### Properties
@@ -123,6 +129,33 @@ System.Type ValueType { get; }
 ##### Property Value
 
 [Type](https://learn.microsoft.com/en-us/dotnet/api/system.type)
+
+-----
+
+### Methods
+
+#### GetUntypedValue(Object)
+
+Reads the current property value as an [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object).
+
+```cs
+System.Object GetUntypedValue(System.Object source);
+```
+
+##### Parameters
+
+**`source`** &nbsp; [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)  
+An instance of the property's [DeclaringType](imemberdescriptor.md#declaringtype).
+
+##### Returns
+
+[Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)
+
+  The current property value.
+
+##### Remarks
+
+This method may be less efficient than [GetValue(Object)](ipropertydescriptor-1.md#getvalueobject) and should only be used in situations where the actual property type cannot be known ahead of time and therefore the cost of dynamically creating generic types/methods would be higher.
 
 -----
 

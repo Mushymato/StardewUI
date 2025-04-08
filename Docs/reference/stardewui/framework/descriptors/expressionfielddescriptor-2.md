@@ -67,6 +67,7 @@ Expression trees take a long time to compile and should only be compiled in the 
  | Name | Description |
 | --- | --- |
 | [Build(FieldInfo)](#buildfieldinfo) | Builds a new [ExpressionFieldDescriptor&lt;T, TValue&gt;](expressionfielddescriptor-2.md) instance from the specified field. | 
+| [GetUntypedValue(Object)](#getuntypedvalueobject) | Reads the current property value as an [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object). | 
 | [GetValue(Object)](#getvalueobject) | Reads the current property value. | 
 | [SetValue(Object, TValue)](#setvalueobject-tvalue) | Writes a new property value. | 
 
@@ -204,6 +205,31 @@ The reflected field.
 ##### Returns
 
 [ExpressionFieldDescriptor&lt;T, TValue&gt;](expressionfielddescriptor-2.md)
+
+-----
+
+#### GetUntypedValue(Object)
+
+Reads the current property value as an [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object).
+
+```cs
+public System.Object GetUntypedValue(System.Object source);
+```
+
+##### Parameters
+
+**`source`** &nbsp; [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)  
+An instance of the property's [DeclaringType](imemberdescriptor.md#declaringtype).
+
+##### Returns
+
+[Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)
+
+  The current property value.
+
+##### Remarks
+
+This method may be less efficient than [GetValue(Object)](ipropertydescriptor-1.md#getvalueobject) and should only be used in situations where the actual property type cannot be known ahead of time and therefore the cost of dynamically creating generic types/methods would be higher.
 
 -----
 

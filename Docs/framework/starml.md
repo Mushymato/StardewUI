@@ -257,7 +257,7 @@ Regular HTML uses quoted attributes; to support the more complex behaviors where
 | <div style="width: 240px">Format</div> | Meaning    |
 | --------------------------- | ----------- |
 | `attr="value"`              | The literal ([converted](#type-conversions)) value inside the quotes. |
-| `attr={PropertyName}`       | The current value of the specified [context property](binding-context.md). |
+| `attr={PropertyName}`       | The current value of the specified [context property](binding-context.md). Supports [nested properties](#nested-properties) such as `{Inner.PropertyName}`. |
 | `attr={@AssetName}`         | The current content of the [named asset](https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Content#What.27s_an_.27asset_name.27.3F). |
 | `attr={@<PropertyName}`     | The current content of the asset whose [name](https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Content#What.27s_an_.27asset_name.27.3F) is the current value of the specified [context property](binding-context.md). |
 | `attr={@:PropertyName}`     | Same as `{@<PropertyName>}` but using a [one-time binding](#binding-modifiers) for the asset name. |
@@ -393,6 +393,106 @@ If a type shows "N/A" for conversions, that means no conversion is available, ei
 ### Duck Typing
 
 If a particular type conversion is not in the table above, it may be available for automatic implicit conversion. See the page on [duck typing](duck-typing.md) for rules and additional information on when and how this occurs.
+
+### Nested Properties
+
+Context bindings, such as `attr={Value}`, can be written to use nested properties or "dotted properties" in order to reduce the need for wrapper properties on context types and/or view bloat from pass-through views.
+
+!!! example
+
+    Given the following model:
+
+    ```cs
+    public class Outer
+    {
+        public Middle Foo { get; set; }
+    }
+
+    public class Middle
+    {
+        public Inner Bar { get; set; }
+    }
+
+    public class Inner
+    {
+        public string Name { get; set; }
+    }
+    ```
+
+    A document given an instance of `Outer` could bind:
+
+    ```html
+    <label text={Foo.Bar.Name} />
+    ```
+
+Nested properties have certain limitations owing to the fact that the entire path (e.g. `Foo.Bar.Name`) is still part of a _single_ binding. This means that it must be possible to resolve the entire path based on the static model types, and the expression must always resolve to the same type. For example, the following scenario would **not** be supported:
+
+!!! failure
+
+    Model:
+
+    ```cs
+    public class Outer
+    {
+        public object Foo { get; set; } = new Inner1() { Name = "Dave" };
+    }
+
+    public class Inner1
+    {
+        public string Name { get; set; }
+    }
+
+    public class Inner2
+    {
+        public string Name { get; set; }
+    }
+    ```
+
+    View:
+
+    ```html
+    <label text={Foo.Name} />
+    ```
+
+This might appear to be valid, and _would_ be valid when using a pass-through view such as:
+
+```html
+<frame *context={Foo}>
+    <label text={Name} />
+</frame>
+```
+
+However, it is not valid as a nested property, because nested properties do not create a new [context](binding-context.md), and since `Foo` has a type of `object`, the type (or even the existence) of a `Name` property cannot be inferred at bind time. Attempting this will throw an exception saying that `Name` does not exist on `Object`.
+
+A simpler way to think of this is: _If a nested property expression would fail to compile in C#, then it will fail to bind in Stardew UI._
+
+In the event that polymorphism is required, then the solution is to create an abstract base/interface type:
+
+!!! success
+
+    ```cs
+    public class Outer
+    {
+        public INamed Foo { get; set; }
+    }
+
+    public interface INamed
+    {
+        string Name { get; }
+    }
+
+    public class Inner1 : INamed
+    {
+        public string Name { get; set; }
+    }
+
+    public class Inner2 : INamed
+    {
+        public string Name { get; set; }
+    }
+    ```
+
+This model works with the previous `{Foo.Name}` binding because `Foo` is an instance of `INamed` and therefore any instance assigned to it is guaranteed have a `Name` property with a known type.
 
 ## Children
 
