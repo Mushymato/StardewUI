@@ -425,6 +425,10 @@ Context bindings, such as `attr={Value}`, can be written to use nested propertie
     <label text={Foo.Bar.Name} />
     ```
 
+Nested properties support all [binding modifiers](#binding-modifiers). Note that when using an output or in/out binding, only the last element in the path is written; for example, the output binding `{>Foo.Name}` will update the `Name` on whatever the _current_ `Foo` is, but will never overwrite `Foo` itself.
+
+#### Limitations
+
 Nested properties have certain limitations owing to the fact that the entire path (e.g. `Foo.Bar.Name`) is still part of a _single_ binding. This means that it must be possible to resolve the entire path based on the static model types, and the expression must always resolve to the same type. For example, the following scenario would **not** be supported:
 
 !!! failure
