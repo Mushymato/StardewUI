@@ -12,10 +12,10 @@ namespace StardewUI.Framework.Sources;
 public class ContextPathValueSource<T> : IValueSource<T>, IDisposable
 {
     /// <inheritdoc />
-    public bool CanRead => actualSource?.CanRead ?? true;
+    public bool CanRead => properties[^1].CanRead;
 
     /// <inheritdoc />
-    public bool CanWrite => actualSource?.CanWrite ?? false;
+    public bool CanWrite => properties[^1].CanWrite;
 
     /// <inheritdoc />
     public string DisplayName =>
@@ -29,6 +29,13 @@ public class ContextPathValueSource<T> : IValueSource<T>, IDisposable
         get => actualSource is not null ? actualSource.Value : default;
         set
         {
+            if (actualSource is null && dirtyIndex >= 0)
+            {
+                // If the binding is configured for output-only, or if it is in/out and some elements along the path
+                // have changed, then the `actualSource` may not be valid anymore and we need to make it point to the
+                // correct context again.
+                Update();
+            }
             if (actualSource is not null)
             {
                 actualSource.Value = value;

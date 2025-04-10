@@ -164,10 +164,13 @@ public partial class ModelValueTests(ITestOutputHelper output) : BindingTests(ou
     {
         [Notify]
         private string text = "";
+
+        [Notify]
+        private bool selected;
     }
 
     [Fact]
-    public void WhenPathBinding_AndRootChanged_UpdatesView()
+    public void WhenPathInputBinding_AndRootChanged_UpdatesView()
     {
         string markup = @"<label text={Middle.Inner.Text} />";
         var tree = BuildTreeFromMarkup(markup, new PathOuterModel());
@@ -182,7 +185,7 @@ public partial class ModelValueTests(ITestOutputHelper output) : BindingTests(ou
     }
 
     [Fact]
-    public void WhenPathBinding_AndOuterPropertyChanged_UpdatesView()
+    public void WhenPathInputBinding_AndOuterPropertyChanged_UpdatesView()
     {
         string markup = @"<label text={Middle.Inner.Text} />";
         var model = new PathOuterModel();
@@ -196,7 +199,7 @@ public partial class ModelValueTests(ITestOutputHelper output) : BindingTests(ou
     }
 
     [Fact]
-    public void WhenPathBinding_AndMiddlePropertyChanged_UpdatesView()
+    public void WhenPathInputBinding_AndMiddlePropertyChanged_UpdatesView()
     {
         string markup = @"<label text={Middle.Inner.Text} />";
         var model = new PathOuterModel("Inner Text 1");
@@ -210,7 +213,7 @@ public partial class ModelValueTests(ITestOutputHelper output) : BindingTests(ou
     }
 
     [Fact]
-    public void WhenPathBinding_AndInnerPropertyChanged_UpdatesView()
+    public void WhenPathInputBinding_AndInnerPropertyChanged_UpdatesView()
     {
         string markup = @"<label text={Middle.Inner.Text} />";
         var model = new PathOuterModel("Inner Text 1");
@@ -221,5 +224,19 @@ public partial class ModelValueTests(ITestOutputHelper output) : BindingTests(ou
 
         var label = Assert.IsType<Label>(tree.Views.SingleOrDefault());
         Assert.Equal("Inner Text 2", label.Text);
+    }
+
+    [Fact]
+    public void WhenPathOutputBinding_AndViewChanged_UpdatesInnerProperty()
+    {
+        string markup = @"<checkbox is-checked={>Middle.Inner.Selected} />";
+        var model = new PathOuterModel("dummy");
+        var tree = BuildTreeFromMarkup(markup, model);
+
+        var checkbox = Assert.IsType<CheckBox>(tree.Views.SingleOrDefault());
+        checkbox.IsChecked = true;
+        tree.Update();
+
+        Assert.True(model.Middle.Inner!.Selected);
     }
 }
