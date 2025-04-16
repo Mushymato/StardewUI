@@ -1368,6 +1368,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         {
             return false;
         }
+        using var _trace = Diagnostics.Trace.Begin(nameof(ViewMenu), nameof(RestoreFocusToPath));
         var strongActivationPath = path.Select(x => x.TryResolve(out var viewChild) ? viewChild : null).ToList();
         if (strongActivationPath.Count > 0 && strongActivationPath.All(child => child is not null))
         {
@@ -1387,6 +1388,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
 
     private static bool SetDefaultFocus(IView root, Vector2 origin)
     {
+        using var _ = Diagnostics.Trace.Begin(nameof(ViewMenu), nameof(SetDefaultFocus));
         var focusPosition = root.GetDefaultFocusPath().ToGlobalPositions().LastOrDefault()?.Center();
         if (focusPosition.HasValue)
         {
@@ -1399,6 +1401,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
 
     private void SetHoverPath(IView rootView, Vector2 localPosition)
     {
+        using var _ = Diagnostics.Trace.Begin(nameof(ViewMenu), nameof(SetHoverPath));
         hoverPath = rootView.GetPathToPosition(localPosition).ToArray();
         focusableHoverPath = rootView.GetPathToPosition(localPosition, preferFocusable: true).FocusablePath().ToArray();
     }
