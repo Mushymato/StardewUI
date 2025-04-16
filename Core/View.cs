@@ -510,13 +510,14 @@ public abstract class View : IView, IFloatContainer
     private readonly DirtyTracker<Edges> margin = new(Edges.NONE);
     private readonly DirtyTracker<Edges> padding = new(Edges.NONE);
 
+    private readonly List<Bounds> floatingBounds = [];
+
     private Bounds? clipBounds;
     private NineGridPlacement? clipOrigin;
     private LayoutParameters? clipSize;
     private Vector2 contentSize;
     private bool draggable;
     private IView? draggingView;
-    private List<Bounds> floatingBounds = [];
     private ObservableCollection<FloatingElement> floatingElements = [];
     private bool hasChildrenWithOutOfBoundsContent;
     private bool isDisposed;
