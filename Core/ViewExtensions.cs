@@ -81,6 +81,7 @@ public static class ViewExtensions
         bool requirePointerEvents = true
     )
     {
+        using var _ = Diagnostics.Trace.Begin(nameof(ViewExtensions), nameof(GetPathToPosition));
         if ((requirePointerEvents && !view.PointerEventsEnabled) || !view.ContainsPoint(position))
         {
             yield break;
@@ -122,6 +123,7 @@ public static class ViewExtensions
     /// child's <see cref="ViewChild.Position"/> is the child's most current location within its parent.</returns>
     public static IEnumerable<ViewChild> ResolveChildPath(this IView view, IEnumerable<IView> path)
     {
+        using var _ = Diagnostics.Trace.Begin(nameof(ViewExtensions), nameof(ResolveChildPath));
         yield return new(view, Vector2.Zero);
         path = path.SkipWhile(v => v == view);
         var parent = view;
@@ -210,6 +212,7 @@ public static class ViewExtensions
 
     private static IEnumerable<ViewChild>? GetPathToView(ViewChild parent, IView descendant)
     {
+        using var _ = Diagnostics.Trace.Begin(nameof(ViewExtensions), nameof(GetPathToView));
         if (parent.View == descendant)
         {
             return [parent];

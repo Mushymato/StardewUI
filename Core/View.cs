@@ -552,6 +552,7 @@ public abstract class View : IView, IFloatContainer
     /// <inheritdoc />
     public bool ContainsPoint(Vector2 point)
     {
+        using var _ = Diagnostics.Trace.Begin(this, nameof(ContainsPoint));
         return ActualBounds.ContainsPoint(point)
             || FloatingBounds.Any(bounds => bounds.ContainsPoint(point))
             || (hasChildrenWithOutOfBoundsContent && GetChildren().Any(c => c.ContainsPoint(point)));
@@ -765,6 +766,7 @@ public abstract class View : IView, IFloatContainer
     /// <inheritdoc />
     public ViewChild? GetChildAt(Vector2 position, bool preferFocusable = false, bool requirePointerEvents = false)
     {
+        using var _ = Diagnostics.Trace.Begin(this, nameof(GetChildAt));
         return GetChildrenAt(position)
             .Where(child => !requirePointerEvents || child.View.PointerEventsEnabled)
             .ZOrderDescending(preferFocusable)
