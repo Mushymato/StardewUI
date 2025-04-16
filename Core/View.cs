@@ -1515,7 +1515,6 @@ public abstract class View : IView, IFloatContainer
             {
                 floatingBounds.Add(descendantBounds.Offset(localFloatingOffset));
             }
-            floatingBounds.AddRange(floatingChild.GetFloatingBounds());
         }
         foreach (var child in GetChildren())
         {
