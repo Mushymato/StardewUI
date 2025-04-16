@@ -94,7 +94,8 @@ public class FloatingElement(IView view, FloatingPosition position) : IEquatable
     /// <param name="wasParentDirty">Whether this measurement is being done because the parent's layout already changed
     /// and therefore a reposition is always required (<c>true</c>), or whether to reposition only if the floating
     /// element's internal layout has changed (<c>false</c>).</param>
-    public void MeasureAndPosition(IView parentView, bool wasParentDirty)
+    /// <returns><c>true</c> if the element was updated or repositioned, otherwise <c>false</c>.</returns>
+    public bool MeasureAndPosition(IView parentView, bool wasParentDirty)
     {
         // Floating views don't participate in the normal flow, so they can't affect the layout of the parent or any
         // ancestors (thus we don't return a bool here).
@@ -105,8 +106,9 @@ public class FloatingElement(IView view, FloatingPosition position) : IEquatable
         bool wasViewDirty = View.Measure(parentView.OuterSize);
         if (!wasViewDirty && !wasParentDirty)
         {
-            return;
+            return false;
         }
         offset = Position.GetOffset(View, parentView);
+        return true;
     }
 }

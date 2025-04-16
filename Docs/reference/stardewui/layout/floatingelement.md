@@ -218,7 +218,7 @@ public override int GetHashCode();
 Measures the view's content and repositions the entire floating element if necessary.
 
 ```cs
-public void MeasureAndPosition(StardewUI.IView parentView, bool wasParentDirty);
+public bool MeasureAndPosition(StardewUI.IView parentView, bool wasParentDirty);
 ```
 
 ##### Parameters
@@ -228,6 +228,12 @@ The view whose [FloatingElements](../view.md#floatingelements) this element belo
 
 **`wasParentDirty`** &nbsp; [Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)  
 Whether this measurement is being done because the parent's layout already changed and therefore a reposition is always required (`true`), or whether to reposition only if the floating element's internal layout has changed (`false`).
+
+##### Returns
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+  `true` if the element was updated or repositioned, otherwise `false`.
 
 -----
 

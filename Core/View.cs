@@ -190,7 +190,7 @@ public abstract class View : IView, IFloatContainer
     }
 
     /// <inheritdoc/>
-    public IEnumerable<Bounds> FloatingBounds => GetFloatingBounds();
+    public IEnumerable<Bounds> FloatingBounds => floatingBounds;
 
     /// <inheritdoc />
     public IList<FloatingElement> FloatingElements
@@ -516,6 +516,7 @@ public abstract class View : IView, IFloatContainer
     private Vector2 contentSize;
     private bool draggable;
     private IView? draggingView;
+    private List<Bounds> floatingBounds = [];
     private ObservableCollection<FloatingElement> floatingElements = [];
     private bool hasChildrenWithOutOfBoundsContent;
     private bool isDisposed;
@@ -867,16 +868,21 @@ public abstract class View : IView, IFloatContainer
         using var _ = Diagnostics.Trace.Begin(this, nameof(Measure));
         if (!IsDirty() && availableSize == LastAvailableSize)
         {
+            bool wasFloatingElementDirty = false;
             foreach (var floatingElement in FloatingElements)
             {
-                floatingElement.MeasureAndPosition(this, wasParentDirty: false);
+                wasFloatingElementDirty |= floatingElement.MeasureAndPosition(this, wasParentDirty: false);
             }
             // We don't need to reposition floating views deeper in the hierarchy, since they are positioned relative
             // to non-floating parents, but we do need to give them a chance to run layout again if they are dirty.
             // Since our own floating elements were already handled above, this only applies to descendants.
             foreach (var child in GetLocalChildren())
             {
-                MeasureDirtyFloatingElements(child.View);
+                wasFloatingElementDirty |= MeasureDirtyFloatingElements(child.View);
+            }
+            if (wasFloatingElementDirty)
+            {
+                UpdateFloatingBounds();
             }
             return false;
         }
@@ -893,6 +899,7 @@ public abstract class View : IView, IFloatContainer
             floatingElement.MeasureAndPosition(this, wasParentDirty: true);
         }
         UpdateClipBounds();
+        UpdateFloatingBounds();
         return true;
     }
 
@@ -1243,22 +1250,24 @@ public abstract class View : IView, IFloatContainer
         Logger.Log($"[{GetType().Name}:{Name}] {message}", LogLevel.Debug);
     }
 
-    private void MeasureDirtyFloatingElements(IView root)
+    private bool MeasureDirtyFloatingElements(IView root)
     {
+        bool wasDirty = false;
         if (root is IFloatContainer floatContainer)
         {
             foreach (var floatingElement in floatContainer.FloatingElements)
             {
                 if (floatingElement.View.IsDirty())
                 {
-                    floatingElement.MeasureAndPosition(root, wasParentDirty: false);
+                    wasDirty |= floatingElement.MeasureAndPosition(root, wasParentDirty: false);
                 }
             }
         }
         foreach (var child in root.GetChildren(includeFloatingElements: false))
         {
-            MeasureDirtyFloatingElements(child.View);
+            wasDirty |= MeasureDirtyFloatingElements(child.View);
         }
+        return wasDirty;
     }
 
     /// <summary>
@@ -1441,21 +1450,6 @@ public abstract class View : IView, IFloatContainer
             + new Vector2(Padding.Left, Padding.Top);
     }
 
-    private IEnumerable<Bounds> GetFloatingBounds()
-    {
-        var localFloatingOffset = GetFloatingOffset();
-        return FloatingElements
-            .SelectMany(GetFloatingElementBounds)
-            .Select(bounds => bounds.Offset(localFloatingOffset))
-            .Concat(GetChildren().SelectMany(child => child.GetFloatingBounds()));
-    }
-
-    private static IEnumerable<Bounds> GetFloatingElementBounds(FloatingElement fe)
-    {
-        var floatingChild = fe.AsViewChild();
-        return floatingChild.GetFloatingBounds().Prepend(floatingChild.GetActualBounds());
-    }
-
     private Vector2 GetFloatingOffset()
     {
         return new Vector2(Margin.Left, Margin.Top);
@@ -1503,6 +1497,29 @@ public abstract class View : IView, IFloatContainer
             ? clipOrigin.GetPosition(actualSize, OuterSize)
             : Vector2.Zero;
         clipBounds = new(clipPosition, actualSize);
+    }
+
+    private void UpdateFloatingBounds()
+    {
+        // Profiling shows this to be a hot path due to recursion depth. In addition to only doing it on layout, instead
+        // of on-demand, we also reuse the same list in order to avoid reallocation and resizes, and implement it
+        // iteratively without the use of recursive methods or LINQ.
+        floatingBounds.Clear();
+        var localFloatingOffset = GetFloatingOffset();
+        foreach (var floatingElement in FloatingElements)
+        {
+            var floatingChild = floatingElement.AsViewChild();
+            floatingBounds.Add(floatingChild.GetActualBounds().Offset(localFloatingOffset));
+            foreach (var descendantBounds in floatingChild.GetFloatingBounds())
+            {
+                floatingBounds.Add(descendantBounds.Offset(localFloatingOffset));
+            }
+            floatingBounds.AddRange(floatingChild.GetFloatingBounds());
+        }
+        foreach (var child in GetChildren())
+        {
+            floatingBounds.AddRange(child.GetFloatingBounds());
+        }
     }
 
     private readonly ref struct DrawingState : IDisposable
