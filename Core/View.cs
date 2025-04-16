@@ -1395,6 +1395,7 @@ public abstract class View : IView, IFloatContainer
 
     private Bounds GetActualBounds()
     {
+        using var _ = Diagnostics.Trace.Begin(this, nameof(GetActualBounds));
         // Only the top/left margins affect drawing positions; the others are incorporated into layout via OuterSize.
         // For example, a view with margin left = 0, margin right = -20 and content size = 50 will have an outer size of
         // 30. If aligned on the right side of a parent of size 100, it will be assigned a left position of 70, and
@@ -1443,6 +1444,7 @@ public abstract class View : IView, IFloatContainer
 
     private IEnumerable<Bounds> GetFloatingBounds()
     {
+        using var _ = Diagnostics.Trace.Begin(this, nameof(GetFloatingBounds));
         var localFloatingOffset = GetFloatingOffset();
         return FloatingElements
             .SelectMany(GetFloatingElementBounds)
