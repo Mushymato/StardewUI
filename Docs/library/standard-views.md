@@ -455,7 +455,7 @@ Note that the HSVA section requires mouse input, since the design is inherently 
     ```cs
     partial class ThemeViewModel : INotifyPropertyChanged
     {
-        [Notify] private bool backgroundColor;
+        [Notify] private Color backgroundColor;
     }
     
     void ShowColorPickerExample()

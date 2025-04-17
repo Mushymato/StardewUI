@@ -111,7 +111,7 @@ Note: This uses [PropertyChanged.SourceGenerator](https://github.com/canton7/Pro
     {
         void AddCustomPage(
             Func<string> title,
-            Func<Texture2D, Rectangle> iconSelector,
+            Func<Tuple<Texture2D, Rectangle>> iconSelector,
             Func<object> contentDataSelector,
             string contentViewName);
     }
@@ -122,7 +122,7 @@ Note: This uses [PropertyChanged.SourceGenerator](https://github.com/canton7/Pro
         
         public void AddCustomPage(
             Func<string> title,
-            Func<Texture2D, Rectangle> iconSelector,
+            Func<Tuple<Texture2D, Rectangle>> iconSelector,
             Func<object> contentDataSelector,
             string contentViewName)
         {
@@ -189,7 +189,7 @@ Note: This uses [PropertyChanged.SourceGenerator](https://github.com/canton7/Pro
     <lane orientation="vertical">
         <lane>
             <frame *repeat={Pages}
-                   padding="8px"
+                   padding="8"
                    background={@Mods/MyMod/Sprites/UI:TabBackground}
                    tooltip={Title}
                    focusable="true"
