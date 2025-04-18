@@ -65,6 +65,7 @@ public class ConditionalNode(IViewNode innerNode, ICondition condition) : IViewN
     public bool Update(TimeSpan elapsed)
     {
         using var _ = Trace.Begin(this, nameof(Update));
+        using var _conditionSlice = Trace.Begin(this, "#updateCondition");
         condition.Update();
         bool conditionChanged = condition.Passed != wasMatched;
         wasMatched = condition.Passed;
@@ -72,6 +73,7 @@ public class ConditionalNode(IViewNode innerNode, ICondition condition) : IViewN
         // update, and the final outcome is a change in either the match state OR the inner node.
         if (condition.Passed)
         {
+            using var _innerNodeSlice = Trace.Begin(this, "#updateInnerNode");
             return innerNode.Update(elapsed) || conditionChanged;
         }
         // However, we only need to clear the inner node after an actual transition from matched to unmatched, and

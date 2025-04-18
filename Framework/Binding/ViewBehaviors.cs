@@ -68,6 +68,7 @@ public class ViewBehaviors(
     /// <param name="context">The new context.</param>
     public void SetContext(BindingContext? context)
     {
+        using var _ = Trace.Begin(this, nameof(SetContext));
         this.context = context;
         foreach (var binding in bindings)
         {
@@ -87,6 +88,7 @@ public class ViewBehaviors(
     /// <param name="target">The new behavior target, or <c>null</c> to remove behaviors.</param>
     public void SetTarget(BehaviorTarget? target)
     {
+        using var _ = Trace.Begin(this, nameof(SetTarget));
         hasTarget = target is not null;
         foreach (var binding in bindings)
         {
@@ -119,6 +121,7 @@ public class ViewBehaviors(
         {
             return;
         }
+        using var _ = Trace.Begin(this, nameof(PreUpdate));
         foreach (var binding in bindings)
         {
             if (binding.Behavior is not IViewBehavior behavior)
@@ -146,6 +149,7 @@ public class ViewBehaviors(
         {
             return;
         }
+        using var _ = Trace.Begin(this, nameof(Update));
         foreach (var binding in bindings)
         {
             if (binding.Behavior is not IViewBehavior behavior)
@@ -165,6 +169,7 @@ public class ViewBehaviors(
 
     private IViewBehavior CreateBehavior(BehaviorTarget target, IAttribute attribute)
     {
+        using var _ = Trace.Begin(this, nameof(CreateBehavior));
         var argumentIndex = attribute.Name.IndexOf(':');
         var (name, argument) =
             argumentIndex >= 0
@@ -181,6 +186,7 @@ public class ViewBehaviors(
         {
             return;
         }
+        using var _ = Trace.Begin(this, nameof(UpdateDataSource));
         var valueType = valueSourceFactory.GetValueType(binding.Attribute, null, context);
         var valueSource = valueType is not null
             ? valueSourceFactory.GetValueSource(valueType, binding.Attribute, context, resolutionScope)

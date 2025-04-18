@@ -57,6 +57,7 @@ public class ViewState(IViewDescriptor viewDescriptor, IViewDefaults viewDefault
     /// <inheritdoc />
     public void SetFlag(string name, object? value)
     {
+        using var _ = Trace.Begin(this, nameof(SetFlag));
         if (value is null && flags.Remove(name))
         {
             FlagChanged?.Invoke(this, new(name));
@@ -71,6 +72,7 @@ public class ViewState(IViewDescriptor viewDescriptor, IViewDefaults viewDefault
     /// <inheritdoc />
     public void Write(IView view)
     {
+        using var _ = Trace.Begin(this, nameof(Write));
         foreach (var property in properties.Values)
         {
             property.Write(view);

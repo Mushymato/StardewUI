@@ -177,6 +177,7 @@ public class ViewNode(
         IViewDescriptor? viewDescriptor = null;
         if (view is null)
         {
+            using var _createViewSlice = Trace.Begin(this, "#createView");
             view = viewFactory.CreateView(element.Tag);
             viewDescriptor = viewBinder.GetDescriptor(view);
             childrenBinder = ReflectionChildrenBinder.FromViewDescriptor(viewDescriptor);
@@ -185,8 +186,10 @@ public class ViewNode(
         bool wasChildContextChanged = false;
         if (wasContextChanged)
         {
+            using var _newContextSlice = Trace.Begin(this, "#handleNewContext");
             if (contextAttribute is not null)
             {
+                using var _childContextSlice = Trace.Begin(this, "#createChildContextSource");
                 var childContextType = valueSourceFactory.GetValueType(contextAttribute, null, context);
                 childContextSource = childContextType is not null
                     ? valueSourceFactory.GetValueSource(childContextType, contextAttribute, context, resolutionScope)
@@ -198,6 +201,7 @@ public class ViewNode(
             }
             if (floatAttribute is not null)
             {
+                using var _createViewSlice = Trace.Begin(this, "#createFloatingElement");
                 // It might be possible to get an IPropertyDescriptor here for the floating position target, but we
                 // shouldn't really need it, since that is only used for asset bindings.
                 var floatValueType = valueSourceFactory.GetValueType(floatAttribute, null, context);
@@ -229,6 +233,7 @@ public class ViewNode(
         }
         else
         {
+            using var _createViewSlice = Trace.Begin(this, "#createBinding");
             // Don't require explicit update because IViewBinder.Bind always does an initial forced update.
             binding = viewBinder.Bind(view, element, context, resolutionScope);
             // N.B. This intentionally makes a second call to viewFactory.CreateView instead of using the `view`.
@@ -264,6 +269,7 @@ public class ViewNode(
         bool wasChildViewChanged = false;
         foreach (var childNode in Children.Select(c => c.Node))
         {
+            using var _childNodeSlice = Trace.Begin(this, "#updateChildNode");
             if (wasChildContextChanged)
             {
                 childNode.Context = childContextSource?.Value is not null

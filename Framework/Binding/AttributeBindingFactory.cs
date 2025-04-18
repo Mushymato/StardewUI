@@ -128,6 +128,7 @@ public class AttributeBindingFactory(
                         + $"{destination.DeclaringType.Name}.{destination.Name}."
                 );
             }
+            using var _sourceSlice = Trace.Begin(this, "#updateSource");
             var previousValue = source.Value;
             if (!(source.Update() || force))
             {
@@ -135,12 +136,14 @@ public class AttributeBindingFactory(
             }
             if (source.Value is not null)
             {
+                using var _setDestinationSlice = Trace.Begin(this, "#setDestinationValue");
                 var destValue = inputConverter.Convert(source.Value);
                 destination.SetValue(target, destValue);
                 lastBoundValue = destValue;
             }
             else
             {
+                using var _clearDestinationSlice = Trace.Begin(this, "#clearDestinationValue");
                 destination.SetValue(target, default!);
                 lastBoundValue = default;
             }
