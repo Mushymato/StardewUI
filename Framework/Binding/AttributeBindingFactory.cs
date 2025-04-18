@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
+using System.Security.AccessControl;
 using StardewUI.Framework.Content;
 using StardewUI.Framework.Converters;
 using StardewUI.Framework.Descriptors;
@@ -117,6 +118,7 @@ public class AttributeBindingFactory(
         public bool UpdateView(IView target, bool force)
         {
             using var _ = Trace.Begin(this, nameof(UpdateView));
+            using var _name = Trace.Begin(this, $"{destination.DeclaringType.Name}:{destination.Name}");
             if (!source.CanRead)
             {
                 throw new BindingException($"Cannot read a value from non-readable source {source.DisplayName}.");
