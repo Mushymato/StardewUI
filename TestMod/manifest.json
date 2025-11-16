@@ -12,7 +12,7 @@
   "Author": "focustense",
   "Version": "0.6.1",
   "Description": "Test mod and example gallery for StardewUI",
-  "MinimumApiVersion": "4.1.10",
+  "MinimumApiVersion": "4.3.2",
   "MinimumGameVersion": "1.6.15",
   "EntryDll": "StardewUITest.dll",
   "Dependencies": [
@@ -22,7 +22,7 @@
     },
     {
       "UniqueID": "spacechase0.GenericModConfigMenu",
-      "MinimumVersion": "1.14.1",
+      "MinimumVersion": "1.16.0",
       "IsRequired": false
     }
   ],

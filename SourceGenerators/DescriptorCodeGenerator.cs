@@ -220,6 +220,7 @@ internal static class DescriptorCodeGenerator
 
     private static void WriteMemberDescriptors(StringBuilder sb, ObjectDescriptorData data)
     {
+        sb.AppendLine(0, "#pragma warning disable 612, 618");
         sb.AppendLine(2, "public static class Events");
         sb.AppendLine(2, "{");
         foreach (var evt in data.Events)
@@ -320,6 +321,7 @@ internal static class DescriptorCodeGenerator
             sb.AppendLine(4, ");");
         }
         sb.AppendLine(2, "}");
+        sb.AppendLine(0, "#pragma warning restore 612, 618");
     }
 }
 

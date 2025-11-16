@@ -11,9 +11,9 @@
     <PackageVersion Include="Krafs.Publicizer" Version="2.3.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="Leclair.Stardew.ModManifestBuilder" Version="2.4.1" />
-    <PackageVersion Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.2" />
+    <PackageVersion Include="Pathoschild.Stardew.ModBuildConfig" Version="4.4.0" />
     <PackageVersion Include="Pathoschild.Stardew.ModTranslationClassBuilder" Version="2.2.0" />
-    <PackageVersion Include="PropertyChanged.SourceGenerator" Version="1.0.8" />
+    <PackageVersion Include="PropertyChanged.SourceGenerator" Version="1.1.2" />
   </ItemGroup>
   <!-- Analyzers-->
   <ItemGroup>
@@ -31,4 +31,7 @@
   <ItemGroup>
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.7.1" />
   </ItemGroup>
+
+  <Import Project="$(MSBuildUserExtensionsPath)/sdv.stardewui.props"
+    Condition="Exists('$(MSBuildUserExtensionsPath)/sdv.stardewui.props')" />
 </Project>

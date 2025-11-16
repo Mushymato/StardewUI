@@ -3,25 +3,25 @@
   <PropertyGroup>
     <Product>StardewUI</Product>
     <Authors>focustense</Authors>
-    <Version>0.6.1</Version>
+    <Version>0.6.2-unofficial-mushymato</Version>
   </PropertyGroup>
-  
+
   <!-- Build settings -->
   <PropertyGroup>
     <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>Nullable</WarningsAsErrors>
   </PropertyGroup>
-  
+
   <!-- Common configuration for ModManifestBuilder; no effect in non-mod projects. -->
-	<PropertyGroup>
+  <PropertyGroup>
     <UniqueId>$(Authors).$(AssemblyName)</UniqueId>
     <EntryDll>$(AssemblyName).dll</EntryDll>
     <MinimumApiVersion_Behavior>UpdateFull</MinimumApiVersion_Behavior>
     <MinimumGameVersion_Behavior>UpdateFull</MinimumGameVersion_Behavior>
     <Version_AppendConfiguration>false</Version_AppendConfiguration>
     <Dependencies_VersionBehavior>SetNoPrerelease</Dependencies_VersionBehavior>
-	</PropertyGroup>
+  </PropertyGroup>
 
   <!--
     Workaround for Visual Extensions still requiring legacy MSBuild projects.

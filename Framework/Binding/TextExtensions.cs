@@ -29,12 +29,12 @@ internal static class TextExtensions
             }
             if (capitalizeNext)
             {
-                sb.Append(Rune.ToUpper(rune, CultureInfo.CurrentUICulture));
+                sb.Append(Rune.ToUpperInvariant(rune));
                 capitalizeNext = false;
             }
             else
             {
-                sb.Append(Rune.ToLower(rune, CultureInfo.CurrentUICulture));
+                sb.Append(Rune.ToLowerInvariant(rune));
             }
         }
         return sb.ToString();

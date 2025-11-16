@@ -12,8 +12,8 @@
   "Author": "focustense",
   "Version": "0.6.1",
   "Description": "Example add-on mod for Stardew UI.",
-  "MinimumApiVersion": "4.1.10",
-  "MinimumGameVersion": "1.6.15",
+  "MinimumApiVersion": "4.4.0-alpha.20251115",
+  "MinimumGameVersion": "1.6.16",
   "EntryDll": "StardewUITestAddon.dll",
   "Dependencies": [
     {

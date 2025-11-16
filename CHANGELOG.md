@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.6.2-unofficial-mushymato] - 2025-11-16
+
+### Changed
+- Unofficial release, forked from [this commit](https://github.com/focustense/StardewUI/commit/5e0efbfec771b0c82d1d51a57e0073378a7c2c94)
+- Includes PR#96 (property binding Turkish fix)
+
 ## [0.6.1] - 2025-02-12
 
 ### Changed

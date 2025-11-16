@@ -10,13 +10,14 @@
   "UniqueID": "focustense.StardewUI",
   "Name": "StardewUI",
   "Author": "focustense",
-  "Version": "0.6.1",
+  "Version": "0.6.2-unofficial-mushymato",
   "Description": "Declarative UI framework",
-  "MinimumApiVersion": "4.1.10",
+  "MinimumApiVersion": "4.3.2",
   "MinimumGameVersion": "1.6.15",
   "EntryDll": "StardewUI.dll",
   "UpdateKeys": [
     "Nexus:28870",
-    "GitHub:focustense/StardewUI"
+    "GitHub:focustense/StardewUI",
+    "GitHub:Mushymato/StardewUI"
   ]
 }

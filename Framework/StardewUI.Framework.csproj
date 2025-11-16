@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <AssemblyName>StardewUI</AssemblyName>
     <RootNamespace>StardewUI.Framework</RootNamespace>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>
-      0419 <!-- https://github.com/dotnet/csharplang/issues/320 -->
-    </NoWarn>
+    <NoWarn> 0419 <!-- https://github.com/dotnet/csharplang/issues/320 --></NoWarn>
   </PropertyGroup>
 
   <Import Project="..\StardewUI.props" />
@@ -16,7 +13,7 @@
   <PropertyGroup>
     <Name>StardewUI</Name>
     <Description>Declarative UI framework</Description>
-    <UpdateKeys>Nexus:28870; GitHub:focustense/StardewUI</UpdateKeys>
+    <UpdateKeys>Nexus:28870; GitHub:focustense/StardewUI; GitHub:Mushymato/StardewUI</UpdateKeys>
     <ModFolderName>StardewUI</ModFolderName>
     <IgnoreModFilePaths>assets/README.md</IgnoreModFilePaths>
     <EnableHarmony>true</EnableHarmony>
@@ -59,7 +56,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" />
+    <Reference Include="Newtonsoft.Json" Private="False">
+      <HintPath>$(GamePath)\smapi-internal\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <PackageReference Include="Leclair.Stardew.ModManifestBuilder" />
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" />
     <PackageReference Include="Pathoschild.Stardew.ModTranslationClassBuilder">
@@ -90,5 +89,4 @@
   </ItemGroup>
 
   <Import Project="..\Core\StardewUI.projitems" Label="Shared" />
-
 </Project>
