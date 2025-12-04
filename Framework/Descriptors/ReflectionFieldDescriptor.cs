@@ -19,10 +19,10 @@ public class ReflectionFieldDescriptor<TValue>(FieldInfo field) : IPropertyDescr
     public bool CanRead => true;
 
     /// <inheritdoc />
-    public bool CanWrite => !field.IsInitOnly && !field.IsLiteral;
+    public bool CanWrite => !@field.IsInitOnly && !@field.IsLiteral;
 
     /// <inheritdoc />
-    public Type DeclaringType => field.DeclaringType!;
+    public Type DeclaringType => @field.DeclaringType!;
 
     /// <inheritdoc />
     public bool IsAutoProperty => false;
@@ -31,10 +31,10 @@ public class ReflectionFieldDescriptor<TValue>(FieldInfo field) : IPropertyDescr
     public bool IsField => true;
 
     /// <inheritdoc />
-    public string Name => field.Name;
+    public string Name => @field.Name;
 
     /// <inheritdoc />
-    public Type ValueType => field.FieldType;
+    public Type ValueType => @field.FieldType;
 
     /// <inheritdoc />
     public TValue GetValue(object source)
