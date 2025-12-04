@@ -135,7 +135,9 @@ internal class AssetRegistry : ISourceResolver
             return;
         }
         sourceSyncWatcher = new FileSystemWatcher(sourceDirectory) { IncludeSubdirectories = true };
-        sourceSyncWatcher.Changed += Debounce(SourceSyncWatcher_Changed, HotReloadDebounceDelay);
+        var handler = Debounce(SourceSyncWatcher_Changed, HotReloadDebounceDelay);
+        sourceSyncWatcher.Changed += handler;
+        sourceSyncWatcher.Renamed += (s, e) => handler(s, e);
         sourceSyncWatcher.EnableRaisingEvents = true;
         Logger.Log($"[Hot Reload] Syncing changes from {sourceDirectory} to {helper.DirectoryPath}...", LogLevel.Debug);
     }
