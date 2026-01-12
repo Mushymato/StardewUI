@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>StardewUI</Product>
     <Authors>focustense</Authors>
-    <Version>0.6.2-unofficial-mushymato</Version>
+    <Version>0.6.2-unofficial-mushymato.1</Version>
   </PropertyGroup>
 
   <!-- Build settings -->
@@ -26,11 +26,14 @@
   <!--
     Workaround for Visual Extensions still requiring legacy MSBuild projects.
     
-    This would be better off as a GlobalPackageReference in Directory.Packages.props, but isn't compatible with non-SDK
-    projects; and to top it off, the non-SDK projects don't seem to respect the <ManagePackageVersionsCentrally> option
+    This would be better off as a GlobalPackageReference in Directory.Packages.props, but isn't
+  compatible with non-SDK
+    projects; and to top it off, the non-SDK projects don't seem to respect the
+  <ManagePackageVersionsCentrally> option
     being overridden (to false) to prevent its attempted inclusion.
     
-    Since all projects except the VSIX should use this props file anyway, it's a reasonable alternative for now.
+    Since all projects except the VSIX should use this props file anyway, it's a reasonable alternative
+  for now.
   -->
   <ItemGroup>
     <PackageReference Include="CSharpier.MsBuild">

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.6.2-unofficial-mushymato.1] - 2026-01-12
+
+### Added
+- Keybind editor view now supports mouse buttons (left/right/middle/x1/x2).
+
+### Fixed
+- [issue#102](https://github.com/focustense/StardewUI/issues/102)
+
+### Changed
+- Empty text label is now also in a frame.
+
 ## [0.6.2-unofficial-mushymato] - 2025-11-16
 
 ### Changed
