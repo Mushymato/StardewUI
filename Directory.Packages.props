@@ -1,4 +1,9 @@
 <Project>
+  <Import
+    Project="$(MSBuildUserExtensionsPath)/sdv_nosharpier.props"
+    Condition="Exists('$(MSBuildUserExtensionsPath)/sdv_nosharpier.props')"
+  />
+
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
