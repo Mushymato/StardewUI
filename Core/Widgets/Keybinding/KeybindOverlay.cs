@@ -347,10 +347,34 @@ public class KeybindOverlay(ISpriteMap<SButton>? spriteMap) : FullScreenOverlay
 
     private static IEnumerable<SButton> GetPressedButtons()
     {
+        // keyboard
         foreach (var key in Game1.input.GetKeyboardState().GetPressedKeys())
         {
             yield return key.ToSButton();
         }
+        // mouse
+        MouseState mouseState = Game1.input.GetMouseState();
+        if (mouseState.LeftButton == ButtonState.Pressed)
+        {
+            yield return SButton.MouseLeft;
+        }
+        if (mouseState.RightButton == ButtonState.Pressed)
+        {
+            yield return SButton.MouseRight;
+        }
+        if (mouseState.MiddleButton == ButtonState.Pressed)
+        {
+            yield return SButton.MouseMiddle;
+        }
+        if (mouseState.XButton1 == ButtonState.Pressed)
+        {
+            yield return SButton.MouseX1;
+        }
+        if (mouseState.XButton2 == ButtonState.Pressed)
+        {
+            yield return SButton.MouseX2;
+        }
+        // gamepad
         if (Game1.options.gamepadControls)
         {
             var gamepadState = Game1.input.GetGamePadState();

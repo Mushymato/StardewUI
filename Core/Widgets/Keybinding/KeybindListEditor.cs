@@ -273,7 +273,7 @@ public partial class KeybindListEditor : ComponentView
         }
         var label = Label.Simple(EmptyText, Font);
         label.Margin = new(0, 4);
-        return label;
+        return FrameContent(label);
     }
 
     private static Frame FrameContent(IView content, Edges? edges = null)
@@ -378,10 +378,14 @@ public partial class KeybindListEditor : ComponentView
 
     private void UpdateEmptyText(Color color)
     {
-        if (rootLane.Children.Count == 1 && rootLane.Children[0] is Label label)
+        if (rootLane.Children.Count == 1 && rootLane.Children[0] is Frame rootFrame && rootFrame.Content is Label label)
         {
             label.Text = EmptyText;
             label.Color = color;
+        }
+        else if (!keybindList.IsBound)
+        {
+            rootLane.Children = [CreateEmptyLabel()];
         }
     }
 
