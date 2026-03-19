@@ -1,5 +1,12 @@
 # Stardew UI
 
+!!! tip "Notice"
+
+    This documentation pertains to a fork of [StardewUI](https://github.com/focustense/StardewUI), maintained by mushymato.
+    It primarily exists for bugfixes, and largely functions same as the existing official release.
+
+    See [this page](./CHANGELOG.md) for list of all changes.
+
 ![Logo](images/logo-text.png)
 
 A convenient, fast and scalable UI framework for [Stardew Valley](https://www.stardewvalley.net/) mods, dedicated to making UI development a breeze rather than a chore. Inspired in part by [Angular](https://angular.dev/) and [XAML](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/xaml/?view=netdesktop-8.0).
@@ -25,8 +32,6 @@ A convenient, fast and scalable UI framework for [Stardew Valley](https://www.st
     ---
 
     Retained-mode UI only updates the things that change, when they change. Your UI will never stutter, even on potatoes.
-
-    [:octicons-arrow-right-24: Details and benchmarks](performance.md)
 
 -   :video_game:{ .lg .middle } __Controller ready__
 

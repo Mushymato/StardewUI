@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # Doc output
 site/
+
+# Doc building venv
+venvdoc/

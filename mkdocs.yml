@@ -1,7 +1,7 @@
 site_name: StardewUI Documentation
 site_url: https://focustense.github.io/StardewUI
-repo_name: focustense/StardewUI
-repo_url: https://github.com/focustense/StardewUI
+repo_name: Mushymato/StardewUI (fork)
+repo_url: https://github.com/Mushymato/StardewUI
 theme:
   name: material
   features:
@@ -80,9 +80,9 @@ markdown_extensions:
       toc_depth: 4
 extra:
   release:
-      version: 0.6.1
+      version: 0.6.2-unofficial-mushymato.1
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/focustense
+      link: https://github.com/Mushymato
     - icon: simple/nexusmods
-      link: https://next.nexusmods.com/profile/focustense/mods?gameId=1303
+      link: https://www.nexusmods.com/stardewvalley/mods/43861

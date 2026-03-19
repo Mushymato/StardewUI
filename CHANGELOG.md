@@ -4,9 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-## [0.6.2-unofficial-mushymato.1] - 2026-01-12
+## [0.6.2-unofficial-mushymato.1](https://github.com/Mushymato/StardewUI/releases/tag/0.6.2-unofficial-mushymato.1) - 2026-01-12
 
 ### Added
 - Keybind editor view now supports mouse buttons (left/right/middle/x1/x2).
@@ -17,11 +15,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 - Empty text label is now also in a frame.
 
-## [0.6.2-unofficial-mushymato] - 2025-11-16
+## [0.6.2-unofficial-mushymato](https://github.com/Mushymato/StardewUI/releases/tag/0.6.2-unofficial-mushymato) - 2025-11-16
 
 ### Changed
 - Unofficial release, forked from [this commit](https://github.com/focustense/StardewUI/commit/5e0efbfec771b0c82d1d51a57e0073378a7c2c94)
 - Includes PR#96 (property binding Turkish fix)
+
+!!! tip "Notice"
+
+    The unofficial StardewUI release began here.
 
 ## [0.6.1] - 2025-02-12
 

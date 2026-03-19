@@ -13,7 +13,8 @@
   <PropertyGroup>
     <Name>StardewUI</Name>
     <Description>Declarative UI framework</Description>
-    <UpdateKeys>Nexus:28870; GitHub:focustense/StardewUI; GitHub:Mushymato/StardewUI</UpdateKeys>
+    <!-- <UpdateKeys>Nexus:28870; GitHub:focustense/StardewUI;</UpdateKeys> -->
+    <UpdateKeys>Nexus:43861,GitHub:Mushymato/StardewUI</UpdateKeys>
     <ModFolderName>StardewUI</ModFolderName>
     <IgnoreModFilePaths>assets/README.md</IgnoreModFilePaths>
     <EnableHarmony>true</EnableHarmony>
