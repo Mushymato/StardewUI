@@ -4,6 +4,7 @@
     <RootNamespace>StardewUI.Framework</RootNamespace>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ModZipPath>$(MSBuildThisFileDirectory)/../_releases</ModZipPath>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn> 0419 <!-- https://github.com/dotnet/csharplang/issues/320 --></NoWarn>
   </PropertyGroup>

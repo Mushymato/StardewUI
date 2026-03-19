@@ -367,3 +367,4 @@ site/
 
 # Doc building venv
 venvdoc/
+_releases/
