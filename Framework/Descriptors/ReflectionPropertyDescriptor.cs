@@ -149,6 +149,19 @@ public class ReflectionPropertyDescriptor<T, TValue> : IPropertyDescriptor<TValu
 
     private static bool CheckAutoProperty(PropertyInfo property)
     {
+        // Heuristic: check if the set method is longer than 8
+        // This accounts for properties using the 'field' keyword and
+        // and doing manual notif events in their setters
+        try
+        {
+            if (property.GetSetMethod()?.GetMethodBody()?.GetILAsByteArray()?.Length > 8)
+                return false;
+        }
+        catch (InvalidOperationException)
+        {
+            // Continue to checking the get method
+        }
+
         var getMethod = property.GetGetMethod();
         if (getMethod is null)
         {

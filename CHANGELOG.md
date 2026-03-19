@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2-unofficial-mushymato.2](https://github.com/Mushymato/StardewUI/releases/tag/0.6.2-unofficial-mushymato.2) - 2026-03-18
+
+### Changed
+
+- Try to account for usage of 'field' keyword in actual methods when analyzing auto properties
+- The `wasHudDisplayed` check now only sets `Game1.displayHUD` back to true, never to back to false
+
 ## [0.6.2-unofficial-mushymato.1](https://github.com/Mushymato/StardewUI/releases/tag/0.6.2-unofficial-mushymato.1) - 2026-01-12
 
 ### Added

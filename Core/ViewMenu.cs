@@ -270,7 +270,9 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
             return;
         }
         isDisposed = true;
-        Game1.displayHUD = wasHudDisplayed;
+        // Only restore Game1.displayHUD to true, do nothing if it was previously false
+        if (wasHudDisplayed)
+            Game1.displayHUD = true;
         OnClosed(EventArgs.Empty);
         view.Dispose();
         renderTargetPool.Dispose();
