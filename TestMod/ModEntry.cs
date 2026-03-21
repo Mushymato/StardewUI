@@ -35,6 +35,13 @@ internal sealed partial class ModEntry : Mod
         helper.Events.GameLoop.GameLaunched += GameLoop_GameLaunched;
         helper.Events.GameLoop.OneSecondUpdateTicked += GameLoop_OneSecondUpdateTicked;
         helper.Events.Input.ButtonPressed += Input_ButtonPressed;
+
+        helper.ConsoleCommands.Add("sdui-test", "Test UI from markdown", ConsoleTestSDUI);
+    }
+
+    private void ConsoleTestSDUI(string arg1, string[] arg2)
+    {
+        Game1.activeClickableMenu = viewEngine.CreateMenuFromMarkup(string.Join(' ', arg2));
     }
 
     public override object? GetApi()

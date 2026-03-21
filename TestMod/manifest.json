@@ -17,12 +17,10 @@
   "EntryDll": "StardewUITest.dll",
   "Dependencies": [
     {
-      "UniqueID": "focustense.StardewUI",
-      "MinimumVersion": "0.6.2"
+      "UniqueID": "focustense.StardewUI"
     },
     {
       "UniqueID": "spacechase0.GenericModConfigMenu",
-      "MinimumVersion": "1.16.0",
       "IsRequired": false
     }
   ],

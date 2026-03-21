@@ -13,6 +13,7 @@
   <PropertyGroup>
     <Description>Test mod and example gallery for StardewUI</Description>
     <ModFolderName>StardewUITest</ModFolderName>
+    <Dependencies_VersionBehavior>Ignore</Dependencies_VersionBehavior>
   </PropertyGroup>
 
   <ItemGroup>
@@ -106,6 +107,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
 
   <ProjectExtensions>
     <VisualStudio>
