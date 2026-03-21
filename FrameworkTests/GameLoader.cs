@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -10,6 +12,45 @@ using Xunit.Sdk;
 [assembly: TestFramework("StardewUI.Framework.Tests.GameLoader", "StardewUI.Framework.Tests")]
 
 namespace StardewUI.Framework.Tests;
+
+/// <summary>Content manager that normalizes the asset name</summary>
+internal sealed class TestContentManager(IServiceProvider serviceProvider, string rootDirectory)
+    : LocalizedContentManager(serviceProvider, rootDirectory)
+{
+    public override T Load<T>(string assetName)
+    {
+        // Console.WriteLine($"{assetName} -> {PathUtilities.NormalizeAssetName(assetName)}");
+        return base.Load<T>(PathUtilities.NormalizeAssetName(assetName));
+    }
+
+    public override LocalizedContentManager CreateTemporary()
+    {
+        return new TestContentManager(ServiceProvider, RootDirectory);
+    }
+}
+
+/// <summary>Subclass of <see cref="Game1"/> that uses <see cref="TestContentManager"/></summary>
+internal sealed class TestGame1(PlayerIndex player_index, int index, string contentDirectory)
+    : Game1(player_index, index)
+{
+    protected override LocalizedContentManager CreateContentManager(
+        IServiceProvider serviceProvider,
+        string rootDirectory
+    )
+    {
+        Console.WriteLine($"{rootDirectory} -> {contentDirectory}");
+        return new TestContentManager(serviceProvider, contentDirectory);
+    }
+}
+
+/// <summary>Subclass of <see cref="GameRunner"/> that uses <see cref="TestGame1"/> for <see cref="TestContentManager"/></summary>
+internal sealed class TestGameRunner(string contentDirectory) : GameRunner
+{
+    public override Game1 CreateGameInstance(PlayerIndex player_index = PlayerIndex.One, int index = 0)
+    {
+        return new TestGame1(player_index, index, contentDirectory);
+    }
+}
 
 internal sealed class GameLoader : XunitTestFramework, IDisposable
 {
@@ -35,8 +76,8 @@ internal sealed class GameLoader : XunitTestFramework, IDisposable
                 $"Couldn't find valid content path for game path {gameSettings.GamePath}."
             );
         }
-        game = new GameRunner();
-        game.Content.RootDirectory = contentDirectory;
+
+        game = new TestGameRunner(contentDirectory);
         GameRunner.instance = game;
         Game1.graphics.GraphicsProfile = GraphicsProfile.Reach;
         game.RunOneFrame();
@@ -46,8 +87,8 @@ internal sealed class GameLoader : XunitTestFramework, IDisposable
     {
         base.Dispose();
         game.Dispose();
+
         AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
-        GC.SuppressFinalize(this);
     }
 
     private static string? CheckPath(string path)
