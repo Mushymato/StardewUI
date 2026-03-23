@@ -60,6 +60,7 @@ public class KeybindView : StardewUI.Widgets.ComponentView<T>
 | [EmptyText](#emptytext)<br/>`empty-text` | Placeholder text to display when the current keybind is empty. | 
 | [FloatingBounds](../decoratorview-1.md#floatingbounds)<br/>`floating-bounds` | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](../decoratorview-1.md))</span> | 
 | [Font](#font)<br/>`font` | Font used to display text in button/key placeholders. | 
+| [HoveredSubject](../decoratorview-1.md#hoveredsubject)<br/>`hovered-subject` | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](../decoratorview-1.md))</span> | 
 | [IsFocusable](../decoratorview-1.md#isfocusable)<br/>`is-focusable` | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](../decoratorview-1.md))</span> | 
 | [Keybind](#keybind)<br/>`keybind` | The current keybind. | 
 | [Layout](../decoratorview-1.md#layout)<br/>`layout` | The current layout parameters, which determine how [Measure(Vector2)](../../iview.md#measurevector2) will behave.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](../decoratorview-1.md))</span> | 

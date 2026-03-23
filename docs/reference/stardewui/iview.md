@@ -41,6 +41,7 @@ public interface IView : System.IDisposable,
 | [ClipSize](#clipsize) | Size of the clipping rectangle, outside which content will not be displayed. | 
 | [ContentBounds](#contentbounds) | The true bounds of this view's content; i.e. [ActualBounds](iview.md#actualbounds) excluding margins. | 
 | [FloatingBounds](#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants. | 
+| [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu. | 
 | [IsFocusable](#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls. | 
 | [Layout](#layout) | The current layout parameters, which determine how [Measure(Vector2)](iview.md#measurevector2) will behave. | 
 | [Name](#name) | Simple name for this view, used in log/debug output; does not affect behavior. | 
@@ -188,6 +189,20 @@ System.Collections.Generic.IEnumerable<StardewUI.Layout.Bounds> FloatingBounds {
 ##### Property Value
 
 [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<[Bounds](layout/bounds.md)>
+
+-----
+
+#### HoveredSubject
+
+When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu.
+
+```cs
+StardewUI.ModIntegration.LookupAnything.LookupAnythingHoveredSubject HoveredSubject { get; set; }
+```
+
+##### Property Value
+
+[LookupAnythingHoveredSubject](modintegration/lookupanything/lookupanythinghoveredsubject.md)
 
 -----
 

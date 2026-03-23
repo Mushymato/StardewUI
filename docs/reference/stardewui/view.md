@@ -60,6 +60,7 @@ Use of this class isn't required, but provides some useful behaviors so that vie
 | [FloatingElements](#floatingelements) | The floating elements to display relative to this view. | 
 | [Focusable](#focusable) | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children. | 
 | [HandlesOpacity](#handlesopacity) | Whether the specific view type handles its own opacity. | 
+| [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu. | 
 | [InnerSize](#innersize) | The size allocated to the entire area inside the border, i.e. [ContentSize](view.md#contentsize) plus any [Padding](view.md#padding). Does not include border or [Margin](view.md#margin). | 
 | [IsFocusable](#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls. | 
 | [LastAvailableSize](#lastavailablesize) | The most recent size used in a [Measure(Vector2)](view.md#measurevector2) pass. Used for additional dirty checks. | 
@@ -339,6 +340,20 @@ protected bool HandlesOpacity { get; }
 Subclasses can override this to provide their own, typically better optimized version of opacity; i.e. a basic text or image view could simply multiply its own background/foreground colors without requiring multiple render targets to handle the blending. 
 
  Any [FloatingElements](view.md#floatingelements) will still use the default opacity implementation.
+
+-----
+
+#### HoveredSubject
+
+When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu.
+
+```cs
+public StardewUI.ModIntegration.LookupAnything.LookupAnythingHoveredSubject HoveredSubject { get; set; }
+```
+
+##### Property Value
+
+[LookupAnythingHoveredSubject](modintegration/lookupanything/lookupanythinghoveredsubject.md)
 
 -----
 

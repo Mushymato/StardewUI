@@ -54,6 +54,7 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [DownSprite](#downsprite) | Sprite to draw for the down arrow, or right arrow in horizontal orientation. | 
 | [FloatingBounds](decoratorview-1.md#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ForcedVisibility](#forcedvisibility) | Forces the scrollbar to be always visible or always hidden, depending on the value. | 
+| [HoveredSubject](decoratorview-1.md#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [IsFocusable](decoratorview-1.md#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Layout](decoratorview-1.md#layout) | The current layout parameters, which determine how [Measure(Vector2)](../iview.md#measurevector2) will behave.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Margin](#margin) | Margins for this view. See [Margin](../view.md#margin). | 

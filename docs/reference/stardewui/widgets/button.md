@@ -56,6 +56,7 @@ public class Button : StardewUI.Widgets.ComponentView<T>
 | [Font](#font)<br/>`font` | Font with which to render button text. | 
 | [HoverBackground](#hoverbackground)<br/>`hover-background` | Alternate background sprite when the button has cursor focus. | 
 | [HoverBackgroundTint](#hoverbackgroundtint)<br/>`hover-background-tint` | Tint color for the [HoverBackground](button.md#hoverbackground). | 
+| [HoveredSubject](decoratorview-1.md#hoveredsubject)<br/>`hovered-subject` | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [IsFocusable](decoratorview-1.md#isfocusable)<br/>`is-focusable` | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Layout](decoratorview-1.md#layout)<br/>`layout` | The current layout parameters, which determine how [Measure(Vector2)](../iview.md#measurevector2) will behave.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Margin](#margin)<br/>`margin` | Margin to add outside the button. | 

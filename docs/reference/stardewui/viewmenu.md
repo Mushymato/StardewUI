@@ -54,6 +54,8 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | destroy | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | exitFunction | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | height | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
+| [hoveredItem](#hovereditem) | Special conventional hovered item field | 
+| [hoveredNpc](#hoverednpc) | Special conventional hovered NPC field | 
 | upperRightCloseButton | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | width | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | xPositionOnScreen | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
@@ -169,6 +171,36 @@ Gutter edges, in which no content should be drawn. Used for overscan, or general
 
 **`forceDefaultFocus`** &nbsp; [Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)  
 Whether to always focus (snap the cursor to) the default element, even if the menu was triggered by keyboard/mouse.
+
+-----
+
+### Fields
+
+#### hoveredItem
+
+Special conventional hovered item field
+
+```cs
+public StardewValley.Item hoveredItem;
+```
+
+##### Field Value
+
+Item
+
+-----
+
+#### hoveredNpc
+
+Special conventional hovered NPC field
+
+```cs
+public StardewValley.NPC hoveredNpc;
+```
+
+##### Field Value
+
+NPC
 
 -----
 
