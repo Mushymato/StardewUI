@@ -133,7 +133,7 @@ public class ViewEngine : IViewEngine
                     try
                     {
                         descriptor = DescriptorFactory.GetObjectDescriptor(type, lazy: true);
-                        Logger.Log($"Preloaded descriptor for {type.FullName}", LogLevel.Trace);
+                        Logger.Log($"Preloaded descriptor for {type.FullName}");
                     }
                     catch (Exception ex)
                     {

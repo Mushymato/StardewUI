@@ -30,15 +30,12 @@ public record SNode(SElement Element, IReadOnlyList<SNode> ChildNodes)
     /// Parses a node from the current state of a document reader.
     /// </summary>
     /// <param name="reader">The reader state, represent the content and current position.</param>
-    /// <returns></returns>
+    /// <returns>Null if no next tag is read</returns>
     /// <exception cref="ParserException">Thrown when any invalid markup is encountered.</exception>
-    internal static SNode Parse(ref DocumentReader reader)
+    internal static SNode? Parse(ref DocumentReader reader)
     {
-        int position = reader.Position;
         if (!reader.NextTag())
-        {
-            throw new ParserException("Document is missing root element.", position);
-        }
+            return null;
         return Parse(ref reader, reader.Tag.Name);
     }
 

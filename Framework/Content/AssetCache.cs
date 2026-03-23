@@ -97,7 +97,7 @@ public class AssetCache : IAssetCache
             bool success = backoff.TryRun(name, () => content.Load<T>(name), out result);
             if (success)
             {
-                Logger.Log($"Asset loaded: {name}", LogLevel.Debug);
+                Logger.Log($"Asset loaded: {name}");
             }
             return success;
         }

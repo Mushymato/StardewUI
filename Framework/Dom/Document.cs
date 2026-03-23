@@ -26,6 +26,12 @@ public record Document(SNode? Root, IReadOnlyList<SNode> Templates)
         {
             int position = reader.Position;
             var node = SNode.Parse(ref reader);
+            if (node == null)
+            {
+                if (root == null)
+                    throw new ParserException("Document is missing root element.", position);
+                break;
+            }
             if (node.Tag.Equals("template", StringComparison.OrdinalIgnoreCase))
             {
                 var nameAttribute = node.Attributes.Find("name");
