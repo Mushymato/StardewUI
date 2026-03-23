@@ -12,6 +12,7 @@ const BindingFlags visibleBindingFlags =
     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
 string outputDirectory = Path.GetFullPath("../../../../../docs/reference", Assembly.GetExecutingAssembly().Location);
+Console.WriteLine($"Output: {outputDirectory}");
 
 var reader = new FixedUnindentXmlReader();
 var uiAssembly = typeof(UI).Assembly;
@@ -883,7 +884,9 @@ static string GetMethodAnchor(MethodBase method)
 
 static string GetNamespaceFilePath(string ns)
 {
-    return ns.Replace('.', '/') + "/index.md";
+    string[] parts = ns.ToLower().Split(':', '.');
+    string path = Path.Combine(parts);
+    return Path.Combine(path, "index.md");
 }
 
 static string GetPrimitiveTypeName(Type type)

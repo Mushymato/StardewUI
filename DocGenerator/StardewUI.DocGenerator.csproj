@@ -16,6 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json" Private="True">
+      <HintPath>$(GamePath)\smapi-internal\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <PackageReference Include="Krafs.Publicizer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
