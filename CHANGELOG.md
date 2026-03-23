@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 - New `scrollable` properties `progress` and `scroll-step`.
-- New view property `hovered-subject` which takes in a `Item` or a `NPC` and passes it to Lookup Anything.
+- New view property `hovered-subject` which takes in a `Item` or a `NPC` and passes it to Lookup Anything. [issue#81](https://github.com/focustense/StardewUI/issues/81)
 
 ### Fixed
 - [issue#87](https://github.com/focustense/StardewUI/issues/87)

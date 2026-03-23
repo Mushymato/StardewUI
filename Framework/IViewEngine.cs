@@ -183,7 +183,7 @@ public interface IViewEngine
     /// but the same prefix must be used in <c>include</c> elements and in API calls to create views.</param>
     /// <param name="modDirectory">The physical directory where the asset files are located, relative to the mod
     /// directory. Typically a path such as <c>assets/views</c> or <c>assets/ui/views</c>.</param>
-    public void RegisterViews(string assetPrefix, string modDirectory);
+    void RegisterViews(string assetPrefix, string modDirectory);
 }
 
 /// <summary>

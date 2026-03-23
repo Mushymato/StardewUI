@@ -88,6 +88,9 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     /// <exception cref="NotImplementedException"></exception>
     private void UpdateLookupAnythingSubject(ViewChild[] path)
     {
+        if (!LookupAnythingHoveredSubject.IsLookupAnythingLoaded)
+            return;
+
         if (path.LastOrDefault(x => x.View.HoveredSubject is not null)?.View.HoveredSubject is not LookupAnythingHoveredSubject laSubject)
         {
             hoveredItem = null;
