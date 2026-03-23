@@ -25,6 +25,14 @@ public partial class Scrollbar : ComponentView<Lane>
     }
 
     /// <summary>
+    /// Event raised when any aspect of the scrolling changes.
+    /// </summary>
+    /// <remarks>
+    /// This serves to bubble <see cref="ScrollContainer.ScrollChanged"/> up to <see cref="ScrollableView"/>
+    /// </remarks>
+    public event EventHandler? ScrollChanged;
+
+    /// <summary>
     /// Sprite to draw for the down arrow, or right arrow in horizontal orientation.
     /// </summary>
     public Sprite? DownSprite
@@ -96,6 +104,23 @@ public partial class Scrollbar : ComponentView<Lane>
         set => upButton.Sprite = value;
     }
 
+    /// <summary>
+    /// The progress of scrollbar, equal to <see cref="ScrollContainer.ScrollOffset"/> / <see cref="ScrollContainer.ScrollSize"/>.
+    /// Setting this via bindings will potentially change the scroll position next tick.
+    /// </summary>
+    public float Progress
+    {
+        get
+        {
+            float value = (Container != null && Container.ScrollSize > 0) ? Container.ScrollOffset / Container.ScrollSize : 0f;
+            return value;
+        }
+        set
+        {
+            progressSetDebounce = value;
+        }
+    }
+
     private ScrollContainer? container;
     private Visibility? forcedVisibility;
     private Edges margin = new();
@@ -105,6 +130,9 @@ public partial class Scrollbar : ComponentView<Lane>
     private Image downButton = null!;
     private Frame track = null!;
     private Image thumb = null!;
+
+    /// <summary>Update <see cref="ScrollContainer.ScrollOffset"/> using this value next tick without.</summary>
+    private float? progressSetDebounce = null;
 
     // To avoid the common-but-annoying problem where the initial drag motion causes the thumb to suddenly jump to an
     // arbitrary point - typically the result of auto-centering - we track the initial (local) position of the cursor
@@ -126,7 +154,7 @@ public partial class Scrollbar : ComponentView<Lane>
         {
             return;
         }
-        var progress = Container.ScrollSize > 0 ? Container.ScrollOffset / Container.ScrollSize : 0;
+        var progress = Progress;
         var availableLength = Container.Orientation.Get(track.InnerSize) - Container.Orientation.Get(thumb.ContentSize);
         var position = availableLength * progress;
         if (Container.Orientation == Orientation.Vertical)
@@ -136,6 +164,18 @@ public partial class Scrollbar : ComponentView<Lane>
         else
         {
             thumb.Margin = new(Left: (int)position);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void OnUpdate(TimeSpan elapsed)
+    {
+        if (Container != null && progressSetDebounce != null)
+        {
+            Container.SetScrollOffsetNoDirty(Container.ScrollSize * progressSetDebounce.Value);
+            SyncPosition();
+            SyncVisibility(View);
+            progressSetDebounce = null;
         }
     }
 
@@ -181,6 +221,7 @@ public partial class Scrollbar : ComponentView<Lane>
     {
         SyncPosition();
         SyncVisibility(View);
+        ScrollChanged?.Invoke(null, e);
     }
 
     private void DownButton_LeftClick(object? sender, ClickEventArgs e)

@@ -1,7 +1,6 @@
 ﻿using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
-using StardewValley;
 
 namespace StardewUI.Widgets;
 
@@ -98,6 +97,20 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
         set => scrollbar.UpSprite = value;
     }
 
+    /// <summary>
+    /// The <see cref="Scrollbar.Progress" /> of the scrollable view.
+    /// </summary>
+    public float Progress
+    {
+        get => scrollbar.Progress;
+        set => scrollbar.Progress = value;
+    }
+
+    /// <summary>
+    /// The previous <see cref="Progress"/> value that got property changed event raised.
+    /// </summary>
+    private float previousProgress;
+
     // Initialized in CreateView
     private Scrollbar scrollbar = null!;
 
@@ -136,6 +149,17 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
             Container = container,
         };
         container.FloatingElements.Add(new(scrollbar, FloatingPosition.AfterParent));
+        scrollbar.ScrollChanged += OnScrollChanged;
         return container;
+    }
+
+    private void OnScrollChanged(object? sender, EventArgs e)
+    {
+        float newProgress = Progress;
+        if (newProgress != previousProgress)
+        {
+            OnPropertyChanged(nameof(Progress));
+            previousProgress = newProgress;
+        }
     }
 }

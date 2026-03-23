@@ -120,6 +120,16 @@ public partial class ScrollContainer : View
     }
 
     /// <summary>
+    /// Set <see cref="ScrollOffset"/> without marking it as dirty.
+    /// Using this means <see cref="ScrollChanged"/> will not be raised.
+    /// </summary>
+    public void SetScrollOffsetNoDirty(float scrollOffsetValue)
+    {
+        ScrollOffset = scrollOffsetValue;
+        scrollOffset.ResetDirty();
+    }
+
+    /// <summary>
     /// The maximum amount by which the container can be scrolled without exceeding the inner content bounds.
     /// </summary>
     public float ScrollSize => MathF.Max(Orientation.Get(ContentViewSize) - Orientation.Get(ContentSize), 0);
