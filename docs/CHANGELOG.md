@@ -1,1 +1,1 @@
-/home/mush/Spaget/sv/#forks/StardewUI/CHANGELOG.md
+../CHANGELOG.md

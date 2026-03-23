@@ -368,3 +368,4 @@ site/
 # Doc building venv
 venvdoc/
 _releases/
+build_docs.sh

@@ -345,13 +345,17 @@ public partial class Scrollbar : ComponentView<Lane>
         {
             return;
         }
+        float? prevousScrollStep = null;
         if (this.container is not null)
         {
+            prevousScrollStep = this.container.ScrollStep;
             this.container.ScrollChanged -= Container_ScrollChanged;
         }
         this.container = container;
         if (container is not null)
         {
+            if (prevousScrollStep != null)
+                container.ScrollStep = prevousScrollStep.Value;
             container.ScrollChanged += Container_ScrollChanged;
         }
         LazyUpdate();

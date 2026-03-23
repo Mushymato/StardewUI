@@ -98,18 +98,24 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
     }
 
     /// <summary>
+    /// The <see cref="ScrollContainer.ScrollStep" /> of the scrollable view.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    public float ScrollStep
+    {
+        get => scrollbar.Container?.ScrollStep ?? 32f;
+        set => scrollbar.Container?.ScrollStep = value;
+    }
+
+    /// <summary>
     /// The <see cref="Scrollbar.Progress" /> of the scrollable view.
+    /// <c>(unofficial-mushymato)</c>
     /// </summary>
     public float Progress
     {
         get => scrollbar.Progress;
         set => scrollbar.Progress = value;
     }
-
-    /// <summary>
-    /// The previous <see cref="Progress"/> value that got property changed event raised.
-    /// </summary>
-    private float previousProgress;
 
     // Initialized in CreateView
     private Scrollbar scrollbar = null!;
@@ -155,11 +161,6 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
 
     private void OnScrollChanged(object? sender, EventArgs e)
     {
-        float newProgress = Progress;
-        if (newProgress != previousProgress)
-        {
-            OnPropertyChanged(nameof(Progress));
-            previousProgress = newProgress;
-        }
+        OnPropertyChanged(nameof(Progress));
     }
 }
