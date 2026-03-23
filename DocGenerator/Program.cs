@@ -6,13 +6,41 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using LoxSmoke.DocXml;
 using StardewUI;
-using StardewUI.Framework.Behaviors;
+using StardewUI.Widgets;
+using StardewUI.Widgets.Keybinding;
 
 const BindingFlags visibleBindingFlags =
     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
 string outputDirectory = Path.GetFullPath("../../../../../docs/reference", Assembly.GetExecutingAssembly().Location);
 Console.WriteLine($"Output: {outputDirectory}");
+
+// Framework/Binding/RootViewFactory.cs
+Dictionary<Type, string> viewTypes = new()
+{
+    [typeof(Banner)] = "banner",
+    [typeof(Button)] = "button",
+    [typeof(CheckBox)] = "checkbox",
+    [typeof(ColorPicker)] = "color-picker",
+    [typeof(TinyNumberLabel)] = "digits",
+    [typeof(DropDownList<>)] = "dropdown",
+    [typeof(Expander)] = "expander",
+    [typeof(Frame)] = "frame",
+    [typeof(Grid)] = "grid",
+    [typeof(Image)] = "image",
+    [typeof(KeybindView)] = "keybind",
+    [typeof(KeybindListEditor)] = "keybind-editor",
+    [typeof(Label)] = "label",
+    [typeof(Lane)] = "lane",
+    [typeof(Marquee)] = "marquee",
+    [typeof(NineGridPlacementEditor)] = "nine-grid-editor",
+    [typeof(ScrollableView)] = "scrollable",
+    [typeof(SegmentedControl)] = "segments",
+    [typeof(Slider)] = "slider",
+    [typeof(Spacer)] = "spacer",
+    [typeof(Tab)] = "tab",
+    [typeof(TextInput)] = "textinput",
+};
 
 var reader = new FixedUnindentXmlReader();
 var uiAssembly = typeof(UI).Assembly;
@@ -933,6 +961,31 @@ string GetPropertyAnchor(PropertyInfo property)
     return SluggifyName(sb.ToString());
 }
 
+string GetPropertyBindingName(PropertyInfo property)
+{
+    string text = property.Name;
+    if (text.Length < 2)
+    {
+        return text.ToLowerInvariant();
+    }
+    var sb = new StringBuilder();
+    sb.Append(char.ToLowerInvariant(text[0]));
+    for (int i = 1; i < text.Length; ++i)
+    {
+        char c = text[i];
+        if (char.IsUpper(c))
+        {
+            sb.Append('-');
+            sb.Append(char.ToLowerInvariant(c));
+        }
+        else
+        {
+            sb.Append(c);
+        }
+    }
+    return sb.ToString();
+}
+
 static Type? GetType(string typeName)
 {
     if (Type.GetType(typeName) is Type knownType)
@@ -1600,7 +1653,13 @@ static void WriteFrontMatter(StringBuilder sb, string title, string? description
     sb.AppendLine();
 }
 
-void WriteMemberRow(StringBuilder sb, MemberInfo member, string? name = null, Func<string>? getAnchor = null)
+void WriteMemberRow(
+    StringBuilder sb,
+    MemberInfo member,
+    string? name = null,
+    Func<string>? getAnchor = null,
+    Func<string>? getBinding = null
+)
 {
     var summary = GetFormattedSummary(member);
     var link =
@@ -1612,6 +1671,10 @@ void WriteMemberRow(StringBuilder sb, MemberInfo member, string? name = null, Fu
                 member.ReflectedType!.Namespace!
             )
         : FormatMemberLink(member, member.ReflectedType!.Namespace!);
+    if (getBinding?.Invoke() is string binding)
+    {
+        link = string.Concat(link, "<br/>`", binding, "`");
+    }
     sb.Append("| ");
     sb.Append(link);
     sb.Append(" | ");
@@ -1948,10 +2011,10 @@ void WritePropertyDetails(StringBuilder sb, Type type)
     }
 }
 
-void WritePropertyRow(StringBuilder sb, PropertyInfo property)
+void WritePropertyRow(StringBuilder sb, PropertyInfo property, Func<string>? getBinding = null)
 {
     string name = FormatPropertyName(property, false, true, true);
-    WriteMemberRow(sb, property, name, () => GetPropertyAnchor(property));
+    WriteMemberRow(sb, property, name, () => GetPropertyAnchor(property), getBinding: getBinding);
 }
 
 void WritePropertyTable(StringBuilder sb, Type type)
@@ -1969,7 +2032,7 @@ void WritePropertyTable(StringBuilder sb, Type type)
     WriteMemberTableHeader(sb);
     foreach (var property in properties)
     {
-        WritePropertyRow(sb, property);
+        WritePropertyRow(sb, property, viewTypes.ContainsKey(type) ? () => GetPropertyBindingName(property) : null);
     }
     sb.AppendLine();
 }
@@ -2007,6 +2070,12 @@ async Task WriteTypeFile(Type type)
     sb.AppendLine("/// html | div.api-reference");
     sb.AppendLine();
     WriteTitle(sb, type);
+    if (viewTypes.TryGetValue(type, out string? tagName))
+    {
+        sb.AppendLine("!!! tip \"Framework View\"");
+        sb.AppendLine();
+        sb.AppendLine($"    The tag name of this view is `<{tagName}>`.");
+    }
     WriteDefinition(sb, type, typeComments);
     WriteRemarks(sb, type);
     if (type.IsEnum)

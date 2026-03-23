@@ -11,6 +11,9 @@ search:
 
 # Class Label
 
+!!! tip "Framework View"
+
+    The tag name of this view is `<label>`.
 ## Definition
 
 <div class="api-definition" markdown>
@@ -42,47 +45,47 @@ public class Label : StardewUI.View
 
  | Name | Description |
 | --- | --- |
-| [ActualBounds](../view.md#actualbounds) | The bounds of this view relative to the origin (0, 0).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Bold](#bold) | Whether to draw the text in a bold style. | 
-| [BorderSize](../view.md#bordersize) | The layout size (not edge thickness) of the entire drawn area including the border, i.e. the [InnerSize](../view.md#innersize) plus any borders defined in [GetBorderThickness()](../view.md#getborderthickness). Does not include the [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [ClipOrigin](../view.md#cliporigin) | Origin position for the [ClipSize](../iview.md#clipsize).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [ClipSize](../view.md#clipsize) | Size of the clipping rectangle, outside which content will not be displayed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Color](#color) | The text color. | 
-| [ContentBounds](../view.md#contentbounds) | The true bounds of this view's content; i.e. [ActualBounds](../iview.md#actualbounds) excluding margins.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [ContentSize](../view.md#contentsize) | The size of the view's content, which is drawn inside the padding. Subclasses set this in their [OnMeasure(Vector2)](../view.md#onmeasurevector2) method and padding, margins, etc. are handled automatically.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Draggable](../view.md#draggable) | Whether or not this view should fire drag events such as [DragStart](../view.md#dragstart) and [Drag](../view.md#drag).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [FloatingBounds](../view.md#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [FloatingElements](../view.md#floatingelements) | The floating elements to display relative to this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Focusable](../view.md#focusable) | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Font](#font) | The font that will be used to render the text. | 
-| [HandlesOpacity](#handlesopacity) | Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Overrides [View](../view.md).`get_HandlesOpacity()`)</span> | 
-| [HorizontalAlignment](#horizontalalignment) | How to align the text horizontally. | 
-| [InnerSize](../view.md#innersize) | The size allocated to the entire area inside the border, i.e. [ContentSize](../view.md#contentsize) plus any [Padding](../view.md#padding). Does not include border or [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [IsFocusable](../view.md#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [LastAvailableSize](../view.md#lastavailablesize) | The most recent size used in a [Measure(Vector2)](../view.md#measurevector2) pass. Used for additional dirty checks.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Layout](../view.md#layout) | Layout settings for this view; determines how its dimensions will be computed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [LayoutOffset](../view.md#layoutoffset) | Pixel offset of the view's content, which is applied to all pointer events and child queries.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Margin](../view.md#margin) | Margins (whitespace outside border) for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [MaxLines](#maxlines) | Maximum number of lines of text to display when wrapping. Default is `0` which applies no limit. | 
-| [Name](../view.md#name) | Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Opacity](../view.md#opacity) | Opacity (alpha level) of the view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [OuterSize](../view.md#outersize) | The size of the entire area occupied by this view including margins, border and padding.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Padding](../view.md#padding) | Padding (whitespace inside border) for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [PointerEventsEnabled](../view.md#pointereventsenabled) | Whether this view should receive pointer events like [Click](../view.md#click) or [Drag](../view.md#drag).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [PointerStyle](../view.md#pointerstyle) | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Scale](#scale) | Font scaling to apply. Default is `1.0` (normal size). | 
-| [ScrollWithChildren](../view.md#scrollwithchildren) | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [ShadowAlpha](#shadowalpha) | Alpha value for the text shadow, per layer in [ShadowLayers](label.md#shadowlayers). | 
-| [ShadowColor](#shadowcolor) | Base color for the text shadow, before applying [ShadowAlpha](label.md#shadowalpha). | 
-| [ShadowLayers](#shadowlayers) | Specifies which layers of the shadow should be drawn. | 
-| [ShadowOffset](#shadowoffset) | Offset to draw the text shadow, which is a second copy of the [Text](label.md#text) drawn entirely black. Text shadows will not be visible unless [ShadowAlpha](label.md#shadowalpha) is non-zero. | 
-| [Tags](../view.md#tags) | The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Text](#text) | The text string to display. | 
-| [Tooltip](../view.md#tooltip) | Localized tooltip to display on hover, if any.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Transform](../view.md#transform) | Local transformation to apply to this view, including any children and floating elements.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [TransformOrigin](../view.md#transformorigin) | Relative origin position for any [Transform](../iview.md#transform) on this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Visibility](../view.md#visibility) | Visibility for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [ZIndex](../view.md#zindex) | Z order for this view within its direct parent. Higher indices draw later (on top).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ActualBounds](../view.md#actualbounds)<br/>`actual-bounds` | The bounds of this view relative to the origin (0, 0).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Bold](#bold)<br/>`bold` | Whether to draw the text in a bold style. | 
+| [BorderSize](../view.md#bordersize)<br/>`border-size` | The layout size (not edge thickness) of the entire drawn area including the border, i.e. the [InnerSize](../view.md#innersize) plus any borders defined in [GetBorderThickness()](../view.md#getborderthickness). Does not include the [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ClipOrigin](../view.md#cliporigin)<br/>`clip-origin` | Origin position for the [ClipSize](../iview.md#clipsize).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ClipSize](../view.md#clipsize)<br/>`clip-size` | Size of the clipping rectangle, outside which content will not be displayed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Color](#color)<br/>`color` | The text color. | 
+| [ContentBounds](../view.md#contentbounds)<br/>`content-bounds` | The true bounds of this view's content; i.e. [ActualBounds](../iview.md#actualbounds) excluding margins.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ContentSize](../view.md#contentsize)<br/>`content-size` | The size of the view's content, which is drawn inside the padding. Subclasses set this in their [OnMeasure(Vector2)](../view.md#onmeasurevector2) method and padding, margins, etc. are handled automatically.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Draggable](../view.md#draggable)<br/>`draggable` | Whether or not this view should fire drag events such as [DragStart](../view.md#dragstart) and [Drag](../view.md#drag).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [FloatingBounds](../view.md#floatingbounds)<br/>`floating-bounds` | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [FloatingElements](../view.md#floatingelements)<br/>`floating-elements` | The floating elements to display relative to this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Focusable](../view.md#focusable)<br/>`focusable` | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Font](#font)<br/>`font` | The font that will be used to render the text. | 
+| [HandlesOpacity](#handlesopacity)<br/>`handles-opacity` | Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Overrides [View](../view.md).`get_HandlesOpacity()`)</span> | 
+| [HorizontalAlignment](#horizontalalignment)<br/>`horizontal-alignment` | How to align the text horizontally. | 
+| [InnerSize](../view.md#innersize)<br/>`inner-size` | The size allocated to the entire area inside the border, i.e. [ContentSize](../view.md#contentsize) plus any [Padding](../view.md#padding). Does not include border or [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [IsFocusable](../view.md#isfocusable)<br/>`is-focusable` | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [LastAvailableSize](../view.md#lastavailablesize)<br/>`last-available-size` | The most recent size used in a [Measure(Vector2)](../view.md#measurevector2) pass. Used for additional dirty checks.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Layout](../view.md#layout)<br/>`layout` | Layout settings for this view; determines how its dimensions will be computed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [LayoutOffset](../view.md#layoutoffset)<br/>`layout-offset` | Pixel offset of the view's content, which is applied to all pointer events and child queries.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Margin](../view.md#margin)<br/>`margin` | Margins (whitespace outside border) for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [MaxLines](#maxlines)<br/>`max-lines` | Maximum number of lines of text to display when wrapping. Default is `0` which applies no limit. | 
+| [Name](../view.md#name)<br/>`name` | Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Opacity](../view.md#opacity)<br/>`opacity` | Opacity (alpha level) of the view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [OuterSize](../view.md#outersize)<br/>`outer-size` | The size of the entire area occupied by this view including margins, border and padding.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Padding](../view.md#padding)<br/>`padding` | Padding (whitespace inside border) for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [PointerEventsEnabled](../view.md#pointereventsenabled)<br/>`pointer-events-enabled` | Whether this view should receive pointer events like [Click](../view.md#click) or [Drag](../view.md#drag).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [PointerStyle](../view.md#pointerstyle)<br/>`pointer-style` | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Scale](#scale)<br/>`scale` | Font scaling to apply. Default is `1.0` (normal size). | 
+| [ScrollWithChildren](../view.md#scrollwithchildren)<br/>`scroll-with-children` | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ShadowAlpha](#shadowalpha)<br/>`shadow-alpha` | Alpha value for the text shadow, per layer in [ShadowLayers](label.md#shadowlayers). | 
+| [ShadowColor](#shadowcolor)<br/>`shadow-color` | Base color for the text shadow, before applying [ShadowAlpha](label.md#shadowalpha). | 
+| [ShadowLayers](#shadowlayers)<br/>`shadow-layers` | Specifies which layers of the shadow should be drawn. | 
+| [ShadowOffset](#shadowoffset)<br/>`shadow-offset` | Offset to draw the text shadow, which is a second copy of the [Text](label.md#text) drawn entirely black. Text shadows will not be visible unless [ShadowAlpha](label.md#shadowalpha) is non-zero. | 
+| [Tags](../view.md#tags)<br/>`tags` | The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Text](#text)<br/>`text` | The text string to display. | 
+| [Tooltip](../view.md#tooltip)<br/>`tooltip` | Localized tooltip to display on hover, if any.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Transform](../view.md#transform)<br/>`transform` | Local transformation to apply to this view, including any children and floating elements.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [TransformOrigin](../view.md#transformorigin)<br/>`transform-origin` | Relative origin position for any [Transform](../iview.md#transform) on this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Visibility](../view.md#visibility)<br/>`visibility` | Visibility for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ZIndex](../view.md#zindex)<br/>`z-index` | Z order for this view within its direct parent. Higher indices draw later (on top).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 
 ### Methods
 
