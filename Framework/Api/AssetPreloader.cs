@@ -151,7 +151,7 @@ internal class AssetPreloader(string basePath)
             if (data is not null)
             {
                 spriteSheets.Add(assetName, data);
-                Logger.Log($"Preloaded sprite sheet data for '{assetName}' from {filePath}.", LogLevel.Info);
+                Logger.Log($"Preloaded sprite sheet data for '{assetName}' from {filePath}.", LogLevel.Trace);
             }
             else
             {
@@ -194,7 +194,7 @@ internal class AssetPreloader(string basePath)
                     : new Color(r: rawPixel.Red, g: rawPixel.Green, b: rawPixel.Blue, alpha: rawPixel.Alpha);
         }
         textures.Add(assetName, new(width, height, pixels));
-        Logger.Log($"Preloaded texture data for '{assetName}' from {filePath}.", LogLevel.Info);
+        Logger.Log($"Preloaded texture data for '{assetName}' from {filePath}.", LogLevel.Trace);
     }
 
     private async Task PreloadView(string assetName, string filePath)
@@ -214,7 +214,7 @@ internal class AssetPreloader(string basePath)
             return;
         }
         views.Add(assetName, document);
-        Logger.Log($"Preloaded view '{assetName}' from {filePath}.", LogLevel.Info);
+        Logger.Log($"Preloaded view '{assetName}' from {filePath}.", LogLevel.Trace);
     }
 
     private async Task PreloadViews(IEnumerable<DirectoryMapping> viewDirectories)

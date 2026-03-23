@@ -78,7 +78,7 @@ public partial class TinyNumberLabel : View
     protected override bool HandlesOpacity => true;
 
     private readonly DirtyTracker<IReadOnlyList<Sprite>> digitSprites = new(UiSprites.Digits);
-    private readonly DirtyTracker<int> number = new(0);
+    private readonly DirtyTracker<int> number = new(int.MaxValue);
     private readonly DirtyTracker<float> scale = new(2.0f);
 
     private Rectangle[] digitRects = [];
@@ -158,11 +158,17 @@ public partial class TinyNumberLabel : View
 
     private static IEnumerable<int> GetDigits(int number)
     {
+        // special case number = 0
+        if (number == 0)
+        {
+            yield return 0;
+            yield break;
+        }
         bool hasYielded = false;
         for (int i = 9; i >= 0; i--)
         {
             var digit = GetDigit(number, i);
-            if (digit == 0 && !hasYielded)
+            if (digit == 0 && !hasYielded && i > 0)
             {
                 continue;
             }

@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - New `scrollable` properties `progress` and `scroll-step`.
 - New view property `hovered-subject` which takes in a `Item` or a `NPC` and passes it to Lookup Anything.
 
+### Fixed
+- [issue#101](https://github.com/focustense/StardewUI/issues/101)
+
 ## [0.6.2-unofficial-mushymato.2](https://github.com/Mushymato/StardewUI/releases/tag/0.6.2-unofficial-mushymato.2) - 2026-03-18
 
 ### Changed
