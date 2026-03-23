@@ -1,8 +1,7 @@
-﻿using StardewModdingAPI;
-using StardewModdingAPI.Events;
+﻿using StardewModdingAPI.Events;
 using StardewUI.Animation;
 using StardewUI.Input;
-using StardewValley;
+using StardewUI.ModIntegration.LookupAnything;
 
 namespace StardewUI;
 
@@ -32,6 +31,9 @@ public static partial class UI
         modHelper = helper;
         Logger.Monitor = monitor;
         helper.Events.GameLoop.UpdateTicked += GameLoop_UpdateTicked;
+        LookupAnythingHoveredSubject.IsLookupAnythingLoaded = helper.ModRegistry.IsLoaded("Pathoschild.LookupAnything");
+        if (LookupAnythingHoveredSubject.IsLookupAnythingLoaded)
+            monitor.Log($"Pathoschild.LookupAnything is loaded, integration enabled");
     }
 
     private static T EnsureInitialized<T>(Func<T> selector)

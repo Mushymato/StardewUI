@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
-using Microsoft.Xna.Framework;
 using StardewUI.Data;
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
+using StardewUI.ModIntegration.LookupAnything;
 
 namespace StardewUI;
 
@@ -272,6 +272,14 @@ public interface IView : IDisposable, INotifyPropertyChanged
     /// Z order for this view within its direct parent. Higher indices draw later (on top).
     /// </summary>
     int ZIndex { get; set; }
+
+    #region Lookup Anything
+    /// <summary>
+    /// When Lookup Anything (Pathoschild.LookupAnything) is loaded,
+    /// this <see cref="SObject"/> or <see cref="NPC"/> is given to lookup anything for it's menu.
+    /// </summary>
+    LookupAnythingHoveredSubject? HoveredSubject { get; set; }
+    #endregion
 
     /// <summary>
     /// Checks if a given point, relative to the view's origin, is within its bounds.

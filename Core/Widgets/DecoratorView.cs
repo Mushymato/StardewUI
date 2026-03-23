@@ -6,6 +6,7 @@ using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
+using StardewUI.ModIntegration.LookupAnything;
 
 namespace StardewUI.Widgets;
 
@@ -254,6 +255,9 @@ public class DecoratorView<T> : IView, IDisposable
     }
 
     /// <inheritdoc />
+    public LookupAnythingHoveredSubject? HoveredSubject { get => hoveredSubject; set => hoveredSubject.Set(value); }
+
+    /// <inheritdoc />
     public event EventHandler<ButtonEventArgs>? ButtonPress;
 
     /// <inheritdoc />
@@ -344,6 +348,7 @@ public class DecoratorView<T> : IView, IDisposable
         Visibility.Visible
     );
     private readonly DecoratedProperty<int> zIndex = new(x => x.ZIndex, (x, v) => x.ZIndex = v, 0);
+    private readonly DecoratedProperty<LookupAnythingHoveredSubject?> hoveredSubject = new(x => x.HoveredSubject, (x, v) => x.HoveredSubject = v, null);
 
     private T? view;
 
@@ -365,6 +370,7 @@ public class DecoratorView<T> : IView, IDisposable
         RegisterDecoratedProperty(transformOrigin);
         RegisterDecoratedProperty(visibility);
         RegisterDecoratedProperty(zIndex);
+        RegisterDecoratedProperty(hoveredSubject);
     }
 
     /// <inheritdoc />

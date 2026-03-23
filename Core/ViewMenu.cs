@@ -1,19 +1,17 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using StardewModdingAPI;
 using StardewUI.Animation;
 using StardewUI.Data;
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
+using StardewUI.ModIntegration.LookupAnything;
 using StardewUI.Overlays;
 using StardewUI.Widgets;
-using StardewValley;
 using StardewValley.Menus;
 
 namespace StardewUI;
@@ -74,6 +72,38 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     /// <see cref="CursorAttachment"/> is set that would overlap.
     /// </remarks>
     public bool TooltipsEnabled { get; set; } = true;
+
+    #region Lookup Anything
+    /// <summary>Special conventional hovered item field</summary>
+    public Item? hoveredItem;
+    /// <summary>Special conventional hovered NPC field</summary>
+    public NPC? hoveredNpc;
+
+    /// <summary>
+    /// Find the final hovered subject in a view hover path, and set that to the top level view menu.
+    /// This only works if 
+    /// </summary>
+    /// <param name="path">Sequence of all elements, and their relative positions, that the mouse coordinates are
+    /// currently within.</param>
+    /// <exception cref="NotImplementedException"></exception>
+    private void UpdateLookupAnythingSubject(ViewChild[] path)
+    {
+        if (path.LastOrDefault(x => x.View.HoveredSubject is not null)?.View.HoveredSubject is not LookupAnythingHoveredSubject laSubject)
+        {
+            hoveredItem = null;
+            hoveredNpc = null;
+            return;
+        }
+
+        // Lookup Anything only checks Game1.activeClickableMenu for these conventional fields.
+        // If the top level menu is not a ViewMenu, do nothing.
+        if (Game1.activeClickableMenu is not ViewMenu activeViewMenu)
+            return;
+
+        activeViewMenu.hoveredItem = laSubject.HoveredItem;
+        activeViewMenu.hoveredNpc = laSubject.HoveredNpc;
+    }
+    #endregion
 
     /// <summary>
     /// The view to display with this menu.
@@ -349,24 +379,32 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
         justPushedOverlay = false;
 
-        if (TooltipsEnabled && IsTopmost())
+        if (IsTopmost())
         {
-            var tooltip = BuildTooltip(hoverPath);
-            if (tooltip is not null)
+            if (TooltipsEnabled)
             {
-                string? extraItemToShowIndex = TooltipData.ValidateItemId(tooltip.RequiredItemId);
-                drawToolTip(
-                    b,
-                    tooltip.Text,
-                    tooltip.Title ?? "",
-                    tooltip.Item,
-                    moneyAmountToShowAtBottom: tooltip.CurrencyAmount ?? -1,
-                    currencySymbol: tooltip.CurrencySymbol,
-                    extraItemToShowIndex: extraItemToShowIndex,
-                    extraItemToShowAmount: tooltip.RequiredItemAmount,
-                    craftingIngredients: tooltip.CraftingRecipe,
-                    additionalCraftMaterials: tooltip.AdditionalCraftingMaterials
-                );
+                var tooltip = BuildTooltip(hoverPath);
+                if (tooltip is not null)
+                {
+                    string? extraItemToShowIndex = TooltipData.ValidateItemId(tooltip.RequiredItemId);
+                    drawToolTip(
+                        b,
+                        tooltip.Text,
+                        tooltip.Title ?? "",
+                        tooltip.Item,
+                        moneyAmountToShowAtBottom: tooltip.CurrencyAmount ?? -1,
+                        currencySymbol: tooltip.CurrencySymbol,
+                        extraItemToShowIndex: extraItemToShowIndex,
+                        extraItemToShowAmount: tooltip.RequiredItemAmount,
+                        craftingIngredients: tooltip.CraftingRecipe,
+                        additionalCraftMaterials: tooltip.AdditionalCraftingMaterials
+                    );
+                }
+            }
+
+            if (LookupAnythingHoveredSubject.IsLookupAnythingLoaded)
+            {
+                UpdateLookupAnythingSubject(hoverPath);
             }
         }
 

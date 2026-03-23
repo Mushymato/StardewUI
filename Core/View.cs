@@ -2,14 +2,13 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
 using StardewUI.Data;
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
+using StardewUI.ModIntegration.LookupAnything;
 
 namespace StardewUI;
 
@@ -465,6 +464,19 @@ public abstract class View : IView, IFloatContainer
             {
                 zIndex = value;
                 OnPropertyChanged(nameof(ZIndex));
+            }
+        }
+    }
+
+    /// <inheritdoc />
+    public LookupAnythingHoveredSubject? HoveredSubject
+    {
+        get => field; set
+        {
+            if (value != field)
+            {
+                field = value;
+                OnPropertyChanged(nameof(HoveredSubject));
             }
         }
     }

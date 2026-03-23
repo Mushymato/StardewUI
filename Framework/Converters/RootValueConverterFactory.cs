@@ -3,6 +3,7 @@ using StardewModdingAPI.Utilities;
 using StardewUI.Animation;
 using StardewUI.Data;
 using StardewUI.Layout;
+using StardewUI.ModIntegration.LookupAnything;
 using StardewUI.Widgets;
 using StardewValley.ItemTypeDefinitions;
 
@@ -157,6 +158,10 @@ internal class RootValueConverterFactory : ValueConverterFactory
         Register(new AnyCastConverterFactory());
         Register(new CastingValueConverterFactory());
         Register(new NullableConverterFactory(this));
+
+        // Register Lookup Anything converters, this must happen even if Lookup Anything not loaded.
+        TryRegister(new HoveredItemConverter());
+        TryRegister(new HoveredNpcConverter());
     }
 
     private static SButton ConvertKeybindToButton(Keybind keybind)
