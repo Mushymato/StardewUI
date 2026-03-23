@@ -62,7 +62,7 @@ Game1.activeClickableMenu = viewEngine.CreateMenuFromAsset(
 
 Menus are analogous to the "window" in a web or desktop app. While the StarML document always results in a [View](../concepts.md#views), underneath it there is a more complex mechanism responsible for backgrounds, input handling, pausing game state, ensuring only one menu can be active, and so on. This is the the Menu itself—the implementation of `IActiveClickableMenu` which also acts as the bridge between Stardew Valley and StardewUI.
 
-Most UIs do not need to change anything about how the [`ViewMenu`](../reference/stardewui/viewmenu-1.md) works; it is set up so that its defaults accommodate 80-90% of usage scenarios. For those scenarios that require more precise control over aspects of the menu that cannot be controlled by either the StarML markup or a reference to the `IClickableMenu`, StardewUI provides an alternative set of APIs for working with [`IMenuController`](../reference/stardewui/framework/imenucontroller.md).
+Most UIs do not need to change anything about how the [`ViewMenu`](../reference/stardewui/viewmenu.md) works; it is set up so that its defaults accommodate 80-90% of usage scenarios. For those scenarios that require more precise control over aspects of the menu that cannot be controlled by either the StarML markup or a reference to the `IClickableMenu`, StardewUI provides an alternative set of APIs for working with [`IMenuController`](../reference/stardewui/framework/imenucontroller.md).
 
 The controller allows you to:
 

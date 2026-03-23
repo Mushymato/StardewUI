@@ -5,6 +5,8 @@
     This documentation pertains to a fork of [StardewUI](https://github.com/focustense/StardewUI), maintained by mushymato.
     It primarily exists for bugfixes, and largely functions same as the existing official release.
 
+    All binding properties marked with `(unofficial-mushymato)` are added by this fork and will not work in the official StardewUI-0.6.1.
+
     See [this page](./CHANGELOG.md) for list of all changes.
 
 ![Logo](images/logo-text.png)

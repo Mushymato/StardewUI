@@ -88,7 +88,7 @@ public ReflectionFieldDescriptor<TValue>(System.Reflection.FieldInfo field);
 ##### Parameters
 
 **`field`** &nbsp; [FieldInfo](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.fieldinfo)  
-The reflected field.
+The reflected @field.
 
 ##### Remarks
 

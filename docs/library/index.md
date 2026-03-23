@@ -102,7 +102,7 @@ If you have elected to use the Core Library Shared Project (_please read the war
 5. Double-check; if you open your `.csproj` file in VS or a text editor, it should have the following line:
    `<Import Project="..\StardewUI\Core\StardewUI.projitems" Label="Shared" />`
 
-Once imported, you can reference StardewUI's types directly, including [ComponentView](../reference/stardewui/widgets/componentview-1.md) and [ViewMenu](../reference/stardewui/viewmenu-1.md) which are the entry points for most user-defined views and menus, and what the Framework uses internally.
+Once imported, you can reference StardewUI's types directly, including [ComponentView](../reference/stardewui/widgets/componentview-1.md) and [ViewMenu](../reference/stardewui/viewmenu.md) which are the entry points for most user-defined views and menus, and what the Framework uses internally.
 
 A few other considerations and tips for shared project users:
 

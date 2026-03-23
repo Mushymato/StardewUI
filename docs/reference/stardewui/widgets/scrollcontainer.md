@@ -130,6 +130,7 @@ Does not provide its own scroll bar; scrolling UI and behavior can be controlled
 | [ScrollBackward()](#scrollbackward) | Scrolls backward (up or left) by the distance configured in [ScrollStep](scrollcontainer.md#scrollstep). | 
 | [ScrollForward()](#scrollforward) | Scrolls forward (down or right) by the distance configured in [ScrollStep](scrollcontainer.md#scrollstep). | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Overrides [View](../view.md).[ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2))</span> | 
+| [SetScrollOffsetNoDirty(Single)](#setscrolloffsetnodirtyfloat) | Set [ScrollOffset](scrollcontainer.md#scrolloffset) without marking it as dirty. Using this means [ScrollChanged](scrollcontainer.md#scrollchanged) will not be raised. | 
 | [ToString()](../view.md#tostring) | <span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 
 ### Events
@@ -526,6 +527,20 @@ The total distance that was scrolled, including distance scrolled by descendants
 ##### Remarks
 
 The default implementation does no scrolling of its own, only passes the request down to the child and aborts if the child returns `true`. Scrollable views must override this to provide scrolling behavior.
+
+-----
+
+#### SetScrollOffsetNoDirty(float)
+
+Set [ScrollOffset](scrollcontainer.md#scrolloffset) without marking it as dirty. Using this means [ScrollChanged](scrollcontainer.md#scrollchanged) will not be raised.
+
+```cs
+public void SetScrollOffsetNoDirty(float scrollOffsetValue);
+```
+
+##### Parameters
+
+**`scrollOffsetValue`** &nbsp; [Single](https://learn.microsoft.com/en-us/dotnet/api/system.single)
 
 -----
 

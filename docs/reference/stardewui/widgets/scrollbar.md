@@ -62,6 +62,7 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [OuterSize](decoratorview-1.md#outersize) | The true computed layout size resulting from a single [Measure(Vector2)](../iview.md#measurevector2) pass.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PointerEventsEnabled](decoratorview-1.md#pointereventsenabled) | Whether this view should receive pointer events like [Click](../iview.md#click) or [Drag](../iview.md#drag).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PointerStyle](decoratorview-1.md#pointerstyle) | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [Progress](#progress) | The progress of scrollbar, equal to [ScrollOffset](scrollcontainer.md#scrolloffset) / [ScrollSize](scrollcontainer.md#scrollsize). Setting this via bindings will potentially change the scroll position next tick. | 
 | [ScrollWithChildren](decoratorview-1.md#scrollwithchildren) | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../iview.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Tags](decoratorview-1.md#tags) | The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ThumbSprite](#thumbsprite) | Sprite to draw for the thumb, which moves within the track and indicates the current scroll position and can be dragged to scroll. | 
@@ -101,7 +102,7 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [OnPointerMove(PointerMoveEventArgs)](decoratorview-1.md#onpointermovepointermoveeventargs) | Called when a pointer movement related to this view occurs.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [OnPropertyChanged(PropertyChangedEventArgs)](decoratorview-1.md#onpropertychangedpropertychangedeventargs) | Raises the [PropertyChanged](decoratorview-1.md#propertychanged) event.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [OnPropertyChanged(string)](decoratorview-1.md#onpropertychangedstring) | Raises the [PropertyChanged](decoratorview-1.md#propertychanged) event.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
-| [OnUpdate(TimeSpan)](decoratorview-1.md#onupdatetimespan) | Runs on every update tick.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [OnUpdate(TimeSpan)](#onupdatetimespan) | Runs on every update tick.<br><span class="muted" markdown>(Overrides [DecoratorView&lt;T&gt;](decoratorview-1.md).[OnUpdate(TimeSpan)](decoratorview-1.md#onupdatetimespan))</span> | 
 | [OnWheel(WheelEventArgs)](decoratorview-1.md#onwheelwheeleventargs) | Called when a wheel event is received within this view's bounds.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [RegisterDecoratedProperty&lt;TValue&gt;(DecoratedProperty&lt;T, TValue&gt;)](decoratorview-1.md#registerdecoratedpropertytvaluedecoratedpropertyt-tvalue) | Registers a [DecoratedProperty&lt;T, TValue&gt;](decoratorview-1.decoratedproperty-1.md).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](decoratorview-1.md#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -123,6 +124,7 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [PointerMove](decoratorview-1.md#pointermove) | Event raised when the pointer moves within the view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PropertyChanged](decoratorview-1.md#propertychanged) | <span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [RightClick](decoratorview-1.md#rightclick) | Event raised when the view receives a click initiated from the right mouse button, or the controller's tool-use button (X).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [ScrollChanged](#scrollchanged) | Event raised when any aspect of the scrolling changes. | 
 | [Wheel](decoratorview-1.md#wheel) | Event raised when the scroll wheel moves.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 
 ## Details
@@ -201,6 +203,20 @@ public StardewUI.Layout.Edges Margin { get; set; }
 
 -----
 
+#### Progress
+
+The progress of scrollbar, equal to [ScrollOffset](scrollcontainer.md#scrolloffset) / [ScrollSize](scrollcontainer.md#scrollsize). Setting this via bindings will potentially change the scroll position next tick.
+
+```cs
+public float Progress { get; set; }
+```
+
+##### Property Value
+
+[Single](https://learn.microsoft.com/en-us/dotnet/api/system.single)
+
+-----
+
 #### ThumbSprite
 
 Sprite to draw for the thumb, which moves within the track and indicates the current scroll position and can be dragged to scroll.
@@ -259,6 +275,27 @@ protected override StardewUI.Widgets.Lane CreateView();
 
 -----
 
+#### OnUpdate(TimeSpan)
+
+Runs on every update tick.
+
+```cs
+public override void OnUpdate(System.TimeSpan elapsed);
+```
+
+##### Parameters
+
+**`elapsed`** &nbsp; [TimeSpan](https://learn.microsoft.com/en-us/dotnet/api/system.timespan)  
+Time elapsed since last game tick.
+
+##### Remarks
+
+Provided as an escape hatch for very unusual scenarios like responding to flips in the game's gamepadControls state. 
+
+**Override this at your own extreme peril.** Frequently performing any layout-affecting logic in this function can negate the performance benefits of a retained-mode UI and cause the UI to become sluggish or even completely unresponsive.  Do not use it for animation; use [Animator](../animation/animator.md) instead.
+
+-----
+
 #### SyncPosition()
 
 Forces an immediate sync of the thumb position with the associated container.
@@ -270,6 +307,26 @@ public void SyncPosition();
 ##### Remarks
 
 This is typically automatic and should only need to be called in rare situations.
+
+-----
+
+### Events
+
+#### ScrollChanged
+
+Event raised when any aspect of the scrolling changes.
+
+```cs
+public event System.EventHandler? ScrollChanged;
+```
+
+##### Event Type
+
+[EventHandler](https://learn.microsoft.com/en-us/dotnet/api/system.eventhandler)
+
+##### Remarks
+
+This serves to bubble [ScrollChanged](scrollcontainer.md#scrollchanged) up to [ScrollableView](scrollableview.md)
 
 -----
 

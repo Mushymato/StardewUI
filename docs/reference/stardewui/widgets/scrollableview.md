@@ -67,12 +67,14 @@ This does not add any extra UI elements aside from the scrollbar, like [Scrollab
 | [Peeking](#peeking) | Amount of extra distance above/below scrolled content; see [Peeking](scrollcontainer.md#peeking). | 
 | [PointerEventsEnabled](decoratorview-1.md#pointereventsenabled) | Whether this view should receive pointer events like [Click](../iview.md#click) or [Drag](../iview.md#drag).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PointerStyle](decoratorview-1.md#pointerstyle) | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [Progress](#progress) | The [Progress](scrollbar.md#progress) of the scrollable view. `(unofficial-mushymato)` | 
 | [ScrollbarDownSprite](#scrollbardownsprite) | The [DownSprite](scrollbar.md#downsprite) used for the scrollbar. | 
 | [ScrollbarMargin](#scrollbarmargin) | The [Margin](scrollbar.md#margin) of the scrollbar. | 
 | [ScrollbarThumbSprite](#scrollbarthumbsprite) | The [ThumbSprite](scrollbar.md#thumbsprite) used for the scrollbar. | 
 | [ScrollbarTrackSprite](#scrollbartracksprite) | The [TrackSprite](scrollbar.md#tracksprite) used for the scrollbar. | 
 | [ScrollbarUpSprite](#scrollbarupsprite) | The [UpSprite](scrollbar.md#upsprite) used for the scrollbar. | 
 | [ScrollbarVisibility](#scrollbarvisibility) | The [ForcedVisibility](scrollbar.md#forcedvisibility) of the scrollbar. | 
+| [ScrollStep](#scrollstep) | The [ScrollStep](scrollcontainer.md#scrollstep) of the scrollable view. `(unofficial-mushymato)` | 
 | [ScrollWithChildren](decoratorview-1.md#scrollwithchildren) | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../iview.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Tags](decoratorview-1.md#tags) | The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Tooltip](decoratorview-1.md#tooltip) | Tooltip data to display on hover, if any.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -190,6 +192,20 @@ public float Peeking { get; set; }
 
 -----
 
+#### Progress
+
+The [Progress](scrollbar.md#progress) of the scrollable view. `(unofficial-mushymato)`
+
+```cs
+public float Progress { get; set; }
+```
+
+##### Property Value
+
+[Single](https://learn.microsoft.com/en-us/dotnet/api/system.single)
+
+-----
+
 #### ScrollbarDownSprite
 
 The [DownSprite](scrollbar.md#downsprite) used for the scrollbar.
@@ -271,6 +287,20 @@ public StardewUI.Layout.Visibility? ScrollbarVisibility { get; set; }
 ##### Property Value
 
 [Nullable](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1)<[Visibility](../layout/visibility.md)>
+
+-----
+
+#### ScrollStep
+
+The [ScrollStep](scrollcontainer.md#scrollstep) of the scrollable view. `(unofficial-mushymato)`
+
+```cs
+public float ScrollStep { get; set; }
+```
+
+##### Property Value
+
+[Single](https://learn.microsoft.com/en-us/dotnet/api/system.single)
 
 -----
 

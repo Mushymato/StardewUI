@@ -2,7 +2,7 @@
 
 An overlay is some piece of UI—most often a [component view](custom-views.md#reusable-widgets)—that renders on top of other UI.
 
-What makes overlays distinct from overlapping layout views like [panels](standard-views.md#panel) is that overlays "break out" of the layout of their parent [ViewMenu](../reference/stardewui/viewmenu-1.md) and any views inside it. They can choose to display adjacent to some other view, such as the item list in an open [drop-down list](standard-views.md#drop-down-list), or act like a full-screen submenu, such as the overlay used for [key bindings](standard-views.md#keybind-editor).
+What makes overlays distinct from overlapping layout views like [panels](standard-views.md#panel) is that overlays "break out" of the layout of their parent [ViewMenu](../reference/stardewui/viewmenu.md) and any views inside it. They can choose to display adjacent to some other view, such as the item list in an open [drop-down list](standard-views.md#drop-down-list), or act like a full-screen submenu, such as the overlay used for [key bindings](standard-views.md#keybind-editor).
 
 While this is achievable to some degree with `IClickableMenu.SetChildMenu` in vanilla Stardew Valley code, UI overlays have a number of advantages:
 
