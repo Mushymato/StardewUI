@@ -8,7 +8,7 @@ using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
-using StardewUI.ModIntegration.LookupAnything;
+using StardewUI.ModIntegration;
 
 namespace StardewUI;
 
@@ -477,6 +477,24 @@ public abstract class View : IView, IFloatContainer
             {
                 field = value;
                 OnPropertyChanged(nameof(HoveredSubject));
+            }
+        }
+    }
+
+    /// <inheritdoc />
+    public ScreenReadableData? ScreenRead
+    {
+        get => field; set
+        {
+            // ScreenRead can be set if one of the following is true
+            // 1. Current is null
+            // 2. New value is null
+            // 3. Current is automatic
+            // 4. Current as same automatic status as new value (i.e. both non-automatic)
+            if (value != field && (field == null || value == null || field.IsAutomatic || field.IsAutomatic == value.IsAutomatic))
+            {
+                field = value;
+                OnPropertyChanged(nameof(ScreenRead));
             }
         }
     }

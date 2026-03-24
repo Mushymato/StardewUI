@@ -1,11 +1,10 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewUI.Graphics;
 using StardewUI.Layout;
-using StardewValley;
+using StardewUI.ModIntegration;
 
 namespace StardewUI.Widgets;
 
@@ -247,6 +246,7 @@ public partial class Label : View
         {
             if (text.SetIfChanged(value))
             {
+                ScreenRead = StardewAccessIntegration.MakeScreenRead(value);
                 OnPropertyChanged(nameof(Text));
             }
         }

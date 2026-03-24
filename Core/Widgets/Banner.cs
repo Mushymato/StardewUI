@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using StardewUI.Graphics;
 using StardewUI.Layout;
-using StardewValley;
+using StardewUI.ModIntegration;
 using StardewValley.BellsAndWhistles;
 
 namespace StardewUI.Widgets;
@@ -63,6 +63,7 @@ public partial class Banner : View
         {
             if (text.SetIfChanged(value))
             {
+                ScreenRead = StardewAccessIntegration.MakeScreenRead(text.Value);
                 OnPropertyChanged(nameof(Text));
             }
         }

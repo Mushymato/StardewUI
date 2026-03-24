@@ -4,7 +4,7 @@ using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
-using StardewUI.ModIntegration.LookupAnything;
+using StardewUI.ModIntegration;
 
 namespace StardewUI;
 
@@ -273,12 +273,18 @@ public interface IView : IDisposable, INotifyPropertyChanged
     /// </summary>
     int ZIndex { get; set; }
 
-    #region Lookup Anything
+    #region Mod Integration
     /// <summary>
     /// When Lookup Anything (Pathoschild.LookupAnything) is loaded,
-    /// this <see cref="SObject"/> or <see cref="NPC"/> is given to lookup anything for it's menu.
+    /// this <see cref="SObject"/> or <see cref="NPC"/> subject is given to lookup anything for it's menu.
     /// </summary>
     LookupAnythingHoveredSubject? HoveredSubject { get; set; }
+
+    /// <summary>
+    /// When a screen reader mod (shoaib.stardewaccess) is loaded,
+    /// this screen reader data is given to the screen reader mod on hover.
+    /// </summary>
+    ScreenReadableData? ScreenRead { get; set; }
     #endregion
 
     /// <summary>

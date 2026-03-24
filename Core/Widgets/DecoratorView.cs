@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Xna.Framework;
 using StardewUI.Data;
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
-using StardewUI.ModIntegration.LookupAnything;
+using StardewUI.ModIntegration;
 
 namespace StardewUI.Widgets;
 
@@ -258,6 +257,9 @@ public class DecoratorView<T> : IView, IDisposable
     public LookupAnythingHoveredSubject? HoveredSubject { get => hoveredSubject; set => hoveredSubject.Set(value); }
 
     /// <inheritdoc />
+    public ScreenReadableData? ScreenRead { get => screenReadData; set => screenReadData.Set(value); }
+
+    /// <inheritdoc />
     public event EventHandler<ButtonEventArgs>? ButtonPress;
 
     /// <inheritdoc />
@@ -349,6 +351,7 @@ public class DecoratorView<T> : IView, IDisposable
     );
     private readonly DecoratedProperty<int> zIndex = new(x => x.ZIndex, (x, v) => x.ZIndex = v, 0);
     private readonly DecoratedProperty<LookupAnythingHoveredSubject?> hoveredSubject = new(x => x.HoveredSubject, (x, v) => x.HoveredSubject = v, null);
+    private readonly DecoratedProperty<ScreenReadableData?> screenReadData = new(x => x.ScreenRead, (x, v) => x.ScreenRead = v, null);
 
     private T? view;
 
@@ -371,6 +374,7 @@ public class DecoratorView<T> : IView, IDisposable
         RegisterDecoratedProperty(visibility);
         RegisterDecoratedProperty(zIndex);
         RegisterDecoratedProperty(hoveredSubject);
+        RegisterDecoratedProperty(screenReadData);
     }
 
     /// <inheritdoc />

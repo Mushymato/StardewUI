@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using StardewUI.Events;
+﻿using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
-using StardewValley;
+using StardewUI.ModIntegration;
 
 namespace StardewUI.Widgets;
 
@@ -48,6 +47,7 @@ public partial class CheckBox : ComponentView<Lane>
             }
             isChecked = value;
             UpdateCheckImage();
+            UpdateScreenRead();
             Change?.Invoke(this, EventArgs.Empty);
             OnPropertyChanged(nameof(IsChecked));
         }
@@ -146,6 +146,7 @@ public partial class CheckBox : ComponentView<Lane>
         label = new Label() { Layout = LayoutParameters.FitContent(), Margin = new(Left: 12) };
         checkImage = new Image() { Layout = LayoutParameters.FitContent(), Focusable = true };
         UpdateCheckImage();
+        UpdateScreenRead();
         var lane = new Lane()
         {
             Layout = LayoutParameters.FitContent(),
@@ -172,5 +173,14 @@ public partial class CheckBox : ComponentView<Lane>
         checkImage.Sprite = IsChecked
             ? checkedSprite ?? UiSprites.CheckboxChecked
             : uncheckedSprite ?? UiSprites.CheckboxUnchecked;
+    }
+
+    private void UpdateScreenRead()
+    {
+        ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-checkbox_info", new
+        {
+            label = label.Text,
+            is_checked = isChecked ? 1 : 0
+        });
     }
 }

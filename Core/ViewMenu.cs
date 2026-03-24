@@ -9,7 +9,7 @@ using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
-using StardewUI.ModIntegration.LookupAnything;
+using StardewUI.ModIntegration;
 using StardewUI.Overlays;
 using StardewUI.Widgets;
 using StardewValley.Menus;
@@ -73,10 +73,10 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     /// </remarks>
     public bool TooltipsEnabled { get; set; } = true;
 
-    #region Lookup Anything
-    /// <summary>Special conventional hovered item field</summary>
+    #region Mod Integration
+    /// <summary>Lookup Anything: special conventional hovered item field</summary>
     public Item? hoveredItem;
-    /// <summary>Special conventional hovered NPC field</summary>
+    /// <summary>Lookup Anything: special conventional hovered NPC field</summary>
     public NPC? hoveredNpc;
     #endregion
 
@@ -1238,9 +1238,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
 
         if (!hoverPath.ViewPathEquals(previousHoverPath))
-        {
-            LookupAnythingHoveredSubject.SetSubject(hoverPath);
-        }
+            LookupAnythingIntegration.SetSubject(hoverPath);
+        StardewAccessIntegration.SayHoveredMenuElement(hoverPath);
 
         previousHoverPosition = mousePosition;
         var args = new PointerMoveEventArgs(previousLocalPosition, localPosition);

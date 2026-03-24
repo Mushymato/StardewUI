@@ -2,7 +2,7 @@
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
-using StardewValley;
+using StardewUI.ModIntegration;
 
 namespace StardewUI.Widgets;
 
@@ -165,12 +165,14 @@ public partial class Button : ComponentView<View>
                 if ((value ?? "") != label.Text)
                 {
                     label.Text = value ?? "";
+                    UpdateScreenRead();
                     OnPropertyChanged(nameof(Text));
                 }
             }
             else if (value is not null)
             {
                 contentFrame.Content = Label.Simple(value, font);
+                UpdateScreenRead();
                 OnPropertyChanged(nameof(Text));
             }
         }
@@ -245,5 +247,13 @@ public partial class Button : ComponentView<View>
             ? HoverBackground ?? DefaultBackground ?? UiSprites.ButtonDark
             : DefaultBackground ?? UiSprites.ButtonDark;
         backgroundImage.Tint = hover.Value ? HoverBackgroundTint : DefaultBackgroundTint;
+    }
+
+    private void UpdateScreenRead()
+    {
+        ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-button_info", new
+        {
+            label = Text,
+        });
     }
 }
