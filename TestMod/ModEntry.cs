@@ -4,6 +4,7 @@ using StardewUI.Framework;
 using StardewUITest.Examples;
 using StardewUITest.Examples.Tempering;
 using StardewValley;
+using StardewValley.Minigames;
 
 namespace StardewUITest;
 
@@ -36,12 +37,20 @@ internal sealed partial class ModEntry : Mod
         helper.Events.GameLoop.OneSecondUpdateTicked += GameLoop_OneSecondUpdateTicked;
         helper.Events.Input.ButtonPressed += Input_ButtonPressed;
 
-        helper.ConsoleCommands.Add("sdui-test", "Test UI from markdown", ConsoleTestSDUI);
+        helper.ConsoleCommands.Add("sdui-parse", "Test ad-hoc StarML markup.", ConsoleSDUIParse);
+        helper.ConsoleCommands.Add("sdui-show", "Display assets/views/sdui-show.sml.", ConsoleSDUIShow);
     }
 
-    private void ConsoleTestSDUI(string arg1, string[] arg2)
+    private void ConsoleSDUIParse(string arg1, string[] arg2)
     {
         Game1.activeClickableMenu = viewEngine.CreateMenuFromMarkup(string.Join(' ', arg2));
+    }
+
+    private void ConsoleSDUIShow(string arg1, string[] arg2)
+    {
+        var inner = new { Value = "Hello." };
+        var outer = new { Inner = inner };
+        Game1.activeClickableMenu = viewEngine.CreateMenuFromAsset($"{viewAssetPrefix}/sdui-show", outer);
     }
 
     public override object? GetApi()

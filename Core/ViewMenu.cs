@@ -81,16 +81,12 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
 
     /// <summary>
     /// Find the final hovered subject in a view hover path, and set that to the top level view menu.
-    /// This only works if 
     /// </summary>
     /// <param name="path">Sequence of all elements, and their relative positions, that the mouse coordinates are
     /// currently within.</param>
     /// <exception cref="NotImplementedException"></exception>
     private void UpdateLookupAnythingSubject(ViewChild[] path)
     {
-        if (!LookupAnythingHoveredSubject.IsLookupAnythingLoaded)
-            return;
-
         if (path.LastOrDefault(x => x.View.HoveredSubject is not null)?.View.HoveredSubject is not LookupAnythingHoveredSubject laSubject)
         {
             hoveredItem = null;
@@ -382,32 +378,24 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
         justPushedOverlay = false;
 
-        if (IsTopmost())
+        if (IsTopmost() && TooltipsEnabled)
         {
-            if (TooltipsEnabled)
+            var tooltip = BuildTooltip(hoverPath);
+            if (tooltip is not null)
             {
-                var tooltip = BuildTooltip(hoverPath);
-                if (tooltip is not null)
-                {
-                    string? extraItemToShowIndex = TooltipData.ValidateItemId(tooltip.RequiredItemId);
-                    drawToolTip(
-                        b,
-                        tooltip.Text,
-                        tooltip.Title ?? "",
-                        tooltip.Item,
-                        moneyAmountToShowAtBottom: tooltip.CurrencyAmount ?? -1,
-                        currencySymbol: tooltip.CurrencySymbol,
-                        extraItemToShowIndex: extraItemToShowIndex,
-                        extraItemToShowAmount: tooltip.RequiredItemAmount,
-                        craftingIngredients: tooltip.CraftingRecipe,
-                        additionalCraftMaterials: tooltip.AdditionalCraftingMaterials
-                    );
-                }
-            }
-
-            if (LookupAnythingHoveredSubject.IsLookupAnythingLoaded)
-            {
-                UpdateLookupAnythingSubject(hoverPath);
+                string? extraItemToShowIndex = TooltipData.ValidateItemId(tooltip.RequiredItemId);
+                drawToolTip(
+                    b,
+                    tooltip.Text,
+                    tooltip.Title ?? "",
+                    tooltip.Item,
+                    moneyAmountToShowAtBottom: tooltip.CurrencyAmount ?? -1,
+                    currencySymbol: tooltip.CurrencySymbol,
+                    extraItemToShowIndex: extraItemToShowIndex,
+                    extraItemToShowAmount: tooltip.RequiredItemAmount,
+                    craftingIngredients: tooltip.CraftingRecipe,
+                    additionalCraftMaterials: tooltip.AdditionalCraftingMaterials
+                );
             }
         }
 
@@ -1271,6 +1259,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
                 SetHoverPath(rootView, localPosition);
             }
         }
+        if (!LookupAnythingHoveredSubject.IsLookupAnythingLoaded)
+            UpdateLookupAnythingSubject(hoverPath);
         previousHoverPosition = mousePosition;
         var args = new PointerMoveEventArgs(previousLocalPosition, localPosition);
         rootView.OnPointerMove(args);
