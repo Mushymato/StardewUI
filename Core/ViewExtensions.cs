@@ -227,4 +227,20 @@ public static class ViewExtensions
         }
         return null;
     }
+
+    /// <summary>Assert that 2 arrays of <see cref="ViewChild"/> are the same path</summary>
+    /// <param name="pathA">This view path</param>
+    /// <param name="pathB">The other view path to compare</param>
+    /// <returns>Equality</returns>
+    public static bool ViewPathEquals(this ViewChild[] pathA, ViewChild[] pathB)
+    {
+        if (pathA.Length != pathB.Length)
+            return false;
+        for (int i = pathA.Length - 1; i >= 0; i--)
+        {
+            if (pathA[i].View != pathB[i].View)
+                return false;
+        }
+        return true;
+    }
 }

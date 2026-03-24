@@ -78,30 +78,6 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     public Item? hoveredItem;
     /// <summary>Special conventional hovered NPC field</summary>
     public NPC? hoveredNpc;
-
-    /// <summary>
-    /// Find the final hovered subject in a view hover path, and set that to the top level view menu.
-    /// </summary>
-    /// <param name="path">Sequence of all elements, and their relative positions, that the mouse coordinates are
-    /// currently within.</param>
-    /// <exception cref="NotImplementedException"></exception>
-    private void UpdateLookupAnythingSubject(ViewChild[] path)
-    {
-        if (path.LastOrDefault(x => x.View.HoveredSubject is not null)?.View.HoveredSubject is not LookupAnythingHoveredSubject laSubject)
-        {
-            hoveredItem = null;
-            hoveredNpc = null;
-            return;
-        }
-
-        // Lookup Anything only checks Game1.activeClickableMenu for these conventional fields.
-        // If the top level menu is not a ViewMenu, do nothing.
-        if (Game1.activeClickableMenu is not ViewMenu activeViewMenu)
-            return;
-
-        activeViewMenu.hoveredItem = laSubject.HoveredItem;
-        activeViewMenu.hoveredNpc = laSubject.HoveredNpc;
-    }
     #endregion
 
     /// <summary>
@@ -1247,6 +1223,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         var mousePosition = GetMousePosition();
         var localPosition = mousePosition.ToVector2() - viewPosition;
         var previousFocusableHoverPath = focusableHoverPath;
+        ViewChild[] previousHoverPath = hoverPath;
         SetHoverPath(rootView, localPosition);
         if (Game1.options.gamepadControls && focusableHoverPath.Length == 0)
         {
@@ -1259,8 +1236,12 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
                 SetHoverPath(rootView, localPosition);
             }
         }
-        if (!LookupAnythingHoveredSubject.IsLookupAnythingLoaded)
-            UpdateLookupAnythingSubject(hoverPath);
+
+        if (!hoverPath.ViewPathEquals(previousHoverPath))
+        {
+            LookupAnythingHoveredSubject.SetSubject(hoverPath);
+        }
+
         previousHoverPosition = mousePosition;
         var args = new PointerMoveEventArgs(previousLocalPosition, localPosition);
         rootView.OnPointerMove(args);
