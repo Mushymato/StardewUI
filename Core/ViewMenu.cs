@@ -356,7 +356,6 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
 
         if (IsTopmost() && TooltipsEnabled)
         {
-            var tooltip = BuildTooltip(hoverPath);
             if (tooltip is not null)
             {
                 string? extraItemToShowIndex = TooltipData.ValidateItemId(tooltip.RequiredItemId);
@@ -806,6 +805,9 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
     }
 
+    /// <summary>Current tooltip data, updated by <see cref="RebuildTooltip"/></summary>
+    protected TooltipData? tooltip = null;
+
     /// <summary>
     /// Builds/formats a tooltip given the sequence of views from root to the lowest-level hovered child.
     /// </summary>
@@ -816,11 +818,9 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     /// </remarks>
     /// <param name="path">Sequence of all elements, and their relative positions, that the mouse coordinates are
     /// currently within.</param>
-    /// <returns>The tooltip string to display, or <c>null</c> to not show any tooltip.</returns>
-    protected virtual TooltipData? BuildTooltip(IEnumerable<ViewChild> path)
+    protected virtual void RebuildTooltip(IEnumerable<ViewChild> path)
     {
-        var tooltipData = path.Select(x => x.View.Tooltip).LastOrDefault(tooltip => tooltip is not null);
-        return tooltipData?.ConstrainTextWidth(640);
+        tooltip = path.LastOrDefault(x => x.View.Tooltip != null)?.View.Tooltip?.ConstrainTextWidth(640);
     }
 
     /// <summary>
@@ -1239,6 +1239,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
 
         if (!hoverPath.ViewPathEquals(previousHoverPath))
             LookupAnythingIntegration.SetSubject(hoverPath);
+        if (!hoverPath.ViewPathEquals(previousHoverPath))
+            RebuildTooltip(hoverPath);
         StardewAccessIntegration.SayHoveredMenuElement(hoverPath);
 
         previousHoverPosition = mousePosition;
