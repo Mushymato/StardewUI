@@ -54,8 +54,9 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | destroy | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | exitFunction | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | height | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
-| [hoveredItem](#hovereditem) | Special conventional hovered item field | 
-| [hoveredNpc](#hoverednpc) | Special conventional hovered NPC field | 
+| [hoveredItem](#hovereditem) | Lookup Anything: special conventional hovered item field | 
+| [hoveredNpc](#hoverednpc) | Lookup Anything: special conventional hovered NPC field | 
+| [tooltip](#tooltip) | Current tooltip data, updated by [RebuildTooltip(IEnumerable&lt;ViewChild&gt;)](viewmenu.md#rebuildtooltipienumerableviewchild) | 
 | upperRightCloseButton | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | width | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | xPositionOnScreen | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
@@ -86,7 +87,6 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | applyMovementKey(Keys) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | [areGamePadControlsImplemented()](#aregamepadcontrolsimplemented) | Returns whether or not the menu wants **exclusive** gamepad controls.<br><span class="muted" markdown>(Overrides IClickableMenu.areGamePadControlsImplemented())</span> | 
 | automaticSnapBehavior(Int32, Int32, Int32) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
-| [BuildTooltip(IEnumerable&lt;ViewChild&gt;)](#buildtooltipienumerableviewchild) | Builds/formats a tooltip given the sequence of views from root to the lowest-level hovered child. | 
 | cleanupBeforeExit() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | clickAway() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | [Close()](#close) | Closes this menu, either by removing it from the parent if it is a child menu, or removing it as the game's active menu if it is standalone. | 
@@ -129,6 +129,7 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | [performHoverAction(Int32, Int32)](#performhoveractionint-int) | Invoked on every frame with the mouse's current coordinates.<br><span class="muted" markdown>(Overrides IClickableMenu.performHoverAction(Int32, Int32))</span> | 
 | [populateClickableComponentList()](#populateclickablecomponentlist) | <span class="muted" markdown>(Overrides IClickableMenu.populateClickableComponentList())</span> | 
 | [readyToClose()](#readytoclose) | Checks if the menu is allowed to be closed by the game's default input handling.<br><span class="muted" markdown>(Overrides IClickableMenu.readyToClose())</span> | 
+| [RebuildTooltip(IEnumerable&lt;ViewChild&gt;)](#rebuildtooltipienumerableviewchild) | Builds/formats a tooltip given the sequence of views from root to the lowest-level hovered child. | 
 | [receiveGamePadButton(Buttons)](#receivegamepadbuttonbuttons) | Invoked whenever a controller button is newly pressed.<br><span class="muted" markdown>(Overrides IClickableMenu.receiveGamePadButton(Buttons))</span> | 
 | [receiveKeyPress(Keys)](#receivekeypresskeys) | Invoked whenever a keyboard key is newly pressed.<br><span class="muted" markdown>(Overrides IClickableMenu.receiveKeyPress(Keys))</span> | 
 | [receiveLeftClick(Int32, Int32, Boolean)](#receiveleftclickint-int-bool) | Invoked whenever the left mouse button is newly pressed.<br><span class="muted" markdown>(Overrides IClickableMenu.receiveLeftClick(Int32, Int32, Boolean))</span> | 
@@ -178,7 +179,7 @@ Whether to always focus (snap the cursor to) the default element, even if the me
 
 #### hoveredItem
 
-Special conventional hovered item field
+Lookup Anything: special conventional hovered item field
 
 ```cs
 public StardewValley.Item hoveredItem;
@@ -192,7 +193,7 @@ Item
 
 #### hoveredNpc
 
-Special conventional hovered NPC field
+Lookup Anything: special conventional hovered NPC field
 
 ```cs
 public StardewValley.NPC hoveredNpc;
@@ -201,6 +202,20 @@ public StardewValley.NPC hoveredNpc;
 ##### Field Value
 
 NPC
+
+-----
+
+#### tooltip
+
+Current tooltip data, updated by [RebuildTooltip(IEnumerable&lt;ViewChild&gt;)](viewmenu.md#rebuildtooltipienumerableviewchild)
+
+```cs
+protected StardewUI.Data.TooltipData tooltip;
+```
+
+##### Field Value
+
+[TooltipData](data/tooltipdata.md)
 
 -----
 
@@ -368,31 +383,6 @@ public override bool areGamePadControlsImplemented();
 ##### Remarks
 
 This implementation always returns `false`. Contrary to what the name in Stardew's code implies, this setting is not required for [receiveGamePadButton(Buttons)](viewmenu.md#receivegamepadbuttonbuttons) to work; instead, when enabled, it suppresses the game's default mapping of button presses to clicks, and would therefore require reimplementing key-repeat and other basic behaviors. There is no reason to enable it here.
-
------
-
-#### BuildTooltip(IEnumerable&lt;ViewChild&gt;)
-
-Builds/formats a tooltip given the sequence of views from root to the lowest-level hovered child.
-
-```cs
-protected virtual StardewUI.Data.TooltipData BuildTooltip(System.Collections.Generic.IEnumerable<StardewUI.ViewChild> path);
-```
-
-##### Parameters
-
-**`path`** &nbsp; [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<[ViewChild](viewchild.md)>  
-Sequence of all elements, and their relative positions, that the mouse coordinates are currently within.
-
-##### Returns
-
-[TooltipData](data/tooltipdata.md)
-
-  The tooltip string to display, or `null` to not show any tooltip.
-
-##### Remarks
-
-The default implementation reads the value of the _last_ (lowest-level) view with a non-null [Tooltip](iview.md#tooltip), and breaks [Text](data/tooltipdata.md#text) and [Title](data/tooltipdata.md#title) lines longer than 640px, which is the default vanilla tooltip width.
 
 -----
 
@@ -617,6 +607,25 @@ public override bool readyToClose();
 ##### Returns
 
 [Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+-----
+
+#### RebuildTooltip(IEnumerable&lt;ViewChild&gt;)
+
+Builds/formats a tooltip given the sequence of views from root to the lowest-level hovered child.
+
+```cs
+protected virtual void RebuildTooltip(System.Collections.Generic.IEnumerable<StardewUI.ViewChild> path);
+```
+
+##### Parameters
+
+**`path`** &nbsp; [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<[ViewChild](viewchild.md)>  
+Sequence of all elements, and their relative positions, that the mouse coordinates are currently within.
+
+##### Remarks
+
+The default implementation reads the value of the _last_ (lowest-level) view with a non-null [Tooltip](iview.md#tooltip), and breaks [Text](data/tooltipdata.md#text) and [Title](data/tooltipdata.md#title) lines longer than 640px, which is the default vanilla tooltip width.
 
 -----
 

@@ -23,9 +23,13 @@ search:
 | [IdentityValueConverterFactory](identityvalueconverterfactory.md) | Factory that automatically implements identity conversions, where the source and destination type are the same. |
 | [ItemSpriteConverter](itemspriteconverter.md) | Converts data from a game item to its corresponding sprite. |
 | [LayoutConverter](layoutconverter.md) | String converter for the [LayoutParameters](../../layout/layoutparameters.md) type. |
+| [LookupAnythingHoveredItemConverter](lookupanythinghovereditemconverter.md) | Convert Item to [LookupAnythingHoveredSubject](../../modintegration/lookupanythinghoveredsubject.md) |
+| [LookupAnythingHoveredNpcConverter](lookupanythinghoverednpcconverter.md) | Convert NPC to [LookupAnythingHoveredSubject](../../modintegration/lookupanythinghoveredsubject.md) |
 | [NamedFontConverter](namedfontconverter.md) | Converter for fonts that are already built into the game, i.e. found on Game1. |
 | [NullableConverterFactory](nullableconverterfactory.md) | Factory that implements automatic conversion between nullable and non-nullable types. |
 | [PointConverter](pointconverter.md) | String converter for the XNA [Point](https://docs.monogame.net/api/Microsoft.Xna.Framework.Point.html) type. |
+| [ScreenReadableInterfaceConverter](screenreadableinterfaceconverter.md) | Converts a general IScreenReadable to [ScreenReadableData](../../modintegration/screenreadabledata.md) |
+| [ScreenReadableStringConverter](screenreadablestringconverter.md) | Converts a string to [ScreenReadableData](../../modintegration/screenreadabledata.md) |
 | [StringConverterFactory](stringconverterfactory.md) | Provides conversions from any type to [string](https://learn.microsoft.com/en-us/dotnet/api/system.string). |
 | [TextureRectSpriteConverter](texturerectspriteconverter.md) | Converts a tuple with a texture and source rectangle (within the texture) to a sprite record. |
 | [TextureSpriteConverter](texturespriteconverter.md) | Converts a texture to a sprite record, using the texture's entire bounds as the source rectangle. |

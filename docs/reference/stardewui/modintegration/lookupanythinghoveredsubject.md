@@ -15,16 +15,16 @@ search:
 
 <div class="api-definition" markdown>
 
-Namespace: [StardewUI.ModIntegration.LookupAnything](index.md)  
+Namespace: [StardewUI.ModIntegration](index.md)  
 Assembly: StardewUI.dll  
 
 </div>
 
-The lookup anything hovered subject to supply to [ViewMenu](../../viewmenu.md)
+The lookup anything hovered subject to supply to [ViewMenu](../viewmenu.md)
 
 ```cs
 public record LookupAnythingHoveredSubject : 
-    IEquatable<StardewUI.ModIntegration.LookupAnything.LookupAnythingHoveredSubject>
+    IEquatable<StardewUI.ModIntegration.LookupAnythingHoveredSubject>
 ```
 
 **Inheritance**  
@@ -39,7 +39,7 @@ public record LookupAnythingHoveredSubject :
 
  | Name | Description |
 | --- | --- |
-| [LookupAnythingHoveredSubject(Item, NPC)](#lookupanythinghoveredsubjectitem-npc) | The lookup anything hovered subject to supply to [ViewMenu](../../viewmenu.md) | 
+| [LookupAnythingHoveredSubject(Item, NPC)](#lookupanythinghoveredsubjectitem-npc) | The lookup anything hovered subject to supply to [ViewMenu](../viewmenu.md) | 
 
 ### Properties
 
@@ -48,7 +48,6 @@ public record LookupAnythingHoveredSubject :
 | [EqualityContract](#equalitycontract) |  | 
 | [HoveredItem](#hovereditem) |  | 
 | [HoveredNpc](#hoverednpc) |  | 
-| [IsLookupAnythingLoaded](#islookupanythingloaded) | Whether Lookup Anything is loaded | 
 
 ## Details
 
@@ -56,7 +55,7 @@ public record LookupAnythingHoveredSubject :
 
 #### LookupAnythingHoveredSubject(Item, NPC)
 
-The lookup anything hovered subject to supply to [ViewMenu](../../viewmenu.md)
+The lookup anything hovered subject to supply to [ViewMenu](../viewmenu.md)
 
 ```cs
 public LookupAnythingHoveredSubject(StardewValley.Item HoveredItem, StardewValley.NPC HoveredNpc);
@@ -111,20 +110,6 @@ public StardewValley.NPC HoveredNpc { get; set; }
 ##### Property Value
 
 NPC
-
------
-
-#### IsLookupAnythingLoaded
-
-Whether Lookup Anything is loaded
-
-```cs
-public static bool IsLookupAnythingLoaded { get; set; }
-```
-
-##### Property Value
-
-[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
 
 -----
 

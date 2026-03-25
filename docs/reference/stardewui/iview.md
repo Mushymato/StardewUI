@@ -41,7 +41,7 @@ public interface IView : System.IDisposable,
 | [ClipSize](#clipsize) | Size of the clipping rectangle, outside which content will not be displayed. | 
 | [ContentBounds](#contentbounds) | The true bounds of this view's content; i.e. [ActualBounds](iview.md#actualbounds) excluding margins. | 
 | [FloatingBounds](#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants. | 
-| [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu. | 
+| [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. | 
 | [IsFocusable](#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls. | 
 | [Layout](#layout) | The current layout parameters, which determine how [Measure(Vector2)](iview.md#measurevector2) will behave. | 
 | [Name](#name) | Simple name for this view, used in log/debug output; does not affect behavior. | 
@@ -49,6 +49,7 @@ public interface IView : System.IDisposable,
 | [OuterSize](#outersize) | The true computed layout size resulting from a single [Measure(Vector2)](iview.md#measurevector2) pass. | 
 | [PointerEventsEnabled](#pointereventsenabled) | Whether this view should receive pointer events like [Click](iview.md#click) or [Drag](iview.md#drag). | 
 | [PointerStyle](#pointerstyle) | Pointer style to use when this view is hovered. | 
+| [ScreenRead](#screenread) | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. | 
 | [ScrollWithChildren](#scrollwithchildren) | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](iview.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it. | 
 | [Tags](#tags) | The user-defined tags for this view. | 
 | [Tooltip](#tooltip) | Tooltip data to display on hover, if any. | 
@@ -194,15 +195,15 @@ System.Collections.Generic.IEnumerable<StardewUI.Layout.Bounds> FloatingBounds {
 
 #### HoveredSubject
 
-When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC is given to lookup anything for it's menu.
+When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu.
 
 ```cs
-StardewUI.ModIntegration.LookupAnything.LookupAnythingHoveredSubject HoveredSubject { get; set; }
+StardewUI.ModIntegration.LookupAnythingHoveredSubject HoveredSubject { get; set; }
 ```
 
 ##### Property Value
 
-[LookupAnythingHoveredSubject](modintegration/lookupanything/lookupanythinghoveredsubject.md)
+[LookupAnythingHoveredSubject](modintegration/lookupanythinghoveredsubject.md)
 
 -----
 
@@ -317,6 +318,20 @@ StardewUI.Input.PointerStyle PointerStyle { get; set; }
 ##### Remarks
 
 As with [Tooltip](iview.md#tooltip), the lowest-level view takes precedence over any higher-level views.
+
+-----
+
+#### ScreenRead
+
+When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value.
+
+```cs
+StardewUI.ModIntegration.ScreenReadableData ScreenRead { get; set; }
+```
+
+##### Property Value
+
+[ScreenReadableData](modintegration/screenreadabledata.md)
 
 -----
 

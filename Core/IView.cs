@@ -282,7 +282,7 @@ public interface IView : IDisposable, INotifyPropertyChanged
 
     /// <summary>
     /// When a screen reader mod (shoaib.stardewaccess) is loaded,
-    /// this screen reader data is given to the screen reader mod on hover.
+    /// this element will be announced by the screen reader using this value.
     /// </summary>
     ScreenReadableData? ScreenRead { get; set; }
     #endregion

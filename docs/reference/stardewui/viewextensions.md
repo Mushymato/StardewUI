@@ -41,6 +41,7 @@ public static class ViewExtensions
 | [GetPathToView(IView, IView)](#getpathtoviewiview-iview) | Retrieves the path to a descendant view. | 
 | [ResolveChildPath(IView, IEnumerable&lt;IView&gt;)](#resolvechildpathiview-ienumerableiview) | Takes an existing view path and resolves it with child coordinates for the view at each level. | 
 | [ToGlobalPositions(IEnumerable&lt;ViewChild&gt;)](#toglobalpositionsienumerableviewchild) | Converts a view path in parent-relative coordinates (e.g. from [GetPathToPosition(IView, Vector2, Boolean, Boolean)](viewextensions.md#getpathtopositioniview-vector2-bool-bool) and transforms each element to have an absolute [Position](viewchild.md#position). | 
+| [ViewPathEquals(ViewChild, ViewChild)](#viewpathequalsviewchild-viewchild) | Assert that 2 arrays of [ViewChild](viewchild.md) are the same path | 
 | [ZOrder(IEnumerable&lt;ViewChild&gt;, Boolean)](#zorderienumerableviewchild-bool) | Sorts a sequence of children in ascending z-order. | 
 | [ZOrderDescending(IEnumerable&lt;ViewChild&gt;, Boolean)](#zorderdescendingienumerableviewchild-bool) | Sorts a sequence of children in descending z-order. | 
 
@@ -194,6 +195,30 @@ The path from root down to leaf view.
 ##### Remarks
 
 Since [ViewChild](viewchild.md) does not specify whether the position is local (parent) or global (absolute), it is not possible to validate the incoming sequence and prevent a "double transformation". Callers are responsible for knowing whether or not the input sequence is local or global.
+
+-----
+
+#### ViewPathEquals(ViewChild, ViewChild)
+
+Assert that 2 arrays of [ViewChild](viewchild.md) are the same path
+
+```cs
+public static bool ViewPathEquals(StardewUI.ViewChild pathA, StardewUI.ViewChild pathB);
+```
+
+##### Parameters
+
+**`pathA`** &nbsp; [ViewChild](viewchild.md)  
+This view path
+
+**`pathB`** &nbsp; [ViewChild](viewchild.md)  
+The other view path to compare
+
+##### Returns
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+  Equality
 
 -----
 

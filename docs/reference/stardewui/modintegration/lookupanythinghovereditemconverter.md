@@ -1,5 +1,5 @@
 ---
-title: HoveredItemConverter
+title: LookupAnythingHoveredItemConverter
 description: Convert Item to LookupAnythingHoveredSubject
 search:
     boost: 0.002
@@ -9,13 +9,13 @@ search:
 
 /// html | div.api-reference
 
-# Class HoveredItemConverter
+# Class LookupAnythingHoveredItemConverter
 
 ## Definition
 
 <div class="api-definition" markdown>
 
-Namespace: [StardewUI.ModIntegration.LookupAnything](index.md)  
+Namespace: [StardewUI.ModIntegration](index.md)  
 Assembly: StardewUI.dll  
 
 </div>
@@ -23,16 +23,16 @@ Assembly: StardewUI.dll
 Convert Item to [LookupAnythingHoveredSubject](lookupanythinghoveredsubject.md)
 
 ```cs
-public class HoveredItemConverter : 
-    StardewUI.Framework.Converters.IValueConverter<StardewValley.Item, StardewUI.ModIntegration.LookupAnything.LookupAnythingHoveredSubject>, 
+public class LookupAnythingHoveredItemConverter : 
+    StardewUI.Framework.Converters.IValueConverter<StardewValley.Item, StardewUI.ModIntegration.LookupAnythingHoveredSubject>, 
     StardewUI.Framework.Converters.IValueConverter
 ```
 
 **Inheritance**  
-[Object](https://learn.microsoft.com/en-us/dotnet/api/system.object) ⇦ HoveredItemConverter
+[Object](https://learn.microsoft.com/en-us/dotnet/api/system.object) ⇦ LookupAnythingHoveredItemConverter
 
 **Implements**  
-[IValueConverter](../../framework/converters/ivalueconverter-2.md)<Item, [LookupAnythingHoveredSubject](lookupanythinghoveredsubject.md)>, [IValueConverter](../../framework/converters/ivalueconverter.md)
+[IValueConverter](../framework/converters/ivalueconverter-2.md)<Item, [LookupAnythingHoveredSubject](lookupanythinghoveredsubject.md)>, [IValueConverter](../framework/converters/ivalueconverter.md)
 
 ## Members
 
@@ -40,7 +40,7 @@ public class HoveredItemConverter :
 
  | Name | Description |
 | --- | --- |
-| [HoveredItemConverter()](#hovereditemconverter) |  | 
+| [LookupAnythingHoveredItemConverter()](#lookupanythinghovereditemconverter) |  | 
 
 ### Methods
 
@@ -52,12 +52,12 @@ public class HoveredItemConverter :
 
 ### Constructors
 
-#### HoveredItemConverter()
+#### LookupAnythingHoveredItemConverter()
 
 
 
 ```cs
-public HoveredItemConverter();
+public LookupAnythingHoveredItemConverter();
 ```
 
 -----
@@ -69,7 +69,7 @@ public HoveredItemConverter();
 Converts a value from the source type to the destination type.
 
 ```cs
-public StardewUI.ModIntegration.LookupAnything.LookupAnythingHoveredSubject Convert(StardewValley.Item value);
+public StardewUI.ModIntegration.LookupAnythingHoveredSubject Convert(StardewValley.Item value);
 ```
 
 ##### Parameters
