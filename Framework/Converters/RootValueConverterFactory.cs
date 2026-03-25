@@ -165,6 +165,7 @@ internal class RootValueConverterFactory : ValueConverterFactory
         TryRegister(new LookupAnythingHoveredNpcConverter());
         // Register Screen Readable converters
         TryRegister(new ScreenReadableStringConverter());
+        TryRegister(new ScreenReadableInterfaceConverter());
         #endregion
     }
 

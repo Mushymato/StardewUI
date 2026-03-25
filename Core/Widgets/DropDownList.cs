@@ -2,6 +2,7 @@
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
+using StardewUI.ModIntegration;
 using StardewUI.Overlays;
 using StardewValley;
 
@@ -237,6 +238,7 @@ public partial class DropDownList<T> : ComponentView
     private object? pendingSelectedOption;
     private Label selectedOptionLabel = null!;
     private Frame selectionFrame = null!;
+    private Image dropdownButton = null!;
 
     /// <inheritdoc />
     public override bool Measure(Vector2 availableSize)
@@ -272,14 +274,15 @@ public partial class DropDownList<T> : ComponentView
             Content = selectedOptionLabel,
         };
         var buttonHeight = Game1.smallFont.LineSpacing + selectionFrame.Padding.Vertical;
-        var button = new Image()
+        dropdownButton = new Image()
         {
             Layout = new() { Width = Length.Content(), Height = Length.Px(buttonHeight) },
             Sprite = UiSprites.DropDownButton,
             Focusable = true,
         };
-        var lane = new Lane() { Layout = LayoutParameters.FitContent(), Children = [selectionFrame, button] };
+        var lane = new Lane() { Layout = LayoutParameters.FitContent(), Children = [selectionFrame, dropdownButton] };
         lane.LeftClick += Lane_LeftClick;
+        UpdateScreenRead();
         return lane;
     }
 
@@ -387,7 +390,17 @@ public partial class DropDownList<T> : ComponentView
     private void UpdateSelectedOption()
     {
         selectedOptionLabel.Text = SelectedOption is not null ? optionFormat(SelectedOption) : "";
+        UpdateScreenRead();
         OnPropertyChanged(nameof(SelectedOptionText));
+    }
+
+    private void UpdateScreenRead()
+    {
+        dropdownButton.ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-dropdown_info", new
+        {
+            label = string.Empty,
+            selected_option = selectedOptionLabel.Text
+        });
     }
 
     class DropDownOptionView(T value, string text) : ComponentView<Frame>

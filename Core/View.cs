@@ -489,9 +489,9 @@ public abstract class View : IView, IFloatContainer
             // ScreenRead can be set if one of the following is true
             // 1. Current is null
             // 2. New value is null
-            // 3. Current is automatic
-            // 4. Current as same automatic status as new value (i.e. both non-automatic)
-            if (value != field && (field == null || value == null || field.IsAutomatic || field.IsAutomatic == value.IsAutomatic))
+            // 3. Current has precedence >= 0, i.e. it is automatically set by StardewUI
+            // 4. Current has greater precedence as the new value
+            if (value != field && (field == null || value == null || field.Precedence >= 0 || field.Precedence > value.Precedence))
             {
                 field = value;
                 OnPropertyChanged(nameof(ScreenRead));

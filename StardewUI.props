@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>StardewUI</Product>
     <Authors>focustense</Authors>
-    <Version>0.6.3-unofficial-mushymato.0-stardew-access.0</Version>
+    <Version>0.6.3-unofficial-mushymato.0</Version>
   </PropertyGroup>
 
   <!-- Build settings -->

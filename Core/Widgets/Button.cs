@@ -188,6 +188,7 @@ public partial class Button : ComponentView<View>
     // Initialized in CreateView
     private Image backgroundImage = null!;
     private Frame contentFrame = null!;
+    private Panel contentPanel = null!;
 
     /// <inheritdoc />
     protected override View CreateView()
@@ -200,7 +201,7 @@ public partial class Button : ComponentView<View>
         };
         UpdateBackgroundImage(false);
         contentFrame = new Frame() { Layout = LayoutParameters.FitContent(), Margin = new(16, 12) };
-        var panel = new Panel()
+        contentPanel = new Panel()
         {
             Layout = new()
             {
@@ -214,9 +215,10 @@ public partial class Button : ComponentView<View>
             Children = [backgroundImage, contentFrame],
             Focusable = true,
         };
-        panel.PointerEnter += Panel_PointerEnter;
-        panel.PointerLeave += Panel_PointerLeave;
-        return panel;
+        contentPanel.PointerEnter += Panel_PointerEnter;
+        contentPanel.PointerLeave += Panel_PointerLeave;
+        UpdateScreenRead();
+        return contentPanel;
     }
 
     private void Panel_PointerEnter(object? sender, PointerEventArgs e)
@@ -251,9 +253,9 @@ public partial class Button : ComponentView<View>
 
     private void UpdateScreenRead()
     {
-        ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-button_info", new
+        contentPanel.ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-button_info", new
         {
-            label = Text,
+            label = Text ?? string.Empty,
         });
     }
 }

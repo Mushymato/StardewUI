@@ -44,71 +44,82 @@ public static class StardewAccessIntegration
     {
         if (Api == null)
             return;
-        if (path.LastOrDefault(x => x.View.ScreenRead is not null)?.View.ScreenRead is ScreenReadableData screenRead)
+        ScreenReadableData? screenRead = null;
+        for (int i = path.Length - 1; i >= 0; i--)
         {
-            Api.SayMenuElement(screenRead);
-        }
-        else if (path.Length > 0)
-        {
-            IView lastView = path[^1].View;
-            foreach (ViewChild child in lastView.GetChildren())
+            ScreenReadableData? thisScreenRead = path[i].View.ScreenRead;
+            if (thisScreenRead == null)
+                continue;
+            if (screenRead != null)
             {
-                if (child.View.ScreenRead != null)
-                {
-                    Api.SayMenuElement(child.View.ScreenRead);
-                    return;
-                }
+                if (screenRead.Precedence > thisScreenRead.Precedence)
+                    screenRead = thisScreenRead;
+                else
+                    continue;
             }
+            else
+            {
+                screenRead ??= thisScreenRead;
+            }
+
+            if (screenRead.Precedence == 0)
+                break;
         }
+        if (screenRead != null)
+            Api.SayMenuElement(screenRead);
     }
 
     /// <summary>Construct a <see cref="ScreenReadableData"/>, mark as automatic</summary>
-    /// <param name="text"></param>
+    /// <param name="text">Screen read text</param>
+    /// <param name="precedence">Precedence value</param>
     /// <returns></returns>
-    public static ScreenReadableData? MakeScreenRead(string text)
+    public static ScreenReadableData? MakeScreenRead(string text, int precedence = 0)
     {
         if (Api == null)
             return null;
-        return new ScreenReadableData(text, isAutomatic: true);
+        return new ScreenReadableData(precedence) { ScreenReaderText = text };
     }
 
     /// <summary>Construct a <see cref="ScreenReadableData"/> using translated text from Stardew Access</summary>
-    /// <param name="translationKey"></param>
-    /// <param name="tokens"></param>
+    /// <param name="translationKey">Stardew Access translation key</param>
+    /// <param name="tokens">Stardew Access translation tokens</param>
+    /// <param name="precedence">Precedence value</param>
     /// <returns></returns>
-    public static ScreenReadableData? MakeScreenReadTranslated(string translationKey, object? tokens = null)
+    public static ScreenReadableData? MakeScreenReadTranslated(string translationKey, object? tokens = null, int precedence = 0)
     {
         if (Api == null)
             return null;
-        return new ScreenReadableData(
-            Api.Translate(translationKey, tokens, translationCategory: "Menu"),
-            isAutomatic: true
-        );
+        return new ScreenReadableData(precedence)
+        {
+            ScreenReaderText = Api.Translate(translationKey, tokens, translationCategory: "Menu")
+        };
     }
 }
 
 /// <summary>
 /// A screen readable bit of text.
 /// Although <see cref="IScreenReadable"/> is a vanilla interface, it does nothing
-/// by itself and requires a screen reader mod to do things.
+/// by itself and will be used with screen reader mods.
 /// </summary>
-/// <param name="screenReaderText"><inheritdoc cref="IScreenReadable.ScreenReaderText"/></param>
-/// <param name="screenReaderDescription"><inheritdoc cref="IScreenReadable.ScreenReaderDescription"/></param>
-/// <param name="isAutomatic"><inheritdoc cref="IsAutomatic"/></param>
-public sealed class ScreenReadableData(string? screenReaderText, string? screenReaderDescription = null, bool isAutomatic = false) : IScreenReadable
+/// <param name="precedence">
+/// How prioritized this screen reader element is.
+/// Custom screen read fields should use negative values
+/// while screen read fields set by the View should have value 0 or greater
+/// </param>
+public sealed class ScreenReadableData(int precedence = -1) : IScreenReadable
 {
     /// <summary>
     /// Marks this as an automatically set screen readable data,
     /// as opposed to one created and set by attribute bindings.
     /// Automatic screen readable data cannot override non-automatic.
     /// </summary>
-    public readonly bool IsAutomatic = isAutomatic;
+    public readonly int Precedence = precedence;
 
     /// <inheritdoc />
-    public string? ScreenReaderText => screenReaderText;
+    public string? ScreenReaderText { get; set; }
 
     /// <inheritdoc />
-    public string? ScreenReaderDescription => screenReaderDescription;
+    public string? ScreenReaderDescription { get; set; }
 
     /// <inheritdoc />
     public bool ScreenReaderIgnore => false;
@@ -120,6 +131,22 @@ public sealed class ScreenReadableStringConverter : IValueConverter<string, Scre
     /// <inheritdoc />
     public ScreenReadableData Convert(string value)
     {
-        return new ScreenReadableData(screenReaderText: value);
+        return new ScreenReadableData(-1) { ScreenReaderText = value };
+    }
+}
+
+/// <summary>Converts a general <see cref="IScreenReadable"/> to <see cref="ScreenReadableData"/></summary>
+public sealed class ScreenReadableInterfaceConverter : IValueConverter<IScreenReadable, ScreenReadableData>
+{
+    /// <inheritdoc />
+    public ScreenReadableData Convert(IScreenReadable value)
+    {
+        if (value is ScreenReadableData screenRead)
+            return screenRead;
+        return new ScreenReadableData(-1)
+        {
+            ScreenReaderText = value.ScreenReaderText,
+            ScreenReaderDescription = value.ScreenReaderDescription
+        };
     }
 }
