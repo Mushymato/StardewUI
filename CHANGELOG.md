@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 - New `scrollable` properties `progress` and `scroll-step`.
 - New view property `hovered-subject` which takes in a `Item` or a `NPC` and passes it to Lookup Anything. [issue#81](https://github.com/focustense/StardewUI/issues/81)
+- New view property `screen-read` which takes a string or a `IScreenReadable` and passes it to Stardew Access.
+
+### Changed
+- Tooltip data is now cached instead of built every time during draw.
 
 ### Fixed
 - [issue#87](https://github.com/focustense/StardewUI/issues/87)
