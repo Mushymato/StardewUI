@@ -1305,34 +1305,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../viewmenu-1/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ViewMenu&lt;T&gt;
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../viewmenu/" class="md-nav__link">
         
   
@@ -1995,6 +1967,84 @@
     
   
     Layout
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../modintegration/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modintegration
   
 
     
@@ -4418,6 +4468,10 @@
 <p><link rel="stylesheet" href="/StardewUI/stylesheets/reference.css" /></p>
 <div class="api-reference">
 <h1 id="class-label">Class Label<a class="headerlink" href="#class-label" title="Permanent link"></a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Framework View</p>
+<p>The tag name of this view is <code>&lt;label&gt;</code>.</p>
+</div>
 <h2 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link"></a></h2>
 <div class="api-definition">
 <p>Namespace: <a href="../">StardewUI.Widgets</a><br />
@@ -4455,167 +4509,175 @@ Assembly: StardewUI.dll  </p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../../view/#actualbounds">ActualBounds</a></td>
+<td><a href="../../view/#actualbounds">ActualBounds</a><br/><code>actual-bounds</code></td>
 <td>The bounds of this view relative to the origin (0, 0).<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#bold">Bold</a></td>
+<td><a href="#bold">Bold</a><br/><code>bold</code></td>
 <td>Whether to draw the text in a bold style.</td>
 </tr>
 <tr>
-<td><a href="../../view/#bordersize">BorderSize</a></td>
+<td><a href="../../view/#bordersize">BorderSize</a><br/><code>border-size</code></td>
 <td>The layout size (not edge thickness) of the entire drawn area including the border, i.e. the <a href="../../view/#innersize">InnerSize</a> plus any borders defined in <a href="../../view/#getborderthickness">GetBorderThickness()</a>. Does not include the <a href="../../view/#margin">Margin</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#cliporigin">ClipOrigin</a></td>
+<td><a href="../../view/#cliporigin">ClipOrigin</a><br/><code>clip-origin</code></td>
 <td>Origin position for the <a href="../../iview/#clipsize">ClipSize</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#clipsize">ClipSize</a></td>
+<td><a href="../../view/#clipsize">ClipSize</a><br/><code>clip-size</code></td>
 <td>Size of the clipping rectangle, outside which content will not be displayed.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#color">Color</a></td>
+<td><a href="#color">Color</a><br/><code>color</code></td>
 <td>The text color.</td>
 </tr>
 <tr>
-<td><a href="../../view/#contentbounds">ContentBounds</a></td>
+<td><a href="../../view/#contentbounds">ContentBounds</a><br/><code>content-bounds</code></td>
 <td>The true bounds of this view's content; i.e. <a href="../../iview/#actualbounds">ActualBounds</a> excluding margins.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#contentsize">ContentSize</a></td>
+<td><a href="../../view/#contentsize">ContentSize</a><br/><code>content-size</code></td>
 <td>The size of the view's content, which is drawn inside the padding. Subclasses set this in their <a href="../../view/#onmeasurevector2">OnMeasure(Vector2)</a> method and padding, margins, etc. are handled automatically.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#draggable">Draggable</a></td>
+<td><a href="../../view/#draggable">Draggable</a><br/><code>draggable</code></td>
 <td>Whether or not this view should fire drag events such as <a href="../../view/#dragstart">DragStart</a> and <a href="../../view/#drag">Drag</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#floatingbounds">FloatingBounds</a></td>
+<td><a href="../../view/#floatingbounds">FloatingBounds</a><br/><code>floating-bounds</code></td>
 <td>Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#floatingelements">FloatingElements</a></td>
+<td><a href="../../view/#floatingelements">FloatingElements</a><br/><code>floating-elements</code></td>
 <td>The floating elements to display relative to this view.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#focusable">Focusable</a></td>
+<td><a href="../../view/#focusable">Focusable</a><br/><code>focusable</code></td>
 <td>Whether or not the view should be able to receive focus. Applies only to this specific view, not its children.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#font">Font</a></td>
+<td><a href="#font">Font</a><br/><code>font</code></td>
 <td>The font that will be used to render the text.</td>
 </tr>
 <tr>
-<td><a href="#handlesopacity">HandlesOpacity</a></td>
+<td><a href="#handlesopacity">HandlesOpacity</a><br/><code>handles-opacity</code></td>
 <td>Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Overrides <a href="../../view/">View</a>.<code>get_HandlesOpacity()</code>)</span></td>
 </tr>
 <tr>
-<td><a href="#horizontalalignment">HorizontalAlignment</a></td>
+<td><a href="#horizontalalignment">HorizontalAlignment</a><br/><code>horizontal-alignment</code></td>
 <td>How to align the text horizontally.</td>
 </tr>
 <tr>
-<td><a href="../../view/#innersize">InnerSize</a></td>
+<td><a href="../../view/#hoveredsubject">HoveredSubject</a><br/><code>hovered-subject</code></td>
+<td>When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../view/#innersize">InnerSize</a><br/><code>inner-size</code></td>
 <td>The size allocated to the entire area inside the border, i.e. <a href="../../view/#contentsize">ContentSize</a> plus any <a href="../../view/#padding">Padding</a>. Does not include border or <a href="../../view/#margin">Margin</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#isfocusable">IsFocusable</a></td>
+<td><a href="../../view/#isfocusable">IsFocusable</a><br/><code>is-focusable</code></td>
 <td>Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#lastavailablesize">LastAvailableSize</a></td>
+<td><a href="../../view/#lastavailablesize">LastAvailableSize</a><br/><code>last-available-size</code></td>
 <td>The most recent size used in a <a href="../../view/#measurevector2">Measure(Vector2)</a> pass. Used for additional dirty checks.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#layout">Layout</a></td>
+<td><a href="../../view/#layout">Layout</a><br/><code>layout</code></td>
 <td>Layout settings for this view; determines how its dimensions will be computed.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#layoutoffset">LayoutOffset</a></td>
+<td><a href="../../view/#layoutoffset">LayoutOffset</a><br/><code>layout-offset</code></td>
 <td>Pixel offset of the view's content, which is applied to all pointer events and child queries.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#margin">Margin</a></td>
+<td><a href="../../view/#margin">Margin</a><br/><code>margin</code></td>
 <td>Margins (whitespace outside border) for this view.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#maxlines">MaxLines</a></td>
+<td><a href="#maxlines">MaxLines</a><br/><code>max-lines</code></td>
 <td>Maximum number of lines of text to display when wrapping. Default is <code>0</code> which applies no limit.</td>
 </tr>
 <tr>
-<td><a href="../../view/#name">Name</a></td>
+<td><a href="../../view/#name">Name</a><br/><code>name</code></td>
 <td>Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#opacity">Opacity</a></td>
+<td><a href="../../view/#opacity">Opacity</a><br/><code>opacity</code></td>
 <td>Opacity (alpha level) of the view.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#outersize">OuterSize</a></td>
+<td><a href="../../view/#outersize">OuterSize</a><br/><code>outer-size</code></td>
 <td>The size of the entire area occupied by this view including margins, border and padding.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#padding">Padding</a></td>
+<td><a href="../../view/#padding">Padding</a><br/><code>padding</code></td>
 <td>Padding (whitespace inside border) for this view.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#pointereventsenabled">PointerEventsEnabled</a></td>
+<td><a href="../../view/#pointereventsenabled">PointerEventsEnabled</a><br/><code>pointer-events-enabled</code></td>
 <td>Whether this view should receive pointer events like <a href="../../view/#click">Click</a> or <a href="../../view/#drag">Drag</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#pointerstyle">PointerStyle</a></td>
+<td><a href="../../view/#pointerstyle">PointerStyle</a><br/><code>pointer-style</code></td>
 <td>Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#scale">Scale</a></td>
+<td><a href="#scale">Scale</a><br/><code>scale</code></td>
 <td>Font scaling to apply. Default is <code>1.0</code> (normal size).</td>
 </tr>
 <tr>
-<td><a href="../../view/#scrollwithchildren">ScrollWithChildren</a></td>
+<td><a href="../../view/#screenread">ScreenRead</a><br/><code>screen-read</code></td>
+<td>When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../view/#scrollwithchildren">ScrollWithChildren</a><br/><code>scroll-with-children</code></td>
 <td>If set to an axis, specifies that when any child of the view is scrolled into view (using <a href="../../view/#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a>), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#shadowalpha">ShadowAlpha</a></td>
+<td><a href="#shadowalpha">ShadowAlpha</a><br/><code>shadow-alpha</code></td>
 <td>Alpha value for the text shadow, per layer in <a href="./#shadowlayers">ShadowLayers</a>.</td>
 </tr>
 <tr>
-<td><a href="#shadowcolor">ShadowColor</a></td>
+<td><a href="#shadowcolor">ShadowColor</a><br/><code>shadow-color</code></td>
 <td>Base color for the text shadow, before applying <a href="./#shadowalpha">ShadowAlpha</a>.</td>
 </tr>
 <tr>
-<td><a href="#shadowlayers">ShadowLayers</a></td>
+<td><a href="#shadowlayers">ShadowLayers</a><br/><code>shadow-layers</code></td>
 <td>Specifies which layers of the shadow should be drawn.</td>
 </tr>
 <tr>
-<td><a href="#shadowoffset">ShadowOffset</a></td>
+<td><a href="#shadowoffset">ShadowOffset</a><br/><code>shadow-offset</code></td>
 <td>Offset to draw the text shadow, which is a second copy of the <a href="./#text">Text</a> drawn entirely black. Text shadows will not be visible unless <a href="./#shadowalpha">ShadowAlpha</a> is non-zero.</td>
 </tr>
 <tr>
-<td><a href="../../view/#tags">Tags</a></td>
+<td><a href="../../view/#tags">Tags</a><br/><code>tags</code></td>
 <td>The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#text">Text</a></td>
+<td><a href="#text">Text</a><br/><code>text</code></td>
 <td>The text string to display.</td>
 </tr>
 <tr>
-<td><a href="../../view/#tooltip">Tooltip</a></td>
+<td><a href="../../view/#tooltip">Tooltip</a><br/><code>tooltip</code></td>
 <td>Localized tooltip to display on hover, if any.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#transform">Transform</a></td>
+<td><a href="../../view/#transform">Transform</a><br/><code>transform</code></td>
 <td>Local transformation to apply to this view, including any children and floating elements.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#transformorigin">TransformOrigin</a></td>
+<td><a href="../../view/#transformorigin">TransformOrigin</a><br/><code>transform-origin</code></td>
 <td>Relative origin position for any <a href="../../iview/#transform">Transform</a> on this view.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#visibility">Visibility</a></td>
+<td><a href="../../view/#visibility">Visibility</a><br/><code>visibility</code></td>
 <td>Visibility for this view.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../../view/#zindex">ZIndex</a></td>
+<td><a href="../../view/#zindex">ZIndex</a><br/><code>z-index</code></td>
 <td>Z order for this view within its direct parent. Higher indices draw later (on top).<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 </tbody>

@@ -1305,34 +1305,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../viewmenu-1/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ViewMenu&lt;T&gt;
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../viewmenu/" class="md-nav__link">
         
   
@@ -1995,6 +1967,84 @@
     
   
     Layout
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../modintegration/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modintegration
   
 
     
@@ -3571,6 +3621,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#setscrolloffsetnodirtyfloat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SetScrollOffsetNoDirty(float)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4404,6 +4465,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#setscrolloffsetnodirtyfloat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SetScrollOffsetNoDirty(float)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4633,6 +4705,10 @@ Assembly: StardewUI.dll  </p>
 <td>Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
+<td><a href="../../view/#hoveredsubject">HoveredSubject</a></td>
+<td>When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
 <td><a href="../../view/#innersize">InnerSize</a></td>
 <td>The size allocated to the entire area inside the border, i.e. <a href="../../view/#contentsize">ContentSize</a> plus any <a href="../../view/#padding">Padding</a>. Does not include border or <a href="../../view/#margin">Margin</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
@@ -4687,6 +4763,10 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../../view/#pointerstyle">PointerStyle</a></td>
 <td>Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../view/#screenread">ScreenRead</a></td>
+<td>When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
 <td><a href="#scrolloffset">ScrollOffset</a></td>
@@ -4890,6 +4970,10 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a></td>
 <td>Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Overrides <a href="../../view/">View</a>.<a href="../../view/#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a>)</span></td>
+</tr>
+<tr>
+<td><a href="#setscrolloffsetnodirtyfloat">SetScrollOffsetNoDirty(Single)</a></td>
+<td>Set <a href="./#scrolloffset">ScrollOffset</a> without marking it as dirty. Using this means <a href="./#scrollchanged">ScrollChanged</a> will not be raised.</td>
 </tr>
 <tr>
 <td><a href="../../view/#tostring">ToString()</a></td>
@@ -5156,10 +5240,17 @@ The total distance that was scrolled, including distance scrolled by descendants
 <h5 id="remarks_12">Remarks<a class="headerlink" href="#remarks_12" title="Permanent link"></a></h5>
 <p>The default implementation does no scrolling of its own, only passes the request down to the child and aborts if the child returns <code>true</code>. Scrollable views must override this to provide scrolling behavior.</p>
 <hr />
+<h4 id="setscrolloffsetnodirtyfloat">SetScrollOffsetNoDirty(float)<a class="headerlink" href="#setscrolloffsetnodirtyfloat" title="Permanent link"></a></h4>
+<p>Set <a href="./#scrolloffset">ScrollOffset</a> without marking it as dirty. Using this means <a href="./#scrollchanged">ScrollChanged</a> will not be raised.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SetScrollOffsetNoDirty</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">scrollOffsetValue</span><span class="p">);</span>
+</span></code></pre></div>
+<h5 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link"></a></h5>
+<p><strong><code>scrollOffsetValue</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a></p>
+<hr />
 <h3 id="events_1">Events<a class="headerlink" href="#events_1" title="Permanent link"></a></h3>
 <h4 id="scrollchanged">ScrollChanged<a class="headerlink" href="#scrollchanged" title="Permanent link"></a></h4>
 <p>Event raised when any aspect of the scrolling changes.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">public</span><span class="w"> </span><span class="k">event</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">EventHandler</span><span class="o">?</span><span class="w"> </span><span class="n">ScrollChanged</span><span class="p">;</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">public</span><span class="w"> </span><span class="k">event</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">EventHandler</span><span class="o">?</span><span class="w"> </span><span class="n">ScrollChanged</span><span class="p">;</span>
 </span></code></pre></div>
 <h5 id="event-type">Event Type<a class="headerlink" href="#event-type" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.eventhandler">EventHandler</a></p>

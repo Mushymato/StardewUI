@@ -1305,34 +1305,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../viewmenu-1/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ViewMenu&lt;T&gt;
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../viewmenu/" class="md-nav__link">
         
   
@@ -1995,6 +1967,84 @@
     
   
     Layout
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../modintegration/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modintegration
   
 
     
@@ -4364,6 +4414,10 @@
 <p><link rel="stylesheet" href="/StardewUI/stylesheets/reference.css" /></p>
 <div class="api-reference">
 <h1 id="class-slider">Class Slider<a class="headerlink" href="#class-slider" title="Permanent link"></a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Framework View</p>
+<p>The tag name of this view is <code>&lt;slider&gt;</code>.</p>
+</div>
 <h2 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link"></a></h2>
 <div class="api-definition">
 <p>Namespace: <a href="../">StardewUI.Widgets</a><br />
@@ -4401,123 +4455,131 @@ Assembly: StardewUI.dll  </p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../decoratorview-1/#actualbounds">ActualBounds</a></td>
+<td><a href="../decoratorview-1/#actualbounds">ActualBounds</a><br/><code>actual-bounds</code></td>
 <td>The bounds of this view relative to the origin (0, 0).<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#backgroundsprite">BackgroundSprite</a></td>
+<td><a href="#backgroundsprite">BackgroundSprite</a><br/><code>background-sprite</code></td>
 <td>Background or track sprite, if not using the default.</td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#cliporigin">ClipOrigin</a></td>
+<td><a href="../decoratorview-1/#cliporigin">ClipOrigin</a><br/><code>clip-origin</code></td>
 <td>Origin position for the <a href="../../iview/#clipsize">ClipSize</a>.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#clipsize">ClipSize</a></td>
+<td><a href="../decoratorview-1/#clipsize">ClipSize</a><br/><code>clip-size</code></td>
 <td>Size of the clipping rectangle, outside which content will not be displayed.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#contentbounds">ContentBounds</a></td>
+<td><a href="../decoratorview-1/#contentbounds">ContentBounds</a><br/><code>content-bounds</code></td>
 <td>The true bounds of this view's content; i.e. <a href="../../iview/#actualbounds">ActualBounds</a> excluding margins.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#floatingbounds">FloatingBounds</a></td>
+<td><a href="../decoratorview-1/#floatingbounds">FloatingBounds</a><br/><code>floating-bounds</code></td>
 <td>Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#interval">Interval</a></td>
+<td><a href="../decoratorview-1/#hoveredsubject">HoveredSubject</a><br/><code>hovered-subject</code></td>
+<td>When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="#interval">Interval</a><br/><code>interval</code></td>
 <td>The interval of which <a href="./#value">Value</a> should be a multiple. Affects which values will be hit while dragging.</td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#isfocusable">IsFocusable</a></td>
+<td><a href="../decoratorview-1/#isfocusable">IsFocusable</a><br/><code>is-focusable</code></td>
 <td>Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#layout">Layout</a></td>
+<td><a href="../decoratorview-1/#layout">Layout</a><br/><code>layout</code></td>
 <td>The current layout parameters, which determine how <a href="../../iview/#measurevector2">Measure(Vector2)</a> will behave.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#max">Max</a></td>
+<td><a href="#max">Max</a><br/><code>max</code></td>
 <td>The maximum value allowed for <a href="./#value">Value</a>.</td>
 </tr>
 <tr>
-<td><a href="#min">Min</a></td>
+<td><a href="#min">Min</a><br/><code>min</code></td>
 <td>The minimum value allowed for <a href="./#value">Value</a>.</td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#name">Name</a></td>
+<td><a href="../decoratorview-1/#name">Name</a><br/><code>name</code></td>
 <td>Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#opacity">Opacity</a></td>
+<td><a href="../decoratorview-1/#opacity">Opacity</a><br/><code>opacity</code></td>
 <td>Opacity (alpha level) of the view.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#outersize">OuterSize</a></td>
+<td><a href="../decoratorview-1/#outersize">OuterSize</a><br/><code>outer-size</code></td>
 <td>The true computed layout size resulting from a single <a href="../../iview/#measurevector2">Measure(Vector2)</a> pass.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#pointereventsenabled">PointerEventsEnabled</a></td>
+<td><a href="../decoratorview-1/#pointereventsenabled">PointerEventsEnabled</a><br/><code>pointer-events-enabled</code></td>
 <td>Whether this view should receive pointer events like <a href="../../iview/#click">Click</a> or <a href="../../iview/#drag">Drag</a>.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#pointerstyle">PointerStyle</a></td>
+<td><a href="../decoratorview-1/#pointerstyle">PointerStyle</a><br/><code>pointer-style</code></td>
 <td>Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#scrollwithchildren">ScrollWithChildren</a></td>
+<td><a href="../decoratorview-1/#screenread">ScreenRead</a><br/><code>screen-read</code></td>
+<td>When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../decoratorview-1/#scrollwithchildren">ScrollWithChildren</a><br/><code>scroll-with-children</code></td>
 <td>If set to an axis, specifies that when any child of the view is scrolled into view (using <a href="../../iview/#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a>), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#tags">Tags</a></td>
+<td><a href="../decoratorview-1/#tags">Tags</a><br/><code>tags</code></td>
 <td>The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#thumbsize">ThumbSize</a></td>
+<td><a href="#thumbsize">ThumbSize</a><br/><code>thumb-size</code></td>
 <td>Override for the thumb/button size, recommended when using a custom <a href="./#thumbsprite">ThumbSprite</a>.</td>
 </tr>
 <tr>
-<td><a href="#thumbsprite">ThumbSprite</a></td>
+<td><a href="#thumbsprite">ThumbSprite</a><br/><code>thumb-sprite</code></td>
 <td>Sprite for the thumb/button, if not using the default.</td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#tooltip">Tooltip</a></td>
+<td><a href="../decoratorview-1/#tooltip">Tooltip</a><br/><code>tooltip</code></td>
 <td>Tooltip data to display on hover, if any.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#trackwidth">TrackWidth</a></td>
+<td><a href="#trackwidth">TrackWidth</a><br/><code>track-width</code></td>
 <td>Width of the track bar.</td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#transform">Transform</a></td>
+<td><a href="../decoratorview-1/#transform">Transform</a><br/><code>transform</code></td>
 <td>Local transformation to apply to this view, including any children and floating elements.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#transformorigin">TransformOrigin</a></td>
+<td><a href="../decoratorview-1/#transformorigin">TransformOrigin</a><br/><code>transform-origin</code></td>
 <td>Relative origin position for any <a href="../../iview/#transform">Transform</a> on this view.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#value">Value</a></td>
+<td><a href="#value">Value</a><br/><code>value</code></td>
 <td>The current value.</td>
 </tr>
 <tr>
-<td><a href="#valuecolor">ValueColor</a></td>
+<td><a href="#valuecolor">ValueColor</a><br/><code>value-color</code></td>
 <td>Color of the value text to render, if overriding the default text color.</td>
 </tr>
 <tr>
-<td><a href="#valueformat">ValueFormat</a></td>
+<td><a href="#valueformat">ValueFormat</a><br/><code>value-format</code></td>
 <td>Specifies how to format the <a href="./#value">Value</a> in the label text.</td>
 </tr>
 <tr>
-<td><a href="../componentview-1/#view">View</a></td>
+<td><a href="../componentview-1/#view">View</a><br/><code>view</code></td>
 <td><span class="muted" markdown>(Inherited from <a href="../componentview-1/">ComponentView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#visibility">Visibility</a></td>
+<td><a href="../decoratorview-1/#visibility">Visibility</a><br/><code>visibility</code></td>
 <td>Drawing visibility for this view.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="../decoratorview-1/#zindex">ZIndex</a></td>
+<td><a href="../decoratorview-1/#zindex">ZIndex</a><br/><code>z-index</code></td>
 <td>Z order for this view within its direct parent. Higher indices draw later (on top).<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 </tbody>

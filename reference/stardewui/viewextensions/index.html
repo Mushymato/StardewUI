@@ -16,7 +16,7 @@
         <link rel="prev" href="../viewchild/">
       
       
-        <link rel="next" href="../viewmenu-1/">
+        <link rel="next" href="../viewmenu/">
       
       
         
@@ -1466,6 +1466,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#viewpathequalsviewchild-viewchild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ViewPathEquals(ViewChild, ViewChild)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#zorderienumerableviewchild-bool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1501,34 +1512,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../viewmenu-1/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ViewMenu&lt;T&gt;
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2243,6 +2226,84 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../modintegration/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modintegration
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2676,6 +2737,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#viewpathequalsviewchild-viewchild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ViewPathEquals(ViewChild, ViewChild)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#zorderienumerableviewchild-bool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2832,6 +2904,10 @@ Assembly: StardewUI.dll  </p>
 <td>Converts a view path in parent-relative coordinates (e.g. from <a href="./#getpathtopositioniview-vector2-bool-bool">GetPathToPosition(IView, Vector2, Boolean, Boolean)</a> and transforms each element to have an absolute <a href="../viewchild/#position">Position</a>.</td>
 </tr>
 <tr>
+<td><a href="#viewpathequalsviewchild-viewchild">ViewPathEquals(ViewChild, ViewChild)</a></td>
+<td>Assert that 2 arrays of <a href="../viewchild/">ViewChild</a> are the same path</td>
+</tr>
+<tr>
 <td><a href="#zorderienumerableviewchild-bool">ZOrder(IEnumerable&lt;ViewChild&gt;, Boolean)</a></td>
 <td>Sorts a sequence of children in ascending z-order.</td>
 </tr>
@@ -2923,24 +2999,22 @@ The path from root down to leaf view.</p>
 <h5 id="remarks_1">Remarks<a class="headerlink" href="#remarks_1" title="Permanent link"></a></h5>
 <p>Since <a href="../viewchild/">ViewChild</a> does not specify whether the position is local (parent) or global (absolute), it is not possible to validate the incoming sequence and prevent a "double transformation". Callers are responsible for knowing whether or not the input sequence is local or global.</p>
 <hr />
-<h4 id="zorderienumerableviewchild-bool">ZOrder(IEnumerable&lt;ViewChild&gt;, bool)<a class="headerlink" href="#zorderienumerableviewchild-bool" title="Permanent link"></a></h4>
-<p>Sorts a sequence of children in ascending z-order.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ZOrder</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">children</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">focusPriority</span><span class="p">);</span>
+<h4 id="viewpathequalsviewchild-viewchild">ViewPathEquals(ViewChild, ViewChild)<a class="headerlink" href="#viewpathequalsviewchild-viewchild" title="Permanent link"></a></h4>
+<p>Assert that 2 arrays of <a href="../viewchild/">ViewChild</a> are the same path</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ViewPathEquals</span><span class="p">(</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="w"> </span><span class="n">pathA</span><span class="p">,</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="w"> </span><span class="n">pathB</span><span class="p">);</span>
 </span></code></pre></div>
 <h5 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link"></a></h5>
-<p><strong><code>children</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a href="../viewchild/">ViewChild</a>&gt;<br />
-The view children.</p>
-<p><strong><code>focusPriority</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a><br />
-<code>true</code> to sort focusable children first regardless of z-index; <code>false</code> to ignore <a href="../iview/#isfocusable">IsFocusable</a>.</p>
+<p><strong><code>pathA</code></strong> &nbsp; <a href="../viewchild/">ViewChild</a><br />
+This view path</p>
+<p><strong><code>pathB</code></strong> &nbsp; <a href="../viewchild/">ViewChild</a><br />
+The other view path to compare</p>
 <h5 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link"></a></h5>
-<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a href="../viewchild/">ViewChild</a>&gt;</p>
-<p>The <code>children</code> ordered by the view's <a href="../iview/#zindex">ZIndex</a> and original sequence order.</p>
-<h5 id="remarks_2">Remarks<a class="headerlink" href="#remarks_2" title="Permanent link"></a></h5>
-<p>Order is preserved between views with the same <a href="../iview/#zindex">ZIndex</a>, so the resulting sequence will have a primary order of z-index (lower indices first) and a secondary order of original sequence position. This is the correct order for drawing views.</p>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></p>
+<p>Equality</p>
 <hr />
-<h4 id="zorderdescendingienumerableviewchild-bool">ZOrderDescending(IEnumerable&lt;ViewChild&gt;, bool)<a class="headerlink" href="#zorderdescendingienumerableviewchild-bool" title="Permanent link"></a></h4>
-<p>Sorts a sequence of children in descending z-order.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ZOrderDescending</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">children</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">focusPriority</span><span class="p">);</span>
+<h4 id="zorderienumerableviewchild-bool">ZOrder(IEnumerable&lt;ViewChild&gt;, bool)<a class="headerlink" href="#zorderienumerableviewchild-bool" title="Permanent link"></a></h4>
+<p>Sorts a sequence of children in ascending z-order.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ZOrder</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">children</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">focusPriority</span><span class="p">);</span>
 </span></code></pre></div>
 <h5 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link"></a></h5>
 <p><strong><code>children</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a href="../viewchild/">ViewChild</a>&gt;<br />
@@ -2948,6 +3022,21 @@ The view children.</p>
 <p><strong><code>focusPriority</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a><br />
 <code>true</code> to sort focusable children first regardless of z-index; <code>false</code> to ignore <a href="../iview/#isfocusable">IsFocusable</a>.</p>
 <h5 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a href="../viewchild/">ViewChild</a>&gt;</p>
+<p>The <code>children</code> ordered by the view's <a href="../iview/#zindex">ZIndex</a> and original sequence order.</p>
+<h5 id="remarks_2">Remarks<a class="headerlink" href="#remarks_2" title="Permanent link"></a></h5>
+<p>Order is preserved between views with the same <a href="../iview/#zindex">ZIndex</a>, so the resulting sequence will have a primary order of z-index (lower indices first) and a secondary order of original sequence position. This is the correct order for drawing views.</p>
+<hr />
+<h4 id="zorderdescendingienumerableviewchild-bool">ZOrderDescending(IEnumerable&lt;ViewChild&gt;, bool)<a class="headerlink" href="#zorderdescendingienumerableviewchild-bool" title="Permanent link"></a></h4>
+<p>Sorts a sequence of children in descending z-order.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ZOrderDescending</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="o">&gt;</span><span class="w"> </span><span class="n">children</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">focusPriority</span><span class="p">);</span>
+</span></code></pre></div>
+<h5 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link"></a></h5>
+<p><strong><code>children</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a href="../viewchild/">ViewChild</a>&gt;<br />
+The view children.</p>
+<p><strong><code>focusPriority</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a><br />
+<code>true</code> to sort focusable children first regardless of z-index; <code>false</code> to ignore <a href="../iview/#isfocusable">IsFocusable</a>.</p>
+<h5 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a href="../viewchild/">ViewChild</a>&gt;</p>
 <h5 id="remarks_3">Remarks<a class="headerlink" href="#remarks_3" title="Permanent link"></a></h5>
 <p>The resulting sequence will have an order such that views with higher <a href="../iview/#zindex">ZIndex</a> appear first, and views with the same z-index will appear in the <em>reverse</em> order of the original sequence. This is the correct order for handling cursor events and any other actions that need to operate on the "topmost" view first.</p>
@@ -3002,13 +3091,13 @@ The view children.</p>
         
         
           
-          <a href="../viewmenu-1/" class="md-footer__link md-footer__link--next" aria-label="Next: ViewMenu&amp;lt;T&amp;gt;">
+          <a href="../viewmenu/" class="md-footer__link md-footer__link--next" aria-label="Next: ViewMenu">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                ViewMenu&lt;T&gt;
+                ViewMenu
               </div>
             </div>
             <div class="md-footer__button md-icon">

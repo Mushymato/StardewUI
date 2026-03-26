@@ -1224,7 +1224,7 @@
 
 <h1 id="overlays">Overlays<a class="headerlink" href="#overlays" title="Permanent link"></a></h1>
 <p>An overlay is some piece of UI—most often a <a href="../custom-views/#reusable-widgets">component view</a>—that renders on top of other UI.</p>
-<p>What makes overlays distinct from overlapping layout views like <a href="../standard-views/#panel">panels</a> is that overlays "break out" of the layout of their parent <a href="../../reference/stardewui/viewmenu-1/">ViewMenu</a> and any views inside it. They can choose to display adjacent to some other view, such as the item list in an open <a href="../standard-views/#drop-down-list">drop-down list</a>, or act like a full-screen submenu, such as the overlay used for <a href="../standard-views/#keybind-editor">key bindings</a>.</p>
+<p>What makes overlays distinct from overlapping layout views like <a href="../standard-views/#panel">panels</a> is that overlays "break out" of the layout of their parent <a href="../../reference/stardewui/viewmenu/">ViewMenu</a> and any views inside it. They can choose to display adjacent to some other view, such as the item list in an open <a href="../standard-views/#drop-down-list">drop-down list</a>, or act like a full-screen submenu, such as the overlay used for <a href="../standard-views/#keybind-editor">key bindings</a>.</p>
 <p>While this is achievable to some degree with <code>IClickableMenu.SetChildMenu</code> in vanilla Stardew Valley code, UI overlays have a number of advantages:</p>
 <ul>
 <li>They are much more lightweight in terms of both implementation and performance, requiring nothing more than an <code>IView</code>, and hooking into the event loop of whichever <code>ViewMenu</code> spawned it.</li>
