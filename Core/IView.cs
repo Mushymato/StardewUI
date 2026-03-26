@@ -277,12 +277,14 @@ public interface IView : IDisposable, INotifyPropertyChanged
     /// <summary>
     /// When Lookup Anything (Pathoschild.LookupAnything) is loaded,
     /// this <see cref="SObject"/> or <see cref="NPC"/> subject is given to lookup anything for it's menu.
+    /// <c>(unofficial-mushymato)</c>
     /// </summary>
     LookupAnythingHoveredSubject? HoveredSubject { get; set; }
 
     /// <summary>
     /// When a screen reader mod (shoaib.stardewaccess) is loaded,
     /// this element will be announced by the screen reader using this value.
+    /// <c>(unofficial-mushymato)</c>
     /// </summary>
     ScreenReadableData? ScreenRead { get; set; }
     #endregion

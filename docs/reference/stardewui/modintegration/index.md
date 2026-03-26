@@ -19,8 +19,6 @@ search:
 | [LookupAnythingHoveredSubject](lookupanythinghoveredsubject.md) | The lookup anything hovered subject to supply to [ViewMenu](../viewmenu.md) |
 | [LookupAnythingIntegration](lookupanythingintegration.md) | Manages lookup anything integration |
 | [ScreenReadableData](screenreadabledata.md) | A screen readable bit of text. Although IScreenReadable is a vanilla interface, it does nothing by itself and will be used with screen reader mods. |
-| [ScreenReadableInterfaceConverter](screenreadableinterfaceconverter.md) | Converts a general IScreenReadable to [ScreenReadableData](screenreadabledata.md) |
-| [ScreenReadableStringConverter](screenreadablestringconverter.md) | Converts a string to [ScreenReadableData](screenreadabledata.md) |
 | [StardewAccessIntegration](stardewaccessintegration.md) | Manages Stardew Access (shoaib.stardewaccess) integration |
 
 ## Interfaces

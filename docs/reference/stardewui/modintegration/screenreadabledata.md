@@ -23,6 +23,7 @@ Assembly: StardewUI.dll
 A screen readable bit of text. Although IScreenReadable is a vanilla interface, it does nothing by itself and will be used with screen reader mods.
 
 ```cs
+[StardewUI.DuckType]
 public class ScreenReadableData : StardewValley.Menus.IScreenReadable
 ```
 
@@ -38,58 +39,47 @@ IScreenReadable
 
  | Name | Description |
 | --- | --- |
-| [ScreenReadableData(Int32)](#screenreadabledataint) | A screen readable bit of text. Although IScreenReadable is a vanilla interface, it does nothing by itself and will be used with screen reader mods. | 
-
-### Fields
-
- | Name | Description |
-| --- | --- |
-| [Precedence](#precedence) | Marks this as an automatically set screen readable data, as opposed to one created and set by attribute bindings. Automatic screen readable data cannot override non-automatic. | 
+| [ScreenReadableData()](#screenreadabledata) | A screen readable bit of text. Although IScreenReadable is a vanilla interface, it does nothing by itself and will be used with screen reader mods. | 
 
 ### Properties
 
  | Name | Description |
 | --- | --- |
+| [Precedence](#precedence) | How prioritized this screen reader element is. The lowest precedence element will be read, even if the hover path has more specific elements. Custom screen read fields should use negative values. while screen read fields set by the View should have value 0 or greater. | 
 | [ScreenReaderDescription](#screenreaderdescription) | If set, a translated tooltip-like description for this component which can be displayed by screen readers, in addition to the ScreenReaderText. | 
 | [ScreenReaderIgnore](#screenreaderignore) | Whether this is a purely visual component which should be ignored by screen readers. | 
 | [ScreenReaderText](#screenreadertext) | If set, the translated text which represents this component for a screen reader. This may be the displayed text (for a text component), or an equivalent representation (e.g. "exit" for an 'X' button). | 
+| [ScreenReaderTextDelegate](#screenreadertextdelegate) | A delegate used to modify | 
 
 ## Details
 
 ### Constructors
 
-#### ScreenReadableData(int)
+#### ScreenReadableData()
 
 A screen readable bit of text. Although IScreenReadable is a vanilla interface, it does nothing by itself and will be used with screen reader mods.
 
 ```cs
-public ScreenReadableData(int precedence);
+public ScreenReadableData();
 ```
-
-##### Parameters
-
-**`precedence`** &nbsp; [Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)  
-How prioritized this screen reader element is. Custom screen read fields should use negative values while screen read fields set by the View should have value 0 or greater
-
------
-
-### Fields
-
-#### Precedence
-
-Marks this as an automatically set screen readable data, as opposed to one created and set by attribute bindings. Automatic screen readable data cannot override non-automatic.
-
-```cs
-public readonly int Precedence;
-```
-
-##### Field Value
-
-[Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)
 
 -----
 
 ### Properties
+
+#### Precedence
+
+How prioritized this screen reader element is. The lowest precedence element will be read, even if the hover path has more specific elements. Custom screen read fields should use negative values. while screen read fields set by the View should have value 0 or greater.
+
+```cs
+public int Precedence { get; set; }
+```
+
+##### Property Value
+
+[Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)
+
+-----
 
 #### ScreenReaderDescription
 
@@ -110,7 +100,7 @@ public string ScreenReaderDescription { get; set; }
 Whether this is a purely visual component which should be ignored by screen readers.
 
 ```cs
-public bool ScreenReaderIgnore { get; }
+public bool ScreenReaderIgnore { get; set; }
 ```
 
 ##### Property Value
@@ -130,6 +120,20 @@ public string ScreenReaderText { get; set; }
 ##### Property Value
 
 [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
+#### ScreenReaderTextDelegate
+
+A delegate used to modify
+
+```cs
+public Func<string, string> ScreenReaderTextDelegate { get; set; }
+```
+
+##### Property Value
+
+[Func](https://learn.microsoft.com/en-us/dotnet/api/system.func-2)<[string](https://learn.microsoft.com/en-us/dotnet/api/system.string), [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)>
 
 -----
 

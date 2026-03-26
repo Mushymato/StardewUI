@@ -60,7 +60,7 @@ Use of this class isn't required, but provides some useful behaviors so that vie
 | [FloatingElements](#floatingelements) | The floating elements to display relative to this view. | 
 | [Focusable](#focusable) | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children. | 
 | [HandlesOpacity](#handlesopacity) | Whether the specific view type handles its own opacity. | 
-| [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. | 
+| [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)` | 
 | [InnerSize](#innersize) | The size allocated to the entire area inside the border, i.e. [ContentSize](view.md#contentsize) plus any [Padding](view.md#padding). Does not include border or [Margin](view.md#margin). | 
 | [IsFocusable](#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls. | 
 | [LastAvailableSize](#lastavailablesize) | The most recent size used in a [Measure(Vector2)](view.md#measurevector2) pass. Used for additional dirty checks. | 
@@ -73,7 +73,7 @@ Use of this class isn't required, but provides some useful behaviors so that vie
 | [Padding](#padding) | Padding (whitespace inside border) for this view. | 
 | [PointerEventsEnabled](#pointereventsenabled) | Whether this view should receive pointer events like [Click](view.md#click) or [Drag](view.md#drag). | 
 | [PointerStyle](#pointerstyle) | Pointer style to use when this view is hovered. | 
-| [ScreenRead](#screenread) | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. | 
+| [ScreenRead](#screenread) | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. `(unofficial-mushymato)` | 
 | [ScrollWithChildren](#scrollwithchildren) | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](view.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it. | 
 | [Tags](#tags) | The user-defined tags for this view. | 
 | [Tooltip](#tooltip) | Localized tooltip to display on hover, if any. | 
@@ -346,7 +346,7 @@ Subclasses can override this to provide their own, typically better optimized ve
 
 #### HoveredSubject
 
-When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu.
+When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`
 
 ```cs
 public StardewUI.ModIntegration.LookupAnythingHoveredSubject HoveredSubject { get; set; }
@@ -550,7 +550,7 @@ As with [Tooltip](iview.md#tooltip), the lowest-level view takes precedence over
 
 #### ScreenRead
 
-When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value.
+When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. `(unofficial-mushymato)`
 
 ```cs
 public StardewUI.ModIntegration.ScreenReadableData ScreenRead { get; set; }

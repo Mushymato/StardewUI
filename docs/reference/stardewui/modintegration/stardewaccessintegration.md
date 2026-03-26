@@ -36,9 +36,10 @@ public static class StardewAccessIntegration
  | Name | Description |
 | --- | --- |
 | [Initialize(IModHelper)](#initializeimodhelper) | Initialize lookup anything integration | 
-| [MakeScreenRead(string, Int32)](#makescreenreadstring-int) | Construct a [ScreenReadableData](screenreadabledata.md), mark as automatic | 
-| [MakeScreenReadTranslated(string, Object, Int32)](#makescreenreadtranslatedstring-object-int) | Construct a [ScreenReadableData](screenreadabledata.md) using translated text from Stardew Access | 
+| [MakeScreenReadDelegated(Func&lt;string, string&gt;)](#makescreenreaddelegatedfuncstring-string) | Make a [ScreenReadableData](screenreadabledata.md) with a particular text delegate. | 
+| [MakeScreenReadTranslated(string, Func&lt;string, Object&gt;)](#makescreenreadtranslatedstring-funcstring-object) | Make a [ScreenReadableData](screenreadabledata.md) using translated text from Stardew Access | 
 | [SayHoveredMenuElement(ViewChild)](#sayhoveredmenuelementviewchild) | Say the currently hovered menu element using [SayMenuElement(IScreenReadable, Boolean)](istardewaccessapi.md#saymenuelementiscreenreadable-bool) | 
+| [TrySetScreenReadText(ScreenReadableData, string, Int32)](#trysetscreenreadtextscreenreadabledata-string-int) | Set the [ScreenReaderText](screenreadabledata.md#screenreadertext) on a [ScreenReadableData](screenreadabledata.md) to the new text. Creating the [ScreenReadableData](screenreadabledata.md) if needed. | 
 
 ## Details
 
@@ -58,21 +59,18 @@ public static void Initialize(StardewModdingAPI.IModHelper helper);
 
 -----
 
-#### MakeScreenRead(string, int)
+#### MakeScreenReadDelegated(Func&lt;string, string&gt;)
 
-Construct a [ScreenReadableData](screenreadabledata.md), mark as automatic
+Make a [ScreenReadableData](screenreadabledata.md) with a particular text delegate.
 
 ```cs
-public static StardewUI.ModIntegration.ScreenReadableData MakeScreenRead(string text, int precedence);
+public static StardewUI.ModIntegration.ScreenReadableData MakeScreenReadDelegated(Func<string, string> textDelegate);
 ```
 
 ##### Parameters
 
-**`text`** &nbsp; [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)  
-Screen read text
-
-**`precedence`** &nbsp; [Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)  
-Precedence value
+**`textDelegate`** &nbsp; [Func](https://learn.microsoft.com/en-us/dotnet/api/system.func-2)<[string](https://learn.microsoft.com/en-us/dotnet/api/system.string), [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)>  
+Text delegate used to modify the inner text
 
 ##### Returns
 
@@ -80,12 +78,12 @@ Precedence value
 
 -----
 
-#### MakeScreenReadTranslated(string, Object, int)
+#### MakeScreenReadTranslated(string, Func&lt;string, Object&gt;)
 
-Construct a [ScreenReadableData](screenreadabledata.md) using translated text from Stardew Access
+Make a [ScreenReadableData](screenreadabledata.md) using translated text from Stardew Access
 
 ```cs
-public static StardewUI.ModIntegration.ScreenReadableData MakeScreenReadTranslated(string translationKey, System.Object tokens, int precedence);
+public static StardewUI.ModIntegration.ScreenReadableData MakeScreenReadTranslated(string translationKey, Func<string, System.Object> getTokens);
 ```
 
 ##### Parameters
@@ -93,11 +91,8 @@ public static StardewUI.ModIntegration.ScreenReadableData MakeScreenReadTranslat
 **`translationKey`** &nbsp; [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)  
 Stardew Access translation key
 
-**`tokens`** &nbsp; [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)  
-Stardew Access translation tokens
-
-**`precedence`** &nbsp; [Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)  
-Precedence value
+**`getTokens`** &nbsp; [Func](https://learn.microsoft.com/en-us/dotnet/api/system.func-2)<[string](https://learn.microsoft.com/en-us/dotnet/api/system.string), [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object)>  
+Delegate that takes a string and returns translation tokens
 
 ##### Returns
 
@@ -117,6 +112,31 @@ public static void SayHoveredMenuElement(StardewUI.ViewChild path);
 
 **`path`** &nbsp; [ViewChild](../viewchild.md)  
 Sequence of all elements, and their relative positions, that the mouse coordinates are currently within.
+
+-----
+
+#### TrySetScreenReadText(ScreenReadableData, string, int)
+
+Set the [ScreenReaderText](screenreadabledata.md#screenreadertext) on a [ScreenReadableData](screenreadabledata.md) to the new text. Creating the [ScreenReadableData](screenreadabledata.md) if needed.
+
+```cs
+public static StardewUI.ModIntegration.ScreenReadableData TrySetScreenReadText(StardewUI.ModIntegration.ScreenReadableData existing, string text, int precedence);
+```
+
+##### Parameters
+
+**`existing`** &nbsp; [ScreenReadableData](screenreadabledata.md)  
+Pre-existing instance
+
+**`text`** &nbsp; [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)  
+Screen read text
+
+**`precedence`** &nbsp; [Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)  
+Precedence value
+
+##### Returns
+
+[ScreenReadableData](screenreadabledata.md)
 
 -----
 
