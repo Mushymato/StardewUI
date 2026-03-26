@@ -354,24 +354,22 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
         justPushedOverlay = false;
 
-        if (IsTopmost() && TooltipsEnabled)
+        if (IsTopmost() && TooltipsEnabled && tooltipView?.Tooltip is not null)
         {
-            if (tooltip is not null)
-            {
-                string? extraItemToShowIndex = TooltipData.ValidateItemId(tooltip.RequiredItemId);
-                drawToolTip(
-                    b,
-                    tooltip.Text,
-                    tooltip.Title ?? "",
-                    tooltip.Item,
-                    moneyAmountToShowAtBottom: tooltip.CurrencyAmount ?? -1,
-                    currencySymbol: tooltip.CurrencySymbol,
-                    extraItemToShowIndex: extraItemToShowIndex,
-                    extraItemToShowAmount: tooltip.RequiredItemAmount,
-                    craftingIngredients: tooltip.CraftingRecipe,
-                    additionalCraftMaterials: tooltip.AdditionalCraftingMaterials
-                );
-            }
+            TooltipData tooltip = tooltipView.Tooltip.ConstrainTextWidth(640);
+            string? extraItemToShowIndex = TooltipData.ValidateItemId(tooltip.RequiredItemId);
+            drawToolTip(
+                b,
+                tooltip.Text,
+                tooltip.Title ?? "",
+                tooltip.Item,
+                moneyAmountToShowAtBottom: tooltip.CurrencyAmount ?? -1,
+                currencySymbol: tooltip.CurrencySymbol,
+                extraItemToShowIndex: extraItemToShowIndex,
+                extraItemToShowAmount: tooltip.RequiredItemAmount,
+                craftingIngredients: tooltip.CraftingRecipe,
+                additionalCraftMaterials: tooltip.AdditionalCraftingMaterials
+            );
         }
 
         Game1.mouseCursorTransparency = 1.0f;
@@ -805,8 +803,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
     }
 
-    /// <summary>Current tooltip data, updated by <see cref="RebuildTooltip"/></summary>
-    protected TooltipData? tooltip = null;
+    /// <summary>The view which holds the current tooltip, updated by <see cref="UpdateTooltipView"/></summary>
+    protected IView? tooltipView = null;
 
     /// <summary>
     /// Builds/formats a tooltip given the sequence of views from root to the lowest-level hovered child.
@@ -818,9 +816,9 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     /// </remarks>
     /// <param name="path">Sequence of all elements, and their relative positions, that the mouse coordinates are
     /// currently within.</param>
-    protected virtual void RebuildTooltip(IEnumerable<ViewChild> path)
+    protected virtual void UpdateTooltipView(IEnumerable<ViewChild> path)
     {
-        tooltip = path.LastOrDefault(x => x.View.Tooltip != null)?.View.Tooltip?.ConstrainTextWidth(640);
+        tooltipView = path.LastOrDefault(x => x.View.Tooltip != null)?.View;
     }
 
     /// <summary>
@@ -1240,7 +1238,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         if (!hoverPath.ViewPathEquals(previousHoverPath))
             LookupAnythingIntegration.SetSubject(hoverPath);
         if (!hoverPath.ViewPathEquals(previousHoverPath))
-            RebuildTooltip(hoverPath);
+            UpdateTooltipView(hoverPath);
         StardewAccessIntegration.SayHoveredMenuElement(hoverPath);
 
         previousHoverPosition = mousePosition;
