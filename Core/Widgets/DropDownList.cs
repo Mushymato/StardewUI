@@ -282,7 +282,10 @@ public partial class DropDownList<T> : ComponentView
         };
         var lane = new Lane() { Layout = LayoutParameters.FitContent(), Children = [selectionFrame, dropdownButton] };
         lane.LeftClick += Lane_LeftClick;
-        UpdateScreenRead();
+        lane.ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated(
+            "options_element-dropdown_info",
+            GetScreenReadTokens
+        );
         return lane;
     }
 
@@ -390,17 +393,16 @@ public partial class DropDownList<T> : ComponentView
     private void UpdateSelectedOption()
     {
         selectedOptionLabel.Text = SelectedOption is not null ? optionFormat(SelectedOption) : "";
-        UpdateScreenRead();
         OnPropertyChanged(nameof(SelectedOptionText));
     }
 
-    private void UpdateScreenRead()
+    private object? GetScreenReadTokens(string text)
     {
-        dropdownButton.ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-dropdown_info", new
+        return new
         {
-            label = string.Empty,
+            label = text,
             selected_option = selectedOptionLabel.Text
-        });
+        };
     }
 
     class DropDownOptionView(T value, string text) : ComponentView<Frame>

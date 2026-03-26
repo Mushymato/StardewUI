@@ -63,7 +63,7 @@ public partial class Banner : View
         {
             if (text.SetIfChanged(value))
             {
-                ScreenRead = StardewAccessIntegration.MakeScreenRead(text.Value);
+                ScreenRead = StardewAccessIntegration.TrySetScreenReadText(ScreenRead, value, 1);
                 OnPropertyChanged(nameof(Text));
             }
         }

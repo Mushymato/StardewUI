@@ -5,6 +5,7 @@ using StardewModdingAPI.Utilities;
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
+using StardewUI.ModIntegration;
 using StardewUI.Overlays;
 using StardewValley;
 
@@ -291,6 +292,7 @@ public partial class KeybindListEditor : ComponentView
                 BackgroundTint = Color.Transparent,
                 Content = content,
             },
+            ScreenRead = content.ScreenRead
         };
     }
 
@@ -370,10 +372,9 @@ public partial class KeybindListEditor : ComponentView
                         },
                         index > 0 ? new Edges(Left: 16) : null
                     )
-            )
-            .Cast<IView>()
-            .ToList();
-        rootLane.Children = keybindViews.Count > 0 ? keybindViews : [CreateEmptyLabel()];
+            );
+        rootLane.Children = keybindViews.Any() ? keybindViews.Cast<IView>().ToList() : [CreateEmptyLabel()];
+        rootLane.ScreenRead = rootLane.Children[0].ScreenRead;
     }
 
     private void UpdateEmptyText(Color color)

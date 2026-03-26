@@ -155,7 +155,6 @@ public partial class Slider : ComponentView
             this.value = clamped;
             UpdatePosition();
             UpdateValueLabel();
-            UpdateScreenRead();
             ValueChange?.Invoke(this, EventArgs.Empty);
             OnPropertyChanged(nameof(Value));
         }
@@ -190,7 +189,6 @@ public partial class Slider : ComponentView
             {
                 valueFormat = value;
                 UpdateValueLabel();
-                UpdateScreenRead();
                 OnPropertyChanged(nameof(ValueFormat));
             }
         }
@@ -253,12 +251,16 @@ public partial class Slider : ComponentView
         valueLabel = Label.Simple("");
         valueLabel.Margin = new(Left: 8);
         UpdateValueLabel();
-        UpdateScreenRead();
+
         return new Lane()
         {
             Layout = LayoutParameters.FitContent(),
             VerticalContentAlignment = Alignment.Middle,
             Children = [sliderPanel, valueLabel],
+            ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated(
+                "options_element-slider_info",
+                GetScreenReadTokens
+            )
         };
     }
 
@@ -394,13 +396,8 @@ public partial class Slider : ComponentView
         valueLabel.Text = ValueFormat(Value);
     }
 
-    private void UpdateScreenRead()
+    private object? GetScreenReadTokens(string text)
     {
-        thumbImage.ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-slider_info", new
-        {
-            label = valueLabel?.Text ?? string.Empty,
-            slider_value = Value,
-            is_percentage = 0
-        });
+        return new { label = text, slider_value = value, is_percentage = 0 };
     }
 }

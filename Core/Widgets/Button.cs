@@ -165,14 +165,14 @@ public partial class Button : ComponentView<View>
                 if ((value ?? "") != label.Text)
                 {
                     label.Text = value ?? "";
-                    UpdateScreenRead();
+                    UpdateScreenRead(label.Text);
                     OnPropertyChanged(nameof(Text));
                 }
             }
             else if (value is not null)
             {
                 contentFrame.Content = Label.Simple(value, font);
-                UpdateScreenRead();
+                UpdateScreenRead(value);
                 OnPropertyChanged(nameof(Text));
             }
         }
@@ -217,7 +217,10 @@ public partial class Button : ComponentView<View>
         };
         contentPanel.PointerEnter += Panel_PointerEnter;
         contentPanel.PointerLeave += Panel_PointerLeave;
-        UpdateScreenRead();
+        contentPanel.ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated(
+            "options_element-button_info",
+            static (text) => new { label = text }
+        );
         return contentPanel;
     }
 
@@ -251,11 +254,9 @@ public partial class Button : ComponentView<View>
         backgroundImage.Tint = hover.Value ? HoverBackgroundTint : DefaultBackgroundTint;
     }
 
-    private void UpdateScreenRead()
+    private void UpdateScreenRead(string text)
     {
-        contentPanel.ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-button_info", new
-        {
-            label = Text ?? string.Empty,
-        });
+        if (contentPanel.ScreenRead != null && contentPanel.ScreenRead.Precedence >= 0)
+            contentPanel.ScreenRead.ScreenReaderText = text;
     }
 }

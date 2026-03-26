@@ -47,7 +47,7 @@ public partial class CheckBox : ComponentView<Lane>
             }
             isChecked = value;
             UpdateCheckImage();
-            UpdateScreenRead();
+            ScreenRead?.ScreenReaderText = label.Text;
             Change?.Invoke(this, EventArgs.Empty);
             OnPropertyChanged(nameof(IsChecked));
         }
@@ -146,7 +146,10 @@ public partial class CheckBox : ComponentView<Lane>
         label = new Label() { Layout = LayoutParameters.FitContent(), Margin = new(Left: 12) };
         checkImage = new Image() { Layout = LayoutParameters.FitContent(), Focusable = true };
         UpdateCheckImage();
-        UpdateScreenRead();
+        ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated(
+            "options_element-checkbox_info",
+            GetScreenReadTokens
+        );
         var lane = new Lane()
         {
             Layout = LayoutParameters.FitContent(),
@@ -175,12 +178,8 @@ public partial class CheckBox : ComponentView<Lane>
             : uncheckedSprite ?? UiSprites.CheckboxUnchecked;
     }
 
-    private void UpdateScreenRead()
+    private object? GetScreenReadTokens(string text)
     {
-        ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-checkbox_info", new
-        {
-            label = label.Text,
-            is_checked = isChecked ? 1 : 0
-        });
+        return new { label = text, is_checked = isChecked ? 1 : 0 };
     }
 }

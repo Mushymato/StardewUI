@@ -484,17 +484,25 @@ public abstract class View : IView, IFloatContainer
     /// <inheritdoc />
     public ScreenReadableData? ScreenRead
     {
-        get => field; set
+        get => field;
+        set
         {
-            // ScreenRead can be set if one of the following is true
-            // 1. Current is null
-            // 2. New value is null
-            // 3. Current has precedence >= 0, i.e. it is automatically set by StardewUI
-            // 4. Current has greater precedence as the new value
-            if (value != field && (field == null || value == null || field.Precedence >= 0 || field.Precedence > value.Precedence))
+            if (value == null)
             {
+                // never set this field to null
+                return;
+            }
+            else if (field == null || (value.Precedence < 0 && value.Precedence <= field.Precedence))
+            {
+                // replace if field is null
+                // or if new value has Precedence < 0 and less that current Precedence
                 field = value;
-                OnPropertyChanged(nameof(ScreenRead));
+            }
+            else
+            {
+                // set only the text and desc
+                field.ScreenReaderText = value.ScreenReaderText;
+                field.ScreenReaderDescription = value.ScreenReaderDescription;
             }
         }
     }

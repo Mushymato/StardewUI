@@ -246,7 +246,7 @@ public partial class Label : View
         {
             if (text.SetIfChanged(value))
             {
-                ScreenRead = StardewAccessIntegration.MakeScreenRead(value, 1);
+                ScreenRead = StardewAccessIntegration.TrySetScreenReadText(ScreenRead, value, 1);
                 OnPropertyChanged(nameof(Text));
             }
         }

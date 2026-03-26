@@ -7,6 +7,7 @@ using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
+using StardewUI.ModIntegration;
 using StardewUI.Overlays;
 using StardewValley;
 
@@ -290,6 +291,7 @@ public class KeybindOverlay(ISpriteMap<SButton>? spriteMap) : FullScreenOverlay
             Tooltip = DeleteButtonTooltip,
             Focusable = true,
             Tags = Tags.Create(keybind),
+            ScreenRead = StardewAccessIntegration.MakeScreenReadDelegated((text) => GetDeleteScreenReadText(keybind, text))
         };
         deleteButton.LeftClick += DeleteButton_LeftClick;
         var row = new Lane()
@@ -299,6 +301,11 @@ public class KeybindOverlay(ISpriteMap<SButton>? spriteMap) : FullScreenOverlay
             Children = [keybindView, new Spacer() { Layout = LayoutParameters.AutoRow() }, deleteButton],
         };
         keybindsLane.Children.Add(row);
+    }
+
+    private static string GetDeleteScreenReadText(Keybind keybind, string text)
+    {
+        return string.Concat(Game1.content.LoadString("Strings/StringsFromCSFiles:Delete"), " ", keybind.ToString());
     }
 
     private static Color AlphaLerp(Color color1, Color color2, float amount)

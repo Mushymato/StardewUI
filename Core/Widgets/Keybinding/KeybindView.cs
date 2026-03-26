@@ -5,6 +5,7 @@ using StardewModdingAPI.Utilities;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
+using StardewUI.ModIntegration;
 using StardewValley;
 
 namespace StardewUI.Widgets.Keybinding;
@@ -213,7 +214,12 @@ public partial class KeybindView : ComponentView<Lane>
     /// <inheritdoc />
     protected override Lane CreateView()
     {
-        var lane = new Lane() { Layout = LayoutParameters.FitContent(), VerticalContentAlignment = Alignment.Middle };
+        var lane = new Lane()
+        {
+            Layout = LayoutParameters.FitContent(),
+            VerticalContentAlignment = Alignment.Middle,
+            ScreenRead = StardewAccessIntegration.MakeScreenReadDelegated(GetKeybindViewScreenRead),
+        };
         UpdateContent(lane);
         return lane;
     }
@@ -287,5 +293,12 @@ public partial class KeybindView : ComponentView<Lane>
         {
             UpdateTint(child.View);
         }
+    }
+
+    private string GetKeybindViewScreenRead(string text)
+    {
+        if (keybind.IsBound)
+            return string.Concat(text, " ", keybind.ToString());
+        return string.Concat(text, " ", EmptyText);
     }
 }

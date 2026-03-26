@@ -69,29 +69,55 @@ public static class StardewAccessIntegration
             Api.SayMenuElement(screenRead);
     }
 
-    /// <summary>Construct a <see cref="ScreenReadableData"/>, mark as automatic</summary>
+    /// <summary>
+    /// Set the <see cref="ScreenReadableData.ScreenReaderText"/> on a <see cref="ScreenReadableData"/>
+    /// to the new text. Creating the <see cref="ScreenReadableData"/> if needed.
+    /// </summary>
+    /// <param name="existing">Pre-existing instance</param>
     /// <param name="text">Screen read text</param>
     /// <param name="precedence">Precedence value</param>
     /// <returns></returns>
-    public static ScreenReadableData? MakeScreenRead(string text, int precedence = 0)
+    public static ScreenReadableData? TrySetScreenReadText(ScreenReadableData? existing, string text, int precedence)
     {
         if (Api == null)
             return null;
-        return new ScreenReadableData(precedence) { ScreenReaderText = text };
+        existing ??= new ScreenReadableData() { Precedence = precedence };
+        if (precedence <= existing.Precedence)
+        {
+            existing.ScreenReaderText = text;
+            existing.Precedence = precedence;
+        }
+        return existing;
     }
 
-    /// <summary>Construct a <see cref="ScreenReadableData"/> using translated text from Stardew Access</summary>
-    /// <param name="translationKey">Stardew Access translation key</param>
-    /// <param name="tokens">Stardew Access translation tokens</param>
-    /// <param name="precedence">Precedence value</param>
+    /// <summary>
+    /// Make a <see cref="ScreenReadableData"/> with a particular text delegate.
+    /// </summary>
+    /// <param name="textDelegate">Text delegate used to modify the inner text</param>
     /// <returns></returns>
-    public static ScreenReadableData? MakeScreenReadTranslated(string translationKey, object? tokens = null, int precedence = 0)
+    public static ScreenReadableData? MakeScreenReadDelegated(Func<string, string> textDelegate)
     {
         if (Api == null)
             return null;
-        return new ScreenReadableData(precedence)
+        return new ScreenReadableData() { ScreenReaderTextDelegate = textDelegate, Precedence = 0 };
+    }
+
+    /// <summary>Make a <see cref="ScreenReadableData"/> using translated text from Stardew Access</summary>
+    /// <param name="translationKey">Stardew Access translation key</param>
+    /// <param name="getTokens">Delegate that takes a string and returns translation tokens</param>
+    /// <returns></returns>
+    public static ScreenReadableData? MakeScreenReadTranslated(string translationKey, Func<string, object?> getTokens)
+    {
+        if (Api == null)
+            return null;
+        return new ScreenReadableData()
         {
-            ScreenReaderText = Api.Translate(translationKey, tokens, translationCategory: "Menu")
+            ScreenReaderTextDelegate = (text) =>
+            {
+                string result = Api.Translate(translationKey, getTokens(text), translationCategory: "Menu");
+                return result;
+            },
+            Precedence = 0
         };
     }
 }
@@ -101,52 +127,33 @@ public static class StardewAccessIntegration
 /// Although <see cref="IScreenReadable"/> is a vanilla interface, it does nothing
 /// by itself and will be used with screen reader mods.
 /// </summary>
-/// <param name="precedence">
-/// How prioritized this screen reader element is.
-/// Custom screen read fields should use negative values
-/// while screen read fields set by the View should have value 0 or greater
-/// </param>
-public sealed class ScreenReadableData(int precedence = -1) : IScreenReadable
+[DuckType]
+public sealed class ScreenReadableData() : IScreenReadable
 {
-    /// <summary>
-    /// Marks this as an automatically set screen readable data,
-    /// as opposed to one created and set by attribute bindings.
-    /// Automatic screen readable data cannot override non-automatic.
-    /// </summary>
-    public readonly int Precedence = precedence;
-
+    /// <summary>Backing field of <see cref="ScreenReaderText"/></summary>
+    private string screenReaderTextInner = string.Empty;
     /// <inheritdoc />
-    public string? ScreenReaderText { get; set; }
+    public string? ScreenReaderText
+    {
+        get => ScreenReaderTextDelegate?.Invoke(screenReaderTextInner) ?? screenReaderTextInner;
+        set => screenReaderTextInner = value ?? string.Empty;
+    }
 
     /// <inheritdoc />
     public string? ScreenReaderDescription { get; set; }
 
     /// <inheritdoc />
-    public bool ScreenReaderIgnore => false;
-}
+    public bool ScreenReaderIgnore { get; set; } = false;
 
-/// <summary>Converts a string to <see cref="ScreenReadableData"/></summary>
-public sealed class ScreenReadableStringConverter : IValueConverter<string, ScreenReadableData>
-{
-    /// <inheritdoc />
-    public ScreenReadableData Convert(string value)
-    {
-        return new ScreenReadableData(-1) { ScreenReaderText = value };
-    }
-}
+    /// <summary>
+    /// How prioritized this screen reader element is.
+    /// The lowest precedence element will be read,
+    /// even if the hover path has more specific elements.
+    /// Custom screen read fields should use negative values.
+    /// while screen read fields set by the View should have value 0 or greater.
+    /// </summary>
+    public int Precedence { get; set; } = -1;
 
-/// <summary>Converts a general <see cref="IScreenReadable"/> to <see cref="ScreenReadableData"/></summary>
-public sealed class ScreenReadableInterfaceConverter : IValueConverter<IScreenReadable, ScreenReadableData>
-{
-    /// <inheritdoc />
-    public ScreenReadableData Convert(IScreenReadable value)
-    {
-        if (value is ScreenReadableData screenRead)
-            return screenRead;
-        return new ScreenReadableData(-1)
-        {
-            ScreenReaderText = value.ScreenReaderText,
-            ScreenReaderDescription = value.ScreenReaderDescription
-        };
-    }
+    /// <summary>A delegate used to modify </summary>
+    public Func<string, string>? ScreenReaderTextDelegate { get; set; } = null;
 }

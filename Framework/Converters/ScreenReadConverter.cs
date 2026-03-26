@@ -9,7 +9,7 @@ public sealed class ScreenReadableStringConverter : IValueConverter<string, Scre
     /// <inheritdoc />
     public ScreenReadableData Convert(string value)
     {
-        return new ScreenReadableData(-1) { ScreenReaderText = value };
+        return new ScreenReadableData() { ScreenReaderText = value, Precedence = 0 };
     }
 }
 
@@ -21,7 +21,7 @@ public sealed class ScreenReadableInterfaceConverter : IValueConverter<IScreenRe
     {
         if (value is ScreenReadableData screenRead)
             return screenRead;
-        return new ScreenReadableData(-1)
+        return new ScreenReadableData()
         {
             ScreenReaderText = value.ScreenReaderText,
             ScreenReaderDescription = value.ScreenReaderDescription,

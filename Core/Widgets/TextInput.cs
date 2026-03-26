@@ -7,7 +7,6 @@ using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
 using StardewUI.ModIntegration;
-using StardewValley;
 using StardewValley.Menus;
 
 namespace StardewUI.Widgets;
@@ -187,7 +186,6 @@ public partial class TextInput : View
             if (value != placeholder.Text)
             {
                 placeholder.Text = value;
-                UpdateScreenRead();
                 OnPropertyChanged(nameof(Placeholder));
             }
         }
@@ -388,7 +386,10 @@ public partial class TextInput : View
         TextColor = Game1.textColor;
         PlaceholderColor = Color.Gray;
 
-        UpdateScreenRead();
+        ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated(
+            "options_element-text_box_info",
+            GetScreenReadTokens
+        );
     }
 
     /// <inheritdoc />
@@ -575,17 +576,12 @@ public partial class TextInput : View
         UpdateRealCaretPosition();
         UpdatePlaceholderVisibility();
         TextChanged?.Invoke(this, EventArgs.Empty);
-        UpdateScreenRead();
         OnPropertyChanged(nameof(Text));
     }
 
-    private void UpdateScreenRead()
+    private object? GetScreenReadTokens(string text)
     {
-        ScreenRead = StardewAccessIntegration.MakeScreenReadTranslated("options_element-text_box_info", new
-        {
-            label = Placeholder,
-            value = Text
-        });
+        return new { label = string.IsNullOrEmpty(text) ? Placeholder : text, value = Text };
     }
 
     private void Release()
