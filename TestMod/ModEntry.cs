@@ -4,7 +4,6 @@ using StardewUI.Framework;
 using StardewUITest.Examples;
 using StardewUITest.Examples.Tempering;
 using StardewValley;
-using StardewValley.Minigames;
 
 namespace StardewUITest;
 

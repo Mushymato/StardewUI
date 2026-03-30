@@ -148,8 +148,27 @@ public interface IViewEngine
     /// and/or binding to a very complex model for the first time. Preloading can perform this work in the background
     /// instead of causing latency when opening the menu.
     /// </remarks>
+    /// <remarks>
+    /// The default max depth to traverse is 2, use <see cref="PreloadModels(int, Type[])"/> to customize max depth.
+    /// </remarks>
     /// <param name="types">The types that the mod expects to use as context.</param>
     void PreloadModels(params Type[] types);
+
+    /// <summary>
+    /// Declares that the specified context types will be used as either direct arguments or subproperties in one or
+    /// more subsequent <c>CreateMenu</c> or <c>CreateDrawable</c> APIs, and instructs the framework to begin inspecting
+    /// those types and optimizing for later use.
+    /// This overload allows you to change max depth of traversal.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    /// <remarks>
+    /// Data binding to mod-defined types uses reflection, which can become expensive when loading a very complex menu
+    /// and/or binding to a very complex model for the first time. Preloading can perform this work in the background
+    /// instead of causing latency when opening the menu.
+    /// </remarks>
+    /// <param name="maxDepth">How many layers to traverse down in types, use -1 for unlimited.</param>
+    /// <param name="types">The types that the mod expects to use as context.</param>
+    void PreloadModels(int maxDepth, params Type[] types);
 
     /// <summary>
     /// Registers a mod directory to be searched for special-purpose mod data, i.e. that is not either views or sprites.

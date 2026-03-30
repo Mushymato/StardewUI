@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using StardewUI.Framework.Codegen;
+using StardewUI.Framework.Descriptors;
 
 namespace StardewUI.Framework.Converters;
 
@@ -394,7 +395,7 @@ public class DuckTypeClassConverterFactory(IValueConverterFactory innerFactory) 
             LogDebugOutput(typeof(TSource), typeof(TDestination), il.Instructions);
         }
 
-        var convertDelegate = convertMethod.CreateDelegate<Func<TSource, IValueConverter[], TDestination>>();
+        var convertDelegate = convertMethod.SafeCreateDelegate<Func<TSource, IValueConverter[], TDestination>>();
         return new ValueConverter<TSource, TDestination>(combinedConverters, convertDelegate);
     }
 

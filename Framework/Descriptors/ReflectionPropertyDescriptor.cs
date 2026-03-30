@@ -101,11 +101,11 @@ public class ReflectionPropertyDescriptor<T, TValue> : IPropertyDescriptor<TValu
         IsAutoProperty = CheckAutoProperty(propertyInfo);
         if (propertyInfo.GetGetMethod() is MethodInfo getMethod)
         {
-            getter = getMethod.CreateDelegate<Func<T, TValue>>();
+            getter = getMethod.SafeCreateDelegate<Func<T, TValue>>();
         }
         if (propertyInfo.GetSetMethod() is MethodInfo setMethod)
         {
-            setter = setMethod.CreateDelegate<Action<T, TValue>>();
+            setter = setMethod.SafeCreateDelegate<Action<T, TValue>>();
         }
     }
 

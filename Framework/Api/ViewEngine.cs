@@ -107,7 +107,10 @@ public class ViewEngine : IViewEngine
     }
 
     /// <inheritdoc />
-    public void PreloadModels(params Type[] types)
+    public void PreloadModels(params Type[] types) => PreloadModels(2, types);
+
+    /// <inheritdoc />
+    public void PreloadModels(int maxDepth, params Type[] types)
     {
         if (types.Length == 0)
         {
@@ -116,13 +119,16 @@ public class ViewEngine : IViewEngine
         var preloadTask = Task.Run(() =>
         {
             var visitedTypes = new HashSet<Type>();
-            var remainingTypes = new Stack<Type>(types);
-            while (remainingTypes.TryPop(out var type))
+            var remainingTypes = new Stack<(Type, int)>(types.Select(typ => (typ, maxDepth)));
+            while (remainingTypes.TryPop(out var typeDepth))
             {
+                Type type = typeDepth.Item1;
+                int depth = typeDepth.Item2;
                 if (!IsPreloadableType(type) || visitedTypes.Contains(type))
                 {
                     continue;
                 }
+                depth--;
                 visitedTypes.Add(type);
                 // For our purposes, system types are only considered valid in terms of their ability to hold generic
                 // arguments, e.g. those in System.Collections.Generic. If we encounter these, skip the self-descriptor
@@ -140,6 +146,8 @@ public class ViewEngine : IViewEngine
                         Logger.Log($"Error creating descriptor for type {type.FullName}: {ex}", LogLevel.Error);
                         continue;
                     }
+                    if (depth <= 0)
+                        continue;
                     try
                     {
                         foreach (var memberName in descriptor.MemberNames)
@@ -148,7 +156,7 @@ public class ViewEngine : IViewEngine
                             {
                                 continue;
                             }
-                            remainingTypes.Push(property.ValueType);
+                            remainingTypes.Push((property.ValueType, depth));
                         }
                     }
                     catch (Exception ex)
@@ -156,16 +164,18 @@ public class ViewEngine : IViewEngine
                         Logger.Log($"Error enumerating properties of type {type.FullName}: {ex}", LogLevel.Error);
                     }
                 }
+                if (depth <= 0)
+                    continue;
                 if (type.IsGenericType)
                 {
                     foreach (var genericArg in type.GetGenericArguments())
                     {
-                        remainingTypes.Push(genericArg);
+                        remainingTypes.Push((genericArg, depth));
                     }
                 }
                 if (type.GetElementType() is { } elementType)
                 {
-                    remainingTypes.Push(elementType);
+                    remainingTypes.Push((elementType, depth));
                 }
             }
         });
