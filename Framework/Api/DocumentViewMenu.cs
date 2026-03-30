@@ -34,10 +34,24 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     public Action? CloseAction { get; set; }
 
     /// <inheritdoc />
+    public string OpenSound
+    {
+        get => openSound;
+        set => openSound = value;
+    }
+
+    /// <inheritdoc />
     public string CloseSound
     {
         get => closeSound;
         set => closeSound = value;
+    }
+
+    /// <inheritdoc />
+    public string NavigateSound
+    {
+        get => navigateSound;
+        set => navigateSound = value;
     }
 
     /// <inheritdoc />

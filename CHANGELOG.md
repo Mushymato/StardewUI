@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [0.6.3-unofficial-mushymato.1](UNRELEASED)
 
+### Added
+- New `IMenuController` property `OpenSound`, set the sound which plays when menu becomes active for the first time.
+- New `IMenuController` property `NavigateSound`, set the sound which plays when menu scrolling or moving around with gamepad.
+
 ### Fixed
 - `ReflectionPropertyDescriptor` should use `MethodInfoExtensions.SafeCreateDelegate` to correctly handle property getters on value types.
 

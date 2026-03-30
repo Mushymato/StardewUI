@@ -300,9 +300,23 @@ public interface IMenuController : IDisposable
     bool CloseOnOutsideClick { get; set; }
 
     /// <summary>
+    /// Sound to play one tick after this menu becomes active.
+    /// Default "bigSelect".
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    string OpenSound { get; set; }
+
+    /// <summary>
     /// Sound to play when closing the menu.
     /// </summary>
     string CloseSound { get; set; }
+
+    /// <summary>
+    /// Sound to play when navigating the menu (gamepad or scrolling).
+    /// Default "shiny4".
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    string NavigateSound { get; set; }
 
     /// <summary>
     /// How much the menu should dim the entire screen underneath.

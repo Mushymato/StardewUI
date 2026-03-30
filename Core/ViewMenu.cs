@@ -99,6 +99,13 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         set => gutter = value;
     }
 
+    /// <summary>Sound to play when this menu becomes active</summary>
+    protected string openSound = "bigSelect";
+    /// <summary>Sound to play when navigtion occurs</summary>
+    protected string navigateSound = "shiny4";
+
+    private int menuActiveTick = -1;
+
     private static readonly ActionRepeat ButtonRepeat = ActionRepeat.Default;
     private static readonly Edges DefaultGutter = new(100, 50);
 
@@ -155,8 +162,6 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     {
         using var _ = Diagnostics.Trace.Begin(this, "ctor");
 
-        Game1.playSound("bigSelect");
-
         this.gutter = gutter;
         overlayContext.Pushed += OverlayContext_Pushed;
         view = CreateView();
@@ -201,6 +206,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
                 if (found is not null)
                 {
                     FinishFocusSearch(view, origin.ToPoint(), found);
+                    if (!string.IsNullOrEmpty(navigateSound))
+                        Game1.playSound(navigateSound);
                     RequestRehover();
                 }
             }
@@ -777,6 +784,14 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     {
         using var _ = Diagnostics.Trace.Begin(this, nameof(update));
 
+        // Detect if this menu began receiving updates, and play a sound if so
+        if (menuActiveTick == -1)
+        {
+            if (!string.IsNullOrEmpty(openSound))
+                Game1.playSound(openSound);
+            menuActiveTick = Game1.ticks;
+        }
+
         // We don't get an explicit "release" event for gamepad buttons, so need to check for releases ourselves.
         foreach (var button in buttonHeldDurations.Keys)
         {
@@ -903,7 +918,6 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     {
         LogFocusSearchResult(found.Target);
         ReleaseCaptureTarget();
-        Game1.playSound("shiny4");
         var pathWithTarget = found.Path.Append(found.Target).ToList();
         var nextMousePosition = origin + pathWithTarget.ToGlobalPositions().Last().CenterPoint();
         if (rootView.ScrollIntoView(pathWithTarget, out var distance))
@@ -1070,7 +1084,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
                 {
                     return;
                 }
-                Game1.playSound("shiny4");
+                if (!string.IsNullOrEmpty(navigateSound))
+                    Game1.playSound(navigateSound);
                 Refocus(view, origin, localPosition, pathBeforeScroll, direction);
                 RequestRehover();
             }
