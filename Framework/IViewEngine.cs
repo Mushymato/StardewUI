@@ -328,6 +328,12 @@ public interface IMenuController : IDisposable
     float DimmingAmount { get; set; }
 
     /// <summary>
+    /// Whether to hide the game HUD while menu is active.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    bool HideHUD { get; set; }
+
+    /// <summary>
     /// Gets the menu, which can be opened using <see cref="Game1.activeClickableMenu"/>, or as a child menu.
     /// </summary>
     IClickableMenu Menu { get; }

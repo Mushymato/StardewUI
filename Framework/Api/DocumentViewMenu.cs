@@ -55,6 +55,13 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     }
 
     /// <inheritdoc />
+    public bool HideHUD
+    {
+        get => hideHUD;
+        set => hideHUD = value;
+    }
+
+    /// <inheritdoc />
     public IClickableMenu Menu => this;
 
     /// <inheritdoc />

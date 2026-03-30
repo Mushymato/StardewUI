@@ -103,6 +103,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     protected string openSound = "bigSelect";
     /// <summary>Sound to play when navigtion occurs</summary>
     protected string navigateSound = "shiny4";
+    /// <summary>Whether to hide HUD when menu becomes active, and restore it afterwards</summary>
+    protected bool hideHUD = true;
 
     private int menuActiveTick = -1;
 
@@ -128,7 +130,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     private readonly ConditionalWeakTable<IOverlay, OverlayLayoutData> overlayCache = [];
     private readonly RenderTargetPool renderTargetPool = new(Game1.graphics.GraphicsDevice, slack: 2);
     private readonly IView view;
-    private readonly bool wasHudDisplayed;
+    private bool wasHudDisplayed = false;
 
     private ViewChild[] focusableHoverPath = [];
     private Edges? gutter;
@@ -171,9 +173,6 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         {
             SetDefaultFocus(view, new(xPositionOnScreen, yPositionOnScreen));
         }
-
-        wasHudDisplayed = Game1.displayHUD;
-        Game1.displayHUD = false;
 
         HoverScale.Attach(closeButton, 1.2f, TimeSpan.FromMilliseconds(150));
     }
@@ -283,7 +282,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
         isDisposed = true;
         // Only restore Game1.displayHUD to true, do nothing if it was previously false
-        if (wasHudDisplayed)
+        if (hideHUD && wasHudDisplayed)
             Game1.displayHUD = true;
         OnClosed(EventArgs.Empty);
         view.Dispose();
@@ -784,12 +783,17 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     {
         using var _ = Diagnostics.Trace.Begin(this, nameof(update));
 
-        // Detect if this menu began receiving updates, and play a sound if so
+        // Perform some actions the first time this menu gets updated
         if (menuActiveTick == -1)
         {
             if (!string.IsNullOrEmpty(openSound))
                 Game1.playSound(openSound);
             menuActiveTick = Game1.ticks;
+            if (hideHUD && Game1.displayHUD)
+            {
+                wasHudDisplayed = Game1.displayHUD;
+                Game1.displayHUD = false;
+            }
         }
 
         // We don't get an explicit "release" event for gamepad buttons, so need to check for releases ourselves.
