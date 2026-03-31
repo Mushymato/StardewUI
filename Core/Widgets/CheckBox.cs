@@ -180,6 +180,6 @@ public partial class CheckBox : ComponentView<Lane>
 
     private object? GetScreenReadTokens(string text)
     {
-        return new { label = text, is_checked = isChecked ? 1 : 0 };
+        return new { label = string.IsNullOrEmpty(text) ? LabelText : text, is_checked = isChecked ? 1 : 0 };
     }
 }

@@ -13,6 +13,12 @@ namespace StardewUI.Widgets;
 /// </summary>
 public partial class Label : View
 {
+    /// <summary>Construct a label</summary>
+    public Label() : base()
+    {
+        ScreenRead = StardewAccessIntegration.MakeScreenReadDelegated(GetScreenReadText, 2);
+    }
+
     /// <summary>
     /// Creates a typical, simple run of 1-line text using content sizing.
     /// </summary>
@@ -246,7 +252,6 @@ public partial class Label : View
         {
             if (text.SetIfChanged(value))
             {
-                ScreenRead = StardewAccessIntegration.TrySetScreenReadText(ScreenRead, value, 1);
                 OnPropertyChanged(nameof(Text));
             }
         }
@@ -537,5 +542,10 @@ public partial class Label : View
     private static bool ContainsCjkCharacters(string text)
     {
         return CjkCharacterRegex.IsMatch(text);
+    }
+
+    private string GetScreenReadText(string text)
+    {
+        return string.IsNullOrEmpty(text) ? Text : text;
     }
 }

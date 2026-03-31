@@ -61,52 +61,30 @@ public static class StardewAccessIntegration
             {
                 screenRead ??= thisScreenRead;
             }
-
-            if (screenRead.Precedence == 0)
-                break;
         }
         if (screenRead != null)
             Api.SayMenuElement(screenRead);
     }
 
     /// <summary>
-    /// Set the <see cref="ScreenReadableData.ScreenReaderText"/> on a <see cref="ScreenReadableData"/>
-    /// to the new text. Creating the <see cref="ScreenReadableData"/> if needed.
-    /// </summary>
-    /// <param name="existing">Pre-existing instance</param>
-    /// <param name="text">Screen read text</param>
-    /// <param name="precedence">Precedence value</param>
-    /// <returns></returns>
-    public static ScreenReadableData? TrySetScreenReadText(ScreenReadableData? existing, string text, int precedence)
-    {
-        if (Api == null)
-            return null;
-        existing ??= new ScreenReadableData() { Precedence = precedence };
-        if (precedence <= existing.Precedence)
-        {
-            existing.ScreenReaderText = text;
-            existing.Precedence = precedence;
-        }
-        return existing;
-    }
-
-    /// <summary>
     /// Make a <see cref="ScreenReadableData"/> with a particular text delegate.
     /// </summary>
     /// <param name="textDelegate">Text delegate used to modify the inner text</param>
+    /// <param name="precedence"></param>
     /// <returns></returns>
-    public static ScreenReadableData? MakeScreenReadDelegated(Func<string, string> textDelegate)
+    public static ScreenReadableData? MakeScreenReadDelegated(Func<string, string> textDelegate, int precedence = 1)
     {
         if (Api == null)
             return null;
-        return new ScreenReadableData() { ScreenReaderTextDelegate = textDelegate, Precedence = 0 };
+        return new ScreenReadableData() { ScreenReaderTextDelegate = textDelegate, Precedence = precedence };
     }
 
     /// <summary>Make a <see cref="ScreenReadableData"/> using translated text from Stardew Access</summary>
     /// <param name="translationKey">Stardew Access translation key</param>
     /// <param name="getTokens">Delegate that takes a string and returns translation tokens</param>
+    /// <param name="precedence"></param>
     /// <returns></returns>
-    public static ScreenReadableData? MakeScreenReadTranslated(string translationKey, Func<string, object?> getTokens)
+    public static ScreenReadableData? MakeScreenReadTranslated(string translationKey, Func<string, object?> getTokens, int precedence = 1)
     {
         if (Api == null)
             return null;
@@ -117,7 +95,7 @@ public static class StardewAccessIntegration
                 string result = Api.Translate(translationKey, getTokens(text), translationCategory: "Menu");
                 return result;
             },
-            Precedence = 0
+            Precedence = precedence
         };
     }
 }
@@ -152,7 +130,7 @@ public sealed class ScreenReadableData() : IScreenReadable
     /// Custom screen read fields should use negative values.
     /// while screen read fields set by the View should have value 0 or greater.
     /// </summary>
-    public int Precedence { get; set; } = -1;
+    public int Precedence { get; set; } = 0;
 
     /// <summary>A delegate used to modify </summary>
     public Func<string, string>? ScreenReaderTextDelegate { get; set; } = null;

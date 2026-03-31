@@ -492,7 +492,7 @@ public abstract class View : IView, IFloatContainer
                 // never set this field to null
                 return;
             }
-            else if (field == null || (value.Precedence < 0 && value.Precedence <= field.Precedence))
+            else if (field == null || (value.Precedence <= 0 && value.Precedence <= field.Precedence))
             {
                 // replace if field is null
                 // or if new value has Precedence < 0 and less that current Precedence

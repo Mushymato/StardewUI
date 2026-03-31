@@ -9,7 +9,7 @@ public sealed class ScreenReadableStringConverter : IValueConverter<string, Scre
     /// <inheritdoc />
     public ScreenReadableData Convert(string value)
     {
-        return new ScreenReadableData() { ScreenReaderText = value, Precedence = 0 };
+        return new ScreenReadableData() { ScreenReaderText = value };
     }
 }
 

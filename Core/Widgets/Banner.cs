@@ -16,6 +16,12 @@ namespace StardewUI.Widgets;
 /// </remarks>
 public partial class Banner : View
 {
+    /// <summary>Construct a banner</summary>
+    public Banner() : base()
+    {
+        ScreenRead = StardewAccessIntegration.MakeScreenReadDelegated(GetScreenReadText, 2);
+    }
+
     /// <summary>
     /// Background sprite (including border) to draw underneath the text.
     /// </summary>
@@ -63,7 +69,7 @@ public partial class Banner : View
         {
             if (text.SetIfChanged(value))
             {
-                ScreenRead = StardewAccessIntegration.TrySetScreenReadText(ScreenRead, value, 1);
+                ScreenRead ??= StardewAccessIntegration.MakeScreenReadDelegated((text) => string.IsNullOrEmpty(text) ? Text : text, 2);
                 OnPropertyChanged(nameof(Text));
             }
         }
@@ -257,5 +263,10 @@ public partial class Banner : View
     {
         backgroundBorderThickness.ResetDirty();
         text.ResetDirty();
+    }
+
+    private string GetScreenReadText(string text)
+    {
+        return string.IsNullOrEmpty(text) ? Text : text;
     }
 }

@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 - `ReflectionPropertyDescriptor` should use `MethodInfoExtensions.SafeCreateDelegate` to correctly handle property getters on value types.
+- `button` screen-read should use delegate method of updating.
+- `checkbox` screen-read should include label-text.
 
 ## [0.6.3-unofficial-mushymato.0](https://github.com/Mushymato/StardewUI/releases/tag/0.6.3-unofficial-mushymato.0) - WIP
 

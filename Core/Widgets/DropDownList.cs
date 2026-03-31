@@ -436,7 +436,7 @@ public partial class DropDownList<T> : ComponentView
 
         protected override Frame CreateView()
         {
-            var frame = new Frame()
+            var frame = new Frame
             {
                 Layout = LayoutParameters.AutoRow(),
                 Padding = new(4),
@@ -444,6 +444,7 @@ public partial class DropDownList<T> : ComponentView
                 BackgroundTint = GetBackgroundTint(),
                 Content = label,
                 Focusable = true,
+                ScreenRead = label.ScreenRead
             };
             frame.PointerEnter += Frame_PointerEnter;
             return frame;
