@@ -132,6 +132,30 @@ public partial class Button : ComponentView<View>
     }
 
     /// <summary>
+    /// Padding to add inside the button.
+    /// This is actually the padding of the inner frame instead of the panel.
+    /// </summary>
+    public Edges Padding
+    {
+        get => contentFrame.Padding;
+        set => contentFrame.Padding = value;
+    }
+
+    /// <inheritdoc cref="Panel.HorizontalContentAlignment" />
+    public Alignment HorizontalContentAlignment
+    {
+        get => contentPanel.HorizontalContentAlignment;
+        set => contentPanel.HorizontalContentAlignment = value;
+    }
+
+    /// <inheritdoc cref="Panel.VerticalContentAlignment" />
+    public Alignment VerticalContentAlignment
+    {
+        get => contentPanel.VerticalContentAlignment;
+        set => contentPanel.VerticalContentAlignment = value;
+    }
+
+    /// <summary>
     /// Whether or not to display a drop shadow for the button frame. Default <c>false</c>.
     /// </summary>
     public bool ShadowVisible
@@ -198,7 +222,7 @@ public partial class Button : ComponentView<View>
             ShadowOffset = new(-4, 4),
         };
         UpdateBackgroundImage(false);
-        contentFrame = new Frame() { Layout = LayoutParameters.FitContent(), Margin = new(16, 12) };
+        contentFrame = new Frame() { Layout = LayoutParameters.FitContent(), Padding = new(16, 12) };
         contentPanel = new Panel()
         {
             Layout = new()

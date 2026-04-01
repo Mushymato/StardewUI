@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - New `IMenuController` property `OpenSound`, set the sound which plays when menu becomes active for the first time.
 - New `IMenuController` property `NavigateSound`, set the sound which plays when menu scrolling or moving around with gamepad.
 - New `IMenuController` property `HideHUD`, controls whether menu should hide the HUD.
+- New `Button` property `Padding`, set the inner frame's padding.
+- New `Button` property `HorizontalContentAlignment` and `VerticalContentAlignment`, set the button frame's alignment.
 
 ### Fixed
 - `ReflectionPropertyDescriptor` should use `MethodInfoExtensions.SafeCreateDelegate` to correctly handle property getters on value types.
