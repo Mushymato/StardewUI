@@ -54,6 +54,7 @@ public class Button : StardewUI.Widgets.ComponentView<T>
 | [DefaultBackgroundTint](#defaultbackgroundtint)<br/>`default-background-tint` | Tint color for the [DefaultBackground](button.md#defaultbackground). | 
 | [FloatingBounds](decoratorview-1.md#floatingbounds)<br/>`floating-bounds` | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Font](#font)<br/>`font` | Font with which to render button text. | 
+| [HorizontalContentAlignment](#horizontalcontentalignment)<br/>`horizontal-content-alignment` | The button panel's [HorizontalContentAlignment](panel.md#horizontalcontentalignment)`(unofficial-mushymato)` | 
 | [HoverBackground](#hoverbackground)<br/>`hover-background` | Alternate background sprite when the button has cursor focus. | 
 | [HoverBackgroundTint](#hoverbackgroundtint)<br/>`hover-background-tint` | Tint color for the [HoverBackground](button.md#hoverbackground). | 
 | [HoveredSubject](decoratorview-1.md#hoveredsubject)<br/>`hovered-subject` | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -63,6 +64,7 @@ public class Button : StardewUI.Widgets.ComponentView<T>
 | [Name](decoratorview-1.md#name)<br/>`name` | Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Opacity](decoratorview-1.md#opacity)<br/>`opacity` | Opacity (alpha level) of the view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [OuterSize](decoratorview-1.md#outersize)<br/>`outer-size` | The true computed layout size resulting from a single [Measure(Vector2)](../iview.md#measurevector2) pass.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [Padding](#padding)<br/>`padding` | Padding to add inside the button. This is actually the padding of the inner frame instead of the panel. `(unofficial-mushymato)` | 
 | [PointerEventsEnabled](decoratorview-1.md#pointereventsenabled)<br/>`pointer-events-enabled` | Whether this view should receive pointer events like [Click](../iview.md#click) or [Drag](../iview.md#drag).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PointerStyle](decoratorview-1.md#pointerstyle)<br/>`pointer-style` | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ScreenRead](decoratorview-1.md#screenread)<br/>`screen-read` | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -73,6 +75,7 @@ public class Button : StardewUI.Widgets.ComponentView<T>
 | [Tooltip](decoratorview-1.md#tooltip)<br/>`tooltip` | Tooltip data to display on hover, if any.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Transform](decoratorview-1.md#transform)<br/>`transform` | Local transformation to apply to this view, including any children and floating elements.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [TransformOrigin](decoratorview-1.md#transformorigin)<br/>`transform-origin` | Relative origin position for any [Transform](../iview.md#transform) on this view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [VerticalContentAlignment](#verticalcontentalignment)<br/>`vertical-content-alignment` | The button panel's [VerticalContentAlignment](panel.md#verticalcontentalignment)`(unofficial-mushymato)` | 
 | [View](componentview-1.md#view)<br/>`view` | <span class="muted" markdown>(Inherited from [ComponentView&lt;T&gt;](componentview-1.md))</span> | 
 | [Visibility](decoratorview-1.md#visibility)<br/>`visibility` | Drawing visibility for this view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ZIndex](decoratorview-1.md#zindex)<br/>`z-index` | Z order for this view within its direct parent. Higher indices draw later (on top).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -203,6 +206,20 @@ This setting only applies when the [Content](button.md#content) view is a [Label
 
 -----
 
+#### HorizontalContentAlignment
+
+The button panel's [HorizontalContentAlignment](panel.md#horizontalcontentalignment)`(unofficial-mushymato)`
+
+```cs
+public StardewUI.Layout.Alignment HorizontalContentAlignment { get; set; }
+```
+
+##### Property Value
+
+[Alignment](../layout/alignment.md)
+
+-----
+
 #### HoverBackground
 
 Alternate background sprite when the button has cursor focus.
@@ -245,6 +262,20 @@ public StardewUI.Layout.Edges Margin { get; set; }
 
 -----
 
+#### Padding
+
+Padding to add inside the button. This is actually the padding of the inner frame instead of the panel. `(unofficial-mushymato)`
+
+```cs
+public StardewUI.Layout.Edges Padding { get; set; }
+```
+
+##### Property Value
+
+[Edges](../layout/edges.md)
+
+-----
+
 #### ShadowVisible
 
 Whether or not to display a drop shadow for the button frame. Default `false`.
@@ -274,6 +305,20 @@ public string Text { get; set; }
 ##### Remarks
 
 If the [Content](button.md#content) is not a [Label](label.md) then this is always `null`, even if there is a label nested somewhere inside a different type of view. Setting this to any string value will **replace** the [Content](button.md#content) view with a [Label](label.md) having the specified text.
+
+-----
+
+#### VerticalContentAlignment
+
+The button panel's [VerticalContentAlignment](panel.md#verticalcontentalignment)`(unofficial-mushymato)`
+
+```cs
+public StardewUI.Layout.Alignment VerticalContentAlignment { get; set; }
+```
+
+##### Property Value
+
+[Alignment](../layout/alignment.md)
 
 -----
 

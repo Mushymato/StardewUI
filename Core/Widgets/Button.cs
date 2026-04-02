@@ -134,6 +134,7 @@ public partial class Button : ComponentView<View>
     /// <summary>
     /// Padding to add inside the button.
     /// This is actually the padding of the inner frame instead of the panel.
+    /// <c>(unofficial-mushymato)</c>
     /// </summary>
     public Edges Padding
     {
@@ -141,14 +142,20 @@ public partial class Button : ComponentView<View>
         set => contentFrame.Padding = value;
     }
 
-    /// <inheritdoc cref="Panel.HorizontalContentAlignment" />
+    /// <summary>
+    /// The button panel's <see cref="Panel.HorizontalContentAlignment" />
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
     public Alignment HorizontalContentAlignment
     {
         get => contentPanel.HorizontalContentAlignment;
         set => contentPanel.HorizontalContentAlignment = value;
     }
 
-    /// <inheritdoc cref="Panel.VerticalContentAlignment" />
+    /// <summary>
+    /// The button panel's <see cref="Panel.VerticalContentAlignment" />
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
     public Alignment VerticalContentAlignment
     {
         get => contentPanel.VerticalContentAlignment;

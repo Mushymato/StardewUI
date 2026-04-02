@@ -41,7 +41,10 @@ public interface IMenuController : System.IDisposable
 | [CloseOnOutsideClick](#closeonoutsideclick) | Whether to automatically close the menu when a mouse click is detected outside the bounds of the menu and any floating elements. | 
 | [CloseSound](#closesound) | Sound to play when closing the menu. | 
 | [DimmingAmount](#dimmingamount) | How much the menu should dim the entire screen underneath. | 
+| [HideHUD](#hidehud) | Whether to hide the game HUD while menu is active. `(unofficial-mushymato)` | 
 | [Menu](#menu) | Gets the menu, which can be opened using activeClickableMenu, or as a child menu. | 
+| [NavigateSound](#navigatesound) | Sound to play when navigating the menu (gamepad or scrolling). Default "shiny4". `(unofficial-mushymato)` | 
+| [OpenSound](#opensound) | Sound to play one tick after this menu becomes active. Default "bigSelect". `(unofficial-mushymato)` | 
 | [PositionSelector](#positionselector) | Gets or sets a function that returns the top-left position of the menu. | 
 
 ### Methods
@@ -169,6 +172,20 @@ The default dimming is appropriate for most menus, but if the menu is being draw
 
 -----
 
+#### HideHUD
+
+Whether to hide the game HUD while menu is active. `(unofficial-mushymato)`
+
+```cs
+bool HideHUD { get; set; }
+```
+
+##### Property Value
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+-----
+
 #### Menu
 
 Gets the menu, which can be opened using activeClickableMenu, or as a child menu.
@@ -180,6 +197,34 @@ StardewValley.Menus.IClickableMenu Menu { get; }
 ##### Property Value
 
 IClickableMenu
+
+-----
+
+#### NavigateSound
+
+Sound to play when navigating the menu (gamepad or scrolling). Default "shiny4". `(unofficial-mushymato)`
+
+```cs
+string NavigateSound { get; set; }
+```
+
+##### Property Value
+
+[string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
+#### OpenSound
+
+Sound to play one tick after this menu becomes active. Default "bigSelect". `(unofficial-mushymato)`
+
+```cs
+string OpenSound { get; set; }
+```
+
+##### Property Value
+
+[string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
 
 -----
 

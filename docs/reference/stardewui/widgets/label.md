@@ -39,7 +39,7 @@ public class Label : StardewUI.View
 
  | Name | Description |
 | --- | --- |
-| [Label()](#label) |  | 
+| [Label()](#label) | Construct a label | 
 
 ### Properties
 
@@ -156,7 +156,7 @@ public class Label : StardewUI.View
 
 #### Label()
 
-
+Construct a label
 
 ```cs
 public Label();

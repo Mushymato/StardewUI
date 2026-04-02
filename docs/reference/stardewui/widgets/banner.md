@@ -43,7 +43,7 @@ This is very similar to a [Label](label.md) inside a [Frame](frame.md), but uses
 
  | Name | Description |
 | --- | --- |
-| [Banner()](#banner) |  | 
+| [Banner()](#banner) | Construct a banner | 
 
 ### Properties
 
@@ -156,7 +156,7 @@ This is very similar to a [Label](label.md) inside a [Frame](frame.md), but uses
 
 #### Banner()
 
-
+Construct a banner
 
 ```cs
 public Banner();
