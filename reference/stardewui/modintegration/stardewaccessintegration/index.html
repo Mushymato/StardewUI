@@ -2440,10 +2440,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#makescreenreaddelegatedfuncstring-string" class="md-nav__link">
+  <a href="#makescreenreaddelegatedfuncstring-string-int" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MakeScreenReadDelegated(Func&lt;string, string&gt;)
+        MakeScreenReadDelegated(Func&lt;string, string&gt;, int)
       
     </span>
   </a>
@@ -2451,10 +2451,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#makescreenreadtranslatedstring-funcstring-object" class="md-nav__link">
+  <a href="#makescreenreadtranslatedstring-funcstring-object-int" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MakeScreenReadTranslated(string, Func&lt;string, Object&gt;)
+        MakeScreenReadTranslated(string, Func&lt;string, Object&gt;, int)
       
     </span>
   </a>
@@ -2466,17 +2466,6 @@
     <span class="md-ellipsis">
       
         SayHoveredMenuElement(ViewChild)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trysetscreenreadtextscreenreadabledata-string-int" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TrySetScreenReadText(ScreenReadableData, string, int)
       
     </span>
   </a>
@@ -2909,10 +2898,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#makescreenreaddelegatedfuncstring-string" class="md-nav__link">
+  <a href="#makescreenreaddelegatedfuncstring-string-int" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MakeScreenReadDelegated(Func&lt;string, string&gt;)
+        MakeScreenReadDelegated(Func&lt;string, string&gt;, int)
       
     </span>
   </a>
@@ -2920,10 +2909,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#makescreenreadtranslatedstring-funcstring-object" class="md-nav__link">
+  <a href="#makescreenreadtranslatedstring-funcstring-object-int" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MakeScreenReadTranslated(string, Func&lt;string, Object&gt;)
+        MakeScreenReadTranslated(string, Func&lt;string, Object&gt;, int)
       
     </span>
   </a>
@@ -2935,17 +2924,6 @@
     <span class="md-ellipsis">
       
         SayHoveredMenuElement(ViewChild)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trysetscreenreadtextscreenreadabledata-string-int" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TrySetScreenReadText(ScreenReadableData, string, int)
       
     </span>
   </a>
@@ -3085,20 +3063,16 @@ Assembly: StardewUI.dll  </p>
 <td>Initialize lookup anything integration</td>
 </tr>
 <tr>
-<td><a href="#makescreenreaddelegatedfuncstring-string">MakeScreenReadDelegated(Func&lt;string, string&gt;)</a></td>
+<td><a href="#makescreenreaddelegatedfuncstring-string-int">MakeScreenReadDelegated(Func&lt;string, string&gt;, Int32)</a></td>
 <td>Make a <a href="../screenreadabledata/">ScreenReadableData</a> with a particular text delegate.</td>
 </tr>
 <tr>
-<td><a href="#makescreenreadtranslatedstring-funcstring-object">MakeScreenReadTranslated(string, Func&lt;string, Object&gt;)</a></td>
+<td><a href="#makescreenreadtranslatedstring-funcstring-object-int">MakeScreenReadTranslated(string, Func&lt;string, Object&gt;, Int32)</a></td>
 <td>Make a <a href="../screenreadabledata/">ScreenReadableData</a> using translated text from Stardew Access</td>
 </tr>
 <tr>
 <td><a href="#sayhoveredmenuelementviewchild">SayHoveredMenuElement(ViewChild)</a></td>
 <td>Say the currently hovered menu element using <a href="../istardewaccessapi/#saymenuelementiscreenreadable-bool">SayMenuElement(IScreenReadable, Boolean)</a></td>
-</tr>
-<tr>
-<td><a href="#trysetscreenreadtextscreenreadabledata-string-int">TrySetScreenReadText(ScreenReadableData, string, Int32)</a></td>
-<td>Set the <a href="../screenreadabledata/#screenreadertext">ScreenReaderText</a> on a <a href="../screenreadabledata/">ScreenReadableData</a> to the new text. Creating the <a href="../screenreadabledata/">ScreenReadableData</a> if needed.</td>
 </tr>
 </tbody>
 </table>
@@ -3111,25 +3085,27 @@ Assembly: StardewUI.dll  </p>
 <h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link"></a></h5>
 <p><strong><code>helper</code></strong> &nbsp; IModHelper</p>
 <hr />
-<h4 id="makescreenreaddelegatedfuncstring-string">MakeScreenReadDelegated(Func&lt;string, string&gt;)<a class="headerlink" href="#makescreenreaddelegatedfuncstring-string" title="Permanent link"></a></h4>
+<h4 id="makescreenreaddelegatedfuncstring-string-int">MakeScreenReadDelegated(Func&lt;string, string&gt;, int)<a class="headerlink" href="#makescreenreaddelegatedfuncstring-string-int" title="Permanent link"></a></h4>
 <p>Make a <a href="../screenreadabledata/">ScreenReadableData</a> with a particular text delegate.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ModIntegration</span><span class="p">.</span><span class="n">ScreenReadableData</span><span class="w"> </span><span class="n">MakeScreenReadDelegated</span><span class="p">(</span><span class="n">Func</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">textDelegate</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ModIntegration</span><span class="p">.</span><span class="n">ScreenReadableData</span><span class="w"> </span><span class="n">MakeScreenReadDelegated</span><span class="p">(</span><span class="n">Func</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">textDelegate</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">precedence</span><span class="p">);</span>
 </span></code></pre></div>
 <h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link"></a></h5>
 <p><strong><code>textDelegate</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.func-2">Func</a>&lt;<a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a>&gt;<br />
 Text delegate used to modify the inner text</p>
+<p><strong><code>precedence</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32">Int32</a></p>
 <h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link"></a></h5>
 <p><a href="../screenreadabledata/">ScreenReadableData</a></p>
 <hr />
-<h4 id="makescreenreadtranslatedstring-funcstring-object">MakeScreenReadTranslated(string, Func&lt;string, Object&gt;)<a class="headerlink" href="#makescreenreadtranslatedstring-funcstring-object" title="Permanent link"></a></h4>
+<h4 id="makescreenreadtranslatedstring-funcstring-object-int">MakeScreenReadTranslated(string, Func&lt;string, Object&gt;, int)<a class="headerlink" href="#makescreenreadtranslatedstring-funcstring-object-int" title="Permanent link"></a></h4>
 <p>Make a <a href="../screenreadabledata/">ScreenReadableData</a> using translated text from Stardew Access</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ModIntegration</span><span class="p">.</span><span class="n">ScreenReadableData</span><span class="w"> </span><span class="n">MakeScreenReadTranslated</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">translationKey</span><span class="p">,</span><span class="w"> </span><span class="n">Func</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getTokens</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ModIntegration</span><span class="p">.</span><span class="n">ScreenReadableData</span><span class="w"> </span><span class="n">MakeScreenReadTranslated</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">translationKey</span><span class="p">,</span><span class="w"> </span><span class="n">Func</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getTokens</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">precedence</span><span class="p">);</span>
 </span></code></pre></div>
 <h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link"></a></h5>
 <p><strong><code>translationKey</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
 Stardew Access translation key</p>
 <p><strong><code>getTokens</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.func-2">Func</a>&lt;<a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/system.object">Object</a>&gt;<br />
 Delegate that takes a string and returns translation tokens</p>
+<p><strong><code>precedence</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32">Int32</a></p>
 <h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link"></a></h5>
 <p><a href="../screenreadabledata/">ScreenReadableData</a></p>
 <hr />
@@ -3140,20 +3116,6 @@ Delegate that takes a string and returns translation tokens</p>
 <h5 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link"></a></h5>
 <p><strong><code>path</code></strong> &nbsp; <a href="../../viewchild/">ViewChild</a><br />
 Sequence of all elements, and their relative positions, that the mouse coordinates are currently within.</p>
-<hr />
-<h4 id="trysetscreenreadtextscreenreadabledata-string-int">TrySetScreenReadText(ScreenReadableData, string, int)<a class="headerlink" href="#trysetscreenreadtextscreenreadabledata-string-int" title="Permanent link"></a></h4>
-<p>Set the <a href="../screenreadabledata/#screenreadertext">ScreenReaderText</a> on a <a href="../screenreadabledata/">ScreenReadableData</a> to the new text. Creating the <a href="../screenreadabledata/">ScreenReadableData</a> if needed.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ModIntegration</span><span class="p">.</span><span class="n">ScreenReadableData</span><span class="w"> </span><span class="n">TrySetScreenReadText</span><span class="p">(</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ModIntegration</span><span class="p">.</span><span class="n">ScreenReadableData</span><span class="w"> </span><span class="n">existing</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">precedence</span><span class="p">);</span>
-</span></code></pre></div>
-<h5 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link"></a></h5>
-<p><strong><code>existing</code></strong> &nbsp; <a href="../screenreadabledata/">ScreenReadableData</a><br />
-Pre-existing instance</p>
-<p><strong><code>text</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
-Screen read text</p>
-<p><strong><code>precedence</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32">Int32</a><br />
-Precedence value</p>
-<h5 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link"></a></h5>
-<p><a href="../screenreadabledata/">ScreenReadableData</a></p>
 <hr />
 </div>
 

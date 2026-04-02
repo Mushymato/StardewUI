@@ -2550,6 +2550,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#horizontalcontentalignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HorizontalContentAlignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#hoverbackground" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2583,6 +2594,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#shadowvisible" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2598,6 +2620,17 @@
     <span class="md-ellipsis">
       
         Text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verticalcontentalignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VerticalContentAlignment
       
     </span>
   </a>
@@ -4102,6 +4135,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#horizontalcontentalignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HorizontalContentAlignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#hoverbackground" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4135,6 +4179,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#shadowvisible" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4150,6 +4205,17 @@
     <span class="md-ellipsis">
       
         Text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verticalcontentalignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VerticalContentAlignment
       
     </span>
   </a>
@@ -4369,6 +4435,10 @@ Assembly: StardewUI.dll  </p>
 <td>Font with which to render button text.</td>
 </tr>
 <tr>
+<td><a href="#horizontalcontentalignment">HorizontalContentAlignment</a><br/><code>horizontal-content-alignment</code></td>
+<td>The button panel's <a href="../panel/#horizontalcontentalignment">HorizontalContentAlignment</a><code>(unofficial-mushymato)</code></td>
+</tr>
+<tr>
 <td><a href="#hoverbackground">HoverBackground</a><br/><code>hover-background</code></td>
 <td>Alternate background sprite when the button has cursor focus.</td>
 </tr>
@@ -4403,6 +4473,10 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../decoratorview-1/#outersize">OuterSize</a><br/><code>outer-size</code></td>
 <td>The true computed layout size resulting from a single <a href="../../iview/#measurevector2">Measure(Vector2)</a> pass.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="#padding">Padding</a><br/><code>padding</code></td>
+<td>Padding to add inside the button. This is actually the padding of the inner frame instead of the panel. <code>(unofficial-mushymato)</code></td>
 </tr>
 <tr>
 <td><a href="../decoratorview-1/#pointereventsenabled">PointerEventsEnabled</a><br/><code>pointer-events-enabled</code></td>
@@ -4443,6 +4517,10 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../decoratorview-1/#transformorigin">TransformOrigin</a><br/><code>transform-origin</code></td>
 <td>Relative origin position for any <a href="../../iview/#transform">Transform</a> on this view.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="#verticalcontentalignment">VerticalContentAlignment</a><br/><code>vertical-content-alignment</code></td>
+<td>The button panel's <a href="../panel/#verticalcontentalignment">VerticalContentAlignment</a><code>(unofficial-mushymato)</code></td>
 </tr>
 <tr>
 <td><a href="../componentview-1/#view">View</a><br/><code>view</code></td>
@@ -4677,47 +4755,68 @@ Assembly: StardewUI.dll  </p>
 <h5 id="remarks">Remarks<a class="headerlink" href="#remarks" title="Permanent link"></a></h5>
 <p>This setting only applies when the <a href="./#content">Content</a> view is a <a href="../label/">Label</a>, either via passing in a <a href="../label/">Label</a> directly or by setting <a href="./#text">Text</a>.</p>
 <hr />
-<h4 id="hoverbackground">HoverBackground<a class="headerlink" href="#hoverbackground" title="Permanent link"></a></h4>
-<p>Alternate background sprite when the button has cursor focus.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">HoverBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="horizontalcontentalignment">HorizontalContentAlignment<a class="headerlink" href="#horizontalcontentalignment" title="Permanent link"></a></h4>
+<p>The button panel's <a href="../panel/#horizontalcontentalignment">HorizontalContentAlignment</a><code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Alignment</span><span class="w"> </span><span class="n">HorizontalContentAlignment</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_4">Property Value<a class="headerlink" href="#property-value_4" title="Permanent link"></a></h5>
+<p><a href="../../layout/alignment/">Alignment</a></p>
+<hr />
+<h4 id="hoverbackground">HoverBackground<a class="headerlink" href="#hoverbackground" title="Permanent link"></a></h4>
+<p>Alternate background sprite when the button has cursor focus.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">HoverBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_5">Property Value<a class="headerlink" href="#property-value_5" title="Permanent link"></a></h5>
 <p><a href="../../graphics/sprite/">Sprite</a></p>
 <hr />
 <h4 id="hoverbackgroundtint">HoverBackgroundTint<a class="headerlink" href="#hoverbackgroundtint" title="Permanent link"></a></h4>
 <p>Tint color for the <a href="./#hoverbackground">HoverBackground</a>.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Color</span><span class="w"> </span><span class="n">HoverBackgroundTint</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Color</span><span class="w"> </span><span class="n">HoverBackgroundTint</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_5">Property Value<a class="headerlink" href="#property-value_5" title="Permanent link"></a></h5>
+<h5 id="property-value_6">Property Value<a class="headerlink" href="#property-value_6" title="Permanent link"></a></h5>
 <p><a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Color.html">Color</a></p>
 <hr />
 <h4 id="margin">Margin<a class="headerlink" href="#margin" title="Permanent link"></a></h4>
 <p>Margin to add outside the button.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">Margin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">Margin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_6">Property Value<a class="headerlink" href="#property-value_6" title="Permanent link"></a></h5>
+<h5 id="property-value_7">Property Value<a class="headerlink" href="#property-value_7" title="Permanent link"></a></h5>
+<p><a href="../../layout/edges/">Edges</a></p>
+<hr />
+<h4 id="padding">Padding<a class="headerlink" href="#padding" title="Permanent link"></a></h4>
+<p>Padding to add inside the button. This is actually the padding of the inner frame instead of the panel. <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">Padding</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_8">Property Value<a class="headerlink" href="#property-value_8" title="Permanent link"></a></h5>
 <p><a href="../../layout/edges/">Edges</a></p>
 <hr />
 <h4 id="shadowvisible">ShadowVisible<a class="headerlink" href="#shadowvisible" title="Permanent link"></a></h4>
 <p>Whether or not to display a drop shadow for the button frame. Default <code>false</code>.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">ShadowVisible</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">ShadowVisible</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_7">Property Value<a class="headerlink" href="#property-value_7" title="Permanent link"></a></h5>
+<h5 id="property-value_9">Property Value<a class="headerlink" href="#property-value_9" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></p>
 <hr />
 <h4 id="text">Text<a class="headerlink" href="#text" title="Permanent link"></a></h4>
 <p>Text to display inside the button.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Text</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Text</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_8">Property Value<a class="headerlink" href="#property-value_8" title="Permanent link"></a></h5>
+<h5 id="property-value_10">Property Value<a class="headerlink" href="#property-value_10" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a></p>
 <h5 id="remarks_1">Remarks<a class="headerlink" href="#remarks_1" title="Permanent link"></a></h5>
 <p>If the <a href="./#content">Content</a> is not a <a href="../label/">Label</a> then this is always <code>null</code>, even if there is a label nested somewhere inside a different type of view. Setting this to any string value will <strong>replace</strong> the <a href="./#content">Content</a> view with a <a href="../label/">Label</a> having the specified text.</p>
 <hr />
+<h4 id="verticalcontentalignment">VerticalContentAlignment<a class="headerlink" href="#verticalcontentalignment" title="Permanent link"></a></h4>
+<p>The button panel's <a href="../panel/#verticalcontentalignment">VerticalContentAlignment</a><code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Alignment</span><span class="w"> </span><span class="n">VerticalContentAlignment</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_11">Property Value<a class="headerlink" href="#property-value_11" title="Permanent link"></a></h5>
+<p><a href="../../layout/alignment/">Alignment</a></p>
+<hr />
 <h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link"></a></h3>
 <h4 id="createview">CreateView()<a class="headerlink" href="#createview" title="Permanent link"></a></h4>
 <p>Creates and returns the root view.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">View</span><span class="w"> </span><span class="n">CreateView</span><span class="p">();</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">View</span><span class="w"> </span><span class="n">CreateView</span><span class="p">();</span>
 </span></code></pre></div>
 <h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link"></a></h5>
 <p><a href="../../view/">View</a></p>

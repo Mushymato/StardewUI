@@ -2086,6 +2086,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#preloadmodelsint-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreloadModels(int, Type)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#registercustomdatastring-string" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4052,6 +4063,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#preloadmodelsint-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreloadModels(int, Type)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#registercustomdatastring-string" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4247,6 +4269,10 @@ Assembly: StardewUI.dll  </p>
 <td>Declares that the specified context types will be used as either direct arguments or subproperties in one or more subsequent <code>CreateMenu</code> or <code>CreateDrawable</code> APIs, and instructs the framework to begin inspecting those types and optimizing for later use.</td>
 </tr>
 <tr>
+<td><a href="#preloadmodelsint-type">PreloadModels(Int32, Type)</a></td>
+<td>Declares that the specified context types will be used as either direct arguments or subproperties in one or more subsequent <code>CreateMenu</code> or <code>CreateDrawable</code> APIs, and instructs the framework to begin inspecting those types and optimizing for later use. This overload allows you to change max depth of traversal. <code>(unofficial-mushymato)</code></td>
+</tr>
+<tr>
 <td><a href="#registercustomdatastring-string">RegisterCustomData(string, string)</a></td>
 <td>Registers a mod directory to be searched for special-purpose mod data, i.e. that is not either views or sprites.</td>
 </tr>
@@ -4378,16 +4404,28 @@ The types that the mod expects to use as context.</p>
 <h5 id="remarks_8">Remarks<a class="headerlink" href="#remarks_8" title="Permanent link"></a></h5>
 <p>Data binding to mod-defined types uses reflection, which can become expensive when loading a very complex menu and/or binding to a very complex model for the first time. Preloading can perform this work in the background instead of causing latency when opening the menu.</p>
 <hr />
-<h4 id="registercustomdatastring-string">RegisterCustomData(string, string)<a class="headerlink" href="#registercustomdatastring-string" title="Permanent link"></a></h4>
-<p>Registers a mod directory to be searched for special-purpose mod data, i.e. that is not either views or sprites.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">RegisterCustomData</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">assetPrefix</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">modDirectory</span><span class="p">);</span>
+<h4 id="preloadmodelsint-type">PreloadModels(int, Type)<a class="headerlink" href="#preloadmodelsint-type" title="Permanent link"></a></h4>
+<p>Declares that the specified context types will be used as either direct arguments or subproperties in one or more subsequent <code>CreateMenu</code> or <code>CreateDrawable</code> APIs, and instructs the framework to begin inspecting those types and optimizing for later use. This overload allows you to change max depth of traversal. <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">PreloadModels</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">maxDepth</span><span class="p">,</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Type</span><span class="w"> </span><span class="n">types</span><span class="p">);</span>
 </span></code></pre></div>
 <h5 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link"></a></h5>
+<p><strong><code>maxDepth</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32">Int32</a><br />
+How many layers to traverse down in types, use -1 for unlimited.</p>
+<p><strong><code>types</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.type">Type</a><br />
+The types that the mod expects to use as context.</p>
+<h5 id="remarks_9">Remarks<a class="headerlink" href="#remarks_9" title="Permanent link"></a></h5>
+<p>Data binding to mod-defined types uses reflection, which can become expensive when loading a very complex menu and/or binding to a very complex model for the first time. Preloading can perform this work in the background instead of causing latency when opening the menu.</p>
+<hr />
+<h4 id="registercustomdatastring-string">RegisterCustomData(string, string)<a class="headerlink" href="#registercustomdatastring-string" title="Permanent link"></a></h4>
+<p>Registers a mod directory to be searched for special-purpose mod data, i.e. that is not either views or sprites.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">RegisterCustomData</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">assetPrefix</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">modDirectory</span><span class="p">);</span>
+</span></code></pre></div>
+<h5 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link"></a></h5>
 <p><strong><code>assetPrefix</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
 The prefix for all asset names, <strong>excluding</strong> the category which is deduced from the file extension as described in the remarks. For example, given a value of <code>Mods/MyMod</code>, a file named <code>foo.buttonspritemap.json</code> would be referenced in views as <code>@Mods/MyMod/ButtonSpriteMaps/Foo</code>.</p>
 <p><strong><code>modDirectory</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
 The physical directory where the asset files are located, relative to the mod directory. Typically a path such as <code>assets/ui</code> or <code>assets/ui/data</code>.</p>
-<h5 id="remarks_9">Remarks<a class="headerlink" href="#remarks_9" title="Permanent link"></a></h5>
+<h5 id="remarks_10">Remarks<a class="headerlink" href="#remarks_10" title="Permanent link"></a></h5>
 <p>Allowed extensions for files in this folder and their corresponding data types are: </p>
 <ul>
 <li><code>.buttonspritemap.json</code> - <a href="https://focustense.github.io/StardewUI/reference/stardewui/data/buttonspritemapdata/">ButtonSpriteMapData</a></li>
@@ -4395,9 +4433,9 @@ The physical directory where the asset files are located, relative to the mod di
 <hr />
 <h4 id="registerspritesstring-string">RegisterSprites(string, string)<a class="headerlink" href="#registerspritesstring-string" title="Permanent link"></a></h4>
 <p>Registers a mod directory to be searched for sprite (and corresponding texture/sprite sheet data) assets.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">RegisterSprites</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">assetPrefix</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">modDirectory</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">RegisterSprites</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">assetPrefix</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">modDirectory</span><span class="p">);</span>
 </span></code></pre></div>
-<h5 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link"></a></h5>
+<h5 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link"></a></h5>
 <p><strong><code>assetPrefix</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
 The prefix for all asset names, e.g. <code>Mods/MyMod/Sprites</code>. This can be any value but the same prefix must be used in <code>@AssetName</code> view bindings.</p>
 <p><strong><code>modDirectory</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
@@ -4405,9 +4443,9 @@ The physical directory where the asset files are located, relative to the mod di
 <hr />
 <h4 id="registerviewsstring-string">RegisterViews(string, string)<a class="headerlink" href="#registerviewsstring-string" title="Permanent link"></a></h4>
 <p>Registers a mod directory to be searched for view (StarML) assets. Uses the <code>.sml</code> extension.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">RegisterViews</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">assetPrefix</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">modDirectory</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">RegisterViews</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">assetPrefix</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">modDirectory</span><span class="p">);</span>
 </span></code></pre></div>
-<h5 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link"></a></h5>
+<h5 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link"></a></h5>
 <p><strong><code>assetPrefix</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
 The prefix for all asset names, e.g. <code>Mods/MyMod/Views</code>. This can be any value but the same prefix must be used in <code>include</code> elements and in API calls to create views.</p>
 <p><strong><code>modDirectory</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
