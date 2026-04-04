@@ -5,7 +5,12 @@ using StardewValley.ItemTypeDefinitions;
 
 namespace StardewUITest.Examples;
 
-internal partial record EdiblesViewModel(string HeaderText, ParsedItemData?[] Items)
+internal record EdiblesViewItemModel(ParsedItemData Data)
+{
+    public Item ReprItem => ItemRegistry.Create(Data.QualifiedItemId);
+}
+
+internal partial record EdiblesViewModel(string HeaderText, EdiblesViewItemModel?[] Items)
 {
     [Notify]
     private IList? activeItems;
@@ -40,8 +45,7 @@ internal partial record EdiblesViewModel(string HeaderText, ParsedItemData?[] It
             .ItemTypes.Single(type => type.Identifier == ItemRegistry.type_object)
             .GetAllIds()
             .Select(id => ItemRegistry.GetDataOrErrorItem(id))
-            .Where(data => edibleCategories.Contains(data.Category))
-            .ToArray();
-        return new("All Edibles", items);
+            .Where(data => edibleCategories.Contains(data.Category));
+        return new("All Edibles", items.Select(data => new EdiblesViewItemModel(data)).ToArray());
     }
 }

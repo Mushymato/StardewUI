@@ -8,9 +8,9 @@
                       horizontal-item-alignment="start"
                       visible-count="88"
                       wrap="true"
-                      items={Items}
+                      items={:Items}
                       visible-items={>ActiveItems}>
-            <frame *repeat={ActiveItems}
+            <!-- <frame *repeat={ActiveItems}
                    layout="content 64px">
                 <image *if={this}
                        layout="stretch 64px"
@@ -20,7 +20,11 @@
                        transform-origin="0.5, 0.5"
                        +hover:transform="scale: 1.4"
                        +transition:transform="700ms EaseOutElastic"/>
-            </frame>
+            </frame> -->
+            <item-icon *repeat={ActiveItems} item={:ReprItem}
+                scale="1"
+                +hover:scale="1.1"
+            />
         </virtual-grid>
     </frame>
 </lane>

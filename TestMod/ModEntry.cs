@@ -78,6 +78,11 @@ internal sealed partial class ModEntry : Mod
 
     partial class ConsoleSDUIShowCtx()
     {
+        [Notify]
+        private string text = "abra ca dabra";
+
+        [Notify]
+        private string selected = string.Empty;
         public List<ConsoleSDUIShowOuter> Outers = Enumerable
             .Range(1, 10)
             .Select(num => new ConsoleSDUIShowOuter((num * 100).ToString()))

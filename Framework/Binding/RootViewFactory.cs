@@ -43,6 +43,7 @@ internal class RootViewFactory(IEnumerable<IViewFactory> addonFactories, CommonS
             "tab" => new Tab(),
             "textinput" => new TextInput(),
             "virtual-grid" => new VirtualGridView(),
+            "item-icon" => new ItemIcon(),
             _ => addonFactories.FirstOrDefault(factory => factory.SupportsTag(tagName))?.CreateView(tagName)
                 ?? throw new ArgumentException($"Unsupported view type: {tagName}", nameof(tagName)),
         };
