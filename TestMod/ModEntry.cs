@@ -1,4 +1,5 @@
-﻿using StardewModdingAPI;
+﻿using PropertyChanged.SourceGenerator;
+using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewUI.Framework;
 using StardewUITest.Examples;
@@ -45,11 +46,18 @@ internal sealed partial class ModEntry : Mod
         Game1.activeClickableMenu = viewEngine.CreateMenuFromMarkup(string.Join(' ', arg2));
     }
 
+    partial class ConsoleSDUIShowCtx()
+    {
+        [Notify]
+        public bool isChecked;
+    }
+
     private void ConsoleSDUIShow(string arg1, string[] arg2)
     {
-        var inner = new { Value = "Hello." };
-        var outer = new { Inner = inner };
-        Game1.activeClickableMenu = viewEngine.CreateMenuFromAsset($"{viewAssetPrefix}/sdui-show", outer);
+        Game1.activeClickableMenu = viewEngine.CreateMenuFromAsset(
+            $"{viewAssetPrefix}/sdui-show",
+            new ConsoleSDUIShowCtx()
+        );
     }
 
     public override object? GetApi()

@@ -26,7 +26,7 @@ public class TranslationValueSource(IResolutionScope scope, string key) : IValue
     }
 
     /// <inheritdoc />
-    public Type ValueType => throw new NotImplementedException();
+    public Type ValueType => typeof(string);
 
     /// <inheritdoc />
     object? IValueSource.Value
