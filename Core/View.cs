@@ -469,7 +469,7 @@ public abstract class View : IView, IFloatContainer
     }
 
     /// <inheritdoc />
-    public LookupAnythingHoveredSubject? HoveredSubject
+    public virtual LookupAnythingHoveredSubject? HoveredSubject
     {
         get => field; set
         {

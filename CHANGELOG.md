@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [0.6.3-unofficial-mushymato.2](UNRELEASED)
 
+### Added
+- New view `ItemIcon` (`item-icon`) which allows direct usage of `Item.drawInMenu`.
+
 ### Fixed
 - TranslationValueSource should have ValueType string
 
