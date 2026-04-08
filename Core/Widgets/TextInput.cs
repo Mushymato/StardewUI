@@ -357,7 +357,7 @@ public partial class TextInput : View
         };
         textPanel = new Panel()
         {
-            Layout = LayoutParameters.Fill(),
+            Layout = LayoutParameters.AutoRow(),
             VerticalContentAlignment = Alignment.Middle,
             Children = [placeholder, label, caret],
         };
@@ -373,10 +373,10 @@ public partial class TextInput : View
         var textBoxSprite = UiSprites.TextBox;
         frame = new()
         {
-            Layout = LayoutParameters.Fill(),
-            Padding = textBoxSprite.FixedEdges ?? new(4),
+            Layout = LayoutParameters.AutoRow(),
+            Border = textBoxSprite,
+            BorderThickness = textBoxSprite.FixedEdges ?? new(4),
             VerticalContentAlignment = Alignment.Middle,
-            Background = textBoxSprite,
             Content = scrollContainer,
         };
         textBoxInterceptor = new(this);
