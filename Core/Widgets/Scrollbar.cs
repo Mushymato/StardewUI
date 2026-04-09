@@ -206,7 +206,7 @@ public partial class Scrollbar : ComponentView<Lane>
             Background = UiSprites.ScrollBarTrack,
             Content = thumb,
             ShadowAlpha = 0.4f,
-            ShadowCount = 2,
+            ShadowCount = 1,
             ShadowOffset = new(-5, 5),
         };
         track.LeftClick += Track_LeftClick;

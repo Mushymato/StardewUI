@@ -398,4 +398,10 @@ public static class UiSprites
     /// </summary>
     public static Sprite WhiteBorder =>
         new(Game1.mouseCursors, SourceRect: new(379, 357, 3, 3), FixedEdges: new(1), SliceSettings: new(Scale: 4));
+
+    /// <summary>
+    /// The background and border used in the default shop theme.
+    /// </summary>
+    public static Sprite ShopEntryBorder =>
+        new(Game1.mouseCursors, SourceRect: new(384, 396, 15, 15), FixedEdges: new(6), SliceSettings: new(Scale: 4));
 }
