@@ -699,7 +699,7 @@ Segmented controls can be created with or without separators and transition anim
 
 Although segments are classified here as interaction, they are also technically a [layout view](#layouts) in the sense that the actual inner "segments" are simply the view's child nodes. One important implication of this is that, unlike dropdowns, segmented controls do not make many assumptions about data binding, and it is up to the author to figure out the details.
 
-Most mods can use a relatively standard data binding setup for simple use cases such as enums; for a more comprehensive example, refer to [`EnumSegmentsViewModel`](https://github.com/focustense/StardewRadialMenu/blob/dev/RadialMenu/UI/EnumSegmentsViewModel.cs) and the [`enum-segments`](https://github.com/focustense/StardewRadialMenu/blob/5033d13999a632c8cf46c8e24dff700e835ffec9/RadialMenu/assets/ui/views/Controls.sml#L88) template.
+Most mods can use a relatively standard data binding setup for simple use cases such as enums; for a more comprehensive example, refer to [`EnumSegmentsViewModel`](https://github.com/focustense/StardewControllers/blob/dev/StarControl/UI/EnumSegmentsViewModel.cs) and the [`enum-segments`](https://github.com/focustense/StardewControllers/blob/master/StarControl/assets/ui/views/Controls.sml#L93-L110) template.
 
 ### Slider &nbsp; [:material-book-open-variant:](../reference/stardewui/widgets/slider.md)
 
