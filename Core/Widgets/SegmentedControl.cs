@@ -235,6 +235,7 @@ public partial class SegmentedControl : View
     private readonly DirtyTracker<int?> separatorWidth = new(null);
 
     private bool hasNewLayout = true;
+    private bool hasNewMeasure = false;
     private NineSlice? highlightSlice;
     private Color highlightTint = Color.White;
     private Transition? highlightTransition = null;
@@ -280,7 +281,7 @@ public partial class SegmentedControl : View
     /// <inheritdoc />
     protected override void OnDrawContent(ISpriteBatch b)
     {
-        if (selectedIndex.IsDirty || hasNewLayout)
+        if (hasNewMeasure || selectedIndex.IsDirty || hasNewLayout)
         {
             var previousHighlightRect = highlightRect.Value;
             var indexInLane = SelectedIndex * 2;
@@ -297,7 +298,8 @@ public partial class SegmentedControl : View
             selectedIndex.ResetDirty();
             hasNewLayout = false;
             transitionTime = TimeSpan.Zero;
-            isTransitioning = HighlightTransition is not null && previousHighlightRect != Rectangle.Empty;
+            isTransitioning = !hasNewMeasure && HighlightTransition is not null && previousHighlightRect != Rectangle.Empty;
+            hasNewMeasure = false;
         }
         if (highlight.IsDirty)
         {
@@ -361,6 +363,7 @@ public partial class SegmentedControl : View
         lane.Layout = Layout;
         lane.Measure(availableSize);
         ContentSize = lane.OuterSize;
+        hasNewMeasure = true;
     }
 
     /// <inheritdoc />
