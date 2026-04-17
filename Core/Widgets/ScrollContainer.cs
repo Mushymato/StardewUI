@@ -110,6 +110,19 @@ public partial class ScrollContainer : View
         get => scrollOffset.Value;
         set
         {
+            if (value != scrollOffset.Value)
+            {
+                float newProgress;
+                if (ScrollSize == 0)
+                    newProgress = value >= scrollOffset.Value ? 1f : 0f;
+                else
+                    newProgress = value / ScrollSize;
+                if (Progress != newProgress)
+                {
+                    Progress = newProgress;
+                    OnPropertyChanged(nameof(Progress));
+                }
+            }
             var clamped = Math.Clamp(value, 0, ScrollSize);
             if (clamped != scrollOffset.Value)
             {
@@ -118,6 +131,11 @@ public partial class ScrollContainer : View
             }
         }
     }
+
+    /// <summary>
+    /// The progress of scrollbar, calculated from intended scroll offset before clamp divided by size.
+    /// </summary>
+    public float Progress { get; set; }
 
     /// <summary>
     /// Set <see cref="ScrollOffset"/> without marking it as dirty.

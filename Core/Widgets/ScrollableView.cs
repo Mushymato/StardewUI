@@ -1,4 +1,5 @@
-﻿using StardewUI.Events;
+﻿using System.ComponentModel;
+using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
 
@@ -155,12 +156,13 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
             Container = container,
         };
         container.FloatingElements.Add(new(scrollbar, FloatingPosition.AfterParent));
-        scrollbar.ScrollChanged += OnScrollChanged;
+        scrollbar.PropertyChanged += OnPropertyChanged;
         return container;
     }
 
-    private void OnScrollChanged(object? sender, EventArgs e)
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        OnPropertyChanged(nameof(Progress));
+        if (e.PropertyName == nameof(Scrollbar.Progress))
+            OnPropertyChanged(nameof(Progress));
     }
 }

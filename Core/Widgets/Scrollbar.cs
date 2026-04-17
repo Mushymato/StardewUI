@@ -1,4 +1,5 @@
-﻿using StardewUI.Animation;
+﻿using System.ComponentModel;
+using StardewUI.Animation;
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
@@ -23,14 +24,6 @@ public partial class Scrollbar : ComponentView<Lane>
         get => container;
         set => SetContainer(value);
     }
-
-    /// <summary>
-    /// Event raised when any aspect of the scrolling changes.
-    /// </summary>
-    /// <remarks>
-    /// This serves to bubble <see cref="ScrollContainer.ScrollChanged"/> up to <see cref="ScrollableView"/>
-    /// </remarks>
-    public event EventHandler? ScrollChanged;
 
     /// <summary>
     /// Sprite to draw for the down arrow, or right arrow in horizontal orientation.
@@ -105,25 +98,19 @@ public partial class Scrollbar : ComponentView<Lane>
     }
 
     /// <summary>
-    /// The progress of scrollbar, equal to <see cref="ScrollContainer.ScrollOffset"/> / <see cref="ScrollContainer.ScrollSize"/>.
+    /// The progress of scrollbar, see <see cref="ScrollContainer.Progress"/>.
     /// Setting this via bindings will potentially change the scroll position next tick.
     /// </summary>
     public float Progress
     {
-        get
-        {
-            float value = (Container != null && Container.ScrollSize > 0) ? Container.ScrollOffset / Container.ScrollSize : 0f;
-            return value;
-        }
-        set
-        {
-            progressSetDebounce = value;
-        }
+        get => Container?.Progress ?? 0f;
+        set => progressSetDebounce = value;
     }
 
     private ScrollContainer? container;
     private Visibility? forcedVisibility;
     private Edges margin = new();
+
 
     // Initialized in CreateView
     private Image upButton = null!;
@@ -131,7 +118,7 @@ public partial class Scrollbar : ComponentView<Lane>
     private Frame track = null!;
     private Image thumb = null!;
 
-    /// <summary>Update <see cref="ScrollContainer.ScrollOffset"/> using this value next tick without.</summary>
+    /// <summary>Update <see cref="ScrollContainer.ScrollOffset"/> using this value next tick.</summary>
     private float? progressSetDebounce = null;
 
     // To avoid the common-but-annoying problem where the initial drag motion causes the thumb to suddenly jump to an
@@ -172,6 +159,7 @@ public partial class Scrollbar : ComponentView<Lane>
     {
         if (Container != null && progressSetDebounce != null)
         {
+            Container.Progress = progressSetDebounce.Value;
             Container.SetScrollOffsetNoDirty(Container.ScrollSize * progressSetDebounce.Value);
             SyncPosition();
             SyncVisibility(View);
@@ -221,7 +209,12 @@ public partial class Scrollbar : ComponentView<Lane>
     {
         SyncPosition();
         SyncVisibility(View);
-        ScrollChanged?.Invoke(null, e);
+    }
+
+    private void Container_PropertyChange(object? sender, PropertyChangedEventArgs e)
+    {
+        if (progressSetDebounce == null && e.PropertyName == nameof(ScrollContainer.Progress))
+            OnPropertyChanged(nameof(Progress));
     }
 
     private void DownButton_LeftClick(object? sender, ClickEventArgs e)
@@ -350,6 +343,7 @@ public partial class Scrollbar : ComponentView<Lane>
         {
             prevousScrollStep = this.container.ScrollStep;
             this.container.ScrollChanged -= Container_ScrollChanged;
+            this.container.PropertyChanged -= Container_PropertyChange;
         }
         this.container = container;
         if (container is not null)
@@ -357,6 +351,7 @@ public partial class Scrollbar : ComponentView<Lane>
             if (prevousScrollStep != null)
                 container.ScrollStep = prevousScrollStep.Value;
             container.ScrollChanged += Container_ScrollChanged;
+            container.PropertyChanged -= Container_PropertyChange;
         }
         LazyUpdate();
         OnPropertyChanged(nameof(Container));

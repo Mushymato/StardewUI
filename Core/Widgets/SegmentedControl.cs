@@ -298,7 +298,8 @@ public partial class SegmentedControl : View
             selectedIndex.ResetDirty();
             hasNewLayout = false;
             transitionTime = TimeSpan.Zero;
-            isTransitioning = !hasNewMeasure && HighlightTransition is not null && previousHighlightRect != Rectangle.Empty;
+            if (!hasNewMeasure)
+                isTransitioning = HighlightTransition is not null && previousHighlightRect != Rectangle.Empty;
             hasNewMeasure = false;
         }
         if (highlight.IsDirty)
