@@ -15,6 +15,12 @@ public static partial class UI
     /// </summary>
     internal static IInputHelper InputHelper => EnsureInitialized(() => modHelper.Input);
 
+    /// <summary>
+    /// The main thread ID, i.e. whatever thread calls UI.Initialize
+    /// </summary>
+    private static int mainThreadId = 0;
+    internal static bool IsMainThread => mainThreadId == Environment.CurrentManagedThreadId;
+
     private static IModHelper modHelper = null!;
 
     /// <summary>
@@ -32,6 +38,7 @@ public static partial class UI
         Logger.Monitor = monitor;
         helper.Events.GameLoop.UpdateTicked += GameLoop_UpdateTicked;
         helper.Events.GameLoop.GameLaunched += GameLoop_GameLaunched;
+        mainThreadId = Environment.CurrentManagedThreadId;
     }
 
     private static void GameLoop_GameLaunched(object? sender, GameLaunchedEventArgs e)
