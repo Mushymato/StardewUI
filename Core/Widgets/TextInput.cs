@@ -426,6 +426,7 @@ public partial class TextInput : View
         var limits = Layout.GetLimits(availableSize);
         frame.Measure(limits);
         ContentSize = Layout.Resolve(availableSize, () => frame.OuterSize);
+        UpdateRealCaretPosition();
     }
 
     private void Capture(Vector2 cursorPosition)
@@ -537,7 +538,7 @@ public partial class TextInput : View
             CaretPosition = 0;
             return;
         }
-        if (position.X > ContentSize.X)
+        if (position.X > ContentSize.X + scrollContainer.ScrollOffset)
         {
             CaretPosition = textBeforeCursor.Length + textAfterCursor.Length;
             return;
@@ -639,7 +640,6 @@ public partial class TextInput : View
     {
         float textBeforeCursorWidth = Font.MeasureString(TextBeforeCursor).X;
         int x = (int)MathF.Round(textBeforeCursorWidth) - CARET_POSITION_OFFSET;
-        caret.Margin = new(Left: x);
         if (x < scrollContainer.ScrollOffset + SCROLL_PEEKING_PX)
         {
             scrollContainer.ScrollOffset = x - SCROLL_PEEKING_PX;
@@ -648,6 +648,7 @@ public partial class TextInput : View
         {
             scrollContainer.ScrollOffset = x - scrollContainer.OuterSize.X + SCROLL_PEEKING_PX;
         }
+        caret.Margin = new(Left: x);
     }
 
     private class TextBoxInterceptor(TextInput owner)
