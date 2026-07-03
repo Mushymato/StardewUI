@@ -64,7 +64,7 @@ public static partial class UI
     {
         var elapsed = Game1.currentGameTime.ElapsedGameTime;
         AnimationRunner.Tick(elapsed);
-        if (Game1.keyboardDispatcher.Subscriber is ICaptureTarget captureTarget)
+        if (Game1.keyboardDispatcher?.Subscriber is ICaptureTarget captureTarget)
         {
             captureTarget.Update(elapsed);
         }

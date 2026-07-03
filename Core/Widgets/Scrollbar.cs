@@ -141,7 +141,7 @@ public partial class Scrollbar : ComponentView<Lane>
         {
             return;
         }
-        var progress = Progress;
+        var progress = Math.Clamp(Progress, 0, 1);
         var availableLength = Container.Orientation.Get(track.InnerSize) - Container.Orientation.Get(thumb.ContentSize);
         var position = availableLength * progress;
         if (Container.Orientation == Orientation.Vertical)
