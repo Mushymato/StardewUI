@@ -344,7 +344,7 @@ public partial class Label : View
                     b.DrawString(Font, line, new(x, y + 1), color, scale: Scale);
                     b.DrawString(Font, line, new(x + 1, y + 1), color, scale: Scale);
                 }
-                y += Font.LineSpacing;
+                y += (int)(Font.LineSpacing * Scale);
             }
         }
     }

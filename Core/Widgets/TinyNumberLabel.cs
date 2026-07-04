@@ -74,6 +74,23 @@ public partial class TinyNumberLabel : View
         }
     }
 
+    /// <summary>
+    /// Tint color (multiplier) to apply when drawing.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    public Color Tint
+    {
+        get => tint;
+        set
+        {
+            if (value != tint)
+            {
+                tint = value;
+                OnPropertyChanged(nameof(Tint));
+            }
+        }
+    }
+
     /// <inheritdoc />
     protected override bool HandlesOpacity => true;
 
@@ -83,6 +100,7 @@ public partial class TinyNumberLabel : View
 
     private Rectangle[] digitRects = [];
     private int[] digits = [];
+    private Color tint = Color.White;
 
     /// <inheritdoc />
     protected override bool IsContentDirty()
@@ -94,7 +112,7 @@ public partial class TinyNumberLabel : View
     protected override void OnDrawContent(ISpriteBatch b)
     {
         var digitSprites = this.digitSprites.Value;
-        var color = Color.White * Opacity;
+        var color = tint * Opacity;
         for (int i = 0; i < digits.Length; i++)
         {
             var digitSprite = digitSprites[digits[i]];
