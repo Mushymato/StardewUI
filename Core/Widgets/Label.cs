@@ -422,18 +422,21 @@ public partial class Label : View
                         ? new("", 0, PunctuationRegex)
                         : new HyphenationOptions("-", Font.MeasureString("-").X, PunctuationRegex);
                     string brokenWord = BreakWord(ref word, ref wordWidth, remainingWidth, hyphenationOptions);
-                    continuedWord = word;
-                    word = brokenWord;
-                    // Only append the hyphen if it's not going to be ellipsized later. We should add a hyphen OR
-                    // ellipsis, not both. Also, only hyphenate if breaking succeeded.
-                    if (
-                        continuedWord.Length > 0
-                        && hyphenationOptions.Hyphen.Length > 0
-                        && (MaxLines == 0 || lines.Count < (MaxLines - 1))
-                    )
+                    if (!string.IsNullOrEmpty(brokenWord))
                     {
-                        word += hyphenationOptions.Hyphen;
-                        wordWidth += hyphenationOptions.Width;
+                        continuedWord = word;
+                        word = brokenWord;
+                        // Only append the hyphen if it's not going to be ellipsized later. We should add a hyphen OR
+                        // ellipsis, not both. Also, only hyphenate if breaking succeeded.
+                        if (
+                            continuedWord.Length > 0
+                            && hyphenationOptions.Hyphen.Length > 0
+                            && (MaxLines == 0 || lines.Count < (MaxLines - 1))
+                        )
+                        {
+                            word += hyphenationOptions.Hyphen;
+                            wordWidth += hyphenationOptions.Width;
+                        }
                     }
                 }
                 sb.Append(word);
