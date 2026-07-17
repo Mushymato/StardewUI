@@ -36,20 +36,31 @@ public partial class TextInput : View
     }
 
     /// <summary>
-    /// Gets or sets the thickness of the border edges in the <see cref="Background"/> sprite.
+    /// <inheritdoc cref="Frame.Border"/>
+    /// <c>(unofficial-mushymato)</c>
     /// </summary>
-    /// <remarks>
-    /// This is similar to <see cref="Frame.Border"/> but assumes that the border is part of the background, rather than
-    /// a separate sprite. Setting this affects padding of content inside the background.
-    /// </remarks>
-    public Edges BorderThickness
+    public Sprite? Border
     {
-        get => frame.Padding;
+        get => frame.Border;
         set
         {
-            if (value != frame.Padding)
+            if (value != frame.Border)
             {
-                frame.Padding = value;
+                frame.Border = value;
+                OnPropertyChanged(nameof(Border));
+            }
+        }
+    }
+
+    /// <inheritdoc cref="Frame.BorderThickness"/>
+    public Edges BorderThickness
+    {
+        get => frame.BorderThickness;
+        set
+        {
+            if (value != frame.BorderThickness)
+            {
+                frame.BorderThickness = value;
                 OnPropertyChanged(nameof(BorderThickness));
             }
         }
