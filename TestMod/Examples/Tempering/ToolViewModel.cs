@@ -172,9 +172,9 @@ internal partial class ToolViewModel(Tool tool) : INotifyPropertyChanged
         {
             yield break;
         }
-        yield return new(ItemRegistry.GetData("(O)74"), 1);
+        yield return new(ItemRegistry.GetDataOrErrorItem("(O)74"), 1);
         yield return new(
-            ItemRegistry.GetData("(O)382"),
+            ItemRegistry.GetDataOrErrorItem("(O)382"),
             (int)MathF.Ceiling((float)NewMaterials.Sum(m => m.Quantity) / 4)
         );
         foreach (var material in NewMaterials)

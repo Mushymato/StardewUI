@@ -8,6 +8,9 @@ using StardewModdingAPI.Utilities;
 using StardewValley;
 using Xunit.Abstractions;
 using Xunit.Sdk;
+#if SDV17
+using StardewValley.ContentManagement;
+#endif
 
 [assembly: TestFramework("StardewUI.Framework.Tests.GameLoader", "StardewUI.Framework.Tests")]
 

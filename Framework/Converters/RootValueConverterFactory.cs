@@ -140,7 +140,7 @@ internal class RootValueConverterFactory : ValueConverterFactory
         TryRegister<(string, string), TooltipData>(t => new(t.Item2, t.Item1));
         TryRegister<Tuple<string, string>, TooltipData>(t => new(t.Item2, t.Item1));
         TryRegister<ParsedItemData, TooltipData>(data =>
-            new(data.Description, data.DisplayName, ItemRegistry.Create(data.ItemId))
+            new(data.Description ?? string.Empty, data.DisplayName, ItemRegistry.Create(data.QualifiedItemId))
         );
         TryRegister<Item, TooltipData>(item => new(item.getDescription(), item.DisplayName, item));
 

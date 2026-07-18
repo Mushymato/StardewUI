@@ -21,7 +21,7 @@ internal partial class CropsGridViewModel : INotifyPropertyChanged
             .objectData.Select(
                 (kv) =>
                     Game1.cropData.TryGetValue(kv.Key, out CropData? crop)
-                        ? new CropInfoboxModel(ItemRegistry.GetData(kv.Key), crop)
+                        ? new CropInfoboxModel(ItemRegistry.GetDataOrErrorItem(kv.Key), crop)
                         : null
             )
             .Where(cropInfo => cropInfo is not null)
@@ -38,7 +38,7 @@ internal partial class CropsGridViewModel : INotifyPropertyChanged
 
 internal partial record CropInfoboxModel(ParsedItemData Seed, CropData Crop) : INotifyPropertyChanged
 {
-    public string Name => Produce.DisplayName;
+    public string? Name => Produce.DisplayName;
     public IReadOnlyList<bool> Harvest { get; } = GetHarvest(Crop).ToList();
     public ParsedItemData Produce { get; } = ItemRegistry.GetDataOrErrorItem(Crop.HarvestItemId);
 

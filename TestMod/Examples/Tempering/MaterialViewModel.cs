@@ -22,7 +22,7 @@ internal partial class MaterialViewModel(string itemId, int initialQuantity, boo
         enableEchoes ? new(TimeSpan.FromMilliseconds(500)) : null;
     public Tuple<string, string> EffectTooltip =>
         Tuple.Create(
-            Item.DisplayName,
+            Item.DisplayName ?? string.Empty,
             EffectOnSelectedTool is not null
                 ? $"{BaseDisplayText}\n\n{EffectOnSelectedTool.Description}."
                 : NoEffectDescription

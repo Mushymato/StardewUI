@@ -673,7 +673,11 @@ public partial class TextInput : View
             owner.Draw(b);
         }
 
+#if SDV17
+        public override void RecieveCommandInput(char command, KeyboardModifier modifiers)
+#else
         public override void RecieveCommandInput(char command)
+#endif
         {
             if (Selected)
             {
@@ -763,7 +767,11 @@ public partial class TextInput : View
 
         private bool selected;
 
+#if SDV17
+        public void RecieveCommandInput(char command, KeyboardModifier modifiers)
+#else
         public void RecieveCommandInput(char command)
+#endif
         {
             if (Selected)
             {
@@ -771,7 +779,11 @@ public partial class TextInput : View
             }
         }
 
+#if SDV17
+        public void RecieveSpecialInput(Keys key, KeyboardModifier modifiers)
+#else
         public void RecieveSpecialInput(Keys key)
+#endif
         {
             // KeyboardDispatcher is not consistent about which "special" keys it dispatches, depending on the platform.
             // It's better not to implement this, and instead set up a separate (direct) subscription.
@@ -814,5 +826,22 @@ public partial class TextInput : View
             return Environment.OSVersion.Platform == PlatformID.Unix
                 || Environment.OSVersion.Platform == PlatformID.Win32NT;
         }
+#if SDV17
+        // TODO: implement clipboard and selection
+        public string ClipboardCopy()
+        {
+            return owner.Text;
+        }
+
+        public string ClipboardCut()
+        {
+            return owner.Text;
+        }
+
+        public void SelectAll()
+        {
+
+        }
+#endif
     }
 }

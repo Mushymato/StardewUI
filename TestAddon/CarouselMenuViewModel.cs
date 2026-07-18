@@ -88,6 +88,6 @@ internal class PurchasableItem(ParsedItemData data, int price)
     }
 
     public ParsedItemData Data { get; } = data;
-    public string DisplayName => Data.DisplayName;
+    public string? DisplayName => Data.DisplayName;
     public int Price { get; } = price;
 }

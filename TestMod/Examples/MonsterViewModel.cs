@@ -155,5 +155,5 @@ internal record MonsterDrop(ParsedItemData Item, float Chance)
             _ => Color.Green,
         };
     public string FormattedChance = string.Format("{0:0.0%}", Chance);
-    public string ItemDisplayName => Item.DisplayName;
+    public string? ItemDisplayName => Item.DisplayName;
 }
