@@ -21,18 +21,15 @@ public partial class TextInput : View
     /// </summary>
     public event EventHandler<EventArgs>? TextChanged;
 
-    /// <inheritdoc cref="Frame.Background"/>
+    /// <summary>
+    /// For compatibility reasons Background is alias for Border.
+    /// <inheritdoc cref="Frame.Border"/>
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
     public Sprite? Background
     {
-        get => frame.Background;
-        set
-        {
-            if (value != frame.Background)
-            {
-                frame.Background = value;
-                OnPropertyChanged(nameof(Background));
-            }
-        }
+        get => frame.Border;
+        set => frame.Border = value;
     }
 
     /// <summary>
