@@ -12,8 +12,8 @@
   "Author": "focustense",
   "Version": "0.6.3-unofficial-mushymato.2",
   "Description": "Test mod and example gallery for StardewUI",
-  "MinimumApiVersion": "4.5.3-alpha.20260510",
-  "MinimumGameVersion": "1.6.16",
+  "MinimumApiVersion": "4.5.2",
+  "MinimumGameVersion": "1.6.15",
   "EntryDll": "StardewUITest.dll",
   "Dependencies": [
     {

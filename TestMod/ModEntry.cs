@@ -49,7 +49,7 @@ internal sealed partial class ModEntry : Mod
     partial class ConsoleSDUIShowCtx()
     {
         [Notify]
-        public bool isChecked;
+        public string text = "1234567890";
     }
 
     private void ConsoleSDUIShow(string arg1, string[] arg2)

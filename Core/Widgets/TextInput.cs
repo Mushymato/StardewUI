@@ -100,6 +100,54 @@ public partial class TextInput : View
     }
 
     /// <summary>
+    /// Number of characters selected, stored as number of characters before or after the caret.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    /// <remarks>
+    /// This value does participate in <see cref="TextBeforeCursor"/> or <see cref="TextAfterCursor"/> adding up to equal total text length.
+    /// When positive, it is always smaller than <see cref="TextAfterCursor"/> length.
+    /// When negative, it's absolute value is always smaller <see cref="TextBeforeCursor"/> length.
+    /// </remarks>
+    public int CaretSelectionSize
+    {
+        get => field;
+        set
+        {
+            int val;
+            string textSelected;
+
+            if (value > 0)
+                val = Math.Min(value, TextAfterCursor.Length);
+            else if (value < 0)
+                val = Math.Max(value, -TextBeforeCursor.Length);
+            else
+                val = value;
+
+            if (field == val)
+                return;
+
+            if (val > 0)
+                textSelected = TextAfterCursor[..val];
+            else if (val < 0)
+                textSelected = TextBeforeCursor[^(-val)..];
+            else
+                textSelected = string.Empty;
+
+            field = val;
+            OnPropertyChanged(nameof(CaretSelectionSize));
+            SelectedText = textSelected;
+            OnPropertyChanged(nameof(SelectedText));
+            UpdateRealSelectionPosition();
+        }
+    }
+
+    /// <summary>
+    /// Read-only property for selected text, set via changes to <see cref="CaretSelectionSize"/>.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    public string SelectedText { get; private set; } = string.Empty;
+
+    /// <summary>
     /// The width to draw the <see cref="Caret"/>, if different from the sprite's source width.
     /// </summary>
     public float? CaretWidth
@@ -118,6 +166,8 @@ public partial class TextInput : View
             }
         }
     }
+
+
 
     /// <summary>
     /// Whether the input is enabled.
@@ -255,6 +305,7 @@ public partial class TextInput : View
             {
                 label.Color = value;
                 caret.Tint = value;
+                selection.Tint = value * 0.2f;
                 OnPropertyChanged(nameof(TextColor));
             }
         }
@@ -311,6 +362,7 @@ public partial class TextInput : View
 
     private readonly Image caret;
     private readonly Animator<Image, Visibility> caretBlinkAnimator;
+    private readonly Image selection;
     private readonly Frame frame;
     private readonly Label label;
     private readonly Label placeholder;
@@ -348,6 +400,15 @@ public partial class TextInput : View
             (i, v) => i.Visibility = v
         );
         caretBlinkAnimator.Loop = true;
+        selection = new Image()
+        {
+            Name = "TextInputSelection",
+            Layout = LayoutParameters.Fill(),
+            Fit = ImageFit.Stretch,
+            Sprite = new(Game1.staminaRect),
+            Tint = Game1.textColor * 0.2f,
+            Visibility = Visibility.Hidden,
+        };
         label = new()
         {
             Name = "TextInputLabel",
@@ -367,7 +428,7 @@ public partial class TextInput : View
         {
             Layout = LayoutParameters.AutoRow(),
             VerticalContentAlignment = Alignment.Middle,
-            Children = [placeholder, label, caret],
+            Children = [placeholder, label, selection, caret],
         };
         scrollContainer = new()
         {
@@ -423,6 +484,16 @@ public partial class TextInput : View
     }
 
     /// <inheritdoc />
+    public override void OnDrag(PointerEventArgs e)
+    {
+        if (Enabled && Game1.keyboardDispatcher.Subscriber == textInputSubscriber)
+        {
+            Select(e.Position);
+            e.Handled = true;
+        }
+    }
+
+    /// <inheritdoc />
     protected override void OnDrawContent(ISpriteBatch b)
     {
         frame.Draw(b);
@@ -452,19 +523,21 @@ public partial class TextInput : View
         }
         else
         {
-            var searchOrigin = new Vector2(
-                BorderThickness.Left - CARET_SEARCH_OFFSET - scrollContainer.ScrollOffset,
-                BorderThickness.Top
-            );
-            MoveCaretToCursor(cursorPosition - searchOrigin);
+            MoveCaretToCursor(cursorPosition);
             caretBlinkAnimator.Start(Visibility.Visible, Visibility.Hidden, TimeSpan.FromSeconds(1));
             Game1.keyboardDispatcher.Subscriber = textInputSubscriber;
         }
         UpdatePlaceholderVisibility();
     }
 
+    private void Select(Vector2 cursorPosition)
+    {
+        MoveCaretToCursor(cursorPosition, selecting: true);
+    }
+
     private void HandleSpecialKey(Keys key)
     {
+        // TODO: add shift select range
         switch (key)
         {
             case Keys.Left:
@@ -480,11 +553,18 @@ public partial class TextInput : View
                 CaretPosition = Text.Length;
                 break;
             case Keys.Delete:
-                if (TextAfterCursor.Length > 0)
+                if (EraseSelectedText())
                 {
-                    TextAfterCursor = TextAfterCursor[1..];
-                    label.Text = Text;
                     OnTextChanged();
+                }
+                else
+                {
+                    if (TextAfterCursor.Length > 0)
+                    {
+                        TextAfterCursor = TextAfterCursor[1..];
+                        label.Text = Text;
+                        OnTextChanged();
+                    }
                 }
                 break;
         }
@@ -495,10 +575,17 @@ public partial class TextInput : View
         switch (c)
         {
             case '\b':
-                if (TextBeforeCursor.Length > 0)
+                if (EraseSelectedText())
                 {
-                    TextBeforeCursor = TextBeforeCursor[..^1];
                     OnTextChanged();
+                }
+                else
+                {
+                    if (TextBeforeCursor.Length > 0)
+                    {
+                        TextBeforeCursor = TextBeforeCursor[..^1];
+                        OnTextChanged();
+                    }
                 }
                 break;
             case '\t':
@@ -508,6 +595,7 @@ public partial class TextInput : View
             default:
                 if (!char.IsControl(c))
                 {
+                    EraseSelectedText();
                     if (MaxLength == 0 || Text.Length < MaxLength)
                     {
                         TextBeforeCursor += c;
@@ -535,21 +623,85 @@ public partial class TextInput : View
         }
     }
 
-    private void MoveCaretToCursor(Vector2 position)
+    /// <summary>
+    /// Erases the selected text. Note that it does not immediately call <see cref="OnTextChanged"/>.
+    /// </summary>
+    /// <returns>True if there was text to erase.</returns>
+    private bool EraseSelectedText()
+    {
+        int selectionSize = CaretSelectionSize;
+        if (selectionSize == 0)
+        {
+            return false;
+        }
+        else if (selectionSize > 0)
+        {
+            TextAfterCursor = TextAfterCursor[selectionSize..];
+        }
+        else
+        {
+            TextBeforeCursor = TextBeforeCursor[..^Math.Abs(selectionSize)];
+        }
+        return true;
+    }
+
+    private string? ClipboardCopy()
+    {
+        if (CaretSelectionSize == 0)
+            return null;
+        return SelectedText;
+    }
+
+    private string? ClipboardCut()
+    {
+        if (CaretSelectionSize == 0)
+            return null;
+        string selected = SelectedText;
+        if (EraseSelectedText())
+            OnTextChanged();
+        return selected;
+    }
+
+    private void SelectAll()
+    {
+        CaretPosition = 0;
+        CaretSelectionSize = Text.Length;
+    }
+
+    private void MoveCaretToCursor(Vector2 cursorPosition, bool selecting = false)
     {
         if (Text.Length == 0)
-        {
             return;
+        var searchOrigin = new Vector2(
+            BorderThickness.Left - CARET_SEARCH_OFFSET - scrollContainer.ScrollOffset,
+            BorderThickness.Top
+        );
+        int caretPosition = CaretPositionSearch(cursorPosition - searchOrigin);
+        if (selecting)
+        {
+            CaretSelectionSize = caretPosition - CaretPosition;
         }
+        else
+        {
+            CaretPosition = caretPosition;
+        }
+    }
+
+    /// <summary>
+    /// Search for caret position, i.e. which character should the caret be positioned after.
+    /// This is used for <see cref="CaretPosition"/> as well <see cref="CaretSelectionSize"/>.
+    /// </summary>
+    /// <param name="position">Cursor position</param>
+    /// <returns>Caret position</returns>
+    private int CaretPositionSearch(Vector2 position)
+    {
         if (position.X < 0)
         {
-            CaretPosition = 0;
-            return;
+            return 0;
         }
         if (position.X > ContentSize.X + scrollContainer.ScrollOffset)
         {
-            CaretPosition = textBeforeCursor.Length + textAfterCursor.Length;
-            return;
+            return textBeforeCursor.Length + textAfterCursor.Length;
         }
         // Taking into account proportional widths, bearings, kernings, etc., we know very little about the relationship
         // of pixel positions to character positions and don't want to reimplement the entire font system.
@@ -564,7 +716,7 @@ public partial class TextInput : View
         var searchEnd = labelText.Length;
         while (searchStart < searchEnd)
         {
-            int searchMid = (int)(MathF.Ceiling((searchStart + searchEnd) / 2.0f));
+            int searchMid = (int)MathF.Ceiling((searchStart + searchEnd) / 2.0f);
             var searchText = labelText[0..searchMid];
             var textWidth = Font.MeasureString(searchText).X - Font.MeasureString(searchText[^1..]).X / 2;
             if (labelOffset < textWidth)
@@ -576,12 +728,12 @@ public partial class TextInput : View
                 searchStart = Math.Max(searchStart + 1, searchMid);
             }
         }
-        var finalIndex = searchStart;
-        CaretPosition = previousCharacterCount + finalIndex;
+        return previousCharacterCount + searchStart;
     }
 
     private void OnTextChanged()
     {
+        CaretSelectionSize = 0;
         UpdateRealCaretPosition();
         UpdatePlaceholderVisibility();
         TextChanged?.Invoke(this, EventArgs.Empty);
@@ -614,6 +766,7 @@ public partial class TextInput : View
         }
         TextBeforeCursor = position > 0 ? fullText[0..position] : "";
         TextAfterCursor = position < fullText.Length ? fullText[position..] : "";
+        CaretSelectionSize = 0;
         UpdateRealCaretPosition();
         return true;
     }
@@ -648,6 +801,42 @@ public partial class TextInput : View
     {
         float textBeforeCursorWidth = Font.MeasureString(TextBeforeCursor).X;
         int x = (int)MathF.Round(textBeforeCursorWidth) - CARET_POSITION_OFFSET;
+        caret.Margin = new(Left: x);
+        UpdateRealSelectionPosition();
+    }
+
+    private void UpdateRealSelectionPosition()
+    {
+        int selectionSize = CaretSelectionSize;
+        if (selectionSize == 0)
+        {
+            selection.Visibility = Visibility.Hidden;
+            UpdateScrollToCaretPosition(caret.Margin.Left);
+        }
+        else
+        {
+            selection.Visibility = Visibility.Visible;
+            Vector2 availableSize = new(Font.MeasureString(SelectedText).X, caret.ContentSize.Y);
+            if (selectionSize > 0)
+            {
+                // L to R selection, take caret.Margin as is
+                selection.Margin = caret.Margin;
+                UpdateScrollToCaretPosition(selection.Margin.Left + availableSize.X);
+            }
+            else if (selectionSize < 0)
+            {
+                // R to L selection, take caret.Margin.Left minus width of selected text.
+                selection.Margin = new(Left: caret.Margin.Left - (int)MathF.Round(availableSize.X));
+                UpdateScrollToCaretPosition(selection.Margin.Left);
+            }
+            // Add in the margin to account for how measurement works (kind of a hack)
+            availableSize.X += selection.Margin.Left;
+            selection.Measure(availableSize);
+        }
+    }
+
+    private void UpdateScrollToCaretPosition(float x)
+    {
         if (x < scrollContainer.ScrollOffset + SCROLL_PEEKING_PX)
         {
             scrollContainer.ScrollOffset = x - SCROLL_PEEKING_PX;
@@ -656,7 +845,6 @@ public partial class TextInput : View
         {
             scrollContainer.ScrollOffset = x - scrollContainer.OuterSize.X + SCROLL_PEEKING_PX;
         }
-        caret.Margin = new(Left: x);
     }
 
     private class TextBoxInterceptor(TextInput owner)
@@ -767,28 +955,6 @@ public partial class TextInput : View
 
         private bool selected;
 
-#if SDV17
-        public void RecieveCommandInput(char command, KeyboardModifier modifiers)
-#else
-        public void RecieveCommandInput(char command)
-#endif
-        {
-            if (Selected)
-            {
-                owner.Insert(command);
-            }
-        }
-
-#if SDV17
-        public void RecieveSpecialInput(Keys key, KeyboardModifier modifiers)
-#else
-        public void RecieveSpecialInput(Keys key)
-#endif
-        {
-            // KeyboardDispatcher is not consistent about which "special" keys it dispatches, depending on the platform.
-            // It's better not to implement this, and instead set up a separate (direct) subscription.
-        }
-
         public void RecieveTextInput(char inputChar)
         {
             if (Selected)
@@ -826,21 +992,49 @@ public partial class TextInput : View
             return Environment.OSVersion.Platform == PlatformID.Unix
                 || Environment.OSVersion.Platform == PlatformID.Win32NT;
         }
+
 #if SDV17
-        // TODO: implement clipboard and selection
-        public string ClipboardCopy()
+        public void RecieveCommandInput(char command, KeyboardModifier modifiers)
         {
-            return owner.Text;
+            // TODO: support Alt/Control + Backspace erasing a whole word
+            if (Selected)
+                owner.Insert(command);
         }
 
-        public string ClipboardCut()
+        public void RecieveSpecialInput(Keys key, KeyboardModifier modifiers)
         {
-            return owner.Text;
+            // KeyboardDispatcher is not consistent about which "special" keys it dispatches, depending on the platform.
+            // It's better not to implement this, and instead set up a separate (direct) subscription.
+        }
+
+        public string? ClipboardCopy()
+        {
+            return Selected ? owner.ClipboardCopy() : null;
+        }
+
+        public string? ClipboardCut()
+        {
+            return Selected ? owner.ClipboardCut() : null;
         }
 
         public void SelectAll()
         {
+            if (Selected)
+            {
+                owner.SelectAll();
+            }
+        }
+#else
+        public void RecieveCommandInput(char command)
+        {
+            if (Selected)
+            owner.Insert(command);
+        }
 
+        public void RecieveSpecialInput(Keys key)
+        {
+            // KeyboardDispatcher is not consistent about which "special" keys it dispatches, depending on the platform.
+            // It's better not to implement this, and instead set up a separate (direct) subscription.
         }
 #endif
     }
