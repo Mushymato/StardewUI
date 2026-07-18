@@ -50,6 +50,9 @@ internal sealed partial class ModEntry : Mod
     {
         [Notify]
         public string text = "1234567890";
+
+        [Notify]
+        public string selected = string.Empty;
     }
 
     private void ConsoleSDUIShow(string arg1, string[] arg2)

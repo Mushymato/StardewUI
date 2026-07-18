@@ -114,7 +114,7 @@ public partial class TextInput : View
         set
         {
             int val;
-            string textSelected;
+            string selectedText;
 
             if (value > 0)
                 val = Math.Min(value, TextAfterCursor.Length);
@@ -127,15 +127,15 @@ public partial class TextInput : View
                 return;
 
             if (val > 0)
-                textSelected = TextAfterCursor[..val];
+                selectedText = TextAfterCursor[..val];
             else if (val < 0)
-                textSelected = TextBeforeCursor[^(-val)..];
+                selectedText = TextBeforeCursor[^(-val)..];
             else
-                textSelected = string.Empty;
+                selectedText = string.Empty;
 
             field = val;
             OnPropertyChanged(nameof(CaretSelectionSize));
-            SelectedText = textSelected;
+            SelectedText = selectedText;
             OnPropertyChanged(nameof(SelectedText));
             UpdateRealSelectionPosition();
         }
