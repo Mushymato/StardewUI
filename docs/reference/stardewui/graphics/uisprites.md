@@ -89,6 +89,7 @@ public static class UiSprites
 | [VerticalScrollThumb](#verticalscrollthumb) | Thumb sprite used for vertical scroll bars. | 
 | [White](#white) | A single white pixel. | 
 | [WhiteBorder](#whiteborder) | Nine-slice sprite consisting of 8 white edge pixels and a transparent center. Used for simple borders. | 
+| [ShopEntryBorder](#shopentryborder) | Nine-slice sprite of the border used for a single purchaseable item the default shop theme. `(unofficial-mushymato)` | 
 
 ## Details
 

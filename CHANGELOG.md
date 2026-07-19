@@ -7,10 +7,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [0.6.3-unofficial-mushymato.2](UNRELEASED)
 
 ### Added
-- New view `ItemIcon` (`item-icon`) which allows direct usage of `Item.drawInMenu`.
+- You can now use translations (i.e. `#i18n.key`) in state bindings.
+- New built-in UI sprite `@Mods/StardewUI/Sprites/ShopEntryBorder`.
+- New `TinyNumberLabel` (aka `digits`) property `Tint`, changes color of the tint.
+- All `TextInput` now supports text selection via mouse, with a new readonly property `SelectedText` to obtain the currently selected text.
 
 ### Fixed
-- TranslationValueSource should have ValueType string
+- Various `TextInput` related bugs. Notable behavior change: the inner frame Border is now the definitive visual property, Background changed to alias for Border.
+- Segments not measuring initial layout properly.
+- Scroll process backend improvements.
+- Logging to monitor now only happens on main thread, off thread calls to Logger.Log is queued until main thread has a change to do logging.
+- Label hanging on attempting to break a word with 0 breakable chars.
+- `PositionSelector` will now also set the initial `xPositionOnScreen` and `yPositionOnScreen` values.
 
 ## [0.6.3-unofficial-mushymato.1](https://github.com/Mushymato/StardewUI/releases/tag/0.6.3-unofficial-mushymato.1)
 

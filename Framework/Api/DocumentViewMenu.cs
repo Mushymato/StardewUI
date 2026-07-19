@@ -65,7 +65,22 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     public IClickableMenu Menu => this;
 
     /// <inheritdoc />
-    public Func<Point>? PositionSelector { get; set; }
+    public Func<Point>? PositionSelector
+    {
+        get => field;
+        set
+        {
+            if (field != value)
+            {
+                field = value;
+                if (field?.Invoke() is Point pnt)
+                {
+                    xPositionOnScreen = pnt.X;
+                    yPositionOnScreen = pnt.Y;
+                }
+            }
+        }
+    }
 
     private event Action? ControllerClosed;
 
