@@ -183,6 +183,10 @@ public class ViewNode(
             childrenBinder = ReflectionChildrenBinder.FromViewDescriptor(viewDescriptor);
             wasViewCreated = true;
         }
+        else if (!view.IsWithinScrollBounds)
+        {
+            return false;
+        }
         bool wasChildContextChanged = false;
         if (wasContextChanged)
         {
@@ -292,6 +296,7 @@ public class ViewNode(
             UpdateViewChildren();
             wasChanged = true;
         }
+
         behaviors.Update(elapsed);
         viewState?.Write(view);
         wasContextChanged = false;

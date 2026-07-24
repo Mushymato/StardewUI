@@ -348,6 +348,10 @@ public partial class ScrollContainer : View
         {
             OnPropertyChanged(nameof(ScrollSize));
         }
+        if (args.PropertyName == nameof(ActualBounds) || args.PropertyName == nameof(ScrollOffset))
+        {
+            Content?.UpdateParentScrollingBounds(ActualBounds.Offset(GetScrollOrigin()));
+        }
     }
 
     /// <inheritdoc />

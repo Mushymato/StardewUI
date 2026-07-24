@@ -118,13 +118,26 @@ public class AttributeBindingFactory(
         public bool UpdateView(IView target, bool force)
         {
             using var _ = Trace.Begin(this, nameof(UpdateView));
-            using var _name = Trace.Begin(this, $"{destination.DeclaringType.Name}:{destination.Name}");
-            if (!source.CanRead)
+            using var _name = Trace.Begin(
+                this,
+                $"{nameof(UpdateView)}#{destination.DeclaringType.Name}:{destination.Name}"
+            );
             {
-                throw new BindingException($"Cannot read a value from non-readable source {source.DisplayName}.");
+                using var _a = Trace.Begin(
+                    this,
+                    $"{nameof(UpdateView)}#{destination.DeclaringType.Name}:{destination.Name}#checkRead"
+                );
+                if (!source.CanRead)
+                {
+                    throw new BindingException($"Cannot read a value from non-readable source {source.DisplayName}.");
+                }
             }
             if (!destination.CanWrite)
             {
+                using var _b = Trace.Begin(
+                    this,
+                    $"{nameof(UpdateView)}#{destination.DeclaringType.Name}:{destination.Name}#checkRead"
+                );
                 throw new BindingException(
                     $"Cannot write a value to non-writable property "
                         + $"{destination.DeclaringType.Name}.{destination.Name}."

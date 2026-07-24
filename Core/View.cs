@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using StardewUI.Data;
 using StardewUI.Events;
+using StardewUI.Framework;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
@@ -507,6 +508,9 @@ public abstract class View : IView, IFloatContainer
         }
     }
 
+    /// <inheritdoc/>
+    public bool IsWithinScrollBounds { get; set; } = true;
+
     /// <summary>
     /// Whether the specific view type handles its own opacity.
     /// </summary>
@@ -543,6 +547,11 @@ public abstract class View : IView, IFloatContainer
     /// The most recent size used in a <see cref="Measure"/> pass. Used for additional dirty checks.
     /// </summary>
     protected Vector2 LastAvailableSize { get; private set; } = Vector2.Zero;
+
+    /// <summary>
+    /// The parent scrolling bounds propagated down from an ancestor <see cref="Widgets.ScrollContainer"/>.
+    /// </summary>
+    protected Bounds? ParentScrollingBounds;
 
     private readonly DirtyTracker<LayoutParameters> layout = new(new());
     private readonly DirtyTracker<Edges> margin = new(Edges.NONE);
@@ -626,7 +635,7 @@ public abstract class View : IView, IFloatContainer
     public void Draw(ISpriteBatch b)
     {
         using var _ = Diagnostics.Trace.Begin(this, nameof(Draw));
-        if (Visibility != Visibility.Visible || Opacity == 0)
+        if (Visibility != Visibility.Visible || Opacity == 0 || !IsWithinScrollBounds)
         {
             return;
         }
@@ -932,7 +941,12 @@ public abstract class View : IView, IFloatContainer
         margin.ResetDirty();
         padding.ResetDirty();
         ResetDirty();
-        hasChildrenWithOutOfBoundsContent = GetChildren().Any(child => child.View.HasOutOfBoundsContent());
+        hasChildrenWithOutOfBoundsContent = false;
+        foreach (ViewChild child in GetChildren())
+        {
+            hasChildrenWithOutOfBoundsContent = hasChildrenWithOutOfBoundsContent || child.View.HasOutOfBoundsContent();
+            child.View.IsWithinScrollBounds = child.IsWithinScrollBounds(ParentScrollingBounds);
+        }
         foreach (var floatingElement in FloatingElements)
         {
             floatingElement.MeasureAndPosition(this, wasParentDirty: true);
@@ -1125,9 +1139,12 @@ public abstract class View : IView, IFloatContainer
     public virtual void OnUpdate(TimeSpan elapsed)
     {
         using var _ = Diagnostics.Trace.Begin(this, nameof(OnUpdate));
-        foreach (var child in GetChildren())
+        foreach (var viewChild in GetChildren())
         {
-            child.View.OnUpdate(elapsed);
+            if (viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds))
+            {
+                viewChild.View.OnUpdate(elapsed);
+            }
         }
     }
 
@@ -1164,6 +1181,17 @@ public abstract class View : IView, IFloatContainer
             return ScrollIntoView(children, out distance);
         }
         return parent?.View.ScrollIntoView(children, out distance) ?? false;
+    }
+
+    /// <inheritdoc/>
+    public void UpdateParentScrollingBounds(Bounds? parentScrollingBounds)
+    {
+        this.ParentScrollingBounds = parentScrollingBounds;
+        foreach (ViewChild child in GetLocalChildren())
+        {
+            child.View.UpdateParentScrollingBounds(parentScrollingBounds?.Offset(-child.Position));
+            child.View.IsWithinScrollBounds = child.IsWithinScrollBounds(parentScrollingBounds);
+        }
     }
 
     /// <inheritdoc />

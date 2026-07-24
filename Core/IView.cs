@@ -514,4 +514,13 @@ public interface IView : IDisposable, INotifyPropertyChanged
     /// <param name="distance">The total distance that was scrolled, including distance scrolled by descendants.</param>
     /// <returns>Whether or not the scroll was successful; <c>false</c> prevents the request from bubbling.</returns>
     bool ScrollIntoView(IEnumerable<ViewChild> path, out Vector2 distance);
+
+    #region scrollable perf improvement
+    /// <summary>Propagate new scrolling bounds to this view and it's children</summary>
+    /// <param name="parentScrollingBounds"></param>
+    void UpdateParentScrollingBounds(Bounds? parentScrollingBounds);
+
+    /// <summary>Whether this view is currently within the scrolling bounds, updated during <seealso cref="Measure"/>.</summary>
+    bool IsWithinScrollBounds { get; set; }
+    #endregion
 }

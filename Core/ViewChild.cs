@@ -24,6 +24,11 @@ public record ViewChild(IView View, Vector2 Position) : IOffsettable<ViewChild>
         return new(View, Position);
     }
 
+    internal bool IsWithinScrollBounds(Bounds? parentScrollingClipBounds)
+    {
+        return parentScrollingClipBounds == null || parentScrollingClipBounds.IntersectsWith(GetActualBounds());
+    }
+
     /// <summary>
     /// Gets the point at the exact center of the view.
     /// </summary>
@@ -104,9 +109,9 @@ public record ViewChild(IView View, Vector2 Position) : IOffsettable<ViewChild>
     /// <param name="point">The point to test.</param>
     /// <returns><c>true</c> if <paramref name="point"/> is within the visible, parent-relative bounds of this child;
     /// otherwise <c>false</c>.</returns>
-    public bool IsVisible(Vector2 point)
+    public bool IsVisible(Vector2? point)
     {
-        return View.IsVisible(point - Position);
+        return View.IsVisible(point.HasValue ? point - Position : null);
     }
 
     /// <summary>

@@ -90,6 +90,10 @@ internal class ViewBinding : IViewBinding
         {
             return false;
         }
+        if (!view.IsWithinScrollBounds)
+        {
+            return false;
+        }
         bool anyChanged = false;
         foreach (var binding in attributeBindings)
         {

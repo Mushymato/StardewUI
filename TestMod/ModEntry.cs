@@ -73,7 +73,7 @@ internal sealed partial class ModEntry : Mod
     class ConsoleSDUIShowCtx()
     {
         public List<ConsoleSDUIShowCtxLabel> Labels = Enumerable
-            .Range(1, 1000)
+            .Range(1, 5000)
             .Select(num => new ConsoleSDUIShowCtxLabel(num.ToString()))
             .ToList();
     }

@@ -89,7 +89,7 @@ public class ViewBehaviors(
     public void SetTarget(BehaviorTarget? target)
     {
         using var _ = Trace.Begin(this, nameof(SetTarget));
-        hasTarget = target is not null;
+        hasTarget = target is not null && target.View.IsWithinScrollBounds;
         foreach (var binding in bindings)
         {
             if (target is null)

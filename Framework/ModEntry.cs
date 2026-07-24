@@ -196,10 +196,21 @@ internal sealed class ModEntry : Mod
         viewNodeFactory = CreateViewNodeFactory();
     }
 
+    internal static TimeSpan traceTimer = TimeSpan.Zero;
+
     private void GameLoop_UpdateTicked(object? sender, UpdateTickedEventArgs e)
     {
         ContextUpdateTracker.Instance.Reset();
         assetCache.Update(Game1.currentGameTime.ElapsedGameTime);
+
+        if (traceTimer > TimeSpan.Zero)
+        {
+            traceTimer -= Game1.currentGameTime.ElapsedGameTime;
+            if (traceTimer <= TimeSpan.Zero)
+            {
+                Trace.IsTracing = !Trace.IsTracing;
+            }
+        }
     }
 
     private void Input_ButtonsChanged(object? sender, ButtonsChangedEventArgs e)
@@ -207,6 +218,7 @@ internal sealed class ModEntry : Mod
         if (config.Tracing.ToggleHotkeys.JustPressed())
         {
             Trace.IsTracing = !Trace.IsTracing;
+            traceTimer = TimeSpan.FromSeconds(3);
             Helper.Input.SuppressActiveKeybinds(config.Tracing.ToggleHotkeys);
         }
 

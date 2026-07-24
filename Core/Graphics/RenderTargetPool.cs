@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using static StardewValley.Minigames.TargetGame;
 
 namespace StardewUI.Graphics;
 

@@ -526,6 +526,12 @@ public class DecoratorView<T> : IView, IDisposable
         return view?.ScrollIntoView(path, out distance) ?? false;
     }
 
+    /// <inheritdoc />
+    public void UpdateParentScrollingBounds(Bounds? parentScrollingBounds) => view?.UpdateParentScrollingBounds(parentScrollingBounds);
+
+    /// <inheritdoc />
+    public bool IsWithinScrollBounds { get => view?.IsWithinScrollBounds ?? true; set => view?.IsWithinScrollBounds = value; }
+
     /// <summary>
     /// Runs whenever layout occurs as a result of the UI elements changing.
     /// </summary>
