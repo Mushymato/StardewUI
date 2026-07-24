@@ -361,8 +361,16 @@ public partial class Label : View
         // For text, we need to always perform the line-breaking algorithm on layout (so that it is
         // available on draw) even if the layout size is not content-dependent.
         var maxTextSize = Layout.GetLimits(availableSize);
-        BreakLines(maxTextSize.X, out var maxLineWidth);
-        ContentSize = Layout.Resolve(availableSize, () => new(maxLineWidth, lines.Count * Font.LineSpacing * Scale));
+        if (MaxLines >= 0)
+        {
+            BreakLines(maxTextSize.X, out var maxLineWidth);
+            ContentSize = Layout.Resolve(availableSize, () => new(maxLineWidth, lines.Count * Font.LineSpacing * Scale));
+        }
+        else
+        {
+            ContentSize = Layout.Resolve(availableSize, () => Font.MeasureString(Text) * Scale);
+            lines = [Text];
+        }
     }
 
     /// <inheritdoc />

@@ -870,6 +870,7 @@ public partial class TextInput : View
             if (Selected)
             {
                 owner.Insert(command);
+                Text = owner.Text;
             }
         }
 
@@ -878,6 +879,7 @@ public partial class TextInput : View
             if (Selected)
             {
                 owner.Insert(inputChar);
+                Text = owner.Text;
             }
         }
 
@@ -886,6 +888,7 @@ public partial class TextInput : View
             if (Selected)
             {
                 owner.Insert(text);
+                Text = owner.Text;
             }
         }
 
@@ -1028,7 +1031,7 @@ public partial class TextInput : View
         public void RecieveCommandInput(char command)
         {
             if (Selected)
-            owner.Insert(command);
+                owner.Insert(command);
         }
 
         public void RecieveSpecialInput(Keys key)

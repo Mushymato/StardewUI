@@ -9,8 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 - You can now use translations (i.e. `#i18n.key`) in state bindings.
 - New built-in UI sprite `@Mods/StardewUI/Sprites/ShopEntryBorder`.
-- New `TinyNumberLabel` (aka `digits`) property `Tint`, changes color of the tint.
-- All `TextInput` now supports text selection via mouse, with a new readonly property `SelectedText` to obtain the currently selected text.
+- New `TinyNumberLabel` (aka `digits`) property `Tint`, changes color of the digits.
+- All `TextInput` now supports text selection via mouse, with a new readonly property `SelectedText` that can be used to obtain the selected text.
+- In `Label`, a negative number in `max-lines` disables line breaking completely, always rendering the entire string.
 
 ### Fixed
 - Various `TextInput` related bugs. Notable behavior change: the inner frame Border is now the definitive visual property, Background changed to alias for Border.
