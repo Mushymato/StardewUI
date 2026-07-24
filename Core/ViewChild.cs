@@ -24,9 +24,9 @@ public record ViewChild(IView View, Vector2 Position) : IOffsettable<ViewChild>
         return new(View, Position);
     }
 
-    internal bool IsWithinScrollBounds(Bounds? parentScrollingClipBounds)
+    internal bool IsWithinScrollBounds(Bounds? parentScrollingBounds)
     {
-        return parentScrollingClipBounds == null || parentScrollingClipBounds.IntersectsWith(GetActualBounds());
+        return parentScrollingBounds == null || parentScrollingBounds.IntersectsWith(GetActualBounds());
     }
 
     /// <summary>

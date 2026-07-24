@@ -273,11 +273,14 @@ public partial class Grid : View
         var origin = Vector2.Zero;
         PrimaryOrientation.Set(ref origin, GridAlignment.Align(primaryLength, ContentSize.X));
         b.Translate(origin);
-        foreach (var (child, position) in childPositions.ZOrder())
+        foreach (ViewChild viewChild in childPositions.ZOrder())
         {
-            using var _ = b.SaveTransform();
-            b.Translate(position);
-            child.Draw(b);
+            if (viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds))
+            {
+                using var _ = b.SaveTransform();
+                b.Translate(viewChild.Position);
+                viewChild.View.Draw(b);
+            }
         }
     }
 
