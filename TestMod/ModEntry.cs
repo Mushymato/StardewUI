@@ -70,10 +70,10 @@ internal sealed partial class ModEntry : Mod
         // }
     }
 
-    class ConsoleSDUIShowCtx()
+    class ConsoleSDUIShowCtx(int elementCount)
     {
         public List<ConsoleSDUIShowCtxLabel> Labels = Enumerable
-            .Range(1, 5000)
+            .Range(1, elementCount)
             .Select(num => new ConsoleSDUIShowCtxLabel(num.ToString()))
             .ToList();
     }
@@ -82,7 +82,7 @@ internal sealed partial class ModEntry : Mod
     {
         Game1.activeClickableMenu = viewEngine.CreateMenuFromAsset(
             $"{viewAssetPrefix}/sdui-show",
-            new ConsoleSDUIShowCtx()
+            new ConsoleSDUIShowCtx(arg2.Length > 1 ? int.Parse(arg2[0]) : 1000)
         );
     }
 

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using Microsoft.Xna.Framework;
+using System.Reflection.Emit;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace StardewUI.Graphics;
@@ -365,19 +365,35 @@ public class PropagatedSpriteBatch(
     {
         // Doing this with reflection in a draw loop sucks for performance, but there seems to be no other way to get
         // access to the previous state. `SpriteBatch.GraphcisDevice.RasterizerState` does not sync with it.
-        public BlendState? BlendState { get; } = (BlendState)blendStateField.GetValue(spriteBatch)!;
-        public RasterizerState RasterizerState { get; } = (RasterizerState)rasterizerStateField.GetValue(spriteBatch)!;
+        public BlendState? BlendState { get; } = getBlendStateField(spriteBatch)!;
+        public RasterizerState RasterizerState { get; } = getRasterizerStateField(spriteBatch)!;
         public RenderTargetBinding[] RenderTargets { get; } = spriteBatch.GraphicsDevice.GetRenderTargets();
         public Rectangle ScissorRect { get; } = spriteBatch.GraphicsDevice.ScissorRectangle;
 
-        private static readonly FieldInfo blendStateField = typeof(SpriteBatch).GetField(
-            "_blendState",
-            BindingFlags.Instance | BindingFlags.NonPublic
-        )!;
-        private static readonly FieldInfo rasterizerStateField = typeof(SpriteBatch).GetField(
-            "_rasterizerState",
-            BindingFlags.Instance | BindingFlags.NonPublic
-        )!;
+        private static readonly Func<SpriteBatch, BlendState?> getBlendStateField = MakeFieldGetter<SpriteBatch, BlendState?>(
+            nameof(getBlendStateField),
+            typeof(SpriteBatch).GetField(
+                "_blendState",
+                BindingFlags.Instance | BindingFlags.NonPublic
+            )!
+        );
+        private static readonly Func<SpriteBatch, RasterizerState> getRasterizerStateField = MakeFieldGetter<SpriteBatch, RasterizerState>(
+            nameof(getRasterizerStateField),
+            typeof(SpriteBatch).GetField(
+                "_rasterizerState",
+                BindingFlags.Instance | BindingFlags.NonPublic
+            )!
+        );
+
+        private static Func<TArg0, TRet> MakeFieldGetter<TArg0, TRet>(string name, FieldInfo fieldInfo)
+        {
+            DynamicMethod dm = new(name, typeof(TRet), [typeof(TArg0)]);
+            ILGenerator gen = dm.GetILGenerator();
+            gen.Emit(OpCodes.Ldarg_0);
+            gen.Emit(OpCodes.Ldfld, fieldInfo);
+            gen.Emit(OpCodes.Ret);
+            return dm.CreateDelegate<Func<TArg0, TRet>>();
+        }
     }
 
     private class GraphicsReverter(PropagatedSpriteBatch owner, IDisposable? innerReverter = null) : IDisposable
