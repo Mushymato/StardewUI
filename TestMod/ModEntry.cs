@@ -46,13 +46,36 @@ internal sealed partial class ModEntry : Mod
         Game1.activeClickableMenu = viewEngine.CreateMenuFromMarkup(string.Join(' ', arg2));
     }
 
-    partial class ConsoleSDUIShowCtx()
+    // partial class ConsoleSDUIShowCtx()
+    // {
+    //     [Notify]
+    //     public string text = "1234567890";
+
+    //     [Notify]
+    //     public string selected = string.Empty;
+    // }
+
+
+    partial class ConsoleSDUIShowCtxLabel(string innerText)
     {
-        [Notify]
-        public string text = "1234567890";
+        private readonly string innerText = innerText;
 
         [Notify]
-        public string selected = string.Empty;
+        private string text = innerText;
+
+        // public void Update(TimeSpan elapsed)
+        // {
+        //     if (Game1.ticks % 60 == 0)
+        //         Text = $"{innerText}({Game1.ticks / 60})";
+        // }
+    }
+
+    class ConsoleSDUIShowCtx()
+    {
+        public List<ConsoleSDUIShowCtxLabel> Labels = Enumerable
+            .Range(1, 1000)
+            .Select(num => new ConsoleSDUIShowCtxLabel(num.ToString()))
+            .ToList();
     }
 
     private void ConsoleSDUIShow(string arg1, string[] arg2)
