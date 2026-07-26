@@ -14,7 +14,7 @@ namespace StardewUI.Widgets;
 /// <summary>
 /// A text input field that allows typing from a physical or virtual keyboard.
 /// </summary>
-public partial class TextInput : View
+public partial class TextInput : View, IKeyboardSubscriberOwnerView
 {
     /// <summary>
     /// Event raised when the <see cref="Text"/> changes.
@@ -368,7 +368,7 @@ public partial class TextInput : View
     private readonly Label placeholder;
     private readonly ScrollContainer scrollContainer;
     private readonly TextBoxInterceptor textBoxInterceptor;
-    private readonly TextInputSubscriber textInputSubscriber;
+    private readonly KeyboardSubscriberWithOwner textInputSubscriber;
     private readonly Panel textPanel;
 
     private bool enabled = true;
@@ -525,7 +525,7 @@ public partial class TextInput : View
         {
             MoveCaretToCursor(cursorPosition);
             caretBlinkAnimator.Start(Visibility.Visible, Visibility.Hidden, TimeSpan.FromSeconds(1));
-            Game1.keyboardDispatcher.Subscriber = textInputSubscriber;
+            textInputSubscriber.Selected = true;
         }
         UpdatePlaceholderVisibility();
     }
@@ -535,7 +535,8 @@ public partial class TextInput : View
         MoveCaretToCursor(cursorPosition, selecting: true);
     }
 
-    private void HandleSpecialKey(Keys key)
+    /// <inheritdoc/>
+    public void HandleSpecialKey(Keys key)
     {
         // TODO: add shift select range
         switch (key)
@@ -570,7 +571,8 @@ public partial class TextInput : View
         }
     }
 
-    private void Insert(char c)
+    /// <inheritdoc/>
+    public void InsertChar(char c)
     {
         switch (c)
         {
@@ -606,7 +608,8 @@ public partial class TextInput : View
         }
     }
 
-    private void Insert(string text)
+    /// <inheritdoc/>
+    public void InsertString(string text)
     {
         if (MaxLength > 0)
         {
@@ -621,6 +624,18 @@ public partial class TextInput : View
             TextBeforeCursor += text;
             OnTextChanged();
         }
+    }
+
+    /// <inheritdoc/>
+    public void Release()
+    {
+        textBoxInterceptor.Selected = false;
+        textInputSubscriber.Selected = false;
+        Game1.closeTextEntry();
+        isTextEntryMenuShown = false;
+        caretBlinkAnimator.Stop();
+        caret.Visibility = Visibility.Hidden;
+        UpdatePlaceholderVisibility();
     }
 
     /// <summary>
@@ -745,17 +760,6 @@ public partial class TextInput : View
         return new { label = string.IsNullOrEmpty(text) ? Placeholder : text, value = Text };
     }
 
-    private void Release()
-    {
-        textBoxInterceptor.Selected = false;
-        textInputSubscriber.Selected = false;
-        Game1.closeTextEntry();
-        isTextEntryMenuShown = false;
-        caretBlinkAnimator.Stop();
-        caret.Visibility = Visibility.Hidden;
-        UpdatePlaceholderVisibility();
-    }
-
     private bool SetCaretPosition(int position)
     {
         var fullText = Text;
@@ -869,7 +873,7 @@ public partial class TextInput : View
         {
             if (Selected)
             {
-                owner.Insert(command);
+                owner.InsertChar(command);
                 Text = owner.Text;
             }
         }
@@ -878,7 +882,7 @@ public partial class TextInput : View
         {
             if (Selected)
             {
-                owner.Insert(inputChar);
+                owner.InsertChar(inputChar);
                 Text = owner.Text;
             }
         }
@@ -887,7 +891,7 @@ public partial class TextInput : View
         {
             if (Selected)
             {
-                owner.Insert(text);
+                owner.InsertString(text);
                 Text = owner.Text;
             }
         }
@@ -907,138 +911,4 @@ public partial class TextInput : View
         }
     }
 
-    // Used for when we *don't* have controller input, thus don't use the virtual keyboard, don't want to accidentally
-    // incur any side effects of the TextBoxInterceptor.
-    private class TextInputSubscriber(TextInput owner, GameWindow window) : ICaptureTarget, IKeyboardSubscriber
-    {
-        private readonly TextInput owner = owner;
-        private readonly GameWindow window = window;
-
-        public bool Selected
-        {
-            get => selected;
-            set
-            {
-                if (value == selected)
-                {
-                    return;
-                }
-                selected = value;
-                if (selected)
-                {
-                    Game1.keyboardDispatcher.Subscriber = this;
-                    if (PlatformUsesWindowEvents())
-                    {
-                        window.KeyDown += Window_KeyDown;
-                    }
-                    else
-                    {
-                        KeyboardInput.KeyDown += KeyboardInput_KeyDown;
-                    }
-                }
-                else
-                {
-                    if (PlatformUsesWindowEvents())
-                    {
-                        window.KeyDown -= Window_KeyDown;
-                    }
-                    else
-                    {
-                        KeyboardInput.KeyDown -= KeyboardInput_KeyDown;
-                    }
-                    if (Game1.keyboardDispatcher.Subscriber == this)
-                    {
-                        Game1.keyboardDispatcher.Subscriber = null;
-                    }
-                }
-            }
-        }
-
-        public IView CapturingView => owner;
-
-        private bool selected;
-
-        public void RecieveTextInput(char inputChar)
-        {
-            if (Selected)
-            {
-                owner.Insert(inputChar);
-            }
-        }
-
-        public void RecieveTextInput(string text)
-        {
-            if (Selected)
-            {
-                owner.Insert(text);
-            }
-        }
-
-        public void ReleaseCapture()
-        {
-            owner.Release();
-        }
-
-        private void KeyboardInput_KeyDown(object sender, KeyEventArgs e)
-        {
-            owner.HandleSpecialKey(e.KeyCode);
-        }
-
-        private void Window_KeyDown(object? sender, InputKeyEventArgs e)
-        {
-            owner.HandleSpecialKey(e.Key);
-        }
-
-        // Same logic used in KeyboardDispatcher.
-        private static bool PlatformUsesWindowEvents()
-        {
-            return Environment.OSVersion.Platform == PlatformID.Unix
-                || Environment.OSVersion.Platform == PlatformID.Win32NT;
-        }
-
-#if SDV17
-        public void RecieveCommandInput(char command, KeyboardModifier modifiers)
-        {
-            // TODO: support Alt/Control + Backspace erasing a whole word
-            if (Selected)
-                owner.Insert(command);
-        }
-
-        public void RecieveSpecialInput(Keys key, KeyboardModifier modifiers)
-        {
-            // KeyboardDispatcher is not consistent about which "special" keys it dispatches, depending on the platform.
-            // It's better not to implement this, and instead set up a separate (direct) subscription.
-        }
-
-        public string? ClipboardCopy()
-        {
-            return Selected ? owner.ClipboardCopy() : null;
-        }
-
-        public string? ClipboardCut()
-        {
-            return Selected ? owner.ClipboardCut() : null;
-        }
-
-        public void SelectAll()
-        {
-            if (Selected)
-            {
-                owner.SelectAll();
-            }
-        }
-#else
-        public void RecieveCommandInput(char command)
-        {
-            if (Selected)
-                owner.Insert(command);
-        }
-
-        public void RecieveSpecialInput(Keys key)
-        {
-            // KeyboardDispatcher is not consistent about which "special" keys it dispatches, depending on the platform.
-            // It's better not to implement this, and instead set up a separate (direct) subscription.
-        }
-#endif
-    }
 }

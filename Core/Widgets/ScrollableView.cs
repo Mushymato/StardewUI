@@ -165,4 +165,22 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
         if (e.PropertyName == nameof(Scrollbar.Progress))
             OnPropertyChanged(nameof(Progress));
     }
+
+    /// <summary>
+    /// Convienence function that resets scrolling then
+    /// calls <see cref="IView.ScrollIntoView(IEnumerable{ViewChild}, out Vector2)"/>
+    /// on the <see cref="ScrollContainer"/> of this view,
+    /// using a known <seealso cref="ViewChild"/> of <see cref="ScrollContainer.Content"/>.
+    ///
+    /// This achieves effect of scrolling to a particular child outside of <see cref="IView.FocusSearch(Vector2, Direction)"/>.
+    /// </summary>
+    /// <param name="child">Target child to scroll to.</param>
+    /// <param name="distance">Final scrolled distance</param>
+    /// <returns></returns>
+    public bool ContainerScrollIntoView(ViewChild child, out Vector2 distance)
+    {
+        distance = default;
+        scrollbar.Container?.ScrollOffset = 0;
+        return scrollbar.Container?.ScrollIntoView([child], out distance) ?? false;
+    }
 }

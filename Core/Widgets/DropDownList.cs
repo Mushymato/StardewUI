@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using StardewUI.Events;
 using StardewUI.Graphics;
+using StardewUI.Input;
 using StardewUI.Layout;
 using StardewUI.ModIntegration;
 using StardewUI.Overlays;
 using StardewValley;
+using StardewValley.Extensions;
 
 namespace StardewUI.Widgets;
 
@@ -306,14 +309,19 @@ public partial class DropDownList<T> : ComponentView
             return;
         }
         Game1.playSound("drumkit6");
-        RemoveOverlay();
-        SelectedOption = optionView.Value;
+        PickOption(optionView);
         e.Handled = true;
     }
 
     private void OptionView_Select(object? sender, EventArgs e)
     {
         SetSelectedOptionView(view => view == sender);
+    }
+
+    private void PickOption(DropDownOptionView optionView)
+    {
+        RemoveOverlay();
+        SelectedOption = optionView.Value;
     }
 
     private bool RemoveOverlay()
@@ -351,7 +359,12 @@ public partial class DropDownList<T> : ComponentView
             horizontalParentAlignment: Alignment.Start,
             verticalAlignment: Alignment.Start,
             verticalParentAlignment: Alignment.End
-        ).OnClose(() => overlay = null);
+        ).OnClose(() =>
+        {
+            overlayView.Release();
+            overlay = null;
+        });
+        overlayView.Activate();
         Overlay.Push(overlay);
     }
 
@@ -388,6 +401,11 @@ public partial class DropDownList<T> : ComponentView
             Height = Length.Content(),
             MaxHeight = overlayMaxHeight,
         };
+    }
+
+    private void SetSearchDisplayText(string text)
+    {
+        selectedOptionLabel.Text = text;
     }
 
     private void UpdateSelectedOption()
@@ -460,10 +478,25 @@ public partial class DropDownList<T> : ComponentView
         {
             return isSelected ? new(Color.White, 0.35f) : Color.Transparent;
         }
+
+        public bool MatchAndSelect(string searchText)
+        {
+            if (string.IsNullOrEmpty(searchText))
+                return false;
+            if (text.StartsWithIgnoreCase(searchText))
+            {
+                IsSelected = true;
+                Select?.Invoke(this, EventArgs.Empty);
+                return true;
+            }
+            return false;
+        }
     }
 
-    class DropDownOverlayView(DropDownList<T> owner) : ComponentView
+    private class DropDownOverlayView(DropDownList<T> owner) : ComponentView, IKeyboardSubscriberOwnerView
     {
+        private KeyboardSubscriberWithOwner dropdownFilterSubscriber = null!;
+
         public LayoutParameters ScrollableLayout
         {
             get => scrollableView.Layout;
@@ -486,13 +519,83 @@ public partial class DropDownList<T> : ComponentView
 
         protected override IView CreateView()
         {
+            dropdownFilterSubscriber = new(this, Game1.keyboardFocusInstance.Window);
             return new Frame()
             {
                 Layout = LayoutParameters.AutoRow(),
                 Background = UiSprites.DropDownBackground,
                 Padding = new(4),
-                Content = scrollableView,
+                Content = scrollableView
             };
+        }
+
+        public void InsertChar(char inputChar)
+        {
+            string searchText = owner.SelectedOptionText;
+            switch (inputChar)
+            {
+                case '\b':
+                    if (searchText.Length > 0)
+                    {
+                        searchText = searchText[..^1];
+                        SetSearchText(searchText);
+                    }
+                    break;
+                case '\t':
+                case '\r':
+                    foreach (ViewChild viewChild in owner.optionsLane.GetChildren())
+                    {
+                        if (viewChild.View is DropDownOptionView optionView && optionView.IsSelected)
+                        {
+                            owner.PickOption(optionView);
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    if (!char.IsControl(inputChar))
+                    {
+                        searchText += inputChar;
+                        SetSearchText(searchText);
+                    }
+                    break;
+            }
+        }
+
+        public void InsertString(string text)
+        {
+            SetSearchText(text);
+        }
+
+        public void HandleSpecialKey(Keys keyCode) { }
+
+        public void Activate()
+        {
+            dropdownFilterSubscriber.Selected = true;
+            SetSearchText(string.Empty);
+        }
+
+        public void Release()
+        {
+            dropdownFilterSubscriber.Selected = false;
+            owner.UpdateSelectedOption();
+        }
+
+        private void SetSearchText(string value)
+        {
+            if (owner.SelectedOptionText == value)
+                return;
+            owner.SetSearchDisplayText(value);
+            if (string.IsNullOrEmpty(value))
+                return;
+            foreach (ViewChild viewChild in owner.optionsLane.GetChildren())
+            {
+                if (viewChild.View is DropDownOptionView optionView && optionView.MatchAndSelect(value))
+                {
+                    scrollableView.ContainerScrollIntoView(viewChild, out _);
+                    break;
+                }
+            }
         }
     }
 }
