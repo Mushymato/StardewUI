@@ -56,48 +56,48 @@ internal sealed partial class ModEntry : Mod
     // }
 
 
-    // partial class ConsoleSDUIShowCtxLabel(string innerText)
+    partial class ConsoleSDUIShowCtxLabel(string innerText)
+    {
+        private readonly string innerText = innerText;
+
+        [Notify]
+        private string text = innerText;
+
+        // public void Update(TimeSpan elapsed)
+        // {
+        //     if (Game1.ticks % 60 == 0)
+        //         Text = $"{innerText}({Game1.ticks / 60})";
+        // }
+    }
+
+    class ConsoleSDUIShowCtx(int elementCount)
+    {
+        public List<ConsoleSDUIShowCtxLabel> Labels = Enumerable
+            .Range(1, elementCount)
+            .Select(num => new ConsoleSDUIShowCtxLabel(num.ToString()))
+            .ToList();
+    }
+
+    // partial class ConsoleSDUIShowCtx()
     // {
-    //     private readonly string innerText = innerText;
+    //     public List<string> DropdownOptions = Enumerable.Range(1, 1000).Select(num => num.ToString()).ToList();
 
     //     [Notify]
-    //     private string text = innerText;
+    //     public string selectedOption = "aaaa";
 
-    //     // public void Update(TimeSpan elapsed)
-    //     // {
-    //     //     if (Game1.ticks % 60 == 0)
-    //     //         Text = $"{innerText}({Game1.ticks / 60})";
-    //     // }
+    //     [Notify]
+    //     public string text = "1234567890";
+
+    //     [Notify]
+    //     public string selected = string.Empty;
     // }
-
-    // class ConsoleSDUIShowCtx(int elementCount)
-    // {
-    //     public List<ConsoleSDUIShowCtxLabel> Labels = Enumerable
-    //         .Range(1, elementCount)
-    //         .Select(num => new ConsoleSDUIShowCtxLabel(num.ToString()))
-    //         .ToList();
-    // }
-
-    partial class ConsoleSDUIShowCtx()
-    {
-        public List<string> DropdownOptions = Enumerable.Range(1, 1000).Select(num => num.ToString()).ToList();
-
-        [Notify]
-        public string selectedOption = "aaaa";
-
-        [Notify]
-        public string text = "1234567890";
-
-        [Notify]
-        public string selected = string.Empty;
-    }
 
     private void ConsoleSDUIShow(string arg1, string[] arg2)
     {
         Game1.activeClickableMenu = viewEngine.CreateMenuFromAsset(
             $"{viewAssetPrefix}/sdui-show",
-            // new ConsoleSDUIShowCtx(arg2.Length > 1 ? int.Parse(arg2[0]) : 1000)
-            new ConsoleSDUIShowCtx()
+            new ConsoleSDUIShowCtx(arg2.Length >= 1 ? int.Parse(arg2[0]) : 1000)
+        // new ConsoleSDUIShowCtx()
         );
     }
 
@@ -116,7 +116,7 @@ internal sealed partial class ModEntry : Mod
         viewEngine = Helper.ModRegistry.GetApi<IViewEngine>("focustense.StardewUI")!;
         viewEngine.RegisterSprites($"Mods/{ModManifest.UniqueID}/Sprites", "assets/sprites");
         viewEngine.RegisterViews(viewAssetPrefix, "assets/views");
-        viewEngine.EnableHotReloadingWithSourceSync();
+        // viewEngine.EnableHotReloadingWithSourceSync();
         viewEngine.PreloadAssets();
 
         temperingData = Helper.ModContent.Load<Dictionary<string, Dictionary<string, EffectData>>>(

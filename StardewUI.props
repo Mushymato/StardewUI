@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>StardewUI</Product>
     <Authors>focustense</Authors>
-    <Version>0.6.3-unofficial-mushymato.2.scrollperf</Version>
+    <Version>0.6.3-unofficial-mushymato.2</Version>
   </PropertyGroup>
 
   <!-- Build settings -->
