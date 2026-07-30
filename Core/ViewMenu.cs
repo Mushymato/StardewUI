@@ -1126,13 +1126,14 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         Logger.Log($"Found: {result?.View.Name} ({result?.View.GetType().Name}) at {result?.Position}", LogLevel.Info);
     }
 
-    private void MeasureAndCenterView()
+    /// <summary>Measure and center this view.</summary>
+    protected void MeasureAndCenterView(bool force = false)
     {
         using var _ = Diagnostics.Trace.Begin(this, nameof(MeasureAndCenterView));
         var viewportSize = UiViewport.GetMaxSize();
         var currentGutter = gutter ?? DefaultGutter;
         var availableMenuSize = viewportSize.ToVector2() - currentGutter.Total;
-        if (!view.Measure(availableMenuSize))
+        if (!view.Measure(availableMenuSize) && !force)
         {
             return;
         }

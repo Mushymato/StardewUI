@@ -125,6 +125,12 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     }
 
     /// <inheritdoc />
+    public void Reposition()
+    {
+        MeasureAndCenterView(force: true);
+    }
+
+    /// <inheritdoc />
     protected override void cleanupBeforeExit()
     {
         Closing?.Invoke();

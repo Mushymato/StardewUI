@@ -348,6 +348,12 @@ public interface IMenuController : IDisposable
     Func<Point>? PositionSelector { get; set; }
 
     /// <summary>
+    /// Immediately trigger repositioning of this menu according to it's current size,
+    /// <see cref="PositionSelector"/> and gutters.
+    /// </summary>
+    void Reposition();
+
+    /// <summary>
     /// Removes any cursor attachment previously set by <see cref="SetCursorAttachment"/>.
     /// </summary>
     void ClearCursorAttachment();
