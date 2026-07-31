@@ -124,6 +124,7 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
     /// <inheritdoc />
     public override void OnWheel(WheelEventArgs e)
     {
+        base.OnWheel(e);
         if (e.Handled || scrollbar.Container is not { } container)
         {
             return;

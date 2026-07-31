@@ -3,7 +3,6 @@ using StardewUI.Animation;
 using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
-using StardewValley;
 
 namespace StardewUI.Widgets;
 

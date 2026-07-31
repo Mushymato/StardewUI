@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Microsoft.Xna.Framework;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
