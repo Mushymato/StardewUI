@@ -62,6 +62,13 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     }
 
     /// <inheritdoc />
+    public bool ShowMouse
+    {
+        get => showMouse;
+        set => showMouse = value;
+    }
+
+    /// <inheritdoc />
     public IClickableMenu Menu => this;
 
     /// <inheritdoc />

@@ -62,4 +62,10 @@ internal class ViewDrawable(DocumentView view) : IViewDrawable, IUpdatable
         var availableSize = MaxSize ?? UiViewport.GetMaxSize().ToVector2();
         view.Measure(availableSize);
     }
+
+    /// <inheritdoc />
+    public void DoUpdate(TimeSpan elapsed)
+    {
+        Update(elapsed);
+    }
 }

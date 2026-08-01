@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI.Events;
+﻿using StardewModdingAPI.Events;
 using StardewUI.Framework.Binding;
 using StardewUI.Framework.Content;
 using StardewUI.Framework.Descriptors;
@@ -46,6 +45,15 @@ public class ViewEngine : IViewEngine
         var view = new DocumentView(viewNodeFactory, documentSource);
         var drawable = new ViewDrawable(view);
         updatables.Add(new(drawable));
+        return drawable;
+    }
+
+    /// <inheritdoc />
+    public IViewDrawable CreateUnmanagedDrawableFromAsset(string assetName)
+    {
+        var documentSource = new AssetValueSource<Document>(assetCache, assetName);
+        var view = new DocumentView(viewNodeFactory, documentSource);
+        var drawable = new ViewDrawable(view);
         return drawable;
     }
 

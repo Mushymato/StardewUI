@@ -25,6 +25,14 @@ public interface IViewEngine
     IViewDrawable CreateDrawableFromAsset(string assetName);
 
     /// <summary>
+    /// Similar to <see cref="CreateDrawableFromAsset"/> but the resulting <see cref="IViewDrawable"/> will
+    /// not be updated each tick. You must call <see cref="IViewDrawable.DoUpdate"/> manually.
+    /// </summary>
+    /// <param name="assetName"></param>
+    /// <returns></returns>
+    IViewDrawable CreateUnmanagedDrawableFromAsset(string assetName);
+
+    /// <summary>
     /// Creates an <see cref="IViewDrawable"/> from arbitrary markup.
     /// </summary>
     /// <remarks>
@@ -242,6 +250,12 @@ public interface IViewDrawable : IDisposable
     /// <param name="b">Target sprite batch.</param>
     /// <param name="position">Position on the screen or viewport to use as the top-left corner.</param>
     void Draw(SpriteBatch b, Vector2 position);
+
+    /// <summary>
+    /// Perform a forced update not dependent on the <see cref="StardewModdingAPI.Events.IGameLoopEvents.UpdateTicked"/> event.
+    /// </summary>
+    /// <param name="elapsed">Time elapsed since last game tick.</param>
+    void DoUpdate(TimeSpan elapsed);
 }
 
 /// <summary>
@@ -328,10 +342,19 @@ public interface IMenuController : IDisposable
     float DimmingAmount { get; set; }
 
     /// <summary>
-    /// Whether to hide the game HUD while menu is active.
+    /// Whether to hide the game HUD while menu is active, default true.
     /// <c>(unofficial-mushymato)</c>
     /// </summary>
     bool HideHUD { get; set; }
+
+    /// <summary>
+    /// Whether to render the mouse, default true.
+    /// <c>(unofficial-mushymato)</c>
+    /// <remarks>
+    /// The main situation where you might not want the mouse is when this menu is being used via <see cref="Game1.onScreenMenus"/>.
+    /// </remarks>
+    /// </summary>
+    bool ShowMouse { get; set; }
 
     /// <summary>
     /// Gets the menu, which can be opened using <see cref="Game1.activeClickableMenu"/>, or as a child menu.

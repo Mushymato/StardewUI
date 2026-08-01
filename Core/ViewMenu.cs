@@ -105,6 +105,8 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     protected string navigateSound = "shiny4";
     /// <summary>Whether to hide HUD when menu becomes active, and restore it afterwards</summary>
     protected bool hideHUD = true;
+    /// <summary>Whether to draw the mouse. This is usually neccesary unless you have a HUD menu</summary>
+    protected bool showMouse = true;
 
     private int menuActiveTick = -1;
 
@@ -396,8 +398,11 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
                     CursorAttachment.Tint ?? Cursor.DefaultTint
                 );
             }
-            var pointerStyle = hoverPath.Select(x => x.View.PointerStyle).LastOrDefault(PointerStyle.Default);
-            drawMouse(b, cursor: (int)pointerStyle);
+            if (showMouse)
+            {
+                var pointerStyle = hoverPath.Select(x => x.View.PointerStyle).LastOrDefault(PointerStyle.Default);
+                drawMouse(b, cursor: (int)pointerStyle);
+            }
         }
 
         // This "should" be done in Update, not Draw, but the game won't send any updates to the menu while the capture
