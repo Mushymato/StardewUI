@@ -12,6 +12,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - New `TinyNumberLabel` (aka `digits`) property `Tint`, changes color of the digits.
 - All `TextInput` now supports text selection via mouse, with a new readonly property `SelectedText` that can be used to obtain the selected text.
 - In `Label`, a negative number in `max-lines` disables line breaking completely, always rendering the entire string.
+- New `IMenuController` property `ShowMouse`, set whether the mouse is drawn.
+- New `IMenuController` method `Reposition`, immediately reposition and measure the menu.
+
+### Changed
+- When `Label` has a negative `MaxLines` value such as `-1`, line breaking is completely disabled.
+  - This is different than `MaxLines = 1` in that it will never replace out of bounds text with ellipsis.
+- `ScrollableView` now excludes any view not currently visible (i.e. within the scrolling clip bounds) from drawing and updates.
+  - `Grid` and `Lane` have additional checks in this exclusion process.
+  - This improves performance on large scrollable views.
 
 ### Fixed
 - Various `TextInput` related bugs. Notable behavior change: the inner frame Border is now the definitive visual property, Background changed to alias for Border.
@@ -20,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Logging to monitor now only happens on main thread, off thread calls to Logger.Log is queued until main thread has a change to do logging.
 - Label hanging on attempting to break a word with 0 breakable chars.
 - `PositionSelector` will now also set the initial `xPositionOnScreen` and `yPositionOnScreen` values.
+- Children views of scrollable can now have `wheel` events.
 
 ## [0.6.3-unofficial-mushymato.1](https://github.com/Mushymato/StardewUI/releases/tag/0.6.3-unofficial-mushymato.1)
 

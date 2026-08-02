@@ -372,6 +372,7 @@ public interface IMenuController : IDisposable
 
     /// <summary>
     /// Immediately trigger repositioning of this menu according to it's current size,
+    /// <c>(unofficial-mushymato)</c>
     /// <see cref="PositionSelector"/> and gutters.
     /// </summary>
     void Reposition();
