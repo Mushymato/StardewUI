@@ -227,6 +227,20 @@ public abstract class View : IView, IFloatContainer
         }
     }
 
+    /// <inheritdoc />
+    public virtual string? FocusableTag
+    {
+        get => field;
+        set
+        {
+            if (value != field)
+            {
+                field = value;
+                OnPropertyChanged(nameof(FocusableTag));
+            }
+        }
+    }
+
     /// <summary>
     /// The size allocated to the entire area inside the border, i.e. <see cref="ContentSize"/> plus any
     /// <see cref="Padding"/>. Does not include border or <see cref="Margin"/>.

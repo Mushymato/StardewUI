@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewUI.Framework.Binding;
 using StardewUI.Framework.Dom;
 using StardewUI.Framework.Sources;
 using StardewUI.Graphics;
+using StardewUI.Input;
+using StardewUI.Layout;
+using StardewValley.Extensions;
 using StardewValley.Menus;
 
 namespace StardewUI.Framework.Api;
@@ -191,5 +194,50 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     {
         base.OnClosed(e);
         ControllerClosed?.Invoke();
+    }
+
+    /// <inheritdoc />
+    public bool FocusOnTaggedView(string name)
+    {
+        if (!Game1.options.gamepadControls)
+        {
+            return false;
+        }
+        bool result = false;
+        OnViewOrOverlay(
+            (view, origin) =>
+            {
+                Queue<FocusSearchResult> viewChildQueue = new([new(new(view, Vector2.Zero), [])]);
+                while (viewChildQueue.TryDequeue(out FocusSearchResult? focusSearchResult))
+                {
+                    IView targetView = focusSearchResult.Target.View;
+                    if (targetView.FocusableTag?.EqualsIgnoreCase(name) ?? false)
+                    {
+                        if (!targetView.IsFocusable)
+                        {
+                            result = false;
+                            return;
+                        }
+                        FinishFocusSearch(view, origin.ToPoint(), focusSearchResult);
+                        result = true;
+                        return;
+                    }
+                    else
+                    {
+                        List<ViewChild> newPath = focusSearchResult.Path.ToList();
+                        newPath.Add(focusSearchResult.Target);
+                        foreach (ViewChild child in targetView.GetChildren())
+                        {
+                            if (!child.View.PointerEventsEnabled || child.View.Visibility != Visibility.Visible)
+                                continue;
+                            viewChildQueue.Enqueue(new(child, newPath));
+                        }
+                    }
+                }
+                result = false;
+                return;
+            }
+        );
+        return result;
     }
 }

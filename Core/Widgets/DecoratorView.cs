@@ -171,6 +171,9 @@ public class DecoratorView<T> : IView, IDisposable
     public bool IsFocusable => view?.IsFocusable ?? false;
 
     /// <inheritdoc />
+    public string? FocusableTag => view?.FocusableTag;
+
+    /// <inheritdoc />
     public LayoutParameters Layout
     {
         get => layout;

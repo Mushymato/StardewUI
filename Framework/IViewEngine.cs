@@ -378,6 +378,17 @@ public interface IMenuController : IDisposable
     void Reposition();
 
     /// <summary>
+    /// Focus on a particular view reached by the given path.
+    /// This is a no-op when not in gamepad mode.
+    /// </summary>
+    /// <remarks>
+    /// To ensure that a specific view is found, bind a name to the target view.
+    /// </remarks>
+    /// <param name="tag">Value focusable-tag.</param>
+    /// <returns>True if the path was found and focused on, false otherwise</returns>
+    bool FocusOnTaggedView(string tag);
+
+    /// <summary>
     /// Removes any cursor attachment previously set by <see cref="SetCursorAttachment"/>.
     /// </summary>
     void ClearCursorAttachment();

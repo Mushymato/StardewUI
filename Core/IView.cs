@@ -177,6 +177,11 @@ public interface IView : IDisposable, INotifyPropertyChanged
     bool IsFocusable { get; }
 
     /// <summary>
+    /// A string tag that identifies this view for use in <see cref="Framework.IMenuController.FocusOnTaggedView"/>.
+    /// </summary>
+    string? FocusableTag { get; }
+
+    /// <summary>
     /// The current layout parameters, which determine how <see cref="Measure"/> will behave.
     /// </summary>
     LayoutParameters Layout { get; set; }

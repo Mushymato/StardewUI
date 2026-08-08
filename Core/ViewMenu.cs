@@ -207,9 +207,6 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
                 if (found is not null)
                 {
                     FinishFocusSearch(view, origin.ToPoint(), found);
-                    if (!string.IsNullOrEmpty(navigateSound))
-                        Game1.playSound(navigateSound);
-                    RequestRehover();
                 }
             }
         );
@@ -923,7 +920,11 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         return !UI.InputHelper.IsSuppressed(b.ToSButton());
     }
 
-    private static void FinishFocusSearch(IView rootView, Point origin, FocusSearchResult found)
+    /// <summary>Complete focus search and reposition mouse to the found target.</summary>
+    /// <param name="rootView"></param>
+    /// <param name="origin"></param>
+    /// <param name="found"></param>
+    protected void FinishFocusSearch(IView rootView, Point origin, FocusSearchResult found)
     {
         LogFocusSearchResult(found.Target);
         ReleaseCaptureTarget();
@@ -934,6 +935,9 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
             nextMousePosition -= distance.ToPoint();
         }
         SetMousePosition(nextMousePosition);
+        if (!string.IsNullOrEmpty(navigateSound))
+            Game1.playSound(navigateSound);
+        RequestRehover();
     }
 
     private Vector2 GetCloseButtonTranslation()
@@ -1209,7 +1213,9 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         }
     }
 
-    private void OnViewOrOverlay(Action<IView, Vector2> action)
+    /// <summary>Perform action on either the active view or the overlay</summary>
+    /// <param name="action"></param>
+    protected void OnViewOrOverlay(Action<IView, Vector2> action)
     {
         if (overlayContext.Front is IOverlay overlay)
         {
