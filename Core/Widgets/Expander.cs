@@ -188,7 +188,7 @@ public partial class Expander : ComponentView, IFloatContainer
         set => layout.Margin = value;
     }
 
-    private Sprite? collapsedSprite = UiSprites.CaretRight;
+    private Sprite? collapsedSprite = UiSprites.CaretRightSquare;
     private Sprite? expandedSprite;
     private bool isExpanded;
 

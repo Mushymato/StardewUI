@@ -57,6 +57,15 @@ public static class UiSprites
     public static Sprite CaretRight => new(Game1.mouseCursors, SourceRect: new(448, 96, 24, 32));
 
     /// <summary>
+    /// A caret-style directional arrow pointing right.
+    /// This is similar to <see cref="CaretRight"/> except it is the whole square.
+    /// </summary>
+    /// <remarks>
+    /// Can be used to show expanded/collapsed state, or illustrate a movement direction.
+    /// </remarks>
+    public static Sprite CaretRightSquare => new(Game1.mouseCursors, SourceRect: new(448, 96, 32, 32));
+
+    /// <summary>
     /// Checkbox with a green "X" through it.
     /// </summary>
     public static Sprite CheckboxChecked =>
