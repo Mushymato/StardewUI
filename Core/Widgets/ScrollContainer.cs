@@ -183,6 +183,7 @@ public partial class ScrollContainer : View
     private float peeking;
     private float previousScrollSize = -1;
     private float scrollStep = 32.0f;
+    private int lastUpdateParentScrollingBoundsTick = -1;
 
     /// <summary>
     /// Scrolls backward (up or left) by the distance configured in <see cref="ScrollStep"/>.
@@ -337,6 +338,11 @@ public partial class ScrollContainer : View
         // Property clamps itself, so self-assignment is a cheap way to fix invalid offsets.
         ScrollOffset = ScrollOffset;
 #pragma warning restore CA2245 // Do not assign a property to itself
+
+        // even if there is no ActualBounds or ScrollOffset change, do a measure
+        // this ensures that any children whose content sizes may have changed
+        // during measure will get correct scrolling bounds
+        ContentUpdateParentScrollingBounds(false);
     }
 
     /// <inheritdoc />
@@ -349,7 +355,18 @@ public partial class ScrollContainer : View
         }
         if (args.PropertyName == nameof(ActualBounds) || args.PropertyName == nameof(ScrollOffset))
         {
+            ContentUpdateParentScrollingBounds(true);
+        }
+    }
+
+    private void ContentUpdateParentScrollingBounds(bool isPropChange)
+    {
+        // if this is a prop change, always do updatees
+        // otherwise only do if haven't done so this tick
+        if (isPropChange || lastUpdateParentScrollingBoundsTick != Game1.ticks)
+        {
             Content?.UpdateParentScrollingBounds(ActualBounds.Offset(GetScrollOrigin()));
+            lastUpdateParentScrollingBoundsTick = Game1.ticks;
         }
     }
 
