@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using StardewModdingAPI;
-using StardewUI.Input;
+﻿using StardewUI.Input;
 using StardewUI.Layout;
 
 namespace StardewUI.Events;

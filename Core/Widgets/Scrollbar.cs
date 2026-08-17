@@ -128,6 +128,11 @@ public partial class Scrollbar : ComponentView<Lane>
     // nothing.
     private float? initialThumbDragCursorOffset;
 
+    /// Drag to scroll: track the starting scroll offset
+    private float? initialContainerScrollOffset = null;
+    /// Drag to scroll: track the starting drag
+    private float? initialContainerDrag = null;
+
     /// <summary>
     /// Forces an immediate sync of the thumb position with the associated container.
     /// </summary>
@@ -246,11 +251,13 @@ public partial class Scrollbar : ComponentView<Lane>
         // Force immediate sync so that we don't get "feedback" from the cursor still being out of sync with the thumb
         // on next frame.
         SyncPosition();
+        e.Handled = true;
     }
 
     private void Thumb_DragEnd(object? sender, PointerEventArgs e)
     {
         initialThumbDragCursorOffset = null;
+        e.Handled = true;
     }
 
     private void Thumb_DragStart(object? sender, PointerEventArgs e)
@@ -267,6 +274,38 @@ public partial class Scrollbar : ComponentView<Lane>
         var cursorOffset = orientationPosition - orientationStart;
         // Negative offset means the "drag" is not actually on the thumb itself, but in the preceding margin.
         initialThumbDragCursorOffset = cursorOffset >= 0 ? cursorOffset : null;
+        e.Handled = true;
+    }
+
+    private void Container_DragStart(object? sender, PointerEventArgs e)
+    {
+        if (Container is null)
+        {
+            initialContainerScrollOffset = null;
+            initialContainerDrag = null;
+            return;
+        }
+        initialContainerScrollOffset = Container.ScrollOffset;
+        initialContainerDrag = Container.Orientation.Get(e.Position);
+    }
+
+    private void Container_Drag(object? sender, PointerEventArgs e)
+    {
+        if (Container is null || !initialContainerDrag.HasValue || !initialContainerScrollOffset.HasValue)
+        {
+            return;
+        }
+
+        // drag scroll is inverted
+        var targetDistance = initialContainerDrag.Value - Container.Orientation.Get(e.Position);
+        Container.ScrollOffset = initialContainerScrollOffset.Value + targetDistance;
+        SyncPosition();
+    }
+
+    private void Container_DragEnd(object? sender, PointerEventArgs e)
+    {
+        initialContainerScrollOffset = null;
+        initialContainerDrag = null;
     }
 
     private void Thumb_LeftClick(object? sender, ClickEventArgs e)
@@ -343,6 +382,10 @@ public partial class Scrollbar : ComponentView<Lane>
             prevousScrollStep = this.container.ScrollStep;
             this.container.ScrollChanged -= Container_ScrollChanged;
             this.container.PropertyChanged -= Container_PropertyChange;
+            // drag to scroll
+            this.container.DragStart -= Container_DragStart;
+            this.container.Drag -= Container_Drag;
+            this.container.DragEnd -= Container_DragEnd;
         }
         this.container = container;
         if (container is not null)
@@ -351,6 +394,10 @@ public partial class Scrollbar : ComponentView<Lane>
                 container.ScrollStep = prevousScrollStep.Value;
             container.ScrollChanged += Container_ScrollChanged;
             container.PropertyChanged -= Container_PropertyChange;
+            // drag to scroll
+            container.DragStart += Container_DragStart;
+            container.Drag += Container_Drag;
+            container.DragEnd += Container_DragEnd;
         }
         LazyUpdate();
         OnPropertyChanged(nameof(Container));

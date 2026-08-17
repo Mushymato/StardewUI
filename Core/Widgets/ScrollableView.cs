@@ -118,6 +118,17 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
         set => scrollbar.Progress = value;
     }
 
+    /// <summary>
+    /// The <see cref="View.Draggable" /> of the scrollable view.
+    /// If enabled, this view can be dragged (e.g. touch screen controls)
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    public bool DragToScroll
+    {
+        get => scrollbar.Container?.Draggable ?? false;
+        set => scrollbar.Container?.Draggable = value;
+    }
+
     // Initialized in CreateView
     private Scrollbar scrollbar = null!;
 

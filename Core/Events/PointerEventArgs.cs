@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using StardewUI.Layout;
+﻿using StardewUI.Layout;
 
 namespace StardewUI.Events;
 
