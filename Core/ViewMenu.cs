@@ -105,7 +105,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
     protected string navigateSound = "shiny4";
     /// <summary>Whether to hide HUD when menu becomes active, and restore it afterwards</summary>
     protected bool hideHUD = true;
-    /// <summary>Whether to draw the mouse. This is usually neccesary unless you have a HUD menu</summary>
+    /// <summary>Whether to draw the mouse. This is usually neccesary for non-HUD menus</summary>
     protected bool showMouse = true;
 
     private int menuActiveTick = -1;

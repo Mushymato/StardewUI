@@ -416,13 +416,13 @@ public partial class TextInput : View, IKeyboardSubscriberOwnerView
             // Right margin allows scrolling past end; this is similar to peeking, but intended for typing strings that
             // are longer than text box width can fit.
             Margin = new(Right: SCROLL_PEEKING_PX),
-            MaxLines = 1,
+            MaxLines = -1,
         };
         placeholder = new()
         {
             Name = "TextInputPlaceholder",
-            Layout = LayoutParameters.AutoRow(),
-            MaxLines = 1,
+            Layout = LayoutParameters.FitContent(),
+            MaxLines = -1,
         };
         textPanel = new Panel()
         {
