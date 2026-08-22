@@ -70,12 +70,15 @@ internal sealed partial class ModEntry : Mod
         // }
     }
 
-    class ConsoleSDUIShowCtx(int elementCount)
+    partial class ConsoleSDUIShowCtx(int elementCount)
     {
         public List<ConsoleSDUIShowCtxLabel> Labels = Enumerable
             .Range(1, elementCount)
             .Select(num => new ConsoleSDUIShowCtxLabel(num.ToString()))
             .ToList();
+
+        [Notify]
+        public int primaryItemCount;
     }
 
     // partial class ConsoleSDUIShowCtx()

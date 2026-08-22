@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework.Graphics;
 using StardewUI.Data;
 using StardewUI.Events;
-using StardewUI.Framework;
 using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;

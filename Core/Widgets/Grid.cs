@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using StardewUI.Graphics;
+﻿using StardewUI.Graphics;
 using StardewUI.Input;
 using StardewUI.Layout;
 
@@ -161,6 +160,23 @@ public partial class Grid : View
         }
     }
 
+    /// <summary>
+    /// The number of items in the primary orientation (i.e. in the row or colume), updated after measure.
+    /// This value is updated on measure and read-only, it is utilized in focus search.
+    /// </summary>
+    public int PrimaryItemCount
+    {
+        get => field;
+        private set
+        {
+            if (field != value)
+            {
+                field = value;
+                OnPropertyChanged(nameof(PrimaryItemCount));
+            }
+        }
+    }
+
     private record CellPosition(int Column, int Row);
 
     private readonly DirtyTrackingList<IView> children = [];
@@ -180,7 +196,6 @@ public partial class Grid : View
     // These are useful to cache for focus searches. Since the grid is uniform along the primary orientation, we can
     // determine from the coordinates exactly which cell the cursor is sitting in, including its index in the child list
     // and the offset of the previous/next.
-    private int countBeforeWrap;
     private float itemLength;
     private readonly List<float> secondaryStartPositions = [];
 
@@ -222,7 +237,7 @@ public partial class Grid : View
                 // would be considered exiting the entire grid, but navigating up/down from a different row (or from out of
                 // bounds) should snap to the last or closest item.
                 : direction.GetOrientation() == PrimaryOrientation
-                    ? nextIndex > countBeforeWrap ? childPositions[nextIndex - countBeforeWrap]
+                    ? nextIndex > PrimaryItemCount ? childPositions[nextIndex - PrimaryItemCount]
                         : null
                 : childPositions.LastOrDefault();
             var found = nextChild?.FocusSearch(contentPosition, direction);
@@ -275,12 +290,13 @@ public partial class Grid : View
         b.Translate(origin);
         foreach (ViewChild viewChild in childPositions.ZOrder())
         {
-            if (viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds))
+            if (!(viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds)))
             {
-                using var _ = b.SaveTransform();
-                b.Translate(viewChild.Position);
-                viewChild.View.Draw(b);
+                continue;
             }
+            using var _ = b.SaveTransform();
+            b.Translate(viewChild.Position);
+            viewChild.View.Draw(b);
         }
     }
 
@@ -296,7 +312,7 @@ public partial class Grid : View
         var primarySpacing = PrimaryOrientation.Get(ItemSpacing);
         var (itemLength, countBeforeWrap) = ItemLayout.GetItemCountAndLength(primaryAvailable, primarySpacing);
         this.itemLength = itemLength;
-        this.countBeforeWrap = countBeforeWrap;
+        this.PrimaryItemCount = countBeforeWrap;
         var secondaryOrientation = PrimaryOrientation.Swap();
         var secondaryAvailable = secondaryOrientation.Get(limits);
         var secondarySpacing = secondaryOrientation.Get(ItemSpacing);
@@ -305,6 +321,7 @@ public partial class Grid : View
         int currentCount = 0;
         var maxSecondary = 0.0f;
         int laneStartIndex = 0;
+        var visualSecondaryLimit = ParentScrollingBounds?.Size.Y ?? secondaryAvailable;
         secondaryStartPositions.Clear();
         secondaryStartPositions.Add(0);
         for (int childIdx = 0; childIdx < Children.Count; childIdx++)
@@ -314,6 +331,7 @@ public partial class Grid : View
             PrimaryOrientation.Set(ref childLimits, itemLength);
             secondaryOrientation.Set(ref childLimits, secondaryAvailable);
             child.Measure(childLimits);
+            maxSecondary = MathF.Max(maxSecondary, secondaryOrientation.Get(child.OuterSize));
             childPositions.Add(new(child, position));
             currentCount++;
             maxSecondary = MathF.Max(maxSecondary, secondaryOrientation.Get(child.OuterSize));
@@ -400,10 +418,10 @@ public partial class Grid : View
         }
         else if (axisPosition >= PrimaryOrientation.Get(ContentSize))
         {
-            return countBeforeWrap;
+            return PrimaryItemCount;
         }
         var cellLength = itemLength + PrimaryOrientation.Get(ItemSpacing);
-        return Math.Clamp((int)(axisPosition / cellLength), 0, countBeforeWrap - 1);
+        return Math.Clamp((int)(axisPosition / cellLength), 0, PrimaryItemCount - 1);
     }
 
     private int FindSecondaryIndex(Vector2 position)
@@ -446,11 +464,11 @@ public partial class Grid : View
         //
         // N.B. We still don't allow the primary to exceed the max count for *any* row, only the reduced count on the
         // final row.
-        if (primary >= countBeforeWrap || secondary >= secondaryStartPositions.Count)
+        if (primary >= PrimaryItemCount || secondary >= secondaryStartPositions.Count)
         {
             return -1;
         }
-        return secondary * countBeforeWrap + Math.Min(primary, countBeforeWrap - 1);
+        return secondary * PrimaryItemCount + Math.Min(primary, PrimaryItemCount - 1);
     }
 }
 
