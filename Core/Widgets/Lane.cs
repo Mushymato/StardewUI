@@ -295,14 +295,13 @@ public partial class Lane : View
     /// <inheritdoc />
     protected override void OnDrawContent(ISpriteBatch b)
     {
-        foreach (ViewChild viewChild in visibleChildPositions.ZOrder())
+        IEnumerable<ViewChild> visibleViewChildren = visibleChildPositions.Where(
+            viewChild => viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds));
+        foreach (ViewChild viewChild in visibleViewChildren.ZOrder())
         {
-            if (viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds))
-            {
-                using var _ = b.SaveTransform();
-                b.Translate(viewChild.Position);
-                viewChild.View.Draw(b);
-            }
+            using var _ = b.SaveTransform();
+            b.Translate(viewChild.Position);
+            viewChild.View.Draw(b);
         }
     }
 

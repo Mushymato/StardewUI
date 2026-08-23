@@ -288,12 +288,11 @@ public partial class Grid : View
         var origin = Vector2.Zero;
         PrimaryOrientation.Set(ref origin, GridAlignment.Align(primaryLength, ContentSize.X));
         b.Translate(origin);
-        foreach (ViewChild viewChild in childPositions.ZOrder())
+
+        IEnumerable<ViewChild> visibleViewChildren = childPositions.Where(
+            viewChild => viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds));
+        foreach (ViewChild viewChild in visibleViewChildren.ZOrder())
         {
-            if (!(viewChild.View.IsWithinScrollBounds = viewChild.IsWithinScrollBounds(ParentScrollingBounds)))
-            {
-                continue;
-            }
             using var _ = b.SaveTransform();
             b.Translate(viewChild.Position);
             viewChild.View.Draw(b);
