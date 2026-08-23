@@ -8,7 +8,9 @@ namespace StardewUI.Framework.Diagnostics;
 /// </summary>
 /// <param name="mod">Info about the requesting mod.</param>
 /// <param name="configSelector">Function to retrieve the current tracing configuration.</param>
-internal class TraceWriter(IManifest mod, Func<TraceConfig> configSelector) : StardewUI.Diagnostics.ITraceWriter
+/// <param name="directoryPath">Mod directory folder</param>
+internal class TraceWriter(IManifest mod, Func<TraceConfig> configSelector, string directoryPath)
+    : StardewUI.Diagnostics.ITraceWriter
 {
     /// <inheritdoc />
     public bool IsTracing => currentTrace is not null;
@@ -60,7 +62,7 @@ internal class TraceWriter(IManifest mod, Func<TraceConfig> configSelector) : St
         var config = configSelector();
         var outputDirectory = Path.IsPathFullyQualified(config.OutputDirectory)
             ? config.OutputDirectory
-            : Path.Combine(Constants.DataPath, config.OutputDirectory);
+            : Path.Combine(directoryPath, config.OutputDirectory);
         Directory.CreateDirectory(outputDirectory);
         var traceName = $"StardewUI_{trace.CreationDate:yyyyMMdd_HHmmss}.json";
         var fileName = Path.Combine(outputDirectory, traceName);

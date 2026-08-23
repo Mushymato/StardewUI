@@ -30,7 +30,7 @@ internal sealed class ModEntry : Mod
         I18n.Init(helper.Translation);
         UI.Initialize(helper, Monitor);
         config = helper.ReadConfig<ModConfig>();
-        Trace.Writer = new TraceWriter(ModManifest, () => config.Tracing);
+        Trace.Writer = new TraceWriter(ModManifest, () => config.Tracing, helper.DirectoryPath);
 
         try
         {
@@ -51,6 +51,8 @@ internal sealed class ModEntry : Mod
         helper.Events.GameLoop.GameLaunched += GameLoop_GameLaunched;
         helper.Events.GameLoop.UpdateTicked += GameLoop_UpdateTicked;
         helper.Events.Input.ButtonsChanged += Input_ButtonsChanged;
+
+        helper.ConsoleCommands.Add("sdui-trace", "Prepare to trace the next open menu", ConsolePrepareTrace);
     }
 
     public override object? GetApi(IModInfo modInfo)
@@ -197,6 +199,7 @@ internal sealed class ModEntry : Mod
     }
 
     internal static TimeSpan traceTimer = TimeSpan.Zero;
+    internal static bool traceNextMenu = false;
 
     private void GameLoop_UpdateTicked(object? sender, UpdateTickedEventArgs e)
     {
@@ -211,15 +214,18 @@ internal sealed class ModEntry : Mod
                 Trace.IsTracing = !Trace.IsTracing;
             }
         }
+        if (traceNextMenu && Game1.activeClickableMenu != null)
+        {
+            traceNextMenu = false;
+            BeginTracing();
+        }
     }
 
     private void Input_ButtonsChanged(object? sender, ButtonsChangedEventArgs e)
     {
         if (config.Tracing.ToggleHotkeys.JustPressed())
         {
-            Trace.IsTracing = !Trace.IsTracing;
-            traceTimer = TimeSpan.FromSeconds(3);
-            Helper.Input.SuppressActiveKeybinds(config.Tracing.ToggleHotkeys);
+            BeginTracing();
         }
 
         if (
@@ -240,6 +246,18 @@ internal sealed class ModEntry : Mod
                 }
             }
         }
+    }
+
+    private void ConsolePrepareTrace(string arg1, string[] arg2)
+    {
+        traceNextMenu = true;
+    }
+
+    private void BeginTracing()
+    {
+        Trace.IsTracing = !Trace.IsTracing;
+        traceTimer = TimeSpan.FromSeconds(3);
+        Helper.Input.SuppressActiveKeybinds(config.Tracing.ToggleHotkeys);
     }
 }
 
