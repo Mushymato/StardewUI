@@ -241,11 +241,9 @@ public partial class TextInput : View, IKeyboardSubscriberOwnerView
         get => placeholder.Text;
         set
         {
-            // hack: use a single space so that the label layout won't end up being 0x0
-            string newValue = string.IsNullOrEmpty(value) ? " " : value;
-            if (newValue != placeholder.Text)
+            if (value != placeholder.Text)
             {
-                placeholder.Text = newValue;
+                placeholder.Text = value;
                 OnPropertyChanged(nameof(Placeholder));
             }
         }
@@ -424,8 +422,7 @@ public partial class TextInput : View, IKeyboardSubscriberOwnerView
         {
             Name = "TextInputPlaceholder",
             Layout = LayoutParameters.FitContent(),
-            MaxLines = -1,
-            Text = " "
+            MaxLines = -1
         };
         textPanel = new Panel()
         {

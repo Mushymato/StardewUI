@@ -368,7 +368,8 @@ public partial class Label : View
         }
         else
         {
-            ContentSize = Layout.Resolve(availableSize, () => Font.MeasureString(Text) * Scale);
+            Vector2 stringSize = Font.MeasureString(Text);
+            ContentSize = Layout.Resolve(availableSize, () => new(stringSize.X * Scale, Font.LineSpacing * Scale));
             lines = [Text];
         }
     }
