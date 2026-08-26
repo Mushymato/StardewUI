@@ -197,6 +197,9 @@ public partial class Grid : View
     // determine from the coordinates exactly which cell the cursor is sitting in, including its index in the child list
     // and the offset of the previous/next.
     private float itemLength;
+    /// An item span is essentially one item taking up multiple itemLength
+    /// This list maps the grid index back to the real child position index
+    private readonly List<int> primaryGridToChild = [];
     private readonly List<float> secondaryStartPositions = [];
 
     /// <inheritdoc />
@@ -321,18 +324,26 @@ public partial class Grid : View
         var maxSecondary = 0.0f;
         int laneStartIndex = 0;
         var visualSecondaryLimit = ParentScrollingBounds?.Size.Y ?? secondaryAvailable;
+        primaryGridToChild.Clear();
         secondaryStartPositions.Clear();
         secondaryStartPositions.Add(0);
         for (int childIdx = 0; childIdx < Children.Count; childIdx++)
         {
             var child = Children[childIdx];
             var childLimits = Vector2.Zero;
-            PrimaryOrientation.Set(ref childLimits, itemLength);
+            int childSpan = child.ItemSpan;
+            if (childSpan < 0)
+                childSpan = countBeforeWrap - currentCount;
+            childSpan = Math.Clamp(childSpan, 1, countBeforeWrap);
+            float itemLengthWithSpan = itemLength * childSpan;
+            PrimaryOrientation.Set(ref childLimits, itemLengthWithSpan);
             secondaryOrientation.Set(ref childLimits, secondaryAvailable);
             child.Measure(childLimits);
             maxSecondary = MathF.Max(maxSecondary, secondaryOrientation.Get(child.OuterSize));
             childPositions.Add(new(child, position));
-            currentCount++;
+            currentCount += childSpan;
+            for (int i = 0; i < childSpan; i++)
+                primaryGridToChild.Add(childIdx);
             maxSecondary = MathF.Max(maxSecondary, secondaryOrientation.Get(child.OuterSize));
             if (currentCount >= countBeforeWrap || childIdx == Children.Count - 1)
             {
@@ -372,7 +383,7 @@ public partial class Grid : View
             }
             else
             {
-                PrimaryOrientation.Update(ref position, v => v + itemLength + primarySpacing);
+                PrimaryOrientation.Update(ref position, v => v + itemLengthWithSpan + primarySpacing);
             }
         }
         if (laneStartIndex > 0)
@@ -467,7 +478,12 @@ public partial class Grid : View
         {
             return -1;
         }
-        return secondary * PrimaryItemCount + Math.Min(primary, PrimaryItemCount - 1);
+        int childIndex = secondary * PrimaryItemCount + Math.Min(primary, PrimaryItemCount - 1);
+        if (childIndex >= primaryGridToChild.Count)
+        {
+            return childIndex;
+        }
+        return primaryGridToChild[childIndex];
     }
 }
 

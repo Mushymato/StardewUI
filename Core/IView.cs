@@ -278,6 +278,14 @@ public interface IView : IDisposable, INotifyPropertyChanged
     /// </summary>
     int ZIndex { get; set; }
 
+    /// <summary>
+    /// Item span that defines how many cells this item takes up when it's the child of a grid.
+    /// Span only considers the primary orientation and cannot exceed one row/col
+    /// When this is -1, take the remainder of the row/col.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    int ItemSpan { get; set; }
+
     #region Mod Integration
     /// <summary>
     /// When Lookup Anything (Pathoschild.LookupAnything) is loaded,

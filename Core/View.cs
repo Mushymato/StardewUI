@@ -482,6 +482,20 @@ public abstract class View : IView, IFloatContainer
         }
     }
 
+    /// <inheritdoc/>
+    public int ItemSpan
+    {
+        get => field;
+        set
+        {
+            if (value != field)
+            {
+                field = value;
+                OnPropertyChanged(nameof(ItemSpan));
+            }
+        }
+    } = 1;
+
     /// <inheritdoc />
     public virtual LookupAnythingHoveredSubject? HoveredSubject
     {

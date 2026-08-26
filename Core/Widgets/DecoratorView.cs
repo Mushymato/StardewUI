@@ -257,6 +257,13 @@ public class DecoratorView<T> : IView, IDisposable
     }
 
     /// <inheritdoc />
+    public int ItemSpan
+    {
+        get => itemSpan;
+        set => itemSpan.Set(value);
+    }
+
+    /// <inheritdoc />
     public LookupAnythingHoveredSubject? HoveredSubject { get => hoveredSubject; set => hoveredSubject.Set(value); }
 
     /// <inheritdoc />
@@ -353,6 +360,7 @@ public class DecoratorView<T> : IView, IDisposable
         Visibility.Visible
     );
     private readonly DecoratedProperty<int> zIndex = new(x => x.ZIndex, (x, v) => x.ZIndex = v, 0);
+    private readonly DecoratedProperty<int> itemSpan = new(x => x.ItemSpan, (x, v) => x.ItemSpan = v, 1);
     private readonly DecoratedProperty<LookupAnythingHoveredSubject?> hoveredSubject = new(x => x.HoveredSubject, (x, v) => x.HoveredSubject = v, null);
     private readonly DecoratedProperty<ScreenReadableData?> screenReadData = new(x => x.ScreenRead, (x, v) => x.ScreenRead = v, null);
 
@@ -376,6 +384,7 @@ public class DecoratorView<T> : IView, IDisposable
         RegisterDecoratedProperty(transformOrigin);
         RegisterDecoratedProperty(visibility);
         RegisterDecoratedProperty(zIndex);
+        RegisterDecoratedProperty(itemSpan);
         RegisterDecoratedProperty(hoveredSubject);
         RegisterDecoratedProperty(screenReadData);
     }
