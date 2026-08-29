@@ -156,7 +156,6 @@ public class ViewNode(
         childrenBinder = null;
         view = null;
         behaviors.SetTarget(null);
-        wasContextChanged = false;
     }
 
     /// <inheritdoc />

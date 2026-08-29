@@ -214,7 +214,7 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     /// <inheritdoc />
     protected override bool SetDefaultFocus(IView root, Vector2 origin)
     {
-        if (DefaultFocusableTag != null)
+        if (!string.IsNullOrEmpty(DefaultFocusableTag))
         {
             FindViewByFocusableTag(root, origin, DefaultFocusableTag, out bool found);
             if (found)
