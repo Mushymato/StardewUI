@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="arm64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Common/">
+    <File Path="Directory.Packages.props" />
+    <File Path="StardewUI.props" />
+  </Folder>
+  <Project Path="Core/StardewUI.shproj" />
+  <Project Path="DocGenerator/StardewUI.DocGenerator.csproj" />
+  <Project Path="Framework/StardewUI.Framework.csproj" />
+  <Project Path="FrameworkTests/StardewUI.Framework.Tests.csproj" />
+  <Project Path="SourceGenerators/StardewUI.SourceGenerators.csproj" />
+  <Project Path="TestMod/StardewUI.TestMod.csproj" />
+</Solution>
