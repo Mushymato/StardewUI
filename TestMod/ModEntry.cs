@@ -46,61 +46,61 @@ internal sealed partial class ModEntry : Mod
         Game1.activeClickableMenu = viewEngine.CreateMenuFromMarkup(string.Join(' ', arg2));
     }
 
-    // partial class ConsoleSDUIShowCtx()
-    // {
-    //     [Notify]
-    //     public string text = "1234567890";
+    public sealed record ConsoleSDUIShowInner(string Label);
 
-    //     [Notify]
-    //     public string selected = string.Empty;
-    // }
-
-
-    partial class ConsoleSDUIShowCtxLabel(string innerText)
+    partial record ConsoleSDUIShowOuter(string Label)
     {
-        private readonly string innerText = innerText;
-
-        [Notify]
-        private string text = innerText;
-
-        // public void Update(TimeSpan elapsed)
-        // {
-        //     if (Game1.ticks % 60 == 0)
-        //         Text = $"{innerText}({Game1.ticks / 60})";
-        // }
-    }
-
-    partial class ConsoleSDUIShowCtx(int elementCount)
-    {
-        public List<ConsoleSDUIShowCtxLabel> Labels = Enumerable
-            .Range(1, elementCount)
-            .Select(num => new ConsoleSDUIShowCtxLabel(num.ToString()))
+        public List<ConsoleSDUIShowInner> Inners = Enumerable
+            .Range(1, 10)
+            .Select(num => new ConsoleSDUIShowInner($"{Label}:{num}"))
             .ToList();
 
         [Notify]
-        public int primaryItemCount;
+        private int currInnerIdx = 0;
+
+        [Notify]
+        private bool showInner = false;
+
+        public ConsoleSDUIShowInner? CurrInner => Inners[CurrInnerIdx];
+
+        public bool NextInner()
+        {
+            CurrInnerIdx = (CurrInnerIdx + 1) % Inners.Count;
+            return true;
+        }
+
+        public bool ToggleInner()
+        {
+            ShowInner = !ShowInner;
+            return true;
+        }
     }
 
-    // partial class ConsoleSDUIShowCtx()
-    // {
-    //     public List<string> DropdownOptions = Enumerable.Range(1, 1000).Select(num => num.ToString()).ToList();
+    partial class ConsoleSDUIShowCtx()
+    {
+        public List<ConsoleSDUIShowOuter> Outers = Enumerable
+            .Range(1, 10)
+            .Select(num => new ConsoleSDUIShowOuter((num * 100).ToString()))
+            .ToList();
 
-    //     [Notify]
-    //     public string selectedOption = "aaaa";
+        [Notify]
+        private int currOuterIdx = 0;
 
-    //     [Notify]
-    //     public string text = "1234567890";
+        public ConsoleSDUIShowOuter CurrOuter => Outers[CurrOuterIdx];
 
-    //     [Notify]
-    //     public string selected = string.Empty;
-    // }
+        public bool NextOuter()
+        {
+            CurrOuterIdx = (CurrOuterIdx + 1) % Outers.Count;
+            CurrOuter.ShowInner = false;
+            return true;
+        }
+    }
 
     private void ConsoleSDUIShow(string arg1, string[] arg2)
     {
         Game1.activeClickableMenu = viewEngine.CreateMenuFromAsset(
             $"{viewAssetPrefix}/sdui-show",
-            new ConsoleSDUIShowCtx(arg2.Length >= 1 ? int.Parse(arg2[0]) : 1000)
-        // new ConsoleSDUIShowCtx()
+            new ConsoleSDUIShowCtx()
         );
     }
 
@@ -119,7 +119,7 @@ internal sealed partial class ModEntry : Mod
         viewEngine = Helper.ModRegistry.GetApi<IViewEngine>("focustense.StardewUI")!;
         viewEngine.RegisterSprites($"Mods/{ModManifest.UniqueID}/Sprites", "assets/sprites");
         viewEngine.RegisterViews(viewAssetPrefix, "assets/views");
-        // viewEngine.EnableHotReloadingWithSourceSync();
+        viewEngine.EnableHotReloadingWithSourceSync();
         viewEngine.PreloadAssets();
 
         temperingData = Helper.ModContent.Load<Dictionary<string, Dictionary<string, EffectData>>>(
