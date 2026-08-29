@@ -1321,7 +1321,7 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         );
     }
 
-    private static void Refocus(
+    private void Refocus(
         IView root,
         Vector2 origin,
         Vector2 previousPosition,
@@ -1430,7 +1430,11 @@ public abstract class ViewMenu : IClickableMenu, IDisposable
         return false;
     }
 
-    private static bool SetDefaultFocus(IView root, Vector2 origin)
+    /// <summary>Move the cursor to the default focusable view</summary>
+    /// <param name="root"></param>
+    /// <param name="origin"></param>
+    /// <returns></returns>
+    protected virtual bool SetDefaultFocus(IView root, Vector2 origin)
     {
         using var _ = Diagnostics.Trace.Begin(nameof(ViewMenu), nameof(SetDefaultFocus));
         var focusPosition = root.GetDefaultFocusPath().ToGlobalPositions().LastOrDefault()?.Center();

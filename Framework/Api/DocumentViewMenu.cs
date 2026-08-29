@@ -92,6 +92,9 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
         }
     }
 
+    /// <inheritdoc />
+    public string? DefaultFocusableTag { get; set; }
+
     private event Action? ControllerClosed;
 
     /// <inheritdoc />
@@ -197,47 +200,59 @@ internal class DocumentViewMenu(IViewNodeFactory viewNodeFactory, IValueSource<D
     }
 
     /// <inheritdoc />
-    public bool FocusOnTaggedView(string name)
+    public bool FocusOnTaggedView(string tag)
     {
         if (!Game1.options.gamepadControls)
         {
             return false;
         }
         bool result = false;
-        OnViewOrOverlay(
-            (view, origin) =>
+        OnViewOrOverlay((view, origin) => FindViewByFocusableTag(view, origin, tag, out result));
+        return result;
+    }
+
+    /// <inheritdoc />
+    protected override bool SetDefaultFocus(IView root, Vector2 origin)
+    {
+        if (DefaultFocusableTag != null)
+        {
+            FindViewByFocusableTag(root, origin, DefaultFocusableTag, out bool found);
+            if (found)
+                return found;
+        }
+        return base.SetDefaultFocus(root, origin);
+    }
+
+    private void FindViewByFocusableTag(IView view, Vector2 origin, string tag, out bool found)
+    {
+        Queue<FocusSearchResult> viewChildQueue = new([new(new(view, Vector2.Zero), [])]);
+        while (viewChildQueue.TryDequeue(out FocusSearchResult? focusSearchResult))
+        {
+            IView targetView = focusSearchResult.Target.View;
+            if (targetView.FocusableTag == tag)
             {
-                Queue<FocusSearchResult> viewChildQueue = new([new(new(view, Vector2.Zero), [])]);
-                while (viewChildQueue.TryDequeue(out FocusSearchResult? focusSearchResult))
+                if (!targetView.IsFocusable)
                 {
-                    IView targetView = focusSearchResult.Target.View;
-                    if (targetView.FocusableTag?.EqualsIgnoreCase(name) ?? false)
-                    {
-                        if (!targetView.IsFocusable)
-                        {
-                            result = false;
-                            return;
-                        }
-                        FinishFocusSearch(view, origin.ToPoint(), focusSearchResult);
-                        result = true;
-                        return;
-                    }
-                    else
-                    {
-                        List<ViewChild> newPath = focusSearchResult.Path.ToList();
-                        newPath.Add(focusSearchResult.Target);
-                        foreach (ViewChild child in targetView.GetChildren())
-                        {
-                            if (!child.View.PointerEventsEnabled || child.View.Visibility != Visibility.Visible)
-                                continue;
-                            viewChildQueue.Enqueue(new(child, newPath));
-                        }
-                    }
+                    found = false;
+                    return;
                 }
-                result = false;
+                FinishFocusSearch(view, origin.ToPoint(), focusSearchResult);
+                found = true;
                 return;
             }
-        );
-        return result;
+            else
+            {
+                List<ViewChild> newPath = focusSearchResult.Path.ToList();
+                newPath.Add(focusSearchResult.Target);
+                foreach (ViewChild child in targetView.GetChildren())
+                {
+                    if (!child.View.PointerEventsEnabled || child.View.Visibility != Visibility.Visible)
+                        continue;
+                    viewChildQueue.Enqueue(new(child, newPath));
+                }
+            }
+        }
+        found = false;
+        return;
     }
 }
