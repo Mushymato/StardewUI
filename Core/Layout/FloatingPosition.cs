@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Xna.Framework;
-using StardewUI.Framework.Converters;
 
 namespace StardewUI.Layout;
 

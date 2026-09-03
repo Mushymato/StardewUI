@@ -4,16 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.3-unofficial-mushymato.2](UNRELEASED)
+## [0.6.4-unofficial-mushymato.0](UNRELEASED)
 
 ### Added
 - You can now use translations (i.e. `#i18n.key`) in state bindings.
-- New built-in UI sprite `@Mods/StardewUI/Sprites/ShopEntryBorder`.
-- New `TinyNumberLabel` (aka `digits`) property `Tint`, changes color of the digits.
+- New built-in UI sprite `@Mods/StardewUI/Sprites/ShopEntryBorder`, the shop item border sprite.
 - All `TextInput` now supports text selection via mouse, with a new readonly property `SelectedText` that can be used to obtain the selected text.
-- In `Label`, a negative number in `max-lines` disables line breaking completely, always rendering the entire string.
+- New `TinyNumberLabel` (aka `digits`) property `Tint`, changes color of the digits.
+- New `Grid` output only property `PrimaryItemCount`, get the computed number of items per grid row after measure.
+- New `View` property that controls how many `Grid` cells is used when this view is a direct child of grid.
+- New `ScrollableView` property `DragToScroll` which allows dragging to scroll instead of wheel.
 - New `IMenuController` property `ShowMouse`, set whether the mouse is drawn.
 - New `IMenuController` method `Reposition`, immediately reposition and measure the menu.
+- New `FocusableTag` system for manually controlling controller focus.
+  - All views now have `FocusableTag` property.
+  - New `IMenuController` method `FocusOnTaggedView` to manually focus onto a view.
+  - New `IMenuController` property `DefaultFocusableTag` to set the default tag to focus on when focus is lost for any reason (e.g. menu layout changes).
 
 ### Changed
 - When `Label` has a negative `MaxLines` value such as `-1`, line breaking is completely disabled.
@@ -21,15 +27,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `ScrollableView` now excludes any view not currently visible (i.e. within the scrolling clip bounds) from drawing and updates.
   - `Grid` and `Lane` have additional checks in this exclusion process.
   - This improves performance on large scrollable views.
+- Various `TextInput` related tweaks.
+  - The inner frame Border is now the definitive visual property instead of Background.
+  - Added BorderThickness property.
+  - Background changed to alias for Border.
+  - The two inner label views (text and placeholder) no longer scales with the outer view.
+- `PositionSelector` will now also set the initial `xPositionOnScreen` and `yPositionOnScreen` values.
+- `Expander` now uses a caret with square source rect to avoid stretching when rotated.
 
 ### Fixed
-- Various `TextInput` related bugs. Notable behavior change: the inner frame Border is now the definitive visual property, Background changed to alias for Border.
 - Segments not measuring initial layout properly.
 - Scroll process backend improvements.
-- Logging to monitor now only happens on main thread, off thread calls to Logger.Log is queued until main thread has a change to do logging.
+- Logging to monitor now only happens on main thread, off thread calls to Logger.Log is queued until main thread calls Log again.
 - Label hanging on attempting to break a word with 0 breakable chars.
-- `PositionSelector` will now also set the initial `xPositionOnScreen` and `yPositionOnScreen` values.
 - Children views of scrollable can now have `wheel` events.
+- Context changed status being incorrectly reset when a view is hidden (i.e. via `*if` or `*switch` + `*case`)
 
 ## [0.6.3-unofficial-mushymato.1](https://github.com/Mushymato/StardewUI/releases/tag/0.6.3-unofficial-mushymato.1)
 

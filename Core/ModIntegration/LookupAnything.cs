@@ -1,5 +1,3 @@
-using StardewUI.Framework.Converters;
-
 namespace StardewUI.ModIntegration;
 
 /// <summary>Manages lookup anything integration</summary>
@@ -46,17 +44,3 @@ public static class LookupAnythingIntegration
 
 /// <summary>The lookup anything hovered subject to supply to <see cref="ViewMenu"/></summary>
 public record LookupAnythingHoveredSubject(Item? HoveredItem = null, NPC? HoveredNpc = null);
-
-/// <summary>Convert <see cref="Item"/> to <see cref="LookupAnythingHoveredSubject"/></summary>
-public sealed class LookupAnythingHoveredItemConverter : IValueConverter<Item, LookupAnythingHoveredSubject?>
-{
-    /// <inheritdoc />
-    public LookupAnythingHoveredSubject? Convert(Item value) => LookupAnythingIntegration.IsLoaded ? new(HoveredItem: value) : null!;
-}
-
-/// <summary>Convert <see cref="NPC"/> to <see cref="LookupAnythingHoveredSubject"/></summary>
-public sealed class LookupAnythingHoveredNpcConverter : IValueConverter<NPC, LookupAnythingHoveredSubject?>
-{
-    /// <inheritdoc />
-    public LookupAnythingHoveredSubject? Convert(NPC value) => LookupAnythingIntegration.IsLoaded ? new(HoveredNpc: value) : null!;
-}
