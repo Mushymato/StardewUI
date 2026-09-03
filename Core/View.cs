@@ -1165,6 +1165,8 @@ public abstract class View : IView, IFloatContainer
     /// </remarks>
     public virtual void OnUpdate(TimeSpan elapsed)
     {
+        if (!IsWithinScrollBounds)
+            return;
         using var _ = Diagnostics.Trace.Begin(this, nameof(OnUpdate));
         foreach (var viewChild in GetChildren())
         {

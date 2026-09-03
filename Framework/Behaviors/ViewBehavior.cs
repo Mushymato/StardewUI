@@ -54,7 +54,7 @@ public abstract class ViewBehavior<TView, TData> : IViewBehavior
     /// <inheritdoc />
     public bool CanUpdate()
     {
-        return target is not null && data is not null;
+        return target is not null && target.View.IsWithinScrollBounds && data is not null;
     }
 
     /// <inheritdoc />

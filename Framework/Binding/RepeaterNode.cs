@@ -124,6 +124,7 @@ public class RepeaterNode(
         using var _ = Trace.Begin(this, nameof(Update));
         if (wasContextChanged)
         {
+            using var _contextChange = Trace.Begin(this, $"{nameof(Update)}#contextChange");
             var collectionType = valueSourceFactory.GetValueType(repeatAttribute, null, context);
             var collectionSource = collectionType is not null
                 ? valueSourceFactory.GetValueSource(collectionType, repeatAttribute, context, resolutionScope)
@@ -140,18 +141,19 @@ public class RepeaterNode(
             }
             wasContextChanged = false;
         }
-        bool result = UpdateChildBindings();
+        using var _children = Trace.Begin(this, $"{nameof(Update)}#children");
         // Even if the "tree" itself wasn't updated, we still have to pass the update down to existing child nodes.
+        bool childrenChanged = UpdateChildBindings();
         foreach (var childNode in children)
         {
-            result |= childNode.Node.Update(elapsed);
+            childrenChanged |= childNode.Node.Update(elapsed);
         }
-        if (result)
+        if (childrenChanged)
         {
             Views = children.SelectMany(child => child.Node.Views).ToList();
             FloatingElements = children.SelectMany(child => child.Node.FloatingElements).ToList();
         }
-        return result;
+        return childrenChanged;
     }
 
     private void AddChildNodes(int fromIndex, IList? items)
