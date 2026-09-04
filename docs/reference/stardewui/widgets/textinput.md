@@ -27,11 +27,15 @@ A text input field that allows typing from a physical or virtual keyboard.
 
 ```cs
 [StardewUI.GenerateDescriptor]
-public class TextInput : StardewUI.View
+public class TextInput : StardewUI.View, 
+    StardewUI.Input.IKeyboardSubscriberOwnerView
 ```
 
 **Inheritance**  
 [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object) ⇦ [View](../view.md) ⇦ TextInput
+
+**Implements**  
+[IKeyboardSubscriberOwnerView](../input/ikeyboardsubscriberownerview.md)
 
 ## Members
 
@@ -41,16 +45,24 @@ public class TextInput : StardewUI.View
 | --- | --- |
 | [TextInput()](#textinput) | Initializes a new [TextInput](textinput.md). | 
 
+### Fields
+
+ | Name | Description |
+| --- | --- |
+| [ParentScrollingBounds](../view.md#parentscrollingbounds) | The parent scrolling bounds propagated down from an ancestor [ScrollContainer](scrollcontainer.md).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+
 ### Properties
 
  | Name | Description |
 | --- | --- |
 | [ActualBounds](../view.md#actualbounds)<br/>`actual-bounds` | The bounds of this view relative to the origin (0, 0).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [Background](#background)<br/>`background` | The background sprite to draw for this frame. | 
+| [Background](#background)<br/>`background` | For compatibility reasons Background is alias for Border. `(unofficial-mushymato)` | 
+| [Border](#border)<br/>`border` | `(unofficial-mushymato)` | 
 | [BorderSize](../view.md#bordersize)<br/>`border-size` | The layout size (not edge thickness) of the entire drawn area including the border, i.e. the [InnerSize](../view.md#innersize) plus any borders defined in [GetBorderThickness()](../view.md#getborderthickness). Does not include the [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [BorderThickness](#borderthickness)<br/>`border-thickness` | Gets or sets the thickness of the border edges in the [Background](textinput.md#background) sprite. | 
+| [BorderThickness](#borderthickness)<br/>`border-thickness` | The thickness of the border edges. | 
 | [Caret](#caret)<br/>`caret` | Sprite to draw for the cursor showing the current text position. | 
 | [CaretPosition](#caretposition)<br/>`caret-position` | The zero-based position of the caret within the text. | 
+| [CaretSelectionSize](#caretselectionsize)<br/>`caret-selection-size` | Number of characters selected, stored as number of characters before or after the caret. `(unofficial-mushymato)` | 
 | [CaretWidth](#caretwidth)<br/>`caret-width` | The width to draw the [Caret](textinput.md#caret), if different from the sprite's source width. | 
 | [ClipOrigin](../view.md#cliporigin)<br/>`clip-origin` | Origin position for the [ClipSize](../iview.md#clipsize).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ClipSize](../view.md#clipsize)<br/>`clip-size` | Size of the clipping rectangle, outside which content will not be displayed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -61,11 +73,14 @@ public class TextInput : StardewUI.View
 | [FloatingBounds](../view.md#floatingbounds)<br/>`floating-bounds` | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [FloatingElements](../view.md#floatingelements)<br/>`floating-elements` | The floating elements to display relative to this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Focusable](../view.md#focusable)<br/>`focusable` | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [FocusableTag](../view.md#focusabletag)<br/>`focusable-tag` | A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Font](#font)<br/>`font` | The font with which to render text. Defaults to smallFont. | 
 | [HandlesOpacity](../view.md#handlesopacity)<br/>`handles-opacity` | Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [HoveredSubject](../view.md#hoveredsubject)<br/>`hovered-subject` | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [InnerSize](../view.md#innersize)<br/>`inner-size` | The size allocated to the entire area inside the border, i.e. [ContentSize](../view.md#contentsize) plus any [Padding](../view.md#padding). Does not include border or [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [IsFocusable](../view.md#isfocusable)<br/>`is-focusable` | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [IsWithinScrollBounds](../view.md#iswithinscrollbounds)<br/>`is-within-scroll-bounds` | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ItemSpan](../view.md#itemspan)<br/>`item-span` | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [LastAvailableSize](../view.md#lastavailablesize)<br/>`last-available-size` | The most recent size used in a [Measure(Vector2)](../view.md#measurevector2) pass. Used for additional dirty checks.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Layout](../view.md#layout)<br/>`layout` | Layout settings for this view; determines how its dimensions will be computed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [LayoutOffset](../view.md#layoutoffset)<br/>`layout-offset` | Pixel offset of the view's content, which is applied to all pointer events and child queries.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -81,6 +96,7 @@ public class TextInput : StardewUI.View
 | [PointerStyle](../view.md#pointerstyle)<br/>`pointer-style` | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ScreenRead](../view.md#screenread)<br/>`screen-read` | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ScrollWithChildren](../view.md#scrollwithchildren)<br/>`scroll-with-children` | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [SelectedText](#selectedtext)<br/>`selected-text` | Read-only property for selected text, set via changes to [CaretSelectionSize](textinput.md#caretselectionsize). `(unofficial-mushymato)` | 
 | [ShadowAlpha](#shadowalpha)<br/>`shadow-alpha` | Alpha value for the shadow. If set to the default of zero, no shadow will be drawn. | 
 | [ShadowOffset](#shadowoffset)<br/>`shadow-offset` | Offset to draw the sprite shadow, which is a second copy of the [Background](frame.md#background) drawn entirely black. Shadows will not be visible unless [ShadowAlpha](frame.md#shadowalpha) is non-zero. | 
 | [Tags](../view.md#tags)<br/>`tags` | The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -109,8 +125,11 @@ public class TextInput : StardewUI.View
 | [GetDefaultFocusChild()](../view.md#getdefaultfocuschild) | Gets the direct child that should contain cursor focus when a menu or overlay containing this view is first opened.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [GetLocalChildren()](#getlocalchildren) | Gets the view's children with positions relative to the content area.<br><span class="muted" markdown>(Overrides [View](../view.md).[GetLocalChildren()](../view.md#getlocalchildren))</span> | 
 | [GetLocalChildrenAt(Vector2)](../view.md#getlocalchildrenatvector2) | Searches for all views at a given position relative to the content area.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [HandleSpecialKey(Keys)](#handlespecialkeykeys) | Handle non-text entry key. | 
 | [HasOutOfBoundsContent()](../view.md#hasoutofboundscontent) | Checks if the view has content or elements that are all or partially outside the [ActualBounds](../iview.md#actualbounds).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [HasOwnContent()](../view.md#hasowncontent) | Checks if this view displays its own content, independent of any floating elements or children.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [InsertChar(Char)](#insertcharchar) | Accept new entered char | 
+| [InsertString(string)](#insertstringstring) | Accept new entered string | 
 | [IsContentDirty()](#iscontentdirty) | Checks whether or not the internal content/layout has changed.<br><span class="muted" markdown>(Overrides [View](../view.md).[IsContentDirty()](../view.md#iscontentdirty))</span> | 
 | [IsDirty()](../view.md#isdirty) | Checks whether or not the view is dirty - i.e. requires a new layout with a full [Measure(Vector2)](../iview.md#measurevector2).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [IsVisible(Vector2?)](../view.md#isvisiblevector2) | Checks if the view is effectively visible, i.e. if it has anything to draw.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -120,7 +139,7 @@ public class TextInput : StardewUI.View
 | [OnButtonRepeat(ButtonEventArgs)](../view.md#onbuttonrepeatbuttoneventargs) | Called when a button press is first received, and at recurring intervals thereafter, for as long as the button is held and this view remains in the focus path.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [OnClick(ClickEventArgs)](#onclickclickeventargs) | Called when a click is received within this view's bounds.<br><span class="muted" markdown>(Overrides [View](../view.md).[OnClick(ClickEventArgs)](../view.md#onclickclickeventargs))</span> | 
 | [OnDispose()](../view.md#ondispose) | Performs additional cleanup when [Dispose()](../view.md#dispose) is called.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
-| [OnDrag(PointerEventArgs)](../view.md#ondragpointereventargs) | Called when the view is being dragged (mouse moved while left button held).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [OnDrag(PointerEventArgs)](#ondragpointereventargs) | Called when the view is being dragged (mouse moved while left button held).<br><span class="muted" markdown>(Overrides [View](../view.md).[OnDrag(PointerEventArgs)](../view.md#ondragpointereventargs))</span> | 
 | [OnDrawBorder(ISpriteBatch)](../view.md#ondrawborderispritebatch) | Draws the view's border, if it has one.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [OnDrawContent(ISpriteBatch)](#ondrawcontentispritebatch) | Draws the inner content of this view.<br><span class="muted" markdown>(Overrides [View](../view.md).[OnDrawContent(ISpriteBatch)](../view.md#ondrawcontentispritebatch))</span> | 
 | [OnDrop(PointerEventArgs)](../view.md#ondroppointereventargs) | Called when the mouse button is released after at least one [OnDrag(PointerEventArgs)](../iview.md#ondragpointereventargs).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -130,9 +149,11 @@ public class TextInput : StardewUI.View
 | [OnPropertyChanged(string)](../view.md#onpropertychangedstring) | Raises the [PropertyChanged](../view.md#propertychanged) event.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [OnUpdate(TimeSpan)](../view.md#onupdatetimespan) | Runs on every update tick.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [OnWheel(WheelEventArgs)](../view.md#onwheelwheeleventargs) | Called when a wheel event is received within this view's bounds.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Release()](#release) | Function when the subscriber is released | 
 | [ResetDirty()](../view.md#resetdirty) | Resets any dirty state associated with this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ToString()](../view.md#tostring) | <span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [UpdateParentScrollingBounds(Bounds)](../view.md#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 
 ### Events
 
@@ -171,7 +192,7 @@ public TextInput();
 
 #### Background
 
-The background sprite to draw for this frame.
+For compatibility reasons Background is alias for Border. `(unofficial-mushymato)`
 
 ```cs
 public StardewUI.Graphics.Sprite Background { get; set; }
@@ -183,9 +204,23 @@ public StardewUI.Graphics.Sprite Background { get; set; }
 
 -----
 
+#### Border
+
+`(unofficial-mushymato)`
+
+```cs
+public StardewUI.Graphics.Sprite Border { get; set; }
+```
+
+##### Property Value
+
+[Sprite](../graphics/sprite.md)
+
+-----
+
 #### BorderThickness
 
-Gets or sets the thickness of the border edges in the [Background](textinput.md#background) sprite.
+The thickness of the border edges.
 
 ```cs
 public StardewUI.Layout.Edges BorderThickness { get; set; }
@@ -197,7 +232,7 @@ public StardewUI.Layout.Edges BorderThickness { get; set; }
 
 ##### Remarks
 
-This is similar to [Border](frame.md#border) but assumes that the border is part of the background, rather than a separate sprite. Setting this affects padding of content inside the background.
+This property has no effect on the appearance of the [Border](frame.md#border), but affects how content is positioned inside the border. It is often correct to set it to the same value as the [FixedEdges](../graphics/sprite.md#fixededges) of the [Border](frame.md#border) sprite, but the values are considered independent.
 
 -----
 
@@ -230,6 +265,24 @@ public int CaretPosition { get; set; }
 ##### Remarks
 
 This value is the string position; e.g. if the [Text](textinput.md#text) has a length of 5, and the current caret position is 2, then the caret is between the 2nd and 3rd characters. The value cannot be greater than the length of the current text.
+
+-----
+
+#### CaretSelectionSize
+
+Number of characters selected, stored as number of characters before or after the caret. `(unofficial-mushymato)`
+
+```cs
+public int CaretSelectionSize { get; set; }
+```
+
+##### Property Value
+
+[Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)
+
+##### Remarks
+
+This value does participate in `TextBeforeCursor` or `TextAfterCursor` adding up to equal total text length. When positive, it is always smaller than `TextAfterCursor` length. When negative, it's absolute value is always smaller `TextBeforeCursor` length.
 
 -----
 
@@ -325,6 +378,20 @@ public Microsoft.Xna.Framework.Color PlaceholderColor { get; set; }
 
 -----
 
+#### SelectedText
+
+Read-only property for selected text, set via changes to [CaretSelectionSize](textinput.md#caretselectionsize). `(unofficial-mushymato)`
+
+```cs
+public string SelectedText { get; private set; }
+```
+
+##### Property Value
+
+[string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
 #### ShadowAlpha
 
 Alpha value for the shadow. If set to the default of zero, no shadow will be drawn.
@@ -407,6 +474,48 @@ This has the same signature as [GetChildren(Boolean)](../view.md#getchildrenbool
 
 -----
 
+#### HandleSpecialKey(Keys)
+
+Handle non-text entry key.
+
+```cs
+public void HandleSpecialKey(Microsoft.Xna.Framework.Input.Keys key);
+```
+
+##### Parameters
+
+**`key`** &nbsp; [Keys](https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html)
+
+-----
+
+#### InsertChar(char)
+
+Accept new entered char
+
+```cs
+public void InsertChar(char c);
+```
+
+##### Parameters
+
+**`c`** &nbsp; [Char](https://learn.microsoft.com/en-us/dotnet/api/system.char)
+
+-----
+
+#### InsertString(string)
+
+Accept new entered string
+
+```cs
+public void InsertString(string text);
+```
+
+##### Parameters
+
+**`text`** &nbsp; [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
 #### IsContentDirty()
 
 Checks whether or not the internal content/layout has changed.
@@ -438,6 +547,21 @@ public override void OnClick(StardewUI.Events.ClickEventArgs e);
 ##### Parameters
 
 **`e`** &nbsp; [ClickEventArgs](../events/clickeventargs.md)  
+The event data.
+
+-----
+
+#### OnDrag(PointerEventArgs)
+
+Called when the view is being dragged (mouse moved while left button held).
+
+```cs
+public override void OnDrag(StardewUI.Events.PointerEventArgs e);
+```
+
+##### Parameters
+
+**`e`** &nbsp; [PointerEventArgs](../events/pointereventargs.md)  
 The event data.
 
 -----
@@ -479,6 +603,16 @@ Size available in the container, after applying padding, margin and borders.
 This is called from [Measure(Vector2)](../view.md#measurevector2) only when the layout is dirty (layout parameters or content changed) and a new layout is actually required. Subclasses must implement this and set [ContentSize](../view.md#contentsize) once layout is complete. Typically, [Resolve(Vector2, Func&lt;Vector2&gt;)](../layout/layoutparameters.md#resolvevector2-funcvector2) should be used in order to ensure that the original [LayoutParameters](../layout/layoutparameters.md) are respected (e.g. if the actual content size is smaller than the configured size). 
 
  The `availableSize` provided to the method is pre-adjusted for [Margin](../view.md#margin), [Padding](../view.md#padding), and any border determined by [GetBorderThickness()](../view.md#getborderthickness).
+
+-----
+
+#### Release()
+
+Function when the subscriber is released
+
+```cs
+public void Release();
+```
 
 -----
 

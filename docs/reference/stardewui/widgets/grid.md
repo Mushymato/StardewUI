@@ -45,6 +45,12 @@ Can be configured to use either a fixed cell size, and therefore a variable numb
 | --- | --- |
 | [Grid()](#grid) |  | 
 
+### Fields
+
+ | Name | Description |
+| --- | --- |
+| [ParentScrollingBounds](../view.md#parentscrollingbounds) | The parent scrolling bounds propagated down from an ancestor [ScrollContainer](scrollcontainer.md).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+
 ### Properties
 
  | Name | Description |
@@ -60,14 +66,17 @@ Can be configured to use either a fixed cell size, and therefore a variable numb
 | [FloatingBounds](../view.md#floatingbounds)<br/>`floating-bounds` | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [FloatingElements](../view.md#floatingelements)<br/>`floating-elements` | The floating elements to display relative to this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Focusable](../view.md#focusable)<br/>`focusable` | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [FocusableTag](../view.md#focusabletag)<br/>`focusable-tag` | A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [GridAlignment](#gridalignment)<br/>`grid-alignment` | Specifies how to align the entire grid when the combined length of all columns is not exactly equal to the grid's layout length. | 
 | [HandlesOpacity](../view.md#handlesopacity)<br/>`handles-opacity` | Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [HorizontalItemAlignment](#horizontalitemalignment)<br/>`horizontal-item-alignment` | Specifies how to align each child [IView](../iview.md) horizontally within its respective cell, i.e. if the view is narrower than the cell's width. | 
 | [HoveredSubject](../view.md#hoveredsubject)<br/>`hovered-subject` | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [InnerSize](../view.md#innersize)<br/>`inner-size` | The size allocated to the entire area inside the border, i.e. [ContentSize](../view.md#contentsize) plus any [Padding](../view.md#padding). Does not include border or [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [IsFocusable](../view.md#isfocusable)<br/>`is-focusable` | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [IsWithinScrollBounds](../view.md#iswithinscrollbounds)<br/>`is-within-scroll-bounds` | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ItemLayout](#itemlayout)<br/>`item-layout` | The layout for items (cells) in this grid. | 
 | [ItemSpacing](#itemspacing)<br/>`item-spacing` | Spacing between the edges of adjacent columns ([X](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html#Microsoft_Xna_Framework_Vector2)) and rows ([Y](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html#Microsoft_Xna_Framework_Vector2)). | 
+| [ItemSpan](../view.md#itemspan)<br/>`item-span` | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [LastAvailableSize](../view.md#lastavailablesize)<br/>`last-available-size` | The most recent size used in a [Measure(Vector2)](../view.md#measurevector2) pass. Used for additional dirty checks.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Layout](../view.md#layout)<br/>`layout` | Layout settings for this view; determines how its dimensions will be computed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [LayoutOffset](../view.md#layoutoffset)<br/>`layout-offset` | Pixel offset of the view's content, which is applied to all pointer events and child queries.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -78,6 +87,7 @@ Can be configured to use either a fixed cell size, and therefore a variable numb
 | [Padding](../view.md#padding)<br/>`padding` | Padding (whitespace inside border) for this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [PointerEventsEnabled](../view.md#pointereventsenabled)<br/>`pointer-events-enabled` | Whether this view should receive pointer events like [Click](../view.md#click) or [Drag](../view.md#drag).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [PointerStyle](../view.md#pointerstyle)<br/>`pointer-style` | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [PrimaryItemCount](#primaryitemcount)<br/>`primary-item-count` | The number of items in the primary orientation (i.e. in the row or colume), updated after measure. This value is updated on measure and read-only, it is utilized in focus search. | 
 | [PrimaryOrientation](#primaryorientation)<br/>`primary-orientation` | Specifies the axis that items are added to before wrapping. | 
 | [ScreenRead](../view.md#screenread)<br/>`screen-read` | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ScrollWithChildren](../view.md#scrollwithchildren)<br/>`scroll-with-children` | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
@@ -130,6 +140,7 @@ Can be configured to use either a fixed cell size, and therefore a variable numb
 | [ResetDirty()](#resetdirty) | Resets any dirty state associated with this view.<br><span class="muted" markdown>(Overrides [View](../view.md).[ResetDirty()](../view.md#resetdirty))</span> | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ToString()](../view.md#tostring) | <span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [UpdateParentScrollingBounds(Bounds)](../view.md#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 
 ### Events
 
@@ -246,6 +257,20 @@ public Microsoft.Xna.Framework.Vector2 ItemSpacing { get; set; }
 ##### Remarks
 
 Setting this is roughly equivalent to specifying the same [Margin](../view.md#margin) on each child, except that it will not add extra space before the first item or after the last item.
+
+-----
+
+#### PrimaryItemCount
+
+The number of items in the primary orientation (i.e. in the row or colume), updated after measure. This value is updated on measure and read-only, it is utilized in focus search.
+
+```cs
+public int PrimaryItemCount { get; private set; }
+```
+
+##### Property Value
+
+[Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)
 
 -----
 

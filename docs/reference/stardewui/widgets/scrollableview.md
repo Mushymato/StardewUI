@@ -60,10 +60,14 @@ This does not add any extra UI elements aside from the scrollbar, like [Scrollab
 | [ClipSize](decoratorview-1.md#clipsize)<br/>`clip-size` | Size of the clipping rectangle, outside which content will not be displayed.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Content](#content)<br/>`content` | The content to make scrollable. | 
 | [ContentBounds](decoratorview-1.md#contentbounds)<br/>`content-bounds` | The true bounds of this view's content; i.e. [ActualBounds](../iview.md#actualbounds) excluding margins.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [DragToScroll](#dragtoscroll)<br/>`drag-to-scroll` | The [Draggable](../view.md#draggable) of the scrollable view. If enabled, this view can be dragged (e.g. touch screen controls) `(unofficial-mushymato)` | 
 | [FloatingBounds](decoratorview-1.md#floatingbounds)<br/>`floating-bounds` | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [FloatingElements](#floatingelements)<br/>`floating-elements` | The floating elements to display relative to this view. | 
+| [FocusableTag](decoratorview-1.md#focusabletag)<br/>`focusable-tag` | A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [HoveredSubject](decoratorview-1.md#hoveredsubject)<br/>`hovered-subject` | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [IsFocusable](decoratorview-1.md#isfocusable)<br/>`is-focusable` | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [IsWithinScrollBounds](decoratorview-1.md#iswithinscrollbounds)<br/>`is-within-scroll-bounds` | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [ItemSpan](decoratorview-1.md#itemspan)<br/>`item-span` | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Layout](decoratorview-1.md#layout)<br/>`layout` | The current layout parameters, which determine how [Measure(Vector2)](../iview.md#measurevector2) will behave.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Name](decoratorview-1.md#name)<br/>`name` | Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Opacity](decoratorview-1.md#opacity)<br/>`opacity` | Opacity (alpha level) of the view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -93,6 +97,7 @@ This does not add any extra UI elements aside from the scrollbar, like [Scrollab
 
  | Name | Description |
 | --- | --- |
+| [ContainerScrollIntoView(ViewChild, Vector2)](#containerscrollintoviewviewchild-vector2) | Convienence function that resets scrolling then calls [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../iview.md#scrollintoviewienumerableviewchild-vector2) on the [ScrollContainer](scrollcontainer.md) of this view, using a known [ViewChild](../viewchild.md) of [Content](scrollcontainer.md#content). This achieves effect of scrolling to a particular child outside of [FocusSearch(Vector2, Direction)](../iview.md#focussearchvector2-direction). | 
 | [ContainsPoint(Vector2)](decoratorview-1.md#containspointvector2) | Checks if a given point, relative to the view's origin, is within its bounds.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [CreateView()](#createview) | Creates and returns the root view.<br><span class="muted" markdown>(Overrides [ComponentView&lt;T&gt;](componentview-1.md).[CreateView()](componentview-1.md#createview))</span> | 
 | [Dispose()](decoratorview-1.md#dispose) | <span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -120,6 +125,7 @@ This does not add any extra UI elements aside from the scrollbar, like [Scrollab
 | [OnWheel(WheelEventArgs)](#onwheelwheeleventargs) | Called when a wheel event is received within this view's bounds.<br><span class="muted" markdown>(Overrides [DecoratorView&lt;T&gt;](decoratorview-1.md).[OnWheel(WheelEventArgs)](decoratorview-1.md#onwheelwheeleventargs))</span> | 
 | [RegisterDecoratedProperty&lt;TValue&gt;(DecoratedProperty&lt;T, TValue&gt;)](decoratorview-1.md#registerdecoratedpropertytvaluedecoratedpropertyt-tvalue) | Registers a [DecoratedProperty&lt;T, TValue&gt;](decoratorview-1.decoratedproperty-1.md).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](decoratorview-1.md#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [UpdateParentScrollingBounds(Bounds)](decoratorview-1.md#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 
 ### Events
 
@@ -166,6 +172,20 @@ public StardewUI.IView Content { get; set; }
 ##### Property Value
 
 [IView](../iview.md)
+
+-----
+
+#### DragToScroll
+
+The [Draggable](../view.md#draggable) of the scrollable view. If enabled, this view can be dragged (e.g. touch screen controls) `(unofficial-mushymato)`
+
+```cs
+public bool DragToScroll { get; set; }
+```
+
+##### Property Value
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
 
 -----
 
@@ -310,6 +330,28 @@ public float ScrollStep { get; set; }
 -----
 
 ### Methods
+
+#### ContainerScrollIntoView(ViewChild, Vector2)
+
+Convienence function that resets scrolling then calls [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../iview.md#scrollintoviewienumerableviewchild-vector2) on the [ScrollContainer](scrollcontainer.md) of this view, using a known [ViewChild](../viewchild.md) of [Content](scrollcontainer.md#content). This achieves effect of scrolling to a particular child outside of [FocusSearch(Vector2, Direction)](../iview.md#focussearchvector2-direction).
+
+```cs
+public bool ContainerScrollIntoView(StardewUI.ViewChild child, out Microsoft.Xna.Framework.Vector2 distance);
+```
+
+##### Parameters
+
+**`child`** &nbsp; [ViewChild](../viewchild.md)  
+Target child to scroll to.
+
+**`distance`** &nbsp; [Vector2](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html)  
+Final scrolled distance
+
+##### Returns
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+-----
 
 #### CreateView()
 

@@ -45,6 +45,12 @@ Use of this class isn't required, but provides some useful behaviors so that vie
 | --- | --- |
 | [View()](#view) | Initializes a new instance of [View](view.md). | 
 
+### Fields
+
+ | Name | Description |
+| --- | --- |
+| [ParentScrollingBounds](#parentscrollingbounds) | The parent scrolling bounds propagated down from an ancestor [ScrollContainer](widgets/scrollcontainer.md). | 
+
 ### Properties
 
  | Name | Description |
@@ -59,10 +65,13 @@ Use of this class isn't required, but provides some useful behaviors so that vie
 | [FloatingBounds](#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants. | 
 | [FloatingElements](#floatingelements) | The floating elements to display relative to this view. | 
 | [Focusable](#focusable) | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children. | 
+| [FocusableTag](#focusabletag) | A string tag that identifies this view for use in [FocusOnTaggedView(string)](framework/imenucontroller.md#focusontaggedviewstring). | 
 | [HandlesOpacity](#handlesopacity) | Whether the specific view type handles its own opacity. | 
 | [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)` | 
 | [InnerSize](#innersize) | The size allocated to the entire area inside the border, i.e. [ContentSize](view.md#contentsize) plus any [Padding](view.md#padding). Does not include border or [Margin](view.md#margin). | 
 | [IsFocusable](#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls. | 
+| [IsWithinScrollBounds](#iswithinscrollbounds) | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](iview.md#measurevector2). | 
+| [ItemSpan](#itemspan) | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)` | 
 | [LastAvailableSize](#lastavailablesize) | The most recent size used in a [Measure(Vector2)](view.md#measurevector2) pass. Used for additional dirty checks. | 
 | [Layout](#layout) | Layout settings for this view; determines how its dimensions will be computed. | 
 | [LayoutOffset](#layoutoffset) | Pixel offset of the view's content, which is applied to all pointer events and child queries. | 
@@ -123,6 +132,7 @@ Use of this class isn't required, but provides some useful behaviors so that vie
 | [ResetDirty()](#resetdirty) | Resets any dirty state associated with this view. | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view. | 
 | [ToString()](#tostring) | <span class="muted" markdown>(Overrides [Object](https://learn.microsoft.com/en-us/dotnet/api/system.object).`ToString()`)</span> | 
+| [UpdateParentScrollingBounds(Bounds)](#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children | 
 
 ### Events
 
@@ -157,6 +167,22 @@ public View();
 ##### Remarks
 
 The view's [Name](view.md#name) will default to the simple name of its most derived [Type](https://learn.microsoft.com/en-us/dotnet/api/system.type).
+
+-----
+
+### Fields
+
+#### ParentScrollingBounds
+
+The parent scrolling bounds propagated down from an ancestor [ScrollContainer](widgets/scrollcontainer.md).
+
+```cs
+protected StardewUI.Layout.Bounds ParentScrollingBounds;
+```
+
+##### Field Value
+
+[Bounds](layout/bounds.md)
 
 -----
 
@@ -324,6 +350,20 @@ All views are non-focusable by default and must have their focus enabled explici
 
 -----
 
+#### FocusableTag
+
+A string tag that identifies this view for use in [FocusOnTaggedView(string)](framework/imenucontroller.md#focusontaggedviewstring).
+
+```cs
+public string FocusableTag { get; set; }
+```
+
+##### Property Value
+
+[string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
 #### HandlesOpacity
 
 Whether the specific view type handles its own opacity.
@@ -387,6 +427,34 @@ public bool IsFocusable { get; }
 ##### Remarks
 
 In other game UI code this is more typically referred to as "snap", since there is no true input focus. However, focus is the more general term and better explains what is happening with e.g. a text box.
+
+-----
+
+#### IsWithinScrollBounds
+
+Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](iview.md#measurevector2).
+
+```cs
+public bool IsWithinScrollBounds { get; set; }
+```
+
+##### Property Value
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+-----
+
+#### ItemSpan
+
+Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`
+
+```cs
+public int ItemSpan { get; set; }
+```
+
+##### Property Value
+
+[Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)
 
 -----
 
@@ -1386,6 +1454,20 @@ public override string ToString();
 ##### Returns
 
 [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
+#### UpdateParentScrollingBounds(Bounds)
+
+Propagate new scrolling bounds to this view and it's children
+
+```cs
+public void UpdateParentScrollingBounds(StardewUI.Layout.Bounds parentScrollingBounds);
+```
+
+##### Parameters
+
+**`parentScrollingBounds`** &nbsp; [Bounds](layout/bounds.md)
 
 -----
 

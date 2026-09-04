@@ -40,6 +40,7 @@ public static class UiSprites
 | [ButtonLight](#buttonlight) | Button with a lighter background, usually used to show hover state. | 
 | [CaretLeft](#caretleft) | A caret-style directional arrow pointing left. | 
 | [CaretRight](#caretright) | A caret-style directional arrow pointing right. | 
+| [CaretRightSquare](#caretrightsquare) | A caret-style directional arrow pointing right. This is similar to [CaretRight](uisprites.md#caretright) except it is the whole square. | 
 | [CheckboxChecked](#checkboxchecked) | Checkbox with a green "X" through it. | 
 | [CheckboxUnchecked](#checkboxunchecked) | Unchecked checkbox, i.e. only the border. | 
 | [CloseButton](#closebutton) | Red X with border/background, generally used as upper-right close button for menus. | 
@@ -71,6 +72,7 @@ public static class UiSprites
 | [MenuVerticalDividerMargin](#menuverticaldividermargin) | Margin adjustment to apply to content adjacent to a [MenuVerticalDivider](uisprites.md#menuverticaldivider) to make content flush with the border; adjusts for internal sprite padding. | 
 | [MenuVerticalDividerUncolored](#menuverticaldivideruncolored) | Colorless version of the modified 9-slice sprite used for the menu's vertical divider, meant to be drawn over top of the [MenuBorderUncolored](uisprites.md#menuborderuncolored) to denote separate "sub-panels" or "sections" of the menu to group logically very different menu functions (as opposed to lines on a grid). | 
 | [ScrollBarTrack](#scrollbartrack) | Background for the scroll bar track (which the thumb is inside). | 
+| [ShopEntryBorder](#shopentryborder) | The background and border used in the default shop theme. | 
 | [SliderBackground](#sliderbackground) | Background of a slider control. | 
 | [SliderButton](#sliderbutton) | The movable part of a slider control ("button"). | 
 | [SmallDownArrow](#smalldownarrow) | Small down arrow, typically used for scroll bars. | 
@@ -89,7 +91,6 @@ public static class UiSprites
 | [VerticalScrollThumb](#verticalscrollthumb) | Thumb sprite used for vertical scroll bars. | 
 | [White](#white) | A single white pixel. | 
 | [WhiteBorder](#whiteborder) | Nine-slice sprite consisting of 8 white edge pixels and a transparent center. Used for simple borders. | 
-| [ShopEntryBorder](#shopentryborder) | Nine-slice sprite of the border used for a single purchaseable item the default shop theme. `(unofficial-mushymato)` | 
 
 ## Details
 
@@ -161,6 +162,24 @@ A caret-style directional arrow pointing right.
 
 ```cs
 public static StardewUI.Graphics.Sprite CaretRight { get; }
+```
+
+##### Property Value
+
+[Sprite](sprite.md)
+
+##### Remarks
+
+Can be used to show expanded/collapsed state, or illustrate a movement direction.
+
+-----
+
+#### CaretRightSquare
+
+A caret-style directional arrow pointing right. This is similar to [CaretRight](uisprites.md#caretright) except it is the whole square.
+
+```cs
+public static StardewUI.Graphics.Sprite CaretRightSquare { get; }
 ```
 
 ##### Property Value
@@ -599,6 +618,20 @@ Background for the scroll bar track (which the thumb is inside).
 
 ```cs
 public static StardewUI.Graphics.Sprite ScrollBarTrack { get; }
+```
+
+##### Property Value
+
+[Sprite](sprite.md)
+
+-----
+
+#### ShopEntryBorder
+
+The background and border used in the default shop theme.
+
+```cs
+public static StardewUI.Graphics.Sprite ShopEntryBorder { get; }
 ```
 
 ##### Property Value

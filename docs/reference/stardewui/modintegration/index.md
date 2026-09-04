@@ -14,8 +14,6 @@ search:
 
 | Name | Description |
 | --- | --- |
-| [LookupAnythingHoveredItemConverter](lookupanythinghovereditemconverter.md) | Convert Item to [LookupAnythingHoveredSubject](lookupanythinghoveredsubject.md) |
-| [LookupAnythingHoveredNpcConverter](lookupanythinghoverednpcconverter.md) | Convert NPC to [LookupAnythingHoveredSubject](lookupanythinghoveredsubject.md) |
 | [LookupAnythingHoveredSubject](lookupanythinghoveredsubject.md) | The lookup anything hovered subject to supply to [ViewMenu](../viewmenu.md) |
 | [LookupAnythingIntegration](lookupanythingintegration.md) | Manages lookup anything integration |
 | [ScreenReadableData](screenreadabledata.md) | A screen readable bit of text. Although IScreenReadable is a vanilla interface, it does nothing by itself and will be used with screen reader mods. |

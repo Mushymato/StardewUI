@@ -59,6 +59,7 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | [hoveredNpc](#hoverednpc) | Lookup Anything: special conventional hovered NPC field | 
 | [navigateSound](#navigatesound) | Sound to play when navigtion occurs | 
 | [openSound](#opensound) | Sound to play when this menu becomes active | 
+| [showMouse](#showmouse) | Whether to draw the mouse. This is usually neccesary for non-HUD menus | 
 | upperRightCloseButton | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | width | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | xPositionOnScreen | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
@@ -109,6 +110,7 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | emergencyShutDown() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | exitThisMenu(Boolean) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | exitThisMenuNoSound() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
+| [FinishFocusSearch(IView, Point, FocusSearchResult)](#finishfocussearchiview-point-focussearchresult) | Complete focus search and reposition mouse to the found target. | 
 | [gamePadButtonHeld(Buttons)](#gamepadbuttonheldbuttons) | Invoked on every frame during which a controller button is down, once for each held button.<br><span class="muted" markdown>(Overrides IClickableMenu.gamePadButtonHeld(Buttons))</span> | 
 | gameWindowSizeChanged(Rectangle, Rectangle) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | GetChildMenu() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
@@ -124,9 +126,11 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | IsAutomaticSnapValid(Int32, ClickableComponent, ClickableComponent) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | isWithinBounds(Int32, Int32) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | [leftClickHeld(Int32, Int32)](#leftclickheldint-int) | Invoked on every frame in which a mouse button is down, regardless of the state in the previous frame.<br><span class="muted" markdown>(Overrides IClickableMenu.leftClickHeld(Int32, Int32))</span> | 
+| [MeasureAndCenterView(Boolean)](#measureandcenterviewbool) | Measure and center this view. | 
 | moveCursorInDirection(Int32) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | noSnappedComponentFound(Int32, Int32, Int32) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | [OnClosed(EventArgs)](#onclosedeventargs) | Invokes the [Closed](viewmenu.md#closed) event handler. | 
+| [OnViewOrOverlay(Action&lt;IView, Vector2&gt;)](#onvieworoverlayactioniview-vector2) | Perform action on either the active view or the overlay | 
 | [Open(MenuActivationMode)](#openmenuactivationmode) | Opens this menu, i.e. makes it active if it is not already active. | 
 | overrideSnappyMenuCursorMovementBan() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | [performHoverAction(Int32, Int32)](#performhoveractionint-int) | Invoked on every frame with the mouse's current coordinates.<br><span class="muted" markdown>(Overrides IClickableMenu.performHoverAction(Int32, Int32))</span> | 
@@ -141,6 +145,7 @@ public class ViewMenu : StardewValley.Menus.IClickableMenu, System.IDisposable
 | RemoveDependency() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | SetChildMenu(IClickableMenu) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | setCurrentlySnappedComponentTo(Int32) | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
+| [SetDefaultFocus(IView, Vector2)](#setdefaultfocusiview-vector2) | Move the cursor to the default focusable view | 
 | setUpForGamePadMode() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | shouldClampGamePadCursor() | <span class="muted" markdown>(Inherited from IClickableMenu)</span> | 
 | [shouldDrawCloseButton()](#shoulddrawclosebutton) | Returns whether or not to draw a button on the upper right that closes the menu when clicked.<br><span class="muted" markdown>(Overrides IClickableMenu.shouldDrawCloseButton())</span> | 
@@ -246,6 +251,20 @@ protected string openSound;
 ##### Field Value
 
 [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
+#### showMouse
+
+Whether to draw the mouse. This is usually neccesary for non-HUD menus
+
+```cs
+protected bool showMouse;
+```
+
+##### Field Value
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
 
 -----
 
@@ -510,6 +529,24 @@ The target batch.
 
 -----
 
+#### FinishFocusSearch(IView, Point, FocusSearchResult)
+
+Complete focus search and reposition mouse to the found target.
+
+```cs
+protected void FinishFocusSearch(StardewUI.IView rootView, Microsoft.Xna.Framework.Point origin, StardewUI.Input.FocusSearchResult found);
+```
+
+##### Parameters
+
+**`rootView`** &nbsp; [IView](iview.md)
+
+**`origin`** &nbsp; [Point](https://docs.monogame.net/api/Microsoft.Xna.Framework.Point.html)
+
+**`found`** &nbsp; [FocusSearchResult](input/focussearchresult.md)
+
+-----
+
 #### gamePadButtonHeld(Buttons)
 
 Invoked on every frame during which a controller button is down, once for each held button.
@@ -585,6 +622,20 @@ The mouse's current Y position on screen.
 
 -----
 
+#### MeasureAndCenterView(bool)
+
+Measure and center this view.
+
+```cs
+protected void MeasureAndCenterView(bool force);
+```
+
+##### Parameters
+
+**`force`** &nbsp; [Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+-----
+
 #### OnClosed(EventArgs)
 
 Invokes the [Closed](viewmenu.md#closed) event handler.
@@ -597,6 +648,20 @@ protected virtual void OnClosed(System.EventArgs e);
 
 **`e`** &nbsp; [EventArgs](https://learn.microsoft.com/en-us/dotnet/api/system.eventargs)  
 The event arguments.
+
+-----
+
+#### OnViewOrOverlay(Action&lt;IView, Vector2&gt;)
+
+Perform action on either the active view or the overlay
+
+```cs
+protected void OnViewOrOverlay(Action<StardewUI.IView, Microsoft.Xna.Framework.Vector2> action);
+```
+
+##### Parameters
+
+**`action`** &nbsp; [Action](https://learn.microsoft.com/en-us/dotnet/api/system.action-2)<[IView](iview.md), [Vector2](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html)>
 
 -----
 
@@ -767,6 +832,26 @@ The mouse's current X position on screen.
 
 **`y`** &nbsp; [Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)  
 The mouse's current Y position on screen.
+
+-----
+
+#### SetDefaultFocus(IView, Vector2)
+
+Move the cursor to the default focusable view
+
+```cs
+protected virtual bool SetDefaultFocus(StardewUI.IView root, Microsoft.Xna.Framework.Vector2 origin);
+```
+
+##### Parameters
+
+**`root`** &nbsp; [IView](iview.md)
+
+**`origin`** &nbsp; [Vector2](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html)
+
+##### Returns
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
 
 -----
 

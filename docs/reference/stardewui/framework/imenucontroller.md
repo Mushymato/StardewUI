@@ -40,12 +40,14 @@ public interface IMenuController : System.IDisposable
 | [CloseButtonOffset](#closebuttonoffset) | Offset from the menu view's top-right edge to draw the close button. | 
 | [CloseOnOutsideClick](#closeonoutsideclick) | Whether to automatically close the menu when a mouse click is detected outside the bounds of the menu and any floating elements. | 
 | [CloseSound](#closesound) | Sound to play when closing the menu. | 
+| [DefaultFocusableTag](#defaultfocusabletag) | Gets or sets the default focusable tag. `(unofficial-mushymato)` | 
 | [DimmingAmount](#dimmingamount) | How much the menu should dim the entire screen underneath. | 
-| [HideHUD](#hidehud) | Whether to hide the game HUD while menu is active. `(unofficial-mushymato)` | 
+| [HideHUD](#hidehud) | Whether to hide the game HUD while menu is active, default true. `(unofficial-mushymato)` | 
 | [Menu](#menu) | Gets the menu, which can be opened using activeClickableMenu, or as a child menu. | 
 | [NavigateSound](#navigatesound) | Sound to play when navigating the menu (gamepad or scrolling). Default "shiny4". `(unofficial-mushymato)` | 
 | [OpenSound](#opensound) | Sound to play one tick after this menu becomes active. Default "bigSelect". `(unofficial-mushymato)` | 
 | [PositionSelector](#positionselector) | Gets or sets a function that returns the top-left position of the menu. | 
+| [ShowMouse](#showmouse) | Whether to render the mouse, default true. `(unofficial-mushymato)` | 
 
 ### Methods
 
@@ -54,6 +56,8 @@ public interface IMenuController : System.IDisposable
 | [ClearCursorAttachment()](#clearcursorattachment) | Removes any cursor attachment previously set by [SetCursorAttachment(Texture2D, Rectangle?, Point?, Point?, Color?)](imenucontroller.md#setcursorattachmenttexture2d-rectangle-point-point-color). | 
 | [Close()](#close) | Closes the menu. | 
 | [EnableCloseButton(Texture2D, Rectangle?, Single)](#enableclosebuttontexture2d-rectangle-float) | Configures the menu to display a close button on the upper-right side. | 
+| [FocusOnTaggedView(string)](#focusontaggedviewstring) | Focus on a particular view reached by the given path. This is a no-op when not in gamepad mode. | 
+| [Reposition()](#reposition) | Immediately trigger repositioning of this menu according to it's current size, `(unofficial-mushymato)`[PositionSelector](imenucontroller.md#positionselector) and gutters. | 
 | [SetCursorAttachment(Texture2D, Rectangle?, Point?, Point?, Color?)](#setcursorattachmenttexture2d-rectangle-point-point-color) | Begins displaying a cursor attachment, i.e. a sprite that follows the mouse cursor. | 
 | [SetGutters(Int32, Int32, Int32, Int32)](#setguttersint-int-int-int) | Configures the menu's gutter widths/heights. | 
 
@@ -154,6 +158,24 @@ string CloseSound { get; set; }
 
 -----
 
+#### DefaultFocusableTag
+
+Gets or sets the default focusable tag. `(unofficial-mushymato)`
+
+```cs
+string DefaultFocusableTag { get; set; }
+```
+
+##### Property Value
+
+[string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+##### Remarks
+
+When is lost for any reason, refocus to this focusable tag instead of the default.
+
+-----
+
 #### DimmingAmount
 
 How much the menu should dim the entire screen underneath.
@@ -174,7 +196,7 @@ The default dimming is appropriate for most menus, but if the menu is being draw
 
 #### HideHUD
 
-Whether to hide the game HUD while menu is active. `(unofficial-mushymato)`
+Whether to hide the game HUD while menu is active, default true. `(unofficial-mushymato)`
 
 ```cs
 bool HideHUD { get; set; }
@@ -246,6 +268,20 @@ Setting any non-null value will disable the auto-centering functionality, and is
 
 -----
 
+#### ShowMouse
+
+Whether to render the mouse, default true. `(unofficial-mushymato)`
+
+```cs
+bool ShowMouse { get; set; }
+```
+
+##### Property Value
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+-----
+
 ### Methods
 
 #### ClearCursorAttachment()
@@ -294,6 +330,41 @@ Scale to apply, if the destination size should be different from the size of the
 ##### Remarks
 
 If no `texture` is specified, then all other parameters are ignored and the default close button sprite is drawn. Otherwise, a custom sprite will be drawn using the specified parameters.
+
+-----
+
+#### FocusOnTaggedView(string)
+
+Focus on a particular view reached by the given path. This is a no-op when not in gamepad mode.
+
+```cs
+bool FocusOnTaggedView(string tag);
+```
+
+##### Parameters
+
+**`tag`** &nbsp; [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)  
+Value focusable-tag.
+
+##### Returns
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+  True if the path was found and focused on, false otherwise
+
+##### Remarks
+
+To ensure that a specific view is found, bind a name to the target view.
+
+-----
+
+#### Reposition()
+
+Immediately trigger repositioning of this menu according to it's current size, `(unofficial-mushymato)`[PositionSelector](imenucontroller.md#positionselector) and gutters.
+
+```cs
+void Reposition();
+```
 
 -----
 

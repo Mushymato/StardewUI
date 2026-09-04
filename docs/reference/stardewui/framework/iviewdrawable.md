@@ -43,6 +43,7 @@ public interface IViewDrawable : System.IDisposable
 
  | Name | Description |
 | --- | --- |
+| [DoUpdate(TimeSpan)](#doupdatetimespan) | Perform a forced update not dependent on the UpdateTicked event. | 
 | [Draw(SpriteBatch, Vector2)](#drawspritebatch-vector2) | Draws the current contents. | 
 
 ## Details
@@ -104,6 +105,21 @@ If no value is specified, then the content is allowed to use the entire uiViewpo
 -----
 
 ### Methods
+
+#### DoUpdate(TimeSpan)
+
+Perform a forced update not dependent on the UpdateTicked event.
+
+```cs
+void DoUpdate(System.TimeSpan elapsed);
+```
+
+##### Parameters
+
+**`elapsed`** &nbsp; [TimeSpan](https://learn.microsoft.com/en-us/dotnet/api/system.timespan)  
+Time elapsed since last game tick.
+
+-----
 
 #### Draw(SpriteBatch, Vector2)
 

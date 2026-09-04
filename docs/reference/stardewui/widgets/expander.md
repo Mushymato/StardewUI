@@ -58,6 +58,7 @@ public class Expander : StardewUI.Widgets.ComponentView,
 | [ExpandedSprite](#expandedsprite)<br/>`expanded-sprite` | Sprite to show next to the header when expanded. | 
 | [FloatingBounds](decoratorview-1.md#floatingbounds)<br/>`floating-bounds` | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [FloatingElements](#floatingelements)<br/>`floating-elements` | The floating elements to display relative to this view. | 
+| [FocusableTag](decoratorview-1.md#focusabletag)<br/>`focusable-tag` | A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Header](#header)<br/>`header` | The primary content, which displays inside the menu frame and is clipped/scrollable. | 
 | [HeaderBackground](#headerbackground)<br/>`header-background` | Background sprite to display around the [Header](expander.md#header) and expansion indicator. | 
 | [HeaderBackgroundTint](#headerbackgroundtint)<br/>`header-background-tint` | Tint color for the [HeaderBackground](expander.md#headerbackground). | 
@@ -66,6 +67,8 @@ public class Expander : StardewUI.Widgets.ComponentView,
 | [HoveredSubject](decoratorview-1.md#hoveredsubject)<br/>`hovered-subject` | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [IsExpanded](#isexpanded)<br/>`is-expanded` | Whether or not the view is expanded, i.e. whether or not to display the [Content](expander.md#content). | 
 | [IsFocusable](decoratorview-1.md#isfocusable)<br/>`is-focusable` | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [IsWithinScrollBounds](decoratorview-1.md#iswithinscrollbounds)<br/>`is-within-scroll-bounds` | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [ItemSpan](decoratorview-1.md#itemspan)<br/>`item-span` | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Layout](decoratorview-1.md#layout)<br/>`layout` | The current layout parameters, which determine how [Measure(Vector2)](../iview.md#measurevector2) will behave.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Margin](#margin)<br/>`margin` | Margin around the entire widget. Same behavior as [Margin](../view.md#margin). | 
 | [Name](decoratorview-1.md#name)<br/>`name` | Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -114,6 +117,7 @@ public class Expander : StardewUI.Widgets.ComponentView,
 | [OnWheel(WheelEventArgs)](decoratorview-1.md#onwheelwheeleventargs) | Called when a wheel event is received within this view's bounds.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [RegisterDecoratedProperty&lt;TValue&gt;(DecoratedProperty&lt;T, TValue&gt;)](decoratorview-1.md#registerdecoratedpropertytvaluedecoratedpropertyt-tvalue) | Registers a [DecoratedProperty&lt;T, TValue&gt;](decoratorview-1.decoratedproperty-1.md).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](decoratorview-1.md#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [UpdateParentScrollingBounds(Bounds)](decoratorview-1.md#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 
 ### Events
 

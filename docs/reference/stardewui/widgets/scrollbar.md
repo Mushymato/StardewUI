@@ -53,9 +53,12 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [ContentBounds](decoratorview-1.md#contentbounds) | The true bounds of this view's content; i.e. [ActualBounds](../iview.md#actualbounds) excluding margins.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [DownSprite](#downsprite) | Sprite to draw for the down arrow, or right arrow in horizontal orientation. | 
 | [FloatingBounds](decoratorview-1.md#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [FocusableTag](decoratorview-1.md#focusabletag) | A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ForcedVisibility](#forcedvisibility) | Forces the scrollbar to be always visible or always hidden, depending on the value. | 
 | [HoveredSubject](decoratorview-1.md#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [IsFocusable](decoratorview-1.md#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [IsWithinScrollBounds](decoratorview-1.md#iswithinscrollbounds) | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
+| [ItemSpan](decoratorview-1.md#itemspan) | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Layout](decoratorview-1.md#layout) | The current layout parameters, which determine how [Measure(Vector2)](../iview.md#measurevector2) will behave.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Margin](#margin) | Margins for this view. See [Margin](../view.md#margin). | 
 | [Name](decoratorview-1.md#name) | Simple name for this view, used in log/debug output; does not affect behavior.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -63,7 +66,7 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [OuterSize](decoratorview-1.md#outersize) | The true computed layout size resulting from a single [Measure(Vector2)](../iview.md#measurevector2) pass.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PointerEventsEnabled](decoratorview-1.md#pointereventsenabled) | Whether this view should receive pointer events like [Click](../iview.md#click) or [Drag](../iview.md#drag).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PointerStyle](decoratorview-1.md#pointerstyle) | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
-| [Progress](#progress) | The progress of scrollbar, equal to [ScrollOffset](scrollcontainer.md#scrolloffset) / [ScrollSize](scrollcontainer.md#scrollsize). Setting this via bindings will potentially change the scroll position next tick. | 
+| [Progress](#progress) | The progress of scrollbar, see [Progress](scrollcontainer.md#progress). Setting this via bindings will potentially change the scroll position next tick. | 
 | [ScreenRead](decoratorview-1.md#screenread) | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ScrollWithChildren](decoratorview-1.md#scrollwithchildren) | If set to an axis, specifies that when any child of the view is scrolled into view (using [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../iview.md#scrollintoviewienumerableviewchild-vector2)), then this entire view should be scrolled along with it.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [Tags](decoratorview-1.md#tags) | The user-defined tags for this view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
@@ -109,6 +112,7 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [RegisterDecoratedProperty&lt;TValue&gt;(DecoratedProperty&lt;T, TValue&gt;)](decoratorview-1.md#registerdecoratedpropertytvaluedecoratedpropertyt-tvalue) | Registers a [DecoratedProperty&lt;T, TValue&gt;](decoratorview-1.decoratedproperty-1.md).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](decoratorview-1.md#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [SyncPosition()](#syncposition) | Forces an immediate sync of the thumb position with the associated container. | 
+| [UpdateParentScrollingBounds(Bounds)](decoratorview-1.md#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 
 ### Events
 
@@ -126,7 +130,6 @@ Must be associated with a [ScrollContainer](scrollcontainer.md) in order to work
 | [PointerMove](decoratorview-1.md#pointermove) | Event raised when the pointer moves within the view.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [PropertyChanged](decoratorview-1.md#propertychanged) | <span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 | [RightClick](decoratorview-1.md#rightclick) | Event raised when the view receives a click initiated from the right mouse button, or the controller's tool-use button (X).<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
-| [ScrollChanged](#scrollchanged) | Event raised when any aspect of the scrolling changes. | 
 | [Wheel](decoratorview-1.md#wheel) | Event raised when the scroll wheel moves.<br><span class="muted" markdown>(Inherited from [DecoratorView&lt;T&gt;](decoratorview-1.md))</span> | 
 
 ## Details
@@ -207,7 +210,7 @@ public StardewUI.Layout.Edges Margin { get; set; }
 
 #### Progress
 
-The progress of scrollbar, equal to [ScrollOffset](scrollcontainer.md#scrolloffset) / [ScrollSize](scrollcontainer.md#scrollsize). Setting this via bindings will potentially change the scroll position next tick.
+The progress of scrollbar, see [Progress](scrollcontainer.md#progress). Setting this via bindings will potentially change the scroll position next tick.
 
 ```cs
 public float Progress { get; set; }
@@ -309,26 +312,6 @@ public void SyncPosition();
 ##### Remarks
 
 This is typically automatic and should only need to be called in rare situations.
-
------
-
-### Events
-
-#### ScrollChanged
-
-Event raised when any aspect of the scrolling changes.
-
-```cs
-public event System.EventHandler? ScrollChanged;
-```
-
-##### Event Type
-
-[EventHandler](https://learn.microsoft.com/en-us/dotnet/api/system.eventhandler)
-
-##### Remarks
-
-This serves to bubble [ScrollChanged](scrollcontainer.md#scrollchanged) up to [ScrollableView](scrollableview.md)
 
 -----
 

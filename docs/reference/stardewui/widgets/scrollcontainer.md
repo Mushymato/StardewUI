@@ -46,6 +46,12 @@ Does not provide its own scroll bar; scrolling UI and behavior can be controlled
 | --- | --- |
 | [ScrollContainer()](#scrollcontainer) |  | 
 
+### Fields
+
+ | Name | Description |
+| --- | --- |
+| [ParentScrollingBounds](../view.md#parentscrollingbounds) | The parent scrolling bounds propagated down from an ancestor [ScrollContainer](scrollcontainer.md).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+
 ### Properties
 
  | Name | Description |
@@ -62,10 +68,13 @@ Does not provide its own scroll bar; scrolling UI and behavior can be controlled
 | [FloatingBounds](../view.md#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [FloatingElements](../view.md#floatingelements) | The floating elements to display relative to this view.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Focusable](../view.md#focusable) | Whether or not the view should be able to receive focus. Applies only to this specific view, not its children.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [FocusableTag](../view.md#focusabletag) | A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [HandlesOpacity](../view.md#handlesopacity) | Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [HoveredSubject](../view.md#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [InnerSize](../view.md#innersize) | The size allocated to the entire area inside the border, i.e. [ContentSize](../view.md#contentsize) plus any [Padding](../view.md#padding). Does not include border or [Margin](../view.md#margin).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [IsFocusable](../view.md#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [IsWithinScrollBounds](../view.md#iswithinscrollbounds) | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [ItemSpan](../view.md#itemspan) | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [LastAvailableSize](../view.md#lastavailablesize) | The most recent size used in a [Measure(Vector2)](../view.md#measurevector2) pass. Used for additional dirty checks.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [Layout](../view.md#layout) | Layout settings for this view; determines how its dimensions will be computed.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [LayoutOffset](#layoutoffset) | Pixel offset of the view's content, which is applied to all pointer events and child queries.<br><span class="muted" markdown>(Overrides [View](../view.md).`get_LayoutOffset()`)</span> | 
@@ -78,6 +87,7 @@ Does not provide its own scroll bar; scrolling UI and behavior can be controlled
 | [Peeking](#peeking) | The amount of "peeking" to add when scrolling a component into view; adds extra space before/after the visible element so that all or part of the previous/next element is also visible. | 
 | [PointerEventsEnabled](../view.md#pointereventsenabled) | Whether this view should receive pointer events like [Click](../view.md#click) or [Drag](../view.md#drag).<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [PointerStyle](../view.md#pointerstyle) | Pointer style to use when this view is hovered.<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [Progress](#progress) | The progress of scrollbar, calculated from intended scroll offset before clamp divided by size. | 
 | [ScreenRead](../view.md#screenread) | When a screen reader mod (shoaib.stardewaccess) is loaded, this element will be announced by the screen reader using this value. `(unofficial-mushymato)`<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 | [ScrollOffset](#scrolloffset) | The current scroll position along the [Orientation](scrollcontainer.md#orientation) axis. | 
 | [ScrollSize](#scrollsize) | The maximum amount by which the container can be scrolled without exceeding the inner content bounds. | 
@@ -134,6 +144,7 @@ Does not provide its own scroll bar; scrolling UI and behavior can be controlled
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Overrides [View](../view.md).[ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](../view.md#scrollintoviewienumerableviewchild-vector2))</span> | 
 | [SetScrollOffsetNoDirty(Single)](#setscrolloffsetnodirtyfloat) | Set [ScrollOffset](scrollcontainer.md#scrolloffset) without marking it as dirty. Using this means [ScrollChanged](scrollcontainer.md#scrollchanged) will not be raised. | 
 | [ToString()](../view.md#tostring) | <span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
+| [UpdateParentScrollingBounds(Bounds)](../view.md#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from [View](../view.md))</span> | 
 
 ### Events
 
@@ -251,6 +262,20 @@ public float Peeking { get; set; }
 ##### Remarks
 
 Nonzero values help with discoverability, making it clear that there is more content.
+
+-----
+
+#### Progress
+
+The progress of scrollbar, calculated from intended scroll offset before clamp divided by size.
+
+```cs
+public float Progress { get; set; }
+```
+
+##### Property Value
+
+[Single](https://learn.microsoft.com/en-us/dotnet/api/system.single)
 
 -----
 

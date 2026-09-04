@@ -38,6 +38,7 @@ public interface IViewEngine
 | [CreateMenuControllerFromMarkup(string, Object)](#createmenucontrollerfrommarkupstring-object) | Creates a menu from arbitrary markup, and returns a controller for customizing the menu's behavior. | 
 | [CreateMenuFromAsset(string, Object)](#createmenufromassetstring-object) | Creates a menu from the StarML stored in a game asset, as provided by a mod via SMAPI or Content Patcher. | 
 | [CreateMenuFromMarkup(string, Object)](#createmenufrommarkupstring-object) | Creates a menu from arbitrary markup. | 
+| [CreateUnmanagedDrawableFromAsset(string)](#createunmanageddrawablefromassetstring) | Similar to [CreateDrawableFromAsset(string)](iviewengine.md#createdrawablefromassetstring) but the resulting [IViewDrawable](iviewdrawable.md) will not be updated each tick. You must call [DoUpdate(TimeSpan)](iviewdrawable.md#doupdatetimespan) manually. | 
 | [EnableHotReloading(string)](#enablehotreloadingstring) | Starts monitoring this mod's directory for changes to assets managed by any of the `Register` methods, e.g. views and sprites. | 
 | [PreloadAssets()](#preloadassets) | Begins preloading assets found in this mod's registered asset directories. | 
 | [PreloadModels(Type)](#preloadmodelstype) | Declares that the specified context types will be used as either direct arguments or subproperties in one or more subsequent `CreateMenu` or `CreateDrawable` APIs, and instructs the framework to begin inspecting those types and optimizing for later use. | 
@@ -211,6 +212,24 @@ IClickableMenu
 ##### Remarks
 
 **Warning:** Ad-hoc menus created this way cannot be cached, nor patched by other mods. Most mods should not use this API except for testing/experimentation.
+
+-----
+
+#### CreateUnmanagedDrawableFromAsset(string)
+
+Similar to [CreateDrawableFromAsset(string)](iviewengine.md#createdrawablefromassetstring) but the resulting [IViewDrawable](iviewdrawable.md) will not be updated each tick. You must call [DoUpdate(TimeSpan)](iviewdrawable.md#doupdatetimespan) manually.
+
+```cs
+StardewUI.Framework.IViewDrawable CreateUnmanagedDrawableFromAsset(string assetName);
+```
+
+##### Parameters
+
+**`assetName`** &nbsp; [string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+##### Returns
+
+[IViewDrawable](iviewdrawable.md)
 
 -----
 

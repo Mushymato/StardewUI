@@ -62,8 +62,11 @@ Decorator views, while not abstract, are used as a base type for other composite
 | [ClipSize](#clipsize) | Size of the clipping rectangle, outside which content will not be displayed. | 
 | [ContentBounds](#contentbounds) | The true bounds of this view's content; i.e. [ActualBounds](../iview.md#actualbounds) excluding margins. | 
 | [FloatingBounds](#floatingbounds) | Contains the bounds of all floating elements in this view tree, including the current view and all descendants. | 
+| [FocusableTag](#focusabletag) | A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring). | 
 | [HoveredSubject](#hoveredsubject) | When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)` | 
 | [IsFocusable](#isfocusable) | Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls. | 
+| [IsWithinScrollBounds](#iswithinscrollbounds) | Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2). | 
+| [ItemSpan](#itemspan) | Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)` | 
 | [Layout](#layout) | The current layout parameters, which determine how [Measure(Vector2)](../iview.md#measurevector2) will behave. | 
 | [Name](#name) | Simple name for this view, used in log/debug output; does not affect behavior. | 
 | [Opacity](#opacity) | Opacity (alpha level) of the view. | 
@@ -110,6 +113,7 @@ Decorator views, while not abstract, are used as a base type for other composite
 | [OnWheel(WheelEventArgs)](#onwheelwheeleventargs) | Called when a wheel event is received within this view's bounds. | 
 | [RegisterDecoratedProperty&lt;TValue&gt;(DecoratedProperty&lt;T, TValue&gt;)](#registerdecoratedpropertytvaluedecoratedpropertyt-tvalue) | Registers a [DecoratedProperty&lt;T, TValue&gt;](decoratorview-1.decoratedproperty-1.md). | 
 | [ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)](#scrollintoviewienumerableviewchild-vector2) | Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view. | 
+| [UpdateParentScrollingBounds(Bounds)](#updateparentscrollingboundsbounds) | Propagate new scrolling bounds to this view and it's children | 
 
 ### Events
 
@@ -233,6 +237,20 @@ public System.Collections.Generic.IEnumerable<StardewUI.Layout.Bounds> FloatingB
 
 -----
 
+#### FocusableTag
+
+A string tag that identifies this view for use in [FocusOnTaggedView(string)](../framework/imenucontroller.md#focusontaggedviewstring).
+
+```cs
+public string FocusableTag { get; }
+```
+
+##### Property Value
+
+[string](https://learn.microsoft.com/en-us/dotnet/api/system.string)
+
+-----
+
 #### HoveredSubject
 
 When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. `(unofficial-mushymato)`
@@ -262,6 +280,34 @@ public bool IsFocusable { get; }
 ##### Remarks
 
 In other game UI code this is more typically referred to as "snap", since there is no true input focus. However, focus is the more general term and better explains what is happening with e.g. a text box.
+
+-----
+
+#### IsWithinScrollBounds
+
+Whether this view is currently within the scrolling bounds, updated during [Measure(Vector2)](../iview.md#measurevector2).
+
+```cs
+public bool IsWithinScrollBounds { get; set; }
+```
+
+##### Property Value
+
+[Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
+
+-----
+
+#### ItemSpan
+
+Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. `(unofficial-mushymato)`
+
+```cs
+public int ItemSpan { get; set; }
+```
+
+##### Property Value
+
+[Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32)
 
 -----
 
@@ -999,6 +1045,20 @@ The total distance that was scrolled, including distance scrolled by descendants
 [Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean)
 
   Whether or not the scroll was successful; `false` prevents the request from bubbling.
+
+-----
+
+#### UpdateParentScrollingBounds(Bounds)
+
+Propagate new scrolling bounds to this view and it's children
+
+```cs
+public void UpdateParentScrollingBounds(StardewUI.Layout.Bounds parentScrollingBounds);
+```
+
+##### Parameters
+
+**`parentScrollingBounds`** &nbsp; [Bounds](../layout/bounds.md)
 
 -----
 
