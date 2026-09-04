@@ -1837,6 +1837,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -3435,6 +3439,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3896,6 +3911,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#properties" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4159,6 +4185,21 @@ Assembly: StardewUI.dll  </p>
 </tr>
 </tbody>
 </table>
+<h3 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../view/#parentscrollingbounds">ParentScrollingBounds</a></td>
+<td>The parent scrolling bounds propagated down from an ancestor <a href="../scrollcontainer/">ScrollContainer</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+</tbody>
+</table>
 <h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -4209,6 +4250,10 @@ Assembly: StardewUI.dll  </p>
 <td>Whether or not the view should be able to receive focus. Applies only to this specific view, not its children.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
+<td><a href="../../view/#focusabletag">FocusableTag</a><br/><code>focusable-tag</code></td>
+<td>A string tag that identifies this view for use in <a href="../../framework/imenucontroller/#focusontaggedviewstring">FocusOnTaggedView(string)</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
 <td><a href="../../view/#handlesopacity">HandlesOpacity</a><br/><code>handles-opacity</code></td>
 <td>Whether the specific view type handles its own opacity.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
@@ -4223,6 +4268,14 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../../view/#isfocusable">IsFocusable</a><br/><code>is-focusable</code></td>
 <td>Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../view/#iswithinscrollbounds">IsWithinScrollBounds</a><br/><code>is-within-scroll-bounds</code></td>
+<td>Whether this view is currently within the scrolling bounds, updated during <a href="../../iview/#measurevector2">Measure(Vector2)</a>.<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../view/#itemspan">ItemSpan</a><br/><code>item-span</code></td>
+<td>Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 <tr>
 <td><a href="../../view/#lastavailablesize">LastAvailableSize</a><br/><code>last-available-size</code></td>
@@ -4454,6 +4507,10 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../../view/#tostring">ToString()</a></td>
 <td><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../view/#updateparentscrollingboundsbounds">UpdateParentScrollingBounds(Bounds)</a></td>
+<td>Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from <a href="../../view/">View</a>)</span></td>
 </tr>
 </tbody>
 </table>

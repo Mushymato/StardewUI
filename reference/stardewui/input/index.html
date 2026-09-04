@@ -1835,6 +1835,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -2046,6 +2050,62 @@
     
   
     ICaptureTarget
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ikeyboardsubscriberownerview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IKeyboardSubscriberOwnerView
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboardsubscriberwithowner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeyboardSubscriberWithOwner
   
 
     
@@ -2755,6 +2815,10 @@
 <td><a href="focussearchresult/">FocusSearchResult</a></td>
 <td>The result of a <a href="../iview/#focussearchvector2-direction">FocusSearch(Vector2, Direction)</a>. Identifies the specific view/position found, as well as the path to that view from the search root.</td>
 </tr>
+<tr>
+<td><a href="keyboardsubscriberwithowner/">KeyboardSubscriberWithOwner</a></td>
+<td>An implementation of IKeyboardSubscriber that forwards keys to the owning <a href="ikeyboardsubscriberownerview/">IKeyboardSubscriberOwnerView</a>.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="interfaces">Interfaces<a class="headerlink" href="#interfaces" title="Permanent link"></a></h2>
@@ -2769,6 +2833,10 @@
 <tr>
 <td><a href="icapturetarget/">ICaptureTarget</a></td>
 <td>Denotes a view or other UI element that can be the active IKeyboardSubscriber. Allows view hosts to provide deterministic release, e.g. when the mouse is clicked outside the target.</td>
+</tr>
+<tr>
+<td><a href="ikeyboardsubscriberownerview/">IKeyboardSubscriberOwnerView</a></td>
+<td>Denotes a view that can be the owner of a <a href="keyboardsubscriberwithowner/">KeyboardSubscriberWithOwner</a>.</td>
 </tr>
 </tbody>
 </table>

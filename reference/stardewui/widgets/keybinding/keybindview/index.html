@@ -1837,6 +1837,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4657,6 +4661,10 @@ Assembly: StardewUI.dll  </p>
 <td>Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from <a href="../../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
+<td><a href="../../decoratorview-1/#focusabletag">FocusableTag</a><br/><code>focusable-tag</code></td>
+<td>A string tag that identifies this view for use in <a href="../../../framework/imenucontroller/#focusontaggedviewstring">FocusOnTaggedView(string)</a>.<br><span class="muted" markdown>(Inherited from <a href="../../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
 <td><a href="#font">Font</a><br/><code>font</code></td>
 <td>Font used to display text in button/key placeholders.</td>
 </tr>
@@ -4667,6 +4675,14 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../../decoratorview-1/#isfocusable">IsFocusable</a><br/><code>is-focusable</code></td>
 <td>Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from <a href="../../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../decoratorview-1/#iswithinscrollbounds">IsWithinScrollBounds</a><br/><code>is-within-scroll-bounds</code></td>
+<td>Whether this view is currently within the scrolling bounds, updated during <a href="../../../iview/#measurevector2">Measure(Vector2)</a>.<br><span class="muted" markdown>(Inherited from <a href="../../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../decoratorview-1/#itemspan">ItemSpan</a><br/><code>item-span</code></td>
+<td>Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
 <td><a href="#keybind">Keybind</a><br/><code>keybind</code></td>
@@ -4870,6 +4886,10 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../../decoratorview-1/#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a></td>
 <td>Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from <a href="../../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../../decoratorview-1/#updateparentscrollingboundsbounds">UpdateParentScrollingBounds(Bounds)</a></td>
+<td>Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from <a href="../../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 </tbody>
 </table>

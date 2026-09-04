@@ -1837,6 +1837,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -3499,34 +3503,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#events_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Events
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Events">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scrollchanged" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ScrollChanged
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -4261,34 +4237,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#events_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Events
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Events">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scrollchanged" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ScrollChanged
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -4459,6 +4407,10 @@ Assembly: StardewUI.dll  </p>
 <td>Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
+<td><a href="../decoratorview-1/#focusabletag">FocusableTag</a></td>
+<td>A string tag that identifies this view for use in <a href="../../framework/imenucontroller/#focusontaggedviewstring">FocusOnTaggedView(string)</a>.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
 <td><a href="#forcedvisibility">ForcedVisibility</a></td>
 <td>Forces the scrollbar to be always visible or always hidden, depending on the value.</td>
 </tr>
@@ -4469,6 +4421,14 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="../decoratorview-1/#isfocusable">IsFocusable</a></td>
 <td>Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../decoratorview-1/#iswithinscrollbounds">IsWithinScrollBounds</a></td>
+<td>Whether this view is currently within the scrolling bounds, updated during <a href="../../iview/#measurevector2">Measure(Vector2)</a>.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../decoratorview-1/#itemspan">ItemSpan</a></td>
+<td>Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
 <td><a href="../decoratorview-1/#layout">Layout</a></td>
@@ -4500,7 +4460,7 @@ Assembly: StardewUI.dll  </p>
 </tr>
 <tr>
 <td><a href="#progress">Progress</a></td>
-<td>The progress of scrollbar, equal to <a href="../scrollcontainer/#scrolloffset">ScrollOffset</a> / <a href="../scrollcontainer/#scrollsize">ScrollSize</a>. Setting this via bindings will potentially change the scroll position next tick.</td>
+<td>The progress of scrollbar, see <a href="../scrollcontainer/#progress">Progress</a>. Setting this via bindings will potentially change the scroll position next tick.</td>
 </tr>
 <tr>
 <td><a href="../decoratorview-1/#screenread">ScreenRead</a></td>
@@ -4673,6 +4633,10 @@ Assembly: StardewUI.dll  </p>
 <td><a href="#syncposition">SyncPosition()</a></td>
 <td>Forces an immediate sync of the thumb position with the associated container.</td>
 </tr>
+<tr>
+<td><a href="../decoratorview-1/#updateparentscrollingboundsbounds">UpdateParentScrollingBounds(Bounds)</a></td>
+<td>Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
 </tbody>
 </table>
 <h3 id="events">Events<a class="headerlink" href="#events" title="Permanent link"></a></h3>
@@ -4733,10 +4697,6 @@ Assembly: StardewUI.dll  </p>
 <td>Event raised when the view receives a click initiated from the right mouse button, or the controller's tool-use button (X).<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
-<td><a href="#scrollchanged">ScrollChanged</a></td>
-<td>Event raised when any aspect of the scrolling changes.</td>
-</tr>
-<tr>
 <td><a href="../decoratorview-1/#wheel">Wheel</a></td>
 <td>Event raised when the scroll wheel moves.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
@@ -4780,7 +4740,7 @@ Assembly: StardewUI.dll  </p>
 <p><a href="../../layout/edges/">Edges</a></p>
 <hr />
 <h4 id="progress">Progress<a class="headerlink" href="#progress" title="Permanent link"></a></h4>
-<p>The progress of scrollbar, equal to <a href="../scrollcontainer/#scrolloffset">ScrollOffset</a> / <a href="../scrollcontainer/#scrollsize">ScrollSize</a>. Setting this via bindings will potentially change the scroll position next tick.</p>
+<p>The progress of scrollbar, see <a href="../scrollcontainer/#progress">Progress</a>. Setting this via bindings will potentially change the scroll position next tick.</p>
 <div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Progress</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_4">Property Value<a class="headerlink" href="#property-value_4" title="Permanent link"></a></h5>
@@ -4832,16 +4792,6 @@ Time elapsed since last game tick.</p>
 </span></code></pre></div>
 <h5 id="remarks_3">Remarks<a class="headerlink" href="#remarks_3" title="Permanent link"></a></h5>
 <p>This is typically automatic and should only need to be called in rare situations.</p>
-<hr />
-<h3 id="events_1">Events<a class="headerlink" href="#events_1" title="Permanent link"></a></h3>
-<h4 id="scrollchanged">ScrollChanged<a class="headerlink" href="#scrollchanged" title="Permanent link"></a></h4>
-<p>Event raised when any aspect of the scrolling changes.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">public</span><span class="w"> </span><span class="k">event</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">EventHandler</span><span class="o">?</span><span class="w"> </span><span class="n">ScrollChanged</span><span class="p">;</span>
-</span></code></pre></div>
-<h5 id="event-type">Event Type<a class="headerlink" href="#event-type" title="Permanent link"></a></h5>
-<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.eventhandler">EventHandler</a></p>
-<h5 id="remarks_4">Remarks<a class="headerlink" href="#remarks_4" title="Permanent link"></a></h5>
-<p>This serves to bubble <a href="../scrollcontainer/#scrollchanged">ScrollChanged</a> up to <a href="../scrollableview/">ScrollableView</a></p>
 <hr />
 </div>
 

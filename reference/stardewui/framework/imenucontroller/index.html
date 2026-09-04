@@ -2008,6 +2008,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#defaultfocusabletag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DefaultFocusableTag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dimmingamount" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2073,6 +2084,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#showmouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ShowMouse
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2117,6 +2139,28 @@
     <span class="md-ellipsis">
       
         EnableCloseButton(Texture2D, Rectangle?, float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#focusontaggedviewstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FocusOnTaggedView(string)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reposition()
       
     </span>
   </a>
@@ -3460,6 +3504,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4152,6 +4200,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#defaultfocusabletag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DefaultFocusableTag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dimmingamount" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4217,6 +4276,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#showmouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ShowMouse
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4261,6 +4331,28 @@
     <span class="md-ellipsis">
       
         EnableCloseButton(Texture2D, Rectangle?, float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#focusontaggedviewstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FocusOnTaggedView(string)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reposition()
       
     </span>
   </a>
@@ -4477,12 +4569,16 @@ Assembly: StardewUI.dll  </p>
 <td>Sound to play when closing the menu.</td>
 </tr>
 <tr>
+<td><a href="#defaultfocusabletag">DefaultFocusableTag</a></td>
+<td>Gets or sets the default focusable tag. <code>(unofficial-mushymato)</code></td>
+</tr>
+<tr>
 <td><a href="#dimmingamount">DimmingAmount</a></td>
 <td>How much the menu should dim the entire screen underneath.</td>
 </tr>
 <tr>
 <td><a href="#hidehud">HideHUD</a></td>
-<td>Whether to hide the game HUD while menu is active. <code>(unofficial-mushymato)</code></td>
+<td>Whether to hide the game HUD while menu is active, default true. <code>(unofficial-mushymato)</code></td>
 </tr>
 <tr>
 <td><a href="#menu">Menu</a></td>
@@ -4499,6 +4595,10 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="#positionselector">PositionSelector</a></td>
 <td>Gets or sets a function that returns the top-left position of the menu.</td>
+</tr>
+<tr>
+<td><a href="#showmouse">ShowMouse</a></td>
+<td>Whether to render the mouse, default true. <code>(unofficial-mushymato)</code></td>
 </tr>
 </tbody>
 </table>
@@ -4522,6 +4622,14 @@ Assembly: StardewUI.dll  </p>
 <tr>
 <td><a href="#enableclosebuttontexture2d-rectangle-float">EnableCloseButton(Texture2D, Rectangle?, Single)</a></td>
 <td>Configures the menu to display a close button on the upper-right side.</td>
+</tr>
+<tr>
+<td><a href="#focusontaggedviewstring">FocusOnTaggedView(string)</a></td>
+<td>Focus on a particular view reached by the given path. This is a no-op when not in gamepad mode.</td>
+</tr>
+<tr>
+<td><a href="#reposition">Reposition()</a></td>
+<td>Immediately trigger repositioning of this menu according to it's current size, <code>(unofficial-mushymato)</code><a href="./#positionselector">PositionSelector</a> and gutters.</td>
 </tr>
 <tr>
 <td><a href="#setcursorattachmenttexture2d-rectangle-point-point-color">SetCursorAttachment(Texture2D, Rectangle?, Point?, Point?, Color?)</a></td>
@@ -4597,68 +4705,84 @@ Assembly: StardewUI.dll  </p>
 <h5 id="property-value_4">Property Value<a class="headerlink" href="#property-value_4" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a></p>
 <hr />
-<h4 id="dimmingamount">DimmingAmount<a class="headerlink" href="#dimmingamount" title="Permanent link"></a></h4>
-<p>How much the menu should dim the entire screen underneath.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">DimmingAmount</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="defaultfocusabletag">DefaultFocusableTag<a class="headerlink" href="#defaultfocusabletag" title="Permanent link"></a></h4>
+<p>Gets or sets the default focusable tag. <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">string</span><span class="w"> </span><span class="n">DefaultFocusableTag</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_5">Property Value<a class="headerlink" href="#property-value_5" title="Permanent link"></a></h5>
-<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a></p>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a></p>
 <h5 id="remarks_4">Remarks<a class="headerlink" href="#remarks_4" title="Permanent link"></a></h5>
+<p>When is lost for any reason, refocus to this focusable tag instead of the default.</p>
+<hr />
+<h4 id="dimmingamount">DimmingAmount<a class="headerlink" href="#dimmingamount" title="Permanent link"></a></h4>
+<p>How much the menu should dim the entire screen underneath.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">DimmingAmount</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_6">Property Value<a class="headerlink" href="#property-value_6" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a></p>
+<h5 id="remarks_5">Remarks<a class="headerlink" href="#remarks_5" title="Permanent link"></a></h5>
 <p>The default dimming is appropriate for most menus, but if the menu is being drawn as a delegate of some other macro-menu, then it can be lowered or removed (set to <code>0</code>) entirely.</p>
 <hr />
 <h4 id="hidehud">HideHUD<a class="headerlink" href="#hidehud" title="Permanent link"></a></h4>
-<p>Whether to hide the game HUD while menu is active. <code>(unofficial-mushymato)</code></p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">HideHUD</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<p>Whether to hide the game HUD while menu is active, default true. <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">HideHUD</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_6">Property Value<a class="headerlink" href="#property-value_6" title="Permanent link"></a></h5>
+<h5 id="property-value_7">Property Value<a class="headerlink" href="#property-value_7" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></p>
 <hr />
 <h4 id="menu">Menu<a class="headerlink" href="#menu" title="Permanent link"></a></h4>
 <p>Gets the menu, which can be opened using activeClickableMenu, or as a child menu.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">StardewValley</span><span class="p">.</span><span class="n">Menus</span><span class="p">.</span><span class="n">IClickableMenu</span><span class="w"> </span><span class="n">Menu</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">StardewValley</span><span class="p">.</span><span class="n">Menus</span><span class="p">.</span><span class="n">IClickableMenu</span><span class="w"> </span><span class="n">Menu</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_7">Property Value<a class="headerlink" href="#property-value_7" title="Permanent link"></a></h5>
+<h5 id="property-value_8">Property Value<a class="headerlink" href="#property-value_8" title="Permanent link"></a></h5>
 <p>IClickableMenu</p>
 <hr />
 <h4 id="navigatesound">NavigateSound<a class="headerlink" href="#navigatesound" title="Permanent link"></a></h4>
 <p>Sound to play when navigating the menu (gamepad or scrolling). Default "shiny4". <code>(unofficial-mushymato)</code></p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">string</span><span class="w"> </span><span class="n">NavigateSound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h5 id="property-value_8">Property Value<a class="headerlink" href="#property-value_8" title="Permanent link"></a></h5>
-<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a></p>
-<hr />
-<h4 id="opensound">OpenSound<a class="headerlink" href="#opensound" title="Permanent link"></a></h4>
-<p>Sound to play one tick after this menu becomes active. Default "bigSelect". <code>(unofficial-mushymato)</code></p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">string</span><span class="w"> </span><span class="n">OpenSound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">string</span><span class="w"> </span><span class="n">NavigateSound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_9">Property Value<a class="headerlink" href="#property-value_9" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a></p>
 <hr />
-<h4 id="positionselector">PositionSelector<a class="headerlink" href="#positionselector" title="Permanent link"></a></h4>
-<p>Gets or sets a function that returns the top-left position of the menu.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">Func</span><span class="o">&lt;</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PositionSelector</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="opensound">OpenSound<a class="headerlink" href="#opensound" title="Permanent link"></a></h4>
+<p>Sound to play one tick after this menu becomes active. Default "bigSelect". <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">string</span><span class="w"> </span><span class="n">OpenSound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_10">Property Value<a class="headerlink" href="#property-value_10" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a></p>
+<hr />
+<h4 id="positionselector">PositionSelector<a class="headerlink" href="#positionselector" title="Permanent link"></a></h4>
+<p>Gets or sets a function that returns the top-left position of the menu.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Func</span><span class="o">&lt;</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PositionSelector</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_11">Property Value<a class="headerlink" href="#property-value_11" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.func-1">Func</a>&lt;<a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Point.html">Point</a>&gt;</p>
-<h5 id="remarks_5">Remarks<a class="headerlink" href="#remarks_5" title="Permanent link"></a></h5>
+<h5 id="remarks_6">Remarks<a class="headerlink" href="#remarks_6" title="Permanent link"></a></h5>
 <p>Setting any non-null value will disable the auto-centering functionality, and is equivalent to setting the xPositionOnScreen and yPositionOnScreen fields.</p>
+<hr />
+<h4 id="showmouse">ShowMouse<a class="headerlink" href="#showmouse" title="Permanent link"></a></h4>
+<p>Whether to render the mouse, default true. <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">ShowMouse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_12">Property Value<a class="headerlink" href="#property-value_12" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></p>
 <hr />
 <h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link"></a></h3>
 <h4 id="clearcursorattachment">ClearCursorAttachment()<a class="headerlink" href="#clearcursorattachment" title="Permanent link"></a></h4>
 <p>Removes any cursor attachment previously set by <a href="./#setcursorattachmenttexture2d-rectangle-point-point-color">SetCursorAttachment(Texture2D, Rectangle?, Point?, Point?, Color?)</a>.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">ClearCursorAttachment</span><span class="p">();</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">ClearCursorAttachment</span><span class="p">();</span>
 </span></code></pre></div>
 <hr />
 <h4 id="close">Close()<a class="headerlink" href="#close" title="Permanent link"></a></h4>
 <p>Closes the menu.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">Close</span><span class="p">();</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">Close</span><span class="p">();</span>
 </span></code></pre></div>
-<h5 id="remarks_6">Remarks<a class="headerlink" href="#remarks_6" title="Permanent link"></a></h5>
+<h5 id="remarks_7">Remarks<a class="headerlink" href="#remarks_7" title="Permanent link"></a></h5>
 <p>This method allows programmatic closing of the menu. It performs the same action that would be performed by pressing one of the configured menu keys (e.g. ESC), clicking the close button, etc., and follows the same rules, i.e. will not allow closing if <a href="./#canclose">CanClose</a> is <code>false</code>.</p>
 <hr />
 <h4 id="enableclosebuttontexture2d-rectangle-float">EnableCloseButton(Texture2D, Rectangle?, float)<a class="headerlink" href="#enableclosebuttontexture2d-rectangle-float" title="Permanent link"></a></h4>
 <p>Configures the menu to display a close button on the upper-right side.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">EnableCloseButton</span><span class="p">(</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Texture2D</span><span class="w"> </span><span class="n">texture</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Rectangle</span><span class="o">?</span><span class="w"> </span><span class="n">sourceRect</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">EnableCloseButton</span><span class="p">(</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Texture2D</span><span class="w"> </span><span class="n">texture</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Rectangle</span><span class="o">?</span><span class="w"> </span><span class="n">sourceRect</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">);</span>
 </span></code></pre></div>
 <h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link"></a></h5>
 <p><strong><code>texture</code></strong> &nbsp; <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a><br />
@@ -4667,14 +4791,32 @@ The source image/tile sheet containing the button image.</p>
 The location within the <code>texture</code> where the image is located, or <code>null</code> to draw the entire <code>texture</code>.</p>
 <p><strong><code>scale</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a><br />
 Scale to apply, if the destination size should be different from the size of the <code>sourceRect</code>.</p>
-<h5 id="remarks_7">Remarks<a class="headerlink" href="#remarks_7" title="Permanent link"></a></h5>
+<h5 id="remarks_8">Remarks<a class="headerlink" href="#remarks_8" title="Permanent link"></a></h5>
 <p>If no <code>texture</code> is specified, then all other parameters are ignored and the default close button sprite is drawn. Otherwise, a custom sprite will be drawn using the specified parameters.</p>
+<hr />
+<h4 id="focusontaggedviewstring">FocusOnTaggedView(string)<a class="headerlink" href="#focusontaggedviewstring" title="Permanent link"></a></h4>
+<p>Focus on a particular view reached by the given path. This is a no-op when not in gamepad mode.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">FocusOnTaggedView</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">tag</span><span class="p">);</span>
+</span></code></pre></div>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link"></a></h5>
+<p><strong><code>tag</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.string">string</a><br />
+Value focusable-tag.</p>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></p>
+<p>True if the path was found and focused on, false otherwise</p>
+<h5 id="remarks_9">Remarks<a class="headerlink" href="#remarks_9" title="Permanent link"></a></h5>
+<p>To ensure that a specific view is found, bind a name to the target view.</p>
+<hr />
+<h4 id="reposition">Reposition()<a class="headerlink" href="#reposition" title="Permanent link"></a></h4>
+<p>Immediately trigger repositioning of this menu according to it's current size, <code>(unofficial-mushymato)</code><a href="./#positionselector">PositionSelector</a> and gutters.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">Reposition</span><span class="p">();</span>
+</span></code></pre></div>
 <hr />
 <h4 id="setcursorattachmenttexture2d-rectangle-point-point-color">SetCursorAttachment(Texture2D, Rectangle?, Point?, Point?, Color?)<a class="headerlink" href="#setcursorattachmenttexture2d-rectangle-point-point-color" title="Permanent link"></a></h4>
 <p>Begins displaying a cursor attachment, i.e. a sprite that follows the mouse cursor.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">SetCursorAttachment</span><span class="p">(</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Texture2D</span><span class="w"> </span><span class="n">texture</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Rectangle</span><span class="o">?</span><span class="w"> </span><span class="n">sourceRect</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Point</span><span class="o">?</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Point</span><span class="o">?</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Color</span><span class="o">?</span><span class="w"> </span><span class="n">tint</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">SetCursorAttachment</span><span class="p">(</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Texture2D</span><span class="w"> </span><span class="n">texture</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Rectangle</span><span class="o">?</span><span class="w"> </span><span class="n">sourceRect</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Point</span><span class="o">?</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Point</span><span class="o">?</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Color</span><span class="o">?</span><span class="w"> </span><span class="n">tint</span><span class="p">);</span>
 </span></code></pre></div>
-<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link"></a></h5>
+<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link"></a></h5>
 <p><strong><code>texture</code></strong> &nbsp; <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a><br />
 The source image/tile sheet containing the cursor image.</p>
 <p><strong><code>sourceRect</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1">Nullable</a>&lt;<a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Rectangle.html">Rectangle</a>&gt;<br />
@@ -4685,14 +4827,14 @@ Destination size for the cursor sprite, if different from the size of the <code>
 Offset between the actual mouse position and the top-left corner of the drawn cursor sprite.</p>
 <p><strong><code>tint</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1">Nullable</a>&lt;<a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Color.html">Color</a>&gt;<br />
 Optional tint color to apply to the drawn cursor sprite.</p>
-<h5 id="remarks_8">Remarks<a class="headerlink" href="#remarks_8" title="Permanent link"></a></h5>
+<h5 id="remarks_10">Remarks<a class="headerlink" href="#remarks_10" title="Permanent link"></a></h5>
 <p>The cursor is shown in addition to, not instead of, the normal mouse cursor.</p>
 <hr />
 <h4 id="setguttersint-int-int-int">SetGutters(int, int, int, int)<a class="headerlink" href="#setguttersint-int-int-int" title="Permanent link"></a></h4>
 <p>Configures the menu's gutter widths/heights.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">SetGutters</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">top</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bottom</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">void</span><span class="w"> </span><span class="nf">SetGutters</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">top</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bottom</span><span class="p">);</span>
 </span></code></pre></div>
-<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link"></a></h5>
+<h5 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link"></a></h5>
 <p><strong><code>left</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32">Int32</a><br />
 The gutter width on the left side of the viewport.</p>
 <p><strong><code>top</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32">Int32</a><br />
@@ -4701,25 +4843,25 @@ The gutter height at the top of the viewport.</p>
 The gutter width on the right side of the viewport. The default value of <code>-1</code> specifies that the <code>left</code> value should be mirrored on the right.</p>
 <p><strong><code>bottom</code></strong> &nbsp; <a href="https://learn.microsoft.com/en-us/dotnet/api/system.int32">Int32</a><br />
 The gutter height at the bottom of the viewport. The default value of <code>-1</code> specifies that the <code>top</code> value should be mirrored on the bottom.</p>
-<h5 id="remarks_9">Remarks<a class="headerlink" href="#remarks_9" title="Permanent link"></a></h5>
+<h5 id="remarks_11">Remarks<a class="headerlink" href="#remarks_11" title="Permanent link"></a></h5>
 <p>Gutters are areas of the screen that the menu should not occupy. These are typically used with a menu whose root view uses <a href="../../layout/length/#stretch">Stretch()</a> for one of its <a href="../../iview/#layout">Layout</a> dimensions, and allows limiting the max width/height relative to the viewport size. </p>
 <p>The historical reason for gutters is <a href="https://en.wikipedia.org/wiki/Overscan">overscan</a>, however they are still commonly used for aesthetic reasons.</p>
 <hr />
 <h3 id="events_1">Events<a class="headerlink" href="#events_1" title="Permanent link"></a></h3>
 <h4 id="closed">Closed<a class="headerlink" href="#closed" title="Permanent link"></a></h4>
 <p>Event raised after the menu has been closed.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">event</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Action</span><span class="o">?</span><span class="w"> </span><span class="n">Closed</span><span class="p">;</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">event</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Action</span><span class="o">?</span><span class="w"> </span><span class="n">Closed</span><span class="p">;</span>
 </span></code></pre></div>
 <h5 id="event-type">Event Type<a class="headerlink" href="#event-type" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.action">Action</a></p>
 <hr />
 <h4 id="closing">Closing<a class="headerlink" href="#closing" title="Permanent link"></a></h4>
 <p>Event raised when the menu is about to close.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">event</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Action</span><span class="o">?</span><span class="w"> </span><span class="n">Closing</span><span class="p">;</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">event</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Action</span><span class="o">?</span><span class="w"> </span><span class="n">Closing</span><span class="p">;</span>
 </span></code></pre></div>
 <h5 id="event-type_1">Event Type<a class="headerlink" href="#event-type_1" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.action">Action</a></p>
-<h5 id="remarks_10">Remarks<a class="headerlink" href="#remarks_10" title="Permanent link"></a></h5>
+<h5 id="remarks_12">Remarks<a class="headerlink" href="#remarks_12" title="Permanent link"></a></h5>
 <p>This has the same lifecycle as cleanupBeforeExit().</p>
 <hr />
 </div>

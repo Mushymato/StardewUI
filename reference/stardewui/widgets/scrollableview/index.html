@@ -1837,6 +1837,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -3340,6 +3344,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#dragtoscroll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DragToScroll
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#floatingelements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3465,6 +3480,17 @@
   
     <nav class="md-nav" aria-label="Methods">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#containerscrollintoviewviewchild-vector2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContainerScrollIntoView(ViewChild, Vector2)
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#createview" class="md-nav__link">
@@ -4124,6 +4150,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#dragtoscroll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DragToScroll
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#floatingelements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4249,6 +4286,17 @@
   
     <nav class="md-nav" aria-label="Methods">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#containerscrollintoviewviewchild-vector2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContainerScrollIntoView(ViewChild, Vector2)
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#createview" class="md-nav__link">
@@ -4447,6 +4495,10 @@ Assembly: StardewUI.dll  </p>
 <td>The true bounds of this view's content; i.e. <a href="../../iview/#actualbounds">ActualBounds</a> excluding margins.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
+<td><a href="#dragtoscroll">DragToScroll</a><br/><code>drag-to-scroll</code></td>
+<td>The <a href="../../view/#draggable">Draggable</a> of the scrollable view. If enabled, this view can be dragged (e.g. touch screen controls) <code>(unofficial-mushymato)</code></td>
+</tr>
+<tr>
 <td><a href="../decoratorview-1/#floatingbounds">FloatingBounds</a><br/><code>floating-bounds</code></td>
 <td>Contains the bounds of all floating elements in this view tree, including the current view and all descendants.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
@@ -4455,12 +4507,24 @@ Assembly: StardewUI.dll  </p>
 <td>The floating elements to display relative to this view.</td>
 </tr>
 <tr>
+<td><a href="../decoratorview-1/#focusabletag">FocusableTag</a><br/><code>focusable-tag</code></td>
+<td>A string tag that identifies this view for use in <a href="../../framework/imenucontroller/#focusontaggedviewstring">FocusOnTaggedView(string)</a>.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
 <td><a href="../decoratorview-1/#hoveredsubject">HoveredSubject</a><br/><code>hovered-subject</code></td>
 <td>When Lookup Anything (Pathoschild.LookupAnything) is loaded, this Object or NPC subject is given to lookup anything for it's menu. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
 <td><a href="../decoratorview-1/#isfocusable">IsFocusable</a><br/><code>is-focusable</code></td>
 <td>Whether or not the view can receive controller focus, i.e. the stick/d-pad controlled cursor can move to this view. Not generally applicable for mouse controls.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../decoratorview-1/#iswithinscrollbounds">IsWithinScrollBounds</a><br/><code>is-within-scroll-bounds</code></td>
+<td>Whether this view is currently within the scrolling bounds, updated during <a href="../../iview/#measurevector2">Measure(Vector2)</a>.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
+<tr>
+<td><a href="../decoratorview-1/#itemspan">ItemSpan</a><br/><code>item-span</code></td>
+<td>Item span that defines how many cells this item takes up when it's the child of a grid. Span only considers the primary orientation and cannot exceed one row/col When this is -1, take the remainder of the row/col. <code>(unofficial-mushymato)</code><br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
 <tr>
 <td><a href="../decoratorview-1/#layout">Layout</a><br/><code>layout</code></td>
@@ -4570,6 +4634,10 @@ Assembly: StardewUI.dll  </p>
 </thead>
 <tbody>
 <tr>
+<td><a href="#containerscrollintoviewviewchild-vector2">ContainerScrollIntoView(ViewChild, Vector2)</a></td>
+<td>Convienence function that resets scrolling then calls <a href="../../iview/#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a> on the <a href="../scrollcontainer/">ScrollContainer</a> of this view, using a known <a href="../../viewchild/">ViewChild</a> of <a href="../scrollcontainer/#content">Content</a>. This achieves effect of scrolling to a particular child outside of <a href="../../iview/#focussearchvector2-direction">FocusSearch(Vector2, Direction)</a>.</td>
+</tr>
+<tr>
 <td><a href="../decoratorview-1/#containspointvector2">ContainsPoint(Vector2)</a></td>
 <td>Checks if a given point, relative to the view's origin, is within its bounds.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
@@ -4677,6 +4745,10 @@ Assembly: StardewUI.dll  </p>
 <td><a href="../decoratorview-1/#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a></td>
 <td>Attempts to scroll the specified target into view, including all of its ancestors, if not fully in view.<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
 </tr>
+<tr>
+<td><a href="../decoratorview-1/#updateparentscrollingboundsbounds">UpdateParentScrollingBounds(Bounds)</a></td>
+<td>Propagate new scrolling bounds to this view and it's children<br><span class="muted" markdown>(Inherited from <a href="../decoratorview-1/">DecoratorView&lt;T&gt;</a>)</span></td>
+</tr>
 </tbody>
 </table>
 <h3 id="events">Events<a class="headerlink" href="#events" title="Permanent link"></a></h3>
@@ -4756,89 +4828,108 @@ Assembly: StardewUI.dll  </p>
 <h5 id="property-value">Property Value<a class="headerlink" href="#property-value" title="Permanent link"></a></h5>
 <p><a href="../../iview/">IView</a></p>
 <hr />
-<h4 id="floatingelements">FloatingElements<a class="headerlink" href="#floatingelements" title="Permanent link"></a></h4>
-<p>The floating elements to display relative to this view.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">public</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IList</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">FloatingElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FloatingElements</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="dragtoscroll">DragToScroll<a class="headerlink" href="#dragtoscroll" title="Permanent link"></a></h4>
+<p>The <a href="../../view/#draggable">Draggable</a> of the scrollable view. If enabled, this view can be dragged (e.g. touch screen controls) <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">DragToScroll</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_1">Property Value<a class="headerlink" href="#property-value_1" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></p>
+<hr />
+<h4 id="floatingelements">FloatingElements<a class="headerlink" href="#floatingelements" title="Permanent link"></a></h4>
+<p>The floating elements to display relative to this view.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">public</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IList</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">FloatingElement</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FloatingElements</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_2">Property Value<a class="headerlink" href="#property-value_2" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a href="../../layout/floatingelement/">FloatingElement</a>&gt;</p>
 <hr />
 <h4 id="peeking">Peeking<a class="headerlink" href="#peeking" title="Permanent link"></a></h4>
 <p>Amount of extra distance above/below scrolled content; see <a href="../scrollcontainer/#peeking">Peeking</a>.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Peeking</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h5 id="property-value_2">Property Value<a class="headerlink" href="#property-value_2" title="Permanent link"></a></h5>
-<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a></p>
-<hr />
-<h4 id="progress">Progress<a class="headerlink" href="#progress" title="Permanent link"></a></h4>
-<p>The <a href="../scrollbar/#progress">Progress</a> of the scrollable view. <code>(unofficial-mushymato)</code></p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Progress</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Peeking</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_3">Property Value<a class="headerlink" href="#property-value_3" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a></p>
 <hr />
-<h4 id="scrollbardownsprite">ScrollbarDownSprite<a class="headerlink" href="#scrollbardownsprite" title="Permanent link"></a></h4>
-<p>The <a href="../scrollbar/#downsprite">DownSprite</a> used for the scrollbar.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarDownSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="progress">Progress<a class="headerlink" href="#progress" title="Permanent link"></a></h4>
+<p>The <a href="../scrollbar/#progress">Progress</a> of the scrollable view. <code>(unofficial-mushymato)</code></p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Progress</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_4">Property Value<a class="headerlink" href="#property-value_4" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a></p>
+<hr />
+<h4 id="scrollbardownsprite">ScrollbarDownSprite<a class="headerlink" href="#scrollbardownsprite" title="Permanent link"></a></h4>
+<p>The <a href="../scrollbar/#downsprite">DownSprite</a> used for the scrollbar.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarDownSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_5">Property Value<a class="headerlink" href="#property-value_5" title="Permanent link"></a></h5>
 <p><a href="../../graphics/sprite/">Sprite</a></p>
 <hr />
 <h4 id="scrollbarmargin">ScrollbarMargin<a class="headerlink" href="#scrollbarmargin" title="Permanent link"></a></h4>
 <p>The <a href="../scrollbar/#margin">Margin</a> of the scrollbar.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">ScrollbarMargin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">ScrollbarMargin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_5">Property Value<a class="headerlink" href="#property-value_5" title="Permanent link"></a></h5>
+<h5 id="property-value_6">Property Value<a class="headerlink" href="#property-value_6" title="Permanent link"></a></h5>
 <p><a href="../../layout/edges/">Edges</a></p>
 <hr />
 <h4 id="scrollbarthumbsprite">ScrollbarThumbSprite<a class="headerlink" href="#scrollbarthumbsprite" title="Permanent link"></a></h4>
 <p>The <a href="../scrollbar/#thumbsprite">ThumbSprite</a> used for the scrollbar.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarThumbSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h5 id="property-value_6">Property Value<a class="headerlink" href="#property-value_6" title="Permanent link"></a></h5>
-<p><a href="../../graphics/sprite/">Sprite</a></p>
-<hr />
-<h4 id="scrollbartracksprite">ScrollbarTrackSprite<a class="headerlink" href="#scrollbartracksprite" title="Permanent link"></a></h4>
-<p>The <a href="../scrollbar/#tracksprite">TrackSprite</a> used for the scrollbar.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarTrackSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarThumbSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_7">Property Value<a class="headerlink" href="#property-value_7" title="Permanent link"></a></h5>
 <p><a href="../../graphics/sprite/">Sprite</a></p>
 <hr />
-<h4 id="scrollbarupsprite">ScrollbarUpSprite<a class="headerlink" href="#scrollbarupsprite" title="Permanent link"></a></h4>
-<p>The <a href="../scrollbar/#upsprite">UpSprite</a> used for the scrollbar.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarUpSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="scrollbartracksprite">ScrollbarTrackSprite<a class="headerlink" href="#scrollbartracksprite" title="Permanent link"></a></h4>
+<p>The <a href="../scrollbar/#tracksprite">TrackSprite</a> used for the scrollbar.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarTrackSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_8">Property Value<a class="headerlink" href="#property-value_8" title="Permanent link"></a></h5>
 <p><a href="../../graphics/sprite/">Sprite</a></p>
 <hr />
-<h4 id="scrollbarvisibility">ScrollbarVisibility<a class="headerlink" href="#scrollbarvisibility" title="Permanent link"></a></h4>
-<p>The <a href="../scrollbar/#forcedvisibility">ForcedVisibility</a> of the scrollbar.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Visibility</span><span class="o">?</span><span class="w"> </span><span class="n">ScrollbarVisibility</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="scrollbarupsprite">ScrollbarUpSprite<a class="headerlink" href="#scrollbarupsprite" title="Permanent link"></a></h4>
+<p>The <a href="../scrollbar/#upsprite">UpSprite</a> used for the scrollbar.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollbarUpSprite</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_9">Property Value<a class="headerlink" href="#property-value_9" title="Permanent link"></a></h5>
+<p><a href="../../graphics/sprite/">Sprite</a></p>
+<hr />
+<h4 id="scrollbarvisibility">ScrollbarVisibility<a class="headerlink" href="#scrollbarvisibility" title="Permanent link"></a></h4>
+<p>The <a href="../scrollbar/#forcedvisibility">ForcedVisibility</a> of the scrollbar.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">public</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Visibility</span><span class="o">?</span><span class="w"> </span><span class="n">ScrollbarVisibility</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_10">Property Value<a class="headerlink" href="#property-value_10" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1">Nullable</a>&lt;<a href="../../layout/visibility/">Visibility</a>&gt;</p>
 <hr />
 <h4 id="scrollstep">ScrollStep<a class="headerlink" href="#scrollstep" title="Permanent link"></a></h4>
 <p>The <a href="../scrollcontainer/#scrollstep">ScrollStep</a> of the scrollable view. <code>(unofficial-mushymato)</code></p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">ScrollStep</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">ScrollStep</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
-<h5 id="property-value_10">Property Value<a class="headerlink" href="#property-value_10" title="Permanent link"></a></h5>
+<h5 id="property-value_11">Property Value<a class="headerlink" href="#property-value_11" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.single">Single</a></p>
 <hr />
 <h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link"></a></h3>
+<h4 id="containerscrollintoviewviewchild-vector2">ContainerScrollIntoView(ViewChild, Vector2)<a class="headerlink" href="#containerscrollintoviewviewchild-vector2" title="Permanent link"></a></h4>
+<p>Convienence function that resets scrolling then calls <a href="../../iview/#scrollintoviewienumerableviewchild-vector2">ScrollIntoView(IEnumerable&lt;ViewChild&gt;, Vector2)</a> on the <a href="../scrollcontainer/">ScrollContainer</a> of this view, using a known <a href="../../viewchild/">ViewChild</a> of <a href="../scrollcontainer/#content">Content</a>. This achieves effect of scrolling to a particular child outside of <a href="../../iview/#focussearchvector2-direction">FocusSearch(Vector2, Direction)</a>.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">public</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ContainerScrollIntoView</span><span class="p">(</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">ViewChild</span><span class="w"> </span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="n">Microsoft</span><span class="p">.</span><span class="n">Xna</span><span class="p">.</span><span class="n">Framework</span><span class="p">.</span><span class="n">Vector2</span><span class="w"> </span><span class="n">distance</span><span class="p">);</span>
+</span></code></pre></div>
+<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link"></a></h5>
+<p><strong><code>child</code></strong> &nbsp; <a href="../../viewchild/">ViewChild</a><br />
+Target child to scroll to.</p>
+<p><strong><code>distance</code></strong> &nbsp; <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html">Vector2</a><br />
+Final scrolled distance</p>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link"></a></h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></p>
+<hr />
 <h4 id="createview">CreateView()<a class="headerlink" href="#createview" title="Permanent link"></a></h4>
 <p>Creates and returns the root view.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Widgets</span><span class="p">.</span><span class="n">ScrollContainer</span><span class="w"> </span><span class="n">CreateView</span><span class="p">();</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Widgets</span><span class="p">.</span><span class="n">ScrollContainer</span><span class="w"> </span><span class="n">CreateView</span><span class="p">();</span>
 </span></code></pre></div>
-<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link"></a></h5>
+<h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link"></a></h5>
 <p><a href="../scrollcontainer/">ScrollContainer</a></p>
 <hr />
 <h4 id="onwheelwheeleventargs">OnWheel(WheelEventArgs)<a class="headerlink" href="#onwheelwheeleventargs" title="Permanent link"></a></h4>
 <p>Called when a wheel event is received within this view's bounds.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnWheel</span><span class="p">(</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="n">WheelEventArgs</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnWheel</span><span class="p">(</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="n">WheelEventArgs</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
 </span></code></pre></div>
-<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link"></a></h5>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link"></a></h5>
 <p><strong><code>e</code></strong> &nbsp; <a href="../../events/wheeleventargs/">WheelEventArgs</a><br />
 The event data.</p>
 <hr />

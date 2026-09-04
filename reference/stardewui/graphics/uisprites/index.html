@@ -2538,6 +2538,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#caretrightsquare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CaretRightSquare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#checkboxchecked" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2879,6 +2890,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#shopentryborder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ShopEntryBorder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#sliderbackground" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3170,6 +3192,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3856,6 +3882,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#caretrightsquare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CaretRightSquare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#checkboxchecked" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4190,6 +4227,17 @@
     <span class="md-ellipsis">
       
         ScrollBarTrack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shopentryborder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ShopEntryBorder
       
     </span>
   </a>
@@ -4543,6 +4591,10 @@ Assembly: StardewUI.dll  </p>
 <td>A caret-style directional arrow pointing right.</td>
 </tr>
 <tr>
+<td><a href="#caretrightsquare">CaretRightSquare</a></td>
+<td>A caret-style directional arrow pointing right. This is similar to <a href="./#caretright">CaretRight</a> except it is the whole square.</td>
+</tr>
+<tr>
 <td><a href="#checkboxchecked">CheckboxChecked</a></td>
 <td>Checkbox with a green "X" through it.</td>
 </tr>
@@ -4667,6 +4719,10 @@ Assembly: StardewUI.dll  </p>
 <td>Background for the scroll bar track (which the thumb is inside).</td>
 </tr>
 <tr>
+<td><a href="#shopentryborder">ShopEntryBorder</a></td>
+<td>The background and border used in the default shop theme.</td>
+</tr>
+<tr>
 <td><a href="#sliderbackground">SliderBackground</a></td>
 <td>Background of a slider control.</td>
 </tr>
@@ -4781,349 +4837,365 @@ Assembly: StardewUI.dll  </p>
 <h5 id="remarks_1">Remarks<a class="headerlink" href="#remarks_1" title="Permanent link"></a></h5>
 <p>Can be used to show expanded/collapsed state, or illustrate a movement direction.</p>
 <hr />
-<h4 id="checkboxchecked">CheckboxChecked<a class="headerlink" href="#checkboxchecked" title="Permanent link"></a></h4>
-<p>Checkbox with a green "X" through it.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">CheckboxChecked</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="caretrightsquare">CaretRightSquare<a class="headerlink" href="#caretrightsquare" title="Permanent link"></a></h4>
+<p>A caret-style directional arrow pointing right. This is similar to <a href="./#caretright">CaretRight</a> except it is the whole square.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">CaretRightSquare</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_5">Property Value<a class="headerlink" href="#property-value_5" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
+<h5 id="remarks_2">Remarks<a class="headerlink" href="#remarks_2" title="Permanent link"></a></h5>
+<p>Can be used to show expanded/collapsed state, or illustrate a movement direction.</p>
 <hr />
-<h4 id="checkboxunchecked">CheckboxUnchecked<a class="headerlink" href="#checkboxunchecked" title="Permanent link"></a></h4>
-<p>Unchecked checkbox, i.e. only the border.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">CheckboxUnchecked</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="checkboxchecked">CheckboxChecked<a class="headerlink" href="#checkboxchecked" title="Permanent link"></a></h4>
+<p>Checkbox with a green "X" through it.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">CheckboxChecked</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_6">Property Value<a class="headerlink" href="#property-value_6" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="closebutton">CloseButton<a class="headerlink" href="#closebutton" title="Permanent link"></a></h4>
-<p>Red X with border/background, generally used as upper-right close button for menus.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">CloseButton</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="checkboxunchecked">CheckboxUnchecked<a class="headerlink" href="#checkboxunchecked" title="Permanent link"></a></h4>
+<p>Unchecked checkbox, i.e. only the border.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">CheckboxUnchecked</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_7">Property Value<a class="headerlink" href="#property-value_7" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="controlborder">ControlBorder<a class="headerlink" href="#controlborder" title="Permanent link"></a></h4>
-<p>Border/background sprite for an individual control, such as a button. Less prominent than <a href="./#menuborder">MenuBorder</a>.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ControlBorder</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="closebutton">CloseButton<a class="headerlink" href="#closebutton" title="Permanent link"></a></h4>
+<p>Red X with border/background, generally used as upper-right close button for menus.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">CloseButton</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_8">Property Value<a class="headerlink" href="#property-value_8" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="controlborderuncolored">ControlBorderUncolored<a class="headerlink" href="#controlborderuncolored" title="Permanent link"></a></h4>
-<p>Colorless border/background sprite for an individual control, such as a button. Less prominent than <a href="./#menuborderuncolored">MenuBorderUncolored</a>.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ControlBorderUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="controlborder">ControlBorder<a class="headerlink" href="#controlborder" title="Permanent link"></a></h4>
+<p>Border/background sprite for an individual control, such as a button. Less prominent than <a href="./#menuborder">MenuBorder</a>.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ControlBorder</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_9">Property Value<a class="headerlink" href="#property-value_9" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="digits">Digits<a class="headerlink" href="#digits" title="Permanent link"></a></h4>
-<p>List of sprites for the outlined "tiny digits" 0-9, in that order.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IReadOnlyList</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Digits</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="controlborderuncolored">ControlBorderUncolored<a class="headerlink" href="#controlborderuncolored" title="Permanent link"></a></h4>
+<p>Colorless border/background sprite for an individual control, such as a button. Less prominent than <a href="./#menuborderuncolored">MenuBorderUncolored</a>.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ControlBorderUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_10">Property Value<a class="headerlink" href="#property-value_10" title="Permanent link"></a></h5>
+<p><a href="../sprite/">Sprite</a></p>
+<hr />
+<h4 id="digits">Digits<a class="headerlink" href="#digits" title="Permanent link"></a></h4>
+<p>List of sprites for the outlined "tiny digits" 0-9, in that order.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">IReadOnlyList</span><span class="o">&lt;</span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Digits</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_11">Property Value<a class="headerlink" href="#property-value_11" title="Permanent link"></a></h5>
 <p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a href="../sprite/">Sprite</a>&gt;</p>
 <hr />
 <h4 id="dropdownbackground">DropDownBackground<a class="headerlink" href="#dropdownbackground" title="Permanent link"></a></h4>
 <p>Background of a drop-down menu.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">DropDownBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h5 id="property-value_11">Property Value<a class="headerlink" href="#property-value_11" title="Permanent link"></a></h5>
-<p><a href="../sprite/">Sprite</a></p>
-<hr />
-<h4 id="dropdownbutton">DropDownButton<a class="headerlink" href="#dropdownbutton" title="Permanent link"></a></h4>
-<p>Button to pull down a drop-down menu.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">DropDownButton</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">DropDownBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_12">Property Value<a class="headerlink" href="#property-value_12" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="generichorizontaldivider">GenericHorizontalDivider<a class="headerlink" href="#generichorizontaldivider" title="Permanent link"></a></h4>
-<p>Simpler, lighter horizontal divider than the <a href="./#menuhorizontaldivider">MenuHorizontalDivider</a>, used as a horizontal rule to separate content areas without sectioning the entire menu.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">GenericHorizontalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="dropdownbutton">DropDownButton<a class="headerlink" href="#dropdownbutton" title="Permanent link"></a></h4>
+<p>Button to pull down a drop-down menu.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">DropDownButton</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_13">Property Value<a class="headerlink" href="#property-value_13" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="generichorizontaldivideruncolored">GenericHorizontalDividerUncolored<a class="headerlink" href="#generichorizontaldivideruncolored" title="Permanent link"></a></h4>
-<p>Colorless horizontal divider that is simpler and lighter the <a href="./#menuhorizontaldivideruncolored">MenuHorizontalDividerUncolored</a>, used as a horizontal rule to separate content areas without sectioning the entire menu.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">GenericHorizontalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="generichorizontaldivider">GenericHorizontalDivider<a class="headerlink" href="#generichorizontaldivider" title="Permanent link"></a></h4>
+<p>Simpler, lighter horizontal divider than the <a href="./#menuhorizontaldivider">MenuHorizontalDivider</a>, used as a horizontal rule to separate content areas without sectioning the entire menu.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">GenericHorizontalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_14">Property Value<a class="headerlink" href="#property-value_14" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="largedownarrow">LargeDownArrow<a class="headerlink" href="#largedownarrow" title="Permanent link"></a></h4>
-<p>Large down arrow, used for macro navigation.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeDownArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="generichorizontaldivideruncolored">GenericHorizontalDividerUncolored<a class="headerlink" href="#generichorizontaldivideruncolored" title="Permanent link"></a></h4>
+<p>Colorless horizontal divider that is simpler and lighter the <a href="./#menuhorizontaldivideruncolored">MenuHorizontalDividerUncolored</a>, used as a horizontal rule to separate content areas without sectioning the entire menu.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">GenericHorizontalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_15">Property Value<a class="headerlink" href="#property-value_15" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="largeleftarrow">LargeLeftArrow<a class="headerlink" href="#largeleftarrow" title="Permanent link"></a></h4>
-<p>Large left arrow, used for macro navigation.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeLeftArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="largedownarrow">LargeDownArrow<a class="headerlink" href="#largedownarrow" title="Permanent link"></a></h4>
+<p>Large down arrow, used for macro navigation.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeDownArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_16">Property Value<a class="headerlink" href="#property-value_16" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="largerightarrow">LargeRightArrow<a class="headerlink" href="#largerightarrow" title="Permanent link"></a></h4>
-<p>Large right arrow, used for macro navigation.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeRightArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="largeleftarrow">LargeLeftArrow<a class="headerlink" href="#largeleftarrow" title="Permanent link"></a></h4>
+<p>Large left arrow, used for macro navigation.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeLeftArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_17">Property Value<a class="headerlink" href="#property-value_17" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="largeuparrow">LargeUpArrow<a class="headerlink" href="#largeuparrow" title="Permanent link"></a></h4>
-<p>Large up arrow, used for macro navigation.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeUpArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="largerightarrow">LargeRightArrow<a class="headerlink" href="#largerightarrow" title="Permanent link"></a></h4>
+<p>Large right arrow, used for macro navigation.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeRightArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_18">Property Value<a class="headerlink" href="#property-value_18" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menubackground">MenuBackground<a class="headerlink" href="#menubackground" title="Permanent link"></a></h4>
-<p>Background used for the in-game menu, not including borders.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="largeuparrow">LargeUpArrow<a class="headerlink" href="#largeuparrow" title="Permanent link"></a></h4>
+<p>Large up arrow, used for macro navigation.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">LargeUpArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_19">Property Value<a class="headerlink" href="#property-value_19" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menubackgrounduncolored">MenuBackgroundUncolored<a class="headerlink" href="#menubackgrounduncolored" title="Permanent link"></a></h4>
-<p>Colorless background used for the in-game menu, not including borders.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBackgroundUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menubackground">MenuBackground<a class="headerlink" href="#menubackground" title="Permanent link"></a></h4>
+<p>Background used for the in-game menu, not including borders.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_20">Property Value<a class="headerlink" href="#property-value_20" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuborder">MenuBorder<a class="headerlink" href="#menuborder" title="Permanent link"></a></h4>
-<p>Modified 9-slice sprite used for the menu border, based on menu "tiles". Used for drawing the outer border of an entire menu UI.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBorder</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menubackgrounduncolored">MenuBackgroundUncolored<a class="headerlink" href="#menubackgrounduncolored" title="Permanent link"></a></h4>
+<p>Colorless background used for the in-game menu, not including borders.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBackgroundUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_21">Property Value<a class="headerlink" href="#property-value_21" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuborderthickness">MenuBorderThickness<a class="headerlink" href="#menuborderthickness" title="Permanent link"></a></h4>
-<p>The actual distance from the outer edges of the <a href="./#menuborder">MenuBorder</a> sprite to where the actual "border" really ends, in terms of pixels. The border tiles are quite large, so this tends to be needed in order to determine where the content should go without adding a ton of extra padding.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">MenuBorderThickness</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuborder">MenuBorder<a class="headerlink" href="#menuborder" title="Permanent link"></a></h4>
+<p>Modified 9-slice sprite used for the menu border, based on menu "tiles". Used for drawing the outer border of an entire menu UI.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBorder</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_22">Property Value<a class="headerlink" href="#property-value_22" title="Permanent link"></a></h5>
+<p><a href="../sprite/">Sprite</a></p>
+<hr />
+<h4 id="menuborderthickness">MenuBorderThickness<a class="headerlink" href="#menuborderthickness" title="Permanent link"></a></h4>
+<p>The actual distance from the outer edges of the <a href="./#menuborder">MenuBorder</a> sprite to where the actual "border" really ends, in terms of pixels. The border tiles are quite large, so this tends to be needed in order to determine where the content should go without adding a ton of extra padding.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">MenuBorderThickness</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_23">Property Value<a class="headerlink" href="#property-value_23" title="Permanent link"></a></h5>
 <p><a href="../../layout/edges/">Edges</a></p>
 <hr />
 <h4 id="menuborderuncolored">MenuBorderUncolored<a class="headerlink" href="#menuborderuncolored" title="Permanent link"></a></h4>
 <p>Colorless version of the modified 9-slice sprite used for the menu border, based on menu "tiles". Used for drawing the outer border of an entire menu UI.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBorderUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h5 id="property-value_23">Property Value<a class="headerlink" href="#property-value_23" title="Permanent link"></a></h5>
-<p><a href="../sprite/">Sprite</a></p>
-<hr />
-<h4 id="menuhorizontaldivider">MenuHorizontalDivider<a class="headerlink" href="#menuhorizontaldivider" title="Permanent link"></a></h4>
-<p>Modified 9-slice sprite used for the menu's horizontal divider, meant to be drawn over top of the <a href="./#menuborder">MenuBorder</a> to denote separate "sub-panels" or "sections" of the menu to group logically very different menu functions (as opposed to lines on a grid).</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuHorizontalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuBorderUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_24">Property Value<a class="headerlink" href="#property-value_24" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuhorizontaldividermargin">MenuHorizontalDividerMargin<a class="headerlink" href="#menuhorizontaldividermargin" title="Permanent link"></a></h4>
-<p>Margin adjustment to apply to content adjacent to a <a href="./#menuhorizontaldivider">MenuHorizontalDivider</a> to make content flush with the border; adjusts for internal sprite padding.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">MenuHorizontalDividerMargin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuhorizontaldivider">MenuHorizontalDivider<a class="headerlink" href="#menuhorizontaldivider" title="Permanent link"></a></h4>
+<p>Modified 9-slice sprite used for the menu's horizontal divider, meant to be drawn over top of the <a href="./#menuborder">MenuBorder</a> to denote separate "sub-panels" or "sections" of the menu to group logically very different menu functions (as opposed to lines on a grid).</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuHorizontalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_25">Property Value<a class="headerlink" href="#property-value_25" title="Permanent link"></a></h5>
+<p><a href="../sprite/">Sprite</a></p>
+<hr />
+<h4 id="menuhorizontaldividermargin">MenuHorizontalDividerMargin<a class="headerlink" href="#menuhorizontaldividermargin" title="Permanent link"></a></h4>
+<p>Margin adjustment to apply to content adjacent to a <a href="./#menuhorizontaldivider">MenuHorizontalDivider</a> to make content flush with the border; adjusts for internal sprite padding.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">MenuHorizontalDividerMargin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_26">Property Value<a class="headerlink" href="#property-value_26" title="Permanent link"></a></h5>
 <p><a href="../../layout/edges/">Edges</a></p>
 <hr />
 <h4 id="menuhorizontaldivideruncolored">MenuHorizontalDividerUncolored<a class="headerlink" href="#menuhorizontaldivideruncolored" title="Permanent link"></a></h4>
 <p>Colorless version of the modified 9-slice sprite used for the menu's horizontal divider, meant to be drawn over top of the <a href="./#menuborderuncolored">MenuBorderUncolored</a> to denote separate "sub-panels" or "sections" of the menu to group logically very different menu functions (as opposed to lines on a grid).</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuHorizontalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h5 id="property-value_26">Property Value<a class="headerlink" href="#property-value_26" title="Permanent link"></a></h5>
-<p><a href="../sprite/">Sprite</a></p>
-<hr />
-<h4 id="menuslotinset">MenuSlotInset<a class="headerlink" href="#menuslotinset" title="Permanent link"></a></h4>
-<p>Inset-style background and border, often used to hold an item or represent a slot.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotInset</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuHorizontalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_27">Property Value<a class="headerlink" href="#property-value_27" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuslotinsetuncolored">MenuSlotInsetUncolored<a class="headerlink" href="#menuslotinsetuncolored" title="Permanent link"></a></h4>
-<p>Colorless inset-style background and border, often used to hold an item or represent a slot.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotInsetUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuslotinset">MenuSlotInset<a class="headerlink" href="#menuslotinset" title="Permanent link"></a></h4>
+<p>Inset-style background and border, often used to hold an item or represent a slot.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotInset</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_28">Property Value<a class="headerlink" href="#property-value_28" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuslotoutset">MenuSlotOutset<a class="headerlink" href="#menuslotoutset" title="Permanent link"></a></h4>
-<p>Outset-style background and border, often used to hold an item or represent a slot.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotOutset</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuslotinsetuncolored">MenuSlotInsetUncolored<a class="headerlink" href="#menuslotinsetuncolored" title="Permanent link"></a></h4>
+<p>Colorless inset-style background and border, often used to hold an item or represent a slot.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotInsetUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_29">Property Value<a class="headerlink" href="#property-value_29" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuslottransparent">MenuSlotTransparent<a class="headerlink" href="#menuslottransparent" title="Permanent link"></a></h4>
-<p>Single-line rectangular border with a slight inset look.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotTransparent</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuslotoutset">MenuSlotOutset<a class="headerlink" href="#menuslotoutset" title="Permanent link"></a></h4>
+<p>Outset-style background and border, often used to hold an item or represent a slot.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotOutset</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_30">Property Value<a class="headerlink" href="#property-value_30" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuslottransparentuncolored">MenuSlotTransparentUncolored<a class="headerlink" href="#menuslottransparentuncolored" title="Permanent link"></a></h4>
-<p>Colorless single-line rectangular border with a slight inset look.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotTransparentUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuslottransparent">MenuSlotTransparent<a class="headerlink" href="#menuslottransparent" title="Permanent link"></a></h4>
+<p>Single-line rectangular border with a slight inset look.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotTransparent</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_31">Property Value<a class="headerlink" href="#property-value_31" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuverticaldivider">MenuVerticalDivider<a class="headerlink" href="#menuverticaldivider" title="Permanent link"></a></h4>
-<p>Modified 9-slice sprite used for the menu's vertical divider, meant to be drawn over top of the <a href="./#menuborder">MenuBorder</a> to denote separate "sub-panels" or "sections" of the menu to group logically very different menu functions (as opposed to lines on a grid).</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuVerticalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuslottransparentuncolored">MenuSlotTransparentUncolored<a class="headerlink" href="#menuslottransparentuncolored" title="Permanent link"></a></h4>
+<p>Colorless single-line rectangular border with a slight inset look.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuSlotTransparentUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_32">Property Value<a class="headerlink" href="#property-value_32" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="menuverticaldividermargin">MenuVerticalDividerMargin<a class="headerlink" href="#menuverticaldividermargin" title="Permanent link"></a></h4>
-<p>Margin adjustment to apply to content adjacent to a <a href="./#menuverticaldivider">MenuVerticalDivider</a> to make content flush with the border; adjusts for internal sprite padding.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">MenuVerticalDividerMargin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="menuverticaldivider">MenuVerticalDivider<a class="headerlink" href="#menuverticaldivider" title="Permanent link"></a></h4>
+<p>Modified 9-slice sprite used for the menu's vertical divider, meant to be drawn over top of the <a href="./#menuborder">MenuBorder</a> to denote separate "sub-panels" or "sections" of the menu to group logically very different menu functions (as opposed to lines on a grid).</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuVerticalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_33">Property Value<a class="headerlink" href="#property-value_33" title="Permanent link"></a></h5>
+<p><a href="../sprite/">Sprite</a></p>
+<hr />
+<h4 id="menuverticaldividermargin">MenuVerticalDividerMargin<a class="headerlink" href="#menuverticaldividermargin" title="Permanent link"></a></h4>
+<p>Margin adjustment to apply to content adjacent to a <a href="./#menuverticaldivider">MenuVerticalDivider</a> to make content flush with the border; adjusts for internal sprite padding.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Layout</span><span class="p">.</span><span class="n">Edges</span><span class="w"> </span><span class="n">MenuVerticalDividerMargin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_34">Property Value<a class="headerlink" href="#property-value_34" title="Permanent link"></a></h5>
 <p><a href="../../layout/edges/">Edges</a></p>
 <hr />
 <h4 id="menuverticaldivideruncolored">MenuVerticalDividerUncolored<a class="headerlink" href="#menuverticaldivideruncolored" title="Permanent link"></a></h4>
 <p>Colorless version of the modified 9-slice sprite used for the menu's vertical divider, meant to be drawn over top of the <a href="./#menuborderuncolored">MenuBorderUncolored</a> to denote separate "sub-panels" or "sections" of the menu to group logically very different menu functions (as opposed to lines on a grid).</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuVerticalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h5 id="property-value_34">Property Value<a class="headerlink" href="#property-value_34" title="Permanent link"></a></h5>
-<p><a href="../sprite/">Sprite</a></p>
-<hr />
-<h4 id="scrollbartrack">ScrollBarTrack<a class="headerlink" href="#scrollbartrack" title="Permanent link"></a></h4>
-<p>Background for the scroll bar track (which the thumb is inside).</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollBarTrack</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">MenuVerticalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_35">Property Value<a class="headerlink" href="#property-value_35" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="sliderbackground">SliderBackground<a class="headerlink" href="#sliderbackground" title="Permanent link"></a></h4>
-<p>Background of a slider control.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SliderBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="scrollbartrack">ScrollBarTrack<a class="headerlink" href="#scrollbartrack" title="Permanent link"></a></h4>
+<p>Background for the scroll bar track (which the thumb is inside).</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ScrollBarTrack</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_36">Property Value<a class="headerlink" href="#property-value_36" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="sliderbutton">SliderButton<a class="headerlink" href="#sliderbutton" title="Permanent link"></a></h4>
-<p>The movable part of a slider control ("button").</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SliderButton</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="shopentryborder">ShopEntryBorder<a class="headerlink" href="#shopentryborder" title="Permanent link"></a></h4>
+<p>The background and border used in the default shop theme.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ShopEntryBorder</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_37">Property Value<a class="headerlink" href="#property-value_37" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="smalldownarrow">SmallDownArrow<a class="headerlink" href="#smalldownarrow" title="Permanent link"></a></h4>
-<p>Small down arrow, typically used for scroll bars.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallDownArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="sliderbackground">SliderBackground<a class="headerlink" href="#sliderbackground" title="Permanent link"></a></h4>
+<p>Background of a slider control.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SliderBackground</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_38">Property Value<a class="headerlink" href="#property-value_38" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="smallgreenplus">SmallGreenPlus<a class="headerlink" href="#smallgreenplus" title="Permanent link"></a></h4>
-<p>A small green "+" icon.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallGreenPlus</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="sliderbutton">SliderButton<a class="headerlink" href="#sliderbutton" title="Permanent link"></a></h4>
+<p>The movable part of a slider control ("button").</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SliderButton</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_39">Property Value<a class="headerlink" href="#property-value_39" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
-<h5 id="remarks_2">Remarks<a class="headerlink" href="#remarks_2" title="Permanent link"></a></h5>
-<p>Technically used to represent energy buffs, can sometimes be tinted to communicate a concept like "add to list".</p>
 <hr />
-<h4 id="smallleftarrow">SmallLeftArrow<a class="headerlink" href="#smallleftarrow" title="Permanent link"></a></h4>
-<p>Small left arrow, typically used for top-level list navigation.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallLeftArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="smalldownarrow">SmallDownArrow<a class="headerlink" href="#smalldownarrow" title="Permanent link"></a></h4>
+<p>Small down arrow, typically used for scroll bars.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallDownArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_40">Property Value<a class="headerlink" href="#property-value_40" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="smallrightarrow">SmallRightArrow<a class="headerlink" href="#smallrightarrow" title="Permanent link"></a></h4>
-<p>Small right arrow, typically used for top-level list navigation.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallRightArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="smallgreenplus">SmallGreenPlus<a class="headerlink" href="#smallgreenplus" title="Permanent link"></a></h4>
+<p>A small green "+" icon.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallGreenPlus</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_41">Property Value<a class="headerlink" href="#property-value_41" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
+<h5 id="remarks_3">Remarks<a class="headerlink" href="#remarks_3" title="Permanent link"></a></h5>
+<p>Technically used to represent energy buffs, can sometimes be tinted to communicate a concept like "add to list".</p>
 <hr />
-<h4 id="smalltrashcan">SmallTrashCan<a class="headerlink" href="#smalltrashcan" title="Permanent link"></a></h4>
-<p>Small and tall trash can, larger than the <a href="./#tinytrashcan">TinyTrashCan</a> and more suitable for tall rows.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallTrashCan</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="smallleftarrow">SmallLeftArrow<a class="headerlink" href="#smallleftarrow" title="Permanent link"></a></h4>
+<p>Small left arrow, typically used for top-level list navigation.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallLeftArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_42">Property Value<a class="headerlink" href="#property-value_42" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="smalluparrow">SmallUpArrow<a class="headerlink" href="#smalluparrow" title="Permanent link"></a></h4>
-<p>Small up arrow, typically used for scroll bars.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallUpArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="smallrightarrow">SmallRightArrow<a class="headerlink" href="#smallrightarrow" title="Permanent link"></a></h4>
+<p>Small right arrow, typically used for top-level list navigation.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallRightArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_43">Property Value<a class="headerlink" href="#property-value_43" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="tabtopempty">TabTopEmpty<a class="headerlink" href="#tabtopempty" title="Permanent link"></a></h4>
-<p>Top-facing tab with no inner content, used for tab controls.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">TabTopEmpty</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="smalltrashcan">SmallTrashCan<a class="headerlink" href="#smalltrashcan" title="Permanent link"></a></h4>
+<p>Small and tall trash can, larger than the <a href="./#tinytrashcan">TinyTrashCan</a> and more suitable for tall rows.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallTrashCan</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_44">Property Value<a class="headerlink" href="#property-value_44" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="textbox">TextBox<a class="headerlink" href="#textbox" title="Permanent link"></a></h4>
-<p>Border/background for a text input box.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">TextBox</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="smalluparrow">SmallUpArrow<a class="headerlink" href="#smalluparrow" title="Permanent link"></a></h4>
+<p>Small up arrow, typically used for scroll bars.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">SmallUpArrow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_45">Property Value<a class="headerlink" href="#property-value_45" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="thinhorizontaldivider">ThinHorizontalDivider<a class="headerlink" href="#thinhorizontaldivider" title="Permanent link"></a></h4>
-<p>Simple horizontal divider, typically used to divide sections of uniform content, e.g. grid rows.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinHorizontalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="tabtopempty">TabTopEmpty<a class="headerlink" href="#tabtopempty" title="Permanent link"></a></h4>
+<p>Top-facing tab with no inner content, used for tab controls.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">TabTopEmpty</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_46">Property Value<a class="headerlink" href="#property-value_46" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="thinhorizontaldivideruncolored">ThinHorizontalDividerUncolored<a class="headerlink" href="#thinhorizontaldivideruncolored" title="Permanent link"></a></h4>
-<p>Simple, colorless horizontal divider, typically used to divide sections of uniform content, e.g. grid rows.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinHorizontalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="textbox">TextBox<a class="headerlink" href="#textbox" title="Permanent link"></a></h4>
+<p>Border/background for a text input box.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">TextBox</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_47">Property Value<a class="headerlink" href="#property-value_47" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="thinverticaldivider">ThinVerticalDivider<a class="headerlink" href="#thinverticaldivider" title="Permanent link"></a></h4>
-<p>Simple vertical divider, typically used to divide sections of uniform content, e.g. grid columns.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinVerticalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="thinhorizontaldivider">ThinHorizontalDivider<a class="headerlink" href="#thinhorizontaldivider" title="Permanent link"></a></h4>
+<p>Simple horizontal divider, typically used to divide sections of uniform content, e.g. grid rows.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinHorizontalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_48">Property Value<a class="headerlink" href="#property-value_48" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="thinverticaldivideruncolored">ThinVerticalDividerUncolored<a class="headerlink" href="#thinverticaldivideruncolored" title="Permanent link"></a></h4>
-<p>Simple, colorless vertical divider, typically used to divide sections of uniform content, e.g. grid columns.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinVerticalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="thinhorizontaldivideruncolored">ThinHorizontalDividerUncolored<a class="headerlink" href="#thinhorizontaldivideruncolored" title="Permanent link"></a></h4>
+<p>Simple, colorless horizontal divider, typically used to divide sections of uniform content, e.g. grid rows.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinHorizontalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_49">Property Value<a class="headerlink" href="#property-value_49" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="tinytrashcan">TinyTrashCan<a class="headerlink" href="#tinytrashcan" title="Permanent link"></a></h4>
-<p>Very small trash can, e.g. to be used in lists/subforms as "remove" button.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">TinyTrashCan</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="thinverticaldivider">ThinVerticalDivider<a class="headerlink" href="#thinverticaldivider" title="Permanent link"></a></h4>
+<p>Simple vertical divider, typically used to divide sections of uniform content, e.g. grid columns.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinVerticalDivider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_50">Property Value<a class="headerlink" href="#property-value_50" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="verticalscrollthumb">VerticalScrollThumb<a class="headerlink" href="#verticalscrollthumb" title="Permanent link"></a></h4>
-<p>Thumb sprite used for vertical scroll bars.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">VerticalScrollThumb</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="thinverticaldivideruncolored">ThinVerticalDividerUncolored<a class="headerlink" href="#thinverticaldivideruncolored" title="Permanent link"></a></h4>
+<p>Simple, colorless vertical divider, typically used to divide sections of uniform content, e.g. grid columns.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">ThinVerticalDividerUncolored</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_51">Property Value<a class="headerlink" href="#property-value_51" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="white">White<a class="headerlink" href="#white" title="Permanent link"></a></h4>
-<p>A single white pixel.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">White</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="tinytrashcan">TinyTrashCan<a class="headerlink" href="#tinytrashcan" title="Permanent link"></a></h4>
+<p>Very small trash can, e.g. to be used in lists/subforms as "remove" button.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">TinyTrashCan</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_52">Property Value<a class="headerlink" href="#property-value_52" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
-<h4 id="whiteborder">WhiteBorder<a class="headerlink" href="#whiteborder" title="Permanent link"></a></h4>
-<p>Nine-slice sprite consisting of 8 white edge pixels and a transparent center. Used for simple borders.</p>
-<div class="language-cs highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">WhiteBorder</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<h4 id="verticalscrollthumb">VerticalScrollThumb<a class="headerlink" href="#verticalscrollthumb" title="Permanent link"></a></h4>
+<p>Thumb sprite used for vertical scroll bars.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">VerticalScrollThumb</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <h5 id="property-value_53">Property Value<a class="headerlink" href="#property-value_53" title="Permanent link"></a></h5>
+<p><a href="../sprite/">Sprite</a></p>
+<hr />
+<h4 id="white">White<a class="headerlink" href="#white" title="Permanent link"></a></h4>
+<p>A single white pixel.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">White</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_54">Property Value<a class="headerlink" href="#property-value_54" title="Permanent link"></a></h5>
+<p><a href="../sprite/">Sprite</a></p>
+<hr />
+<h4 id="whiteborder">WhiteBorder<a class="headerlink" href="#whiteborder" title="Permanent link"></a></h4>
+<p>Nine-slice sprite consisting of 8 white edge pixels and a transparent center. Used for simple borders.</p>
+<div class="language-cs highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">StardewUI</span><span class="p">.</span><span class="n">Graphics</span><span class="p">.</span><span class="n">Sprite</span><span class="w"> </span><span class="n">WhiteBorder</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="property-value_55">Property Value<a class="headerlink" href="#property-value_55" title="Permanent link"></a></h5>
 <p><a href="../sprite/">Sprite</a></p>
 <hr />
 </div>
