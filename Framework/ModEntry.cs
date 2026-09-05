@@ -214,7 +214,7 @@ internal sealed class ModEntry : Mod
                 Trace.IsTracing = !Trace.IsTracing;
             }
         }
-        if (traceNextMenu && Game1.activeClickableMenu != null)
+        if (traceNextMenu && Game1.activeClickableMenu is DocumentViewMenu)
         {
             traceNextMenu = false;
             BeginTracing();

@@ -225,6 +225,23 @@ public partial class DropDownList<T> : ComponentView
         }
     }
 
+    /// <summary>
+    /// Makes this drop down list searchable by keyboard inputs.
+    /// <c>(unofficial-mushymato)</c>
+    /// </summary>
+    public bool Searchable
+    {
+        get => field;
+        set
+        {
+            if (field != value)
+            {
+                field = value;
+                OnPropertyChanged(nameof(Searchable));
+            }
+        }
+    } = false;
+
     private static readonly Func<T, string> DefaultOptionFormat = v => v.ToString() ?? "";
 
     private readonly DirtyTrackingList<T> options = [];
@@ -519,7 +536,8 @@ public partial class DropDownList<T> : ComponentView
 
         protected override IView CreateView()
         {
-            dropdownFilterSubscriber = new(this, Game1.keyboardFocusInstance.Window);
+            if (owner.Searchable)
+                dropdownFilterSubscriber = new(this, Game1.keyboardFocusInstance.Window);
             return new Frame()
             {
                 Layout = LayoutParameters.AutoRow(),
@@ -571,12 +589,16 @@ public partial class DropDownList<T> : ComponentView
 
         public void Activate()
         {
+            if (!owner.Searchable)
+                return;
             dropdownFilterSubscriber.Selected = true;
             SetSearchText(string.Empty);
         }
 
         public void Release()
         {
+            if (!owner.Searchable)
+                return;
             dropdownFilterSubscriber.Selected = false;
             owner.UpdateSelectedOption();
         }
