@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 - `DropDownList` search feature is now locked behind property `Searchable`.
+- `ScrollableView` now plays `shiny4` instead of `shwip` for the wheel event, matching game behavior.
 
 ## [0.6.4-unofficial-mushymato.0](https://github.com/Mushymato/StardewUI/releases/tag/0.6.4-unofficial-mushymato.0)
 

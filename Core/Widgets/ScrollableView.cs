@@ -153,7 +153,7 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
         }
         if (e.Handled)
         {
-            Game1.playSound("shwip");
+            Game1.playSound("shiny4");
         }
     }
 
