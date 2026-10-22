@@ -18,7 +18,7 @@ public partial class Scrollbar : ComponentView<Lane>
     /// <summary>
     /// The scroll container that this <see cref="Scrollbar"/> controls.
     /// </summary>
-    public ScrollContainer? Container
+    public IScrollable? Container
     {
         get => container;
         set => SetContainer(value);
@@ -106,7 +106,7 @@ public partial class Scrollbar : ComponentView<Lane>
         set => progressSetDebounce = value;
     }
 
-    private ScrollContainer? container;
+    private IScrollable? container;
     private Visibility? forcedVisibility;
     private Edges margin = new();
 
@@ -370,7 +370,7 @@ public partial class Scrollbar : ComponentView<Lane>
         }
     }
 
-    private void SetContainer(ScrollContainer? container)
+    private void SetContainer(IScrollable? container)
     {
         if (container == this.container)
         {

@@ -125,8 +125,8 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
     /// </summary>
     public bool DragToScroll
     {
-        get => scrollbar.Container?.Draggable ?? false;
-        set => scrollbar.Container?.Draggable = value;
+        get => (scrollbar.Container as View)?.Draggable ?? false;
+        set => (scrollbar.Container as View)?.Draggable = value;
     }
 
     // Initialized in CreateView
@@ -193,6 +193,6 @@ public partial class ScrollableView : ComponentView<ScrollContainer>, IFloatCont
     {
         distance = default;
         scrollbar.Container?.ScrollOffset = 0;
-        return scrollbar.Container?.ScrollIntoView([child], out distance) ?? false;
+        return (scrollbar.Container as View)?.ScrollIntoView([child], out distance) ?? false;
     }
 }
