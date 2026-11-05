@@ -61,13 +61,7 @@ public partial class ScrollContainer : View, IScrollable
         }
     }
 
-    /// <summary>
-    /// The orientation, i.e. the direction of scrolling.
-    /// </summary>
-    /// <remarks>
-    /// A single <see cref="ScrollContainer"/> can only scroll in one direction. If content needs to scroll both
-    /// horizontally and vertically, a nested <see cref="ScrollContainer"/> can be used.
-    /// </remarks>
+    /// <inheritdoc/>
     public Orientation Orientation
     {
         get => orientation.Value;
@@ -101,9 +95,7 @@ public partial class ScrollContainer : View, IScrollable
         }
     }
 
-    /// <summary>
-    /// The current scroll position along the <see cref="Orientation"/> axis.
-    /// </summary>
+    /// <inheritdoc/>
     public float ScrollOffset
     {
         get => scrollOffset.Value;
@@ -131,30 +123,20 @@ public partial class ScrollContainer : View, IScrollable
         }
     }
 
-    /// <summary>
-    /// The progress of scrollbar, calculated from intended scroll offset before clamp divided by size.
-    /// </summary>
+    /// <inheritdoc/>
     public float Progress { get; set; }
 
-    /// <summary>
-    /// Set <see cref="ScrollOffset"/> without marking it as dirty.
-    /// Using this means <see cref="ScrollChanged"/> will not be raised.
-    /// </summary>
+    /// <inheritdoc/>
     public void SetScrollOffsetNoDirty(float scrollOffsetValue)
     {
         ScrollOffset = scrollOffsetValue;
         scrollOffset.ResetDirty();
     }
 
-    /// <summary>
-    /// The maximum amount by which the container can be scrolled without exceeding the inner content bounds.
-    /// </summary>
+    /// <inheritdoc/>
     public float ScrollSize => MathF.Max(Orientation.Get(ContentViewSize) - Orientation.Get(ContentSize), 0);
 
-    /// <summary>
-    /// Default scroll distance when calling <see cref="ScrollForward"/> or <see cref="ScrollBackward"/>. Does not
-    /// prevent directly setting the scroll position via <see cref="ScrollOffset"/>.
-    /// </summary>
+    /// <inheritdoc/>
     public float ScrollStep
     {
         get => scrollStep;
@@ -176,6 +158,20 @@ public partial class ScrollContainer : View, IScrollable
     /// <inheritdoc />
     protected override Vector2 LayoutOffset => -GetScrollOrigin();
 
+    /// <inheritdoc/>
+    public float DragStep
+    {
+        get => dragStep;
+        set
+        {
+            if (value != dragStep)
+            {
+                dragStep = value;
+                OnPropertyChanged(nameof(DragStep));
+            }
+        }
+    }
+
     private readonly DirtyTracker<IView?> content = new(null);
     private readonly DirtyTracker<Orientation> orientation = new(Orientation.Vertical);
     private readonly DirtyTracker<float> scrollOffset = new(0);
@@ -183,11 +179,10 @@ public partial class ScrollContainer : View, IScrollable
     private float peeking;
     private float previousScrollSize = -1;
     private float scrollStep = 32.0f;
+    private float dragStep = 1f;
     private int lastUpdateParentScrollingBoundsTick = -1;
 
-    /// <summary>
-    /// Scrolls backward (up or left) by the distance configured in <see cref="ScrollStep"/>.
-    /// </summary>
+    /// <inheritdoc/>
     public bool ScrollBackward()
     {
         var previousOffset = ScrollOffset;
@@ -195,9 +190,7 @@ public partial class ScrollContainer : View, IScrollable
         return ScrollOffset != previousOffset;
     }
 
-    /// <summary>
-    /// Scrolls forward (down or right) by the distance configured in <see cref="ScrollStep"/>.
-    /// </summary>
+    /// <inheritdoc/>
     public bool ScrollForward()
     {
         var previousOffset = ScrollOffset;

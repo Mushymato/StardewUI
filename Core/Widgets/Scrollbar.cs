@@ -297,7 +297,7 @@ public partial class Scrollbar : ComponentView<Lane>
         }
 
         // drag scroll is inverted
-        var targetDistance = initialContainerDrag.Value - Container.Orientation.Get(e.Position);
+        var targetDistance = (initialContainerDrag.Value - Container.Orientation.Get(e.Position)) * Container.DragStep;
         Container.ScrollOffset = initialContainerScrollOffset.Value + targetDistance;
         SyncPosition();
     }
@@ -383,9 +383,12 @@ public partial class Scrollbar : ComponentView<Lane>
             this.container.ScrollChanged -= Container_ScrollChanged;
             this.container.PropertyChanged -= Container_PropertyChange;
             // drag to scroll
-            this.container.DragStart -= Container_DragStart;
-            this.container.Drag -= Container_Drag;
-            this.container.DragEnd -= Container_DragEnd;
+            if (this.container is View oldView)
+            {
+                oldView.DragStart -= Container_DragStart;
+                oldView.Drag -= Container_Drag;
+                oldView.DragEnd -= Container_DragEnd;
+            }
         }
         this.container = container;
         if (container is not null)
@@ -395,9 +398,12 @@ public partial class Scrollbar : ComponentView<Lane>
             container.ScrollChanged += Container_ScrollChanged;
             container.PropertyChanged -= Container_PropertyChange;
             // drag to scroll
-            container.DragStart += Container_DragStart;
-            container.Drag += Container_Drag;
-            container.DragEnd += Container_DragEnd;
+            if (container is View newView)
+            {
+                newView.DragStart += Container_DragStart;
+                newView.Drag += Container_Drag;
+                newView.DragEnd += Container_DragEnd;
+            }
         }
         LazyUpdate();
         OnPropertyChanged(nameof(Container));

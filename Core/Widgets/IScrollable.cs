@@ -10,35 +10,41 @@ namespace StardewUI.Widgets;
 /// </summary>
 public interface IScrollable : INotifyPropertyChanged
 {
-	/// <summary>
-	/// The orientation, i.e. the direction of scrolling.
-	/// </summary>
-	/// <remarks>
-	/// A single <see cref="IScrollable"/> can only scroll in one direction. If content needs to scroll both
-	/// horizontally and vertically, a nested <see cref="IScrollable"/> can be used.
-	/// </remarks>
-	public Orientation Orientation { get; }
+    /// <summary>
+    /// The orientation, i.e. the direction of scrolling.
+    /// </summary>
+    /// <remarks>
+    /// A single <see cref="IScrollable"/> can only scroll in one direction. If content needs to scroll both
+    /// horizontally and vertically, a nested <see cref="IScrollable"/> can be used.
+    /// </remarks>
+    public Orientation Orientation { get; }
 
-	/// <summary>
-	/// The progress of scrollbar, calculated from intended scroll offset before clamp divided by size.
-	/// </summary>
-	public float Progress { get; set; }
 
-	/// <summary>
-	/// The maximum amount which can be scrolled without exceeding the content bounds.
-	/// </summary>
-	public float ScrollSize { get; }
+    /// <summary>
+    /// The progress of scrollbar, calculated from intended scroll offset before clamp divided by size.
+    /// </summary>
+    public float Progress { get; set; }
 
-	/// <summary>
-	/// The current scroll position along the <see cref="Orientation"/> axis.
-	/// </summary>
-	public float ScrollOffset { get; set; }
+    /// <summary>
+    /// The maximum amount which can be scrolled without exceeding the content bounds.
+    /// </summary>
+    public float ScrollSize { get; }
 
-	/// <summary>
-	/// Default scroll distance when calling <see cref="ScrollForward"/> or <see cref="ScrollBackward"/>. Does not
-	/// prevent directly setting the scroll position via <see cref="ScrollOffset"/>.
-	/// </summary>
-	public float ScrollStep { get; set; }
+    /// <summary>
+    /// The current scroll position along the <see cref="Orientation"/> axis.
+    /// </summary>
+    public float ScrollOffset { get; set; }
+
+    /// <summary>
+    /// Default scroll distance when calling <see cref="ScrollForward"/> or <see cref="ScrollBackward"/>. Does not
+    /// prevent directly setting the scroll position via <see cref="ScrollOffset"/>.
+    /// </summary>
+    public float ScrollStep { get; set; }
+
+    /// <summary>
+    /// The amount to scroll when a draggable view is dragged 1 pixel.
+    /// </summary>
+	public float DragStep { get; }
 
 	/// <summary>
 	/// Event raised when any aspect of the scrolling changes.
@@ -49,34 +55,19 @@ public interface IScrollable : INotifyPropertyChanged
 	/// </remarks>
 	public event EventHandler? ScrollChanged;
 
-	/// <summary>
-	/// See <see cref="View.DragStart"/>
-	/// </summary>
-	public event EventHandler<PointerEventArgs>? DragStart;
+    /// <summary>
+    /// Set <see cref="ScrollOffset"/> without marking it as dirty.
+    /// Using this means <see cref="ScrollChanged"/> will not be raised.
+    /// </summary>
+    public void SetScrollOffsetNoDirty(float scrollOffsetValue);
 
-	/// <summary>
-	/// See <see cref="View.Drag"/>
-	/// </summary>
-	public event EventHandler<PointerEventArgs>? Drag;
+    /// <summary>
+    /// Scrolls backward (up or left) by the distance configured in <see cref="ScrollStep"/>.
+    /// </summary>
+    public bool ScrollBackward();
 
-	/// <summary>
-	/// See <see cref="View.DragEnd"/>
-	/// </summary>
-	public event EventHandler<PointerEventArgs>? DragEnd;
-
-	/// <summary>
-	/// Set <see cref="ScrollOffset"/> without marking it as dirty.
-	/// Using this means <see cref="ScrollChanged"/> will not be raised.
-	/// </summary>
-	public void SetScrollOffsetNoDirty(float scrollOffsetValue);
-
-	/// <summary>
-	/// Scrolls backward (up or left) by the distance configured in <see cref="ScrollStep"/>.
-	/// </summary>
-	public bool ScrollBackward();
-
-	/// <summary>
-	/// Scrolls forward (down or right) by the distance configured in <see cref="ScrollStep"/>.
-	/// </summary>
-	public bool ScrollForward();
+    /// <summary>
+    /// Scrolls forward (down or right) by the distance configured in <see cref="ScrollStep"/>.
+    /// </summary>
+    public bool ScrollForward();
 }
