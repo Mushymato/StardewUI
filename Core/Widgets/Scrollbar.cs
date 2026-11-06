@@ -7,11 +7,11 @@ using StardewUI.Layout;
 namespace StardewUI.Widgets;
 
 /// <summary>
-/// Controls the scrolling of a <see cref="ScrollContainer"/>.
+/// Controls the scrolling of an <see cref="IScrollable"/>.
 /// </summary>
 /// <remarks>
-/// Must be associated with a <see cref="ScrollContainer"/> in order to work; will not draw if the container is not set
-/// or if its <see cref="ScrollContainer.ScrollSize"/> is zero.
+/// Must be associated with an <see cref="IScrollable"/> in order to work; will not draw if the container is not set
+/// or if its <see cref="IScrollable.ScrollSize"/> is zero.
 /// </remarks>
 public partial class Scrollbar : ComponentView<Lane>
 {
@@ -37,7 +37,7 @@ public partial class Scrollbar : ComponentView<Lane>
     /// Forces the scrollbar to be always visible or always hidden, depending on the value.
     /// </summary>
     /// <remarks>
-    /// If not set, the <see cref="Visibility"/> will change according to whether the <see cref="ScrollContainer"/> has
+    /// If not set, the <see cref="Visibility"/> will change according to whether the <see cref="IScrollable"/> has
     /// content large enough to be scrolled.
     /// </remarks>
     public Visibility? ForcedVisibility
@@ -97,7 +97,7 @@ public partial class Scrollbar : ComponentView<Lane>
     }
 
     /// <summary>
-    /// The progress of scrollbar, see <see cref="ScrollContainer.Progress"/>.
+    /// The progress of scrollbar, see <see cref="IScrollable.Progress"/>.
     /// Setting this via bindings will potentially change the scroll position next tick.
     /// </summary>
     public float Progress
