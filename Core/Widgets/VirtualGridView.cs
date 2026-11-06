@@ -305,14 +305,14 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
         {
             if (View.FloatingElements.FirstOrDefault(e => e.View == scrollbar) is FloatingElement scrollFloat)
                 View.FloatingElements.Remove(scrollFloat);
-			
-			View.FloatingElements.Add(new(scrollbar,
-				PrimaryOrientation is Orientation.Vertical ?
-				FloatingPosition.BelowParent :
-				FloatingPosition.AfterParent
-			));
+            
+            View.FloatingElements.Add(new(scrollbar,
+                PrimaryOrientation is Orientation.Vertical ?
+                FloatingPosition.BelowParent :
+                FloatingPosition.AfterParent
+            ));
 
-			OnPropertyChanged(nameof(PrimaryOrientation));
+            OnPropertyChanged(nameof(PrimaryOrientation));
         }
         else if (e.PropertyName is string name && forwardProps.Contains(name))
         {
