@@ -97,7 +97,27 @@ public partial class ScrollableGrid : Grid, IScrollable
     public float Progress { get; set; }
 
     /// <inheritdoc/>
-    public float ScrollSize => VisibleItems is ListSlice l ? Math.Max(0, l.Source.Count - l.Count) : 0;
+    public float ScrollSize
+    {
+        get
+        {
+            if (VisibleItems is ListSlice l)
+            {
+                float whole = Math.DivRem(
+                    Math.Max(0, l.Source.Count - l.Count), 
+                    Math.Max(1, PrimaryItemCount), 
+                    out int rem
+                );
+
+                if (rem != 0)
+                    whole++;
+
+                return whole;
+            }
+
+            return 0;
+        }
+    }
 
     /// <inheritdoc/>
     public float ScrollOffset

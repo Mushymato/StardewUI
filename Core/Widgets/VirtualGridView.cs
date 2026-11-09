@@ -288,30 +288,32 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
             Container = grid,
         };
 
-        FloatingPosition scrollFloat =
-            grid.PrimaryOrientation is Orientation.Vertical ?
-            FloatingPosition.BelowParent : 
-            FloatingPosition.AfterParent;
-
-        grid.FloatingElements.Add(new(scrollbar, scrollFloat));
+        FloatScrollBar(grid);
         grid.PropertyChanged += OnPropertyChanged;
         scrollbar.PropertyChanged += OnPropertyChanged;
         return grid;
+    }
+
+    /// <summary>
+    /// Positions the scrollbar based on the grid's orientation
+    /// </summary>
+    protected void FloatScrollBar(ScrollableGrid view)
+    {
+        if (view.FloatingElements.FirstOrDefault(e => e.View == scrollbar) is FloatingElement scrollFloat)
+            view.FloatingElements.Remove(scrollFloat);
+
+        view.FloatingElements.Add(new(scrollbar,
+            view.PrimaryOrientation is Orientation.Vertical ?
+            FloatingPosition.BelowParent :
+            FloatingPosition.AfterParent
+        ));
     }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(PrimaryOrientation))
         {
-            if (View.FloatingElements.FirstOrDefault(e => e.View == scrollbar) is FloatingElement scrollFloat)
-                View.FloatingElements.Remove(scrollFloat);
-            
-            View.FloatingElements.Add(new(scrollbar,
-                PrimaryOrientation is Orientation.Vertical ?
-                FloatingPosition.BelowParent :
-                FloatingPosition.AfterParent
-            ));
-
+            FloatScrollBar(View);
             OnPropertyChanged(nameof(PrimaryOrientation));
         }
         else if (e.PropertyName is string name && forwardProps.Contains(name))
