@@ -35,6 +35,8 @@ namespace StardewUI.Widgets
     [GenerateDescriptor] partial class Tab { }
     [GenerateDescriptor] partial class TextInput { }
     [GenerateDescriptor] partial class TinyNumberLabel { }
+    [GenerateDescriptor] partial class ScrollableGrid { }
+    [GenerateDescriptor] partial class VirtualGridView { }
     // csharpier-ignore-end
 }
 
