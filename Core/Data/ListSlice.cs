@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using static StardewValley.Menus.CharacterCustomization;
 
 namespace StardewUI.Data;
 
@@ -107,6 +106,7 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
         get;
         set
         {
+            value = Math.Max(0, value);
             if (field != value)
             {
                 field = value;
@@ -258,7 +258,11 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
             if (index >= offset + count)
                 return false;
 
-            Current = index > source.Count ? null : source[index];
+            if (index >= source.Count)
+                Current = null;
+            else
+                Current = source[index];
+
             return true;
         }
 

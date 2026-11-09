@@ -1,10 +1,15 @@
-﻿using StardewValley;
+﻿using System.Collections;
+using PropertyChanged.SourceGenerator;
+using StardewValley;
 using StardewValley.ItemTypeDefinitions;
 
 namespace StardewUITest.Examples;
 
-internal record EdiblesViewModel(string HeaderText, ParsedItemData[] Items)
+internal partial record EdiblesViewModel(string HeaderText, EdiblesViewModel.ItemWrapper[] Items)
 {
+    [Notify]
+    private IList? activeItems;
+
     public static EdiblesViewModel LoadFromGameData()
     {
         int[] edibleCategories =
@@ -20,9 +25,11 @@ internal record EdiblesViewModel(string HeaderText, ParsedItemData[] Items)
         var items = ItemRegistry
             .ItemTypes.Single(type => type.Identifier == ItemRegistry.type_object)
             .GetAllIds()
-            .Select(id => ItemRegistry.GetDataOrErrorItem(id))
-            .Where(data => edibleCategories.Contains(data.Category))
+            .Select(id => new ItemWrapper(ItemRegistry.GetDataOrErrorItem(id)))
+            .Where(data => edibleCategories.Contains(data.Item.Category))
             .ToArray();
         return new("All Edibles", items);
     }
+
+    public record ItemWrapper(ParsedItemData Item, bool Valid = true);
 }

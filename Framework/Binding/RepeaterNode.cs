@@ -293,10 +293,10 @@ public class RepeaterNode(
                 collectionSource.ValueType,
                 static type =>
                 {
-                    var elementType =
-                        type.GetEnumerableElementType()
-                        ?? throw new BindingException($"Repeater node cannot bind to non-enumerable type {type.Name}.");
-                    return createInternalMethod.MakeGenericMethod(type, elementType).CreateDelegate<Factory>();
+                    if (!type.IsEnumerable())
+                        throw new BindingException($"Repeater node cannot bind to non-enumerable type {type.Name}.");
+
+                    return createInternalMethod.MakeGenericMethod(type).CreateDelegate<Factory>();
                 }
             );
             return factory(collectionSource);
@@ -304,18 +304,18 @@ public class RepeaterNode(
 
         internal static void Warmup()
         {
-            createInternalMethod.MakeGenericMethod(typeof(IEnumerable<IView>), typeof(IView));
+            createInternalMethod.MakeGenericMethod(typeof(IEnumerable<IView>));
         }
 
-        private static ICollectionWatcher CreateInternal<TCollection, TElement>(IValueSource collectionSource)
-            where TCollection : IEnumerable<TElement>
+        private static ICollectionWatcher CreateInternal<TCollection>(IValueSource collectionSource)
+            where TCollection : IEnumerable
         {
-            return new CollectionWatcher<TCollection, TElement>((IValueSource<TCollection>)collectionSource);
+            return new CollectionWatcher<TCollection>((IValueSource<TCollection>)collectionSource);
         }
     }
 
-    class CollectionWatcher<TCollection, TElement> : ICollectionWatcher, IDisposable
-        where TCollection : IEnumerable<TElement>
+    class CollectionWatcher<TCollection> : ICollectionWatcher, IDisposable
+        where TCollection : IEnumerable
     {
         private static readonly NotifyCollectionChangedEventArgs[] emptyEvents = [];
         private static readonly NotifyCollectionChangedEventArgs resetEvent = new(NotifyCollectionChangedAction.Reset);

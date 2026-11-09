@@ -25,6 +25,25 @@ namespace StardewUI.Widgets;
 public partial class ScrollableGrid : Grid, IScrollable
 {
     /// <summary>
+    /// Default constructor
+    /// </summary>
+    public ScrollableGrid()
+    {
+        PropertyChanged += OwnPropertyChanged;
+    }
+
+    private void OwnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(PrimaryItemCount))
+        {
+            scrollStep = scrollRowCount * PrimaryItemCount;
+            OnPropertyChanged(nameof(ScrollStep));
+            OnPropertyChanged(nameof(ScrollSize));
+            OnScrollChanged();
+        }
+    }
+
+    /// <summary>
     /// The source collection, to be virtualized, if any.
     /// </summary>
     public IList? Items
@@ -50,6 +69,7 @@ public partial class ScrollableGrid : Grid, IScrollable
                 ListSlice items = new(value);
                 items.PropertyChanged += ItemsPropertyChanged;
                 VisibleItems = items;
+                visibleCount = items.Count = visibleCount;
             }
 
             OnSourceChanged();
@@ -66,11 +86,18 @@ public partial class ScrollableGrid : Grid, IScrollable
     /// </summary>
     public int VisibleCount
     {
-        get => VisibleItems is ListSlice l ? l.Count : 0;
+        get => VisibleItems is ListSlice l ? l.Count : visibleCount;
         set
         {
             if (VisibleItems is ListSlice l)
-                l.Count = value;
+            {
+                visibleCount = l.Count = value;
+            }
+            else if (visibleCount != value)
+            {
+                visibleCount = value;
+                OnPropertyChanged(nameof(VisibleCount));
+            }
         }
     }
 
@@ -112,7 +139,7 @@ public partial class ScrollableGrid : Grid, IScrollable
                 if (rem != 0)
                     whole++;
 
-                return whole;
+                return whole * PrimaryItemCount;
             }
 
             return 0;
@@ -123,27 +150,25 @@ public partial class ScrollableGrid : Grid, IScrollable
     public float ScrollOffset
     {
         get => VisibleItems is ListSlice l ? l.Offset : 0;
-        set
-        {
-            if (VisibleItems is ListSlice l)
-                l.Offset = (int)value;
-        }
+        set => TrySetOffset(value);
     }
 
     /// <inheritdoc/>
     public float ScrollStep
     {
-        get;
+        get => scrollStep;
         set
         {
-            value = MathF.Max(0f, MathF.Round(value));
-            if (field != value)
+            int row = (int)(value + .5f);
+            value = row * PrimaryItemCount;
+            if (scrollRowCount != row || value != scrollStep)
             {
-                field = value;
+                scrollStep = value;
+                scrollRowCount = row;
                 OnPropertyChanged(nameof(ScrollStep));
             }
         }
-    } = 1f;
+    }
 
     /// <inheritdoc/>
     public float DragStep => 1f / Math.Max(1f, secondaryStartPositions.Count is 0 ? ContentBounds.Size.Y : secondaryStartPositions[0]);
@@ -152,6 +177,9 @@ public partial class ScrollableGrid : Grid, IScrollable
     public event EventHandler? ScrollChanged;
 
     private bool suppressOffsetChange = false;
+    private int visibleCount = 1;
+    private int scrollRowCount = 1;
+    private float scrollStep = 1f;
 
     /// <inheritdoc/>
     public bool ScrollBackward()
@@ -174,9 +202,17 @@ public partial class ScrollableGrid : Grid, IScrollable
 
     private bool TrySetOffset(float value)
     {
-        var old = ScrollOffset;
-        ScrollOffset = value;
-        return old != ScrollOffset;
+        if (VisibleItems is not ListSlice l)
+            return false;
+
+        var val = Math.Clamp((int)value, 0, (int)ScrollSize) / PrimaryItemCount * PrimaryItemCount;
+        var old = l.Offset;
+
+        if (val == old)
+            return false;
+
+        l.Offset = val;
+        return old != l.Offset;
     }
 
     private void OnScrollChanged()
@@ -187,7 +223,6 @@ public partial class ScrollableGrid : Grid, IScrollable
     private void OnSourceChanged()
     {
         OnPropertyChanged(nameof(Items));
-        OnPropertyChanged(nameof(VisibleCount));
         OnPropertyChanged(nameof(ScrollSize));
         OnPropertyChanged(nameof(ScrollOffset));
         OnScrollChanged();
@@ -216,6 +251,8 @@ public partial class ScrollableGrid : Grid, IScrollable
             case nameof(ListSlice.Offset):
                 if (!suppressOffsetChange)
                 {
+                    var size = ScrollSize;
+                    Progress = size is 0 ? 0 : Math.Clamp(ScrollOffset / size, 0, 1f);
                     OnPropertyChanged(nameof(ScrollOffset));
                     OnScrollChanged();
                 }
@@ -261,7 +298,7 @@ public partial class ScrollableGrid : Grid, IScrollable
         if (contentChildIndex < 0 || contentChildIndex >= childPositions.Count)
             return null;
 
-        if (!TrySetOffset(ScrollOffset + ord))
+        if (!TrySetOffset(ScrollOffset + ord * PrimaryItemCount))
             return null;
 
         Vector2 fakePosition = direction switch

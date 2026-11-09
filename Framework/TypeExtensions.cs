@@ -1,4 +1,6 @@
-﻿namespace StardewUI.Framework;
+﻿using System.Collections;
+
+namespace StardewUI.Framework;
 
 /// <summary>
 /// Type extensions/helpers used in various reflection code.
@@ -22,5 +24,10 @@ internal static class TypeExtensions
         return t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IEnumerable<>)
             ? t.GetGenericArguments()[0]
             : null;
+    }
+
+    public static bool IsEnumerable(this Type type)
+    {
+        return type == typeof(IEnumerable) || type.GetInterfaces().Contains(typeof(IEnumerable));
     }
 }

@@ -137,6 +137,24 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
         set => View.FloatingElements = value;
     }
 
+	/// <summary>
+	/// Margins (whitespace outside border) for this view.
+	/// </summary>
+	public Edges Margin
+    {
+        get => View.Margin;
+        set => View.Margin = value;
+    }
+
+	/// <summary>
+	/// Padding (whitespace inside border) for this view.
+	/// </summary>
+	public Edges Padding
+    {
+        get => View.Padding;
+        set => View.Padding = value;
+    }
+
     /// <summary>
     /// The <see cref="Scrollbar.DownSprite" /> used for the scrollbar.
     /// </summary>
@@ -249,7 +267,8 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
     private static readonly HashSet<string> forwardProps = [
         nameof(PrimaryItemCount), nameof(ScrollStep), nameof(Progress), nameof(Children),
         nameof(GridAlignment), nameof(HorizontalItemAlignment), nameof(FloatingElements),
-        nameof(Items), nameof(VisibleItems), nameof(VisibleCount), nameof(Wrap)
+        nameof(Items), nameof(VisibleItems), nameof(VisibleCount), nameof(Wrap), 
+        nameof(ItemSpacing), nameof(VerticalItemAlignment), nameof(Margin), nameof(Padding)
     ];
 
     /// <inheritdoc />
