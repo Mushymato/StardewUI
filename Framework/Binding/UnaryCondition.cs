@@ -26,6 +26,7 @@ public class UnaryCondition(
 ) : ICondition
 {
     private static readonly IValueSource<bool> defaultSource = new ConstantValueSource<bool>(false);
+    private static readonly IValueSource<bool> defaultTruthySource = new ConstantValueSource<bool>(true);
 
     /// <inheritdoc />
     public BindingContext? Context
@@ -74,6 +75,18 @@ public class UnaryCondition(
             valueSource = originalValueSource is not null
                 ? ConvertedValueSource.Create<bool>(originalValueSource, valueConverterFactory)
                 : defaultSource;
+
+            if (
+                originalValueSource is { CanRead: true }
+                && // exists, can be read
+                !valueSource.CanRead
+                && // can't be read, no conversion
+                originalValueSource.ValueType.IsClass // non-value type, can be null
+            )
+            {
+                valueSource = defaultTruthySource;
+            }
+
             wasContextChanged = false;
         }
         valueSource.Update();
