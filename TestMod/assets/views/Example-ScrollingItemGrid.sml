@@ -11,10 +11,10 @@
                 items={Items}
                 visible-items={>ActiveItems}>
 			<frame *repeat={ActiveItems}>
-                <image *if={Valid}
+                <image *if={this}
                     layout="stretch 64px"
-                    sprite={Item}
-                    tooltip={:Item}
+                    sprite={this}
+                    tooltip={:this}
                     focusable="true"
                     transform-origin="0.5, 0.5"
                     +hover:transform="scale: 1.4"
