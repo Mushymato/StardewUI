@@ -77,11 +77,12 @@ public class UnaryCondition(
                 : defaultSource;
 
             if (
+                // exists, can be read
                 originalValueSource is { CanRead: true }
-                && // exists, can be read
-                !valueSource.CanRead
                 && // can't be read, no conversion
-                originalValueSource.ValueType.IsClass // non-value type, can be null
+                !valueSource.CanRead
+                && // non-value type, can be null
+                originalValueSource.ValueType.IsClass 
             )
             {
                 valueSource = defaultTruthySource;
