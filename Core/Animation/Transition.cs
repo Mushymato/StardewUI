@@ -165,7 +165,7 @@ public record Transition(TimeSpan Duration, TimeSpan Delay, Easing Easing)
     private static bool TryParseTime(ReadOnlySpan<char> value, out TimeSpan result)
     {
         // Only seconds and milliseconds supported, both end with "s".
-        if (value.Length < 2 || !char.IsDigit(value[0]) || value[^1] is not 's' or 'S')
+        if (value.Length < 2 || !char.IsDigit(value[0]) || (value[^1] is not 's' && value[^1] is not 'S'))
         {
             result = default;
             return false;

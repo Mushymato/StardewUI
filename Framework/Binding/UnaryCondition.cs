@@ -82,7 +82,7 @@ public class UnaryCondition(
                 && // can't be read, no conversion
                 !valueSource.CanRead
                 && // non-value type, can be null
-                originalValueSource.ValueType.IsClass 
+                originalValueSource.ValueType.IsClass
             )
             {
                 valueSource = defaultTruthySource;

@@ -40,7 +40,7 @@ Dictionary<Type, string> viewTypes = new()
     [typeof(Spacer)] = "spacer",
     [typeof(Tab)] = "tab",
     [typeof(TextInput)] = "textinput",
-    [typeof(VirtualGridView)] = "virtual-grid"
+    [typeof(VirtualGridView)] = "virtual-grid",
 };
 
 var reader = new FixedUnindentXmlReader();
