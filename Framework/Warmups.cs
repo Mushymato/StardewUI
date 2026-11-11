@@ -176,5 +176,7 @@ internal static class Warmups
         ViewNode.Warmup<Tab>();
         ViewNode.Warmup<TextInput>();
         ViewNode.Warmup<TinyNumberLabel>();
+        ViewNode.Warmup<ScrollableGrid>();
+        ViewNode.Warmup<VirtualGridView>();
     }
 }

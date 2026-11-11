@@ -176,11 +176,22 @@ public partial class Grid : View
             }
         }
     }
+    /// <summary>
+    /// Coordinates for a grid cell.
+    /// </summary>
+    protected record CellPosition(int Column, int Row);
 
-    private record CellPosition(int Column, int Row);
+    /// <summary>
+    /// Child views.
+    /// </summary>
+    protected readonly List<ViewChild> childPositions = [];
+
+    /// <summary>
+    /// A list of the start positions of each row
+    /// </summary>
+    protected readonly List<float> secondaryStartPositions = [];
 
     private readonly DirtyTrackingList<IView> children = [];
-    private readonly List<ViewChild> childPositions = [];
     private readonly DirtyTracker<GridItemLayout> itemLayout = new(new GridItemLayout.Count(5));
     private readonly DirtyTracker<Vector2> itemSpacing = new(Vector2.Zero);
     private readonly DirtyTracker<Orientation> primaryOrientation = new(Orientation.Horizontal);
@@ -200,7 +211,6 @@ public partial class Grid : View
     /// An item span is essentially one item taking up multiple itemLength
     /// This list maps the grid index back to the real child position index
     private readonly List<int> primaryGridToChild = [];
-    private readonly List<float> secondaryStartPositions = [];
 
     /// <inheritdoc />
     protected override FocusSearchResult? FindFocusableDescendant(Vector2 contentPosition, Direction direction)
@@ -251,6 +261,8 @@ public partial class Grid : View
             previousCheckedIndex = nextIndex;
         }
     }
+
+
 
     /// <inheritdoc />
     protected override IEnumerable<ViewChild> GetLocalChildren()
@@ -449,8 +461,10 @@ public partial class Grid : View
         var index = secondaryStartPositions.BinarySearch(axisPosition);
         return index >= 0 ? index : Math.Clamp(~index - 1, 0, secondaryStartPositions.Count - 1);
     }
-
-    private CellPosition GetCellAt(Vector2 position)
+    /// <summary>
+    /// Finds the coordinates for the cell at the given position
+    /// </summary>
+    protected CellPosition GetCellAt(Vector2 position)
     {
         var primaryIndex = FindPrimaryIndex(position);
         var secondaryIndex = FindSecondaryIndex(position);
@@ -459,7 +473,10 @@ public partial class Grid : View
             : new(secondaryIndex, primaryIndex);
     }
 
-    private int GetChildIndexAt(CellPosition position)
+    /// <summary>
+    /// Gets a view child from a given cell
+    /// </summary>
+    protected int GetChildIndexAt(CellPosition position)
     {
         var (column, row) = position;
         if (column < 0 || row < 0)

@@ -7,18 +7,18 @@ using StardewUI.Layout;
 namespace StardewUI.Widgets;
 
 /// <summary>
-/// Controls the scrolling of a <see cref="ScrollContainer"/>.
+/// Controls the scrolling of an <see cref="IScrollable"/>.
 /// </summary>
 /// <remarks>
-/// Must be associated with a <see cref="ScrollContainer"/> in order to work; will not draw if the container is not set
-/// or if its <see cref="ScrollContainer.ScrollSize"/> is zero.
+/// Must be associated with an <see cref="IScrollable"/> in order to work; will not draw if the container is not set
+/// or if its <see cref="IScrollable.ScrollSize"/> is zero.
 /// </remarks>
 public partial class Scrollbar : ComponentView<Lane>
 {
     /// <summary>
     /// The scroll container that this <see cref="Scrollbar"/> controls.
     /// </summary>
-    public ScrollContainer? Container
+    public IScrollable? Container
     {
         get => container;
         set => SetContainer(value);
@@ -37,7 +37,7 @@ public partial class Scrollbar : ComponentView<Lane>
     /// Forces the scrollbar to be always visible or always hidden, depending on the value.
     /// </summary>
     /// <remarks>
-    /// If not set, the <see cref="Visibility"/> will change according to whether the <see cref="ScrollContainer"/> has
+    /// If not set, the <see cref="Visibility"/> will change according to whether the <see cref="IScrollable"/> has
     /// content large enough to be scrolled.
     /// </remarks>
     public Visibility? ForcedVisibility
@@ -97,7 +97,7 @@ public partial class Scrollbar : ComponentView<Lane>
     }
 
     /// <summary>
-    /// The progress of scrollbar, see <see cref="ScrollContainer.Progress"/>.
+    /// The progress of scrollbar, see <see cref="IScrollable.Progress"/>.
     /// Setting this via bindings will potentially change the scroll position next tick.
     /// </summary>
     public float Progress
@@ -106,7 +106,7 @@ public partial class Scrollbar : ComponentView<Lane>
         set => progressSetDebounce = value;
     }
 
-    private ScrollContainer? container;
+    private IScrollable? container;
     private Visibility? forcedVisibility;
     private Edges margin = new();
 
@@ -297,7 +297,7 @@ public partial class Scrollbar : ComponentView<Lane>
         }
 
         // drag scroll is inverted
-        var targetDistance = initialContainerDrag.Value - Container.Orientation.Get(e.Position);
+        var targetDistance = (initialContainerDrag.Value - Container.Orientation.Get(e.Position)) * Container.DragStep;
         Container.ScrollOffset = initialContainerScrollOffset.Value + targetDistance;
         SyncPosition();
     }
@@ -370,7 +370,7 @@ public partial class Scrollbar : ComponentView<Lane>
         }
     }
 
-    private void SetContainer(ScrollContainer? container)
+    private void SetContainer(IScrollable? container)
     {
         if (container == this.container)
         {
@@ -383,9 +383,12 @@ public partial class Scrollbar : ComponentView<Lane>
             this.container.ScrollChanged -= Container_ScrollChanged;
             this.container.PropertyChanged -= Container_PropertyChange;
             // drag to scroll
-            this.container.DragStart -= Container_DragStart;
-            this.container.Drag -= Container_Drag;
-            this.container.DragEnd -= Container_DragEnd;
+            if (this.container is View oldView)
+            {
+                oldView.DragStart -= Container_DragStart;
+                oldView.Drag -= Container_Drag;
+                oldView.DragEnd -= Container_DragEnd;
+            }
         }
         this.container = container;
         if (container is not null)
@@ -395,9 +398,12 @@ public partial class Scrollbar : ComponentView<Lane>
             container.ScrollChanged += Container_ScrollChanged;
             container.PropertyChanged -= Container_PropertyChange;
             // drag to scroll
-            container.DragStart += Container_DragStart;
-            container.Drag += Container_Drag;
-            container.DragEnd += Container_DragEnd;
+            if (container is View newView)
+            {
+                newView.DragStart += Container_DragStart;
+                newView.Drag += Container_Drag;
+                newView.DragEnd += Container_DragEnd;
+            }
         }
         LazyUpdate();
         OnPropertyChanged(nameof(Container));

@@ -47,6 +47,21 @@ public static class DirectionExtensions
     }
 
     /// <summary>
+    /// Gets the direction opposite a given <paramref name="direction"/>
+    /// </summary>
+    public static Direction Reverse(this Direction direction)
+    {
+        return direction switch
+        {
+            Direction.North => Direction.South,
+            Direction.South => Direction.North,
+            Direction.East => Direction.West,
+            Direction.West => Direction.East,
+            _ => direction
+        };
+    }
+
+    /// <summary>
     /// Returns <c>true</c> if the specified <paramref name="direction"/> is along the horizontal (width) axis,
     /// otherwise <c>false</c>.
     /// </summary>
