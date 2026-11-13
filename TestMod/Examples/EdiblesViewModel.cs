@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using PropertyChanged.SourceGenerator;
 using StardewValley;
 using StardewValley.ItemTypeDefinitions;
 
 namespace StardewUITest.Examples;
 
-internal partial record EdiblesViewModel(string HeaderText, ParsedItemData?[] Items)
+internal partial record EdiblesViewModel(string HeaderText, ParsedItemData?[] Items) : INotifyPropertyChanged
 {
     [Notify]
-    private IList? activeItems;
+    private ObservableCollection<object?>? activeItems;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public static EdiblesViewModel LoadFromGameData()
     {

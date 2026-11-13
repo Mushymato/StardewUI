@@ -176,6 +176,13 @@ public partial class Grid : View
             }
         }
     }
+
+    /// <summary>
+    /// The maximum secondary occupied by any cell.
+    /// This value is updated on measure and read-only.
+    /// </summary>
+    protected float MaxSecondaryHeight { get; private set; }
+
     /// <summary>
     /// Coordinates for a grid cell.
     /// </summary>
@@ -402,6 +409,7 @@ public partial class Grid : View
         {
             secondaryUsed += secondarySpacing;
         }
+        this.MaxSecondaryHeight = maxSecondary + secondarySpacing;
         secondaryUsed += maxSecondary;
         var accumulatedSize = limits;
         secondaryOrientation.Set(ref accumulatedSize, secondaryUsed);

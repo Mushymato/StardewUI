@@ -1,274 +1,119 @@
-﻿using System.Collections;
-using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace StardewUI.Data;
 
 /// <summary>
-/// 
+/// A helper class that manages a ObservableCollection that represents a slice of a list.
 /// </summary>
-public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged, IDisposable
+public sealed class ListSlice()
 {
     /// <summary>
-    /// Creates a new slice of an existing list.
+    /// List slice, updated depending on <see cref="Source"/>, <see cref="Offset"/>, and <see cref="Count"/>.
+    /// This Slice may contain null only if the Slice would exceed the bounds of the underlying <see cref="Source"/> list.
     /// </summary>
-    public ListSlice(IList source)
-    {
-        Source = source;
-    }
+    public ObservableCollection<object> Slice { get; private set; } = [];
 
     /// <summary>
-    /// The source collection that this is a slice of.
+    /// Source list to populate <see cref="Slice"/> with.
     /// </summary>
-    public IList Source
+    public IList<object>? Source
     {
-        get;
-        set
-        {
-            if (value is null)
-                throw new ArgumentNullException(nameof(value));
-
-            if (field != value)
-            {
-                DetachHandlers(field);
-                field = value;
-                AttachHandlers(field);
-                OnPropertyChanged();
-                OnCollectionChanged();
-            }
-        }
-    }
-
-    /// <inheritdoc/>
-    /// <remarks>
-    /// Trying to set values outside the range of the source collection will silently fail.
-    /// For setting values, it is better to use <see cref="TrySet"/> instead.
-    /// </remarks>
-    public object? this[int index]
-    {
-        get =>
-            index >= Count ? throw new IndexOutOfRangeException(nameof(index)) :
-            index + Offset >= Source.Count ? null : Source[index + Offset];
-
-        set
-        {
-            if (index >= Count)
-                throw new IndexOutOfRangeException(nameof(index));
-
-            var ind = index + Offset;
-            if (ind < Source.Count)
-                Source[ind] = value;
-        }
-    }
-
-    /// <summary>
-    /// Attempts to set a value in the underlying collection.
-    /// </summary>
-    /// <remarks>
-    /// Will not throw exceptions, instead returning false if the index is out of range or could not be added.
-    /// </remarks>
-    public bool TrySet(int index, object? value)
-    {
-        if (index >= Count || index + Offset > Source.Count || index < 0)
-            return false;
-
-        if (index + Offset == Source.Count)
-            return Source.Add(value) >= 0;
-
-        Source[index + Offset] = value;
-        return true;
-    }
-
-    /// <inheritdoc/>
-    public bool IsFixedSize => false;
-
-    /// <inheritdoc/>
-    public bool IsReadOnly => Source.IsReadOnly;
-
-    /// <inheritdoc/>
-    public int Count
-    {
-        get;
+        get => field;
         set
         {
             if (field != value)
             {
                 field = value;
-                OnPropertyChanged();
+                Slice.Clear();
+                if (field == null)
+                {
+                    Offset = 0;
+                    Count = 0;
+                    return;
+                }
+                int sourceLen = field.Count;
+                for (int i = 0; i < Count; ++i)
+                {
+                    int ind = Offset + i;
+                    Slice.Add(ind < sourceLen ? field[ind] : null!);
+                }
             }
         }
-    }
+    } = null;
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Start index of slice
+    /// </summary>
     public int Offset
     {
-        get;
+        get => field;
         set
         {
             value = Math.Max(0, value);
             if (field != value)
             {
+                if (Source != null)
+                {
+                    int delta = value - field;
+                    int sourceLen = Source.Count;
+                    if (delta < 0)
+                    {
+                        for (int i = 0; i < -delta; ++i)
+                        {
+                            int ind = field - i - 1;
+                            Slice.Insert(0, ind < sourceLen ? Source[ind] : null!);
+                            Slice.RemoveAt(Slice.Count - 1);
+                        }
+                    }
+                    else if (delta > 0)
+                    {
+                        for (int i = 0; i < delta; ++i)
+                        {
+                            int ind = field + Count + i;
+                            Slice.Add(ind < sourceLen ? Source[ind] : null!);
+                            Slice.RemoveAt(0);
+                        }
+                    }
+                }
                 field = value;
-                OnPropertyChanged();
-                OnCollectionChanged();
             }
         }
-    }
+    } = 0;
 
-    /// <inheritdoc/>
-    public bool IsSynchronized => Source.IsSynchronized;
-
-    /// <inheritdoc/>
-    public object SyncRoot => Source.SyncRoot;
-
-    /// <inheritdoc/>
-    public event NotifyCollectionChangedEventHandler? CollectionChanged;
-
-    /// <inheritdoc/>
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    /// <inheritdoc/>
-    public int Add(object? value)
+    /// <summary>
+    /// Length of slice
+    /// </summary>
+    public int Count
     {
-        var ind = Source.Add(value);
-        return ind < 0 ? ind : ind - Offset;
-    }
-
-    /// <inheritdoc/>
-    public void Clear()
-    {
-        Source.Clear();
-    }
-
-    /// <inheritdoc/>
-    public bool Contains(object? value)
-    {
-        return IndexOf(value) >= 0;
-    }
-
-    /// <summary>Do not use, not implemented.</summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void CopyTo(Array array, int index)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <inheritdoc/>
-    public IEnumerator GetEnumerator()
-    {
-        return new SliceEnumerator(Source, Offset, Count);
-    }
-
-    /// <inheritdoc/>
-    public int IndexOf(object? value)
-    {
-        for (int i = 0; i < Count; i++)
+        get => field;
+        set
         {
-            if (i + Offset >= Source.Count)
-                return -1;
-
-            if ((Source[i + Offset] is object o && o.Equals(value)) || value is null)
-                return i;
+            value = Math.Max(0, value);
+            if (field != value)
+            {
+                if (Source != null)
+                {
+                    int delta = value - field;
+                    int sourceLen = Source.Count;
+                    if (delta < 0)
+                    {
+                        for (int i = 0; i < -delta; ++i)
+                        {
+                            Slice.RemoveAt(Slice.Count - 1);
+                        }
+                    }
+                    else if (delta > 0)
+                    {
+                        for (int i = 0; i < delta; ++i)
+                        {
+                            int ind = Offset + field + i;
+                            Slice.Add(ind < sourceLen ? Source[ind] : null!);
+                        }
+                    }
+                }
+                field = value;
+            }
         }
-        return -1;
-    }
-
-    /// <inheritdoc/>
-    public void Insert(int index, object? value)
-    {
-        if (index + Offset < Source.Count)
-            Source.Insert(index + Offset, value);
-        else
-            Source.Add(value);
-    }
-
-    /// <inheritdoc/>
-    public void Remove(object? value)
-    {
-        Source.Remove(value);
-    }
-
-    /// <inheritdoc/>
-    public void RemoveAt(int index)
-    {
-        Source.RemoveAt(index + Offset);
-    }
-
-    private void SourcePropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(IList.Count))
-        {
-            if (Count >= Source.Count)
-                Offset = 0;
-            else
-                Offset = Math.Clamp(Offset, 0, Source.Count - Count);
-        }
-    }
-
-    private void SourceItemsChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        OnCollectionChanged(e);
-    }
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        if (propertyName != null)
-            PropertyChanged?.Invoke(this, new(propertyName));
-    }
-
-    private void OnCollectionChanged(NotifyCollectionChangedEventArgs? ev = null)
-    {
-        CollectionChanged?.Invoke(this, ev ?? new(NotifyCollectionChangedAction.Reset));
-    }
-
-    private void AttachHandlers(IList l)
-    {
-        if (l is INotifyCollectionChanged c)
-            c.CollectionChanged += SourceItemsChanged;
-
-        if (l is INotifyPropertyChanged p)
-            p.PropertyChanged += SourcePropertyChanged;
-    }
-
-    private void DetachHandlers(IList l)
-    {
-        if (l is INotifyCollectionChanged c)
-            c.CollectionChanged -= SourceItemsChanged;
-
-        if (l is INotifyPropertyChanged p)
-            p.PropertyChanged -= SourcePropertyChanged;
-    }
-
-    /// <inheritdoc/>
-    public void Dispose()
-    {
-        DetachHandlers(Source);
-        GC.SuppressFinalize(this);
-    }
-
-    private class SliceEnumerator(IList source, int offset, int count) : IEnumerator
-    {
-        public object? Current { get; private set; }
-        private int index = offset - 1;
-
-        public bool MoveNext()
-        {
-            index++;
-            if (index >= offset + count)
-                return false;
-
-            if (index >= source.Count)
-                Current = null;
-            else
-                Current = source[index];
-
-            return true;
-        }
-
-        public void Reset()
-        {
-            index = offset - 1;
-        }
-    }
+    } = 0;
 }

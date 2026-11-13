@@ -1,8 +1,7 @@
-﻿using StardewUI.Data;
-using StardewUI.Events;
+﻿using StardewUI.Events;
 using StardewUI.Graphics;
 using StardewUI.Layout;
-using System.Collections;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace StardewUI.Widgets;
@@ -15,7 +14,7 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
     /// <summary>
     /// The source collection, to be virtualized, if any.
     /// </summary>
-    public IList? Items
+    public IList<object>? Items
     {
         get => View.Items;
         set => View.Items = value;
@@ -24,16 +23,7 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
     /// <summary>
     /// The items from the source collection that are currently visible
     /// </summary>
-    public ListSlice? VisibleItems => View.VisibleItems;
-
-    /// <summary>
-    /// The number of items from the collection that should be visible at a time
-    /// </summary>
-    public int VisibleCount
-    {
-        get => View.VisibleCount;
-        set => View.VisibleCount = value;
-    }
+    public ObservableCollection<object> VisibleItems => View.VisibleItems;
 
     /// <summary>
     /// Whether out-of-bounds directional inputs should scroll the grid if possible
@@ -137,19 +127,19 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
         set => View.FloatingElements = value;
     }
 
-	/// <summary>
-	/// Margins (whitespace outside border) for this view.
-	/// </summary>
-	public Edges Margin
+    /// <summary>
+    /// Margins (whitespace outside border) for this view.
+    /// </summary>
+    public Edges Margin
     {
         get => View.Margin;
         set => View.Margin = value;
     }
 
-	/// <summary>
-	/// Padding (whitespace inside border) for this view.
-	/// </summary>
-	public Edges Padding
+    /// <summary>
+    /// Padding (whitespace inside border) for this view.
+    /// </summary>
+    public Edges Padding
     {
         get => View.Padding;
         set => View.Padding = value;
@@ -267,7 +257,7 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
     private static readonly HashSet<string> forwardProps = [
         nameof(PrimaryItemCount), nameof(ScrollStep), nameof(Progress), nameof(Children),
         nameof(GridAlignment), nameof(HorizontalItemAlignment), nameof(FloatingElements),
-        nameof(Items), nameof(VisibleItems), nameof(VisibleCount), nameof(Wrap), 
+        nameof(Items), nameof(VisibleItems), nameof(Wrap),
         nameof(ItemSpacing), nameof(VerticalItemAlignment), nameof(Margin), nameof(Padding)
     ];
 

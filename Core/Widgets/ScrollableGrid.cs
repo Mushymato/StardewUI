@@ -1,7 +1,7 @@
 ﻿using StardewUI.Data;
 using StardewUI.Input;
 using StardewUI.Layout;
-using System.Collections;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace StardewUI.Widgets;
@@ -43,60 +43,48 @@ public partial class ScrollableGrid : Grid, IScrollable
         }
     }
 
+    private readonly ListSlice itemSlice = new()
+    {
+        Count = 1
+    };
+
     /// <summary>
     /// The source collection, to be virtualized, if any.
     /// </summary>
-    public IList? Items
+    public IList<object>? Items
     {
-        get => VisibleItems?.Source;
+        get => itemSlice.Source;
         set
         {
-            if (value is null)
+            if (value != itemSlice.Source)
             {
-                if (VisibleItems == null)
-                    return;
-
-                DisposeSlice();
+                itemSlice.Source = value;
+                OnSourceChanged();
             }
-            else
-            {
-                if (VisibleItems is ListSlice l)
-                {
-                    l.Source = value;
-                    return;
-                }
-
-                ListSlice items = new(value);
-                items.PropertyChanged += ItemsPropertyChanged;
-                VisibleItems = items;
-                visibleCount = items.Count = visibleCount;
-            }
-
-            OnSourceChanged();
         }
     }
 
     /// <summary>
     /// The items from the source collection that are currently visible
     /// </summary>
-    public ListSlice? VisibleItems { get; private set; }
+    public ObservableCollection<object> VisibleItems => itemSlice.Slice;
 
     /// <summary>
     /// The number of items from the collection that should be visible at a time
     /// </summary>
     public int VisibleCount
     {
-        get => VisibleItems is ListSlice l ? l.Count : visibleCount;
+        get => itemSlice.Count;
         set
         {
-            if (VisibleItems is ListSlice l)
+            value = Math.Max(0, value);
+            if (itemSlice.Count != value)
             {
-                visibleCount = l.Count = value;
-            }
-            else if (visibleCount != value)
-            {
-                visibleCount = value;
+                itemSlice.Count = value;
+                RecalculateScrollProgress();
                 OnPropertyChanged(nameof(VisibleCount));
+                OnPropertyChanged(nameof(ScrollSize));
+                OnScrollChanged();
             }
         }
     }
@@ -128,11 +116,11 @@ public partial class ScrollableGrid : Grid, IScrollable
     {
         get
         {
-            if (VisibleItems is ListSlice l)
+            if (itemSlice.Source != null)
             {
                 float whole = Math.DivRem(
-                    Math.Max(0, l.Source.Count - l.Count), 
-                    Math.Max(1, PrimaryItemCount), 
+                    Math.Max(0, itemSlice.Source.Count - itemSlice.Count),
+                    Math.Max(1, PrimaryItemCount),
                     out int rem
                 );
 
@@ -149,7 +137,7 @@ public partial class ScrollableGrid : Grid, IScrollable
     /// <inheritdoc/>
     public float ScrollOffset
     {
-        get => VisibleItems is ListSlice l ? l.Offset : 0;
+        get => itemSlice.Offset;
         set => TrySetOffset(value);
     }
 
@@ -177,7 +165,6 @@ public partial class ScrollableGrid : Grid, IScrollable
     public event EventHandler? ScrollChanged;
 
     private bool suppressOffsetChange = false;
-    private int visibleCount = 1;
     private int scrollRowCount = 1;
     private float scrollStep = 1f;
 
@@ -192,27 +179,33 @@ public partial class ScrollableGrid : Grid, IScrollable
     /// <inheritdoc/>
     public void SetScrollOffsetNoDirty(float scrollOffsetValue)
     {
-        if (VisibleItems is ListSlice l)
-        {
-            suppressOffsetChange = true;
-            l.Offset = (int)scrollOffsetValue;
-            suppressOffsetChange = false;
-        }
+        suppressOffsetChange = true;
+        itemSlice.Offset = (int)scrollOffsetValue;
+        suppressOffsetChange = false;
     }
 
     private bool TrySetOffset(float value)
     {
-        if (VisibleItems is not ListSlice l)
-            return false;
-
         var val = Math.Clamp((int)value, 0, (int)ScrollSize) / PrimaryItemCount * PrimaryItemCount;
-        var old = l.Offset;
+        var old = itemSlice.Offset;
 
         if (val == old)
             return false;
 
-        l.Offset = val;
-        return old != l.Offset;
+        itemSlice.Offset = val;
+        if (!suppressOffsetChange)
+        {
+            RecalculateScrollProgress();
+            OnPropertyChanged(nameof(ScrollOffset));
+            OnScrollChanged();
+        }
+        return old != itemSlice.Offset;
+    }
+
+    private void RecalculateScrollProgress()
+    {
+        var size = ScrollSize;
+        Progress = size is 0 ? 0 : Math.Clamp(ScrollOffset / size, 0, 1f);
     }
 
     private void OnScrollChanged()
@@ -230,38 +223,7 @@ public partial class ScrollableGrid : Grid, IScrollable
 
     private void DisposeSlice()
     {
-        if (VisibleItems is ListSlice slice)
-        {
-            slice.PropertyChanged -= ItemsPropertyChanged;
-            slice.Dispose();
-            VisibleItems = null;
-        }
-    }
-
-    private void ItemsPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(ListSlice.Count):
-                OnPropertyChanged(nameof(VisibleCount));
-                OnPropertyChanged(nameof(ScrollSize));
-                OnScrollChanged();
-                break;
-
-            case nameof(ListSlice.Offset):
-                if (!suppressOffsetChange)
-                {
-                    var size = ScrollSize;
-                    Progress = size is 0 ? 0 : Math.Clamp(ScrollOffset / size, 0, 1f);
-                    OnPropertyChanged(nameof(ScrollOffset));
-                    OnScrollChanged();
-                }
-                break;
-
-            case nameof(ListSlice.Source):
-                OnSourceChanged();
-                break;
-        }
+        itemSlice.Source = null;
     }
 
     /// <inheritdoc/>
@@ -310,5 +272,15 @@ public partial class ScrollableGrid : Grid, IScrollable
             _ => Vector2.Zero
         };
         return childPositions[contentChildIndex].FocusSearch(fakePosition, direction.Reverse());
+    }
+
+    /// <inheritdoc/>
+    protected override void OnMeasure(Vector2 availableSize)
+    {
+        base.OnMeasure(availableSize);
+        Vector2 limits = Layout.GetLimits(availableSize);
+        int visCount = (int)(MathF.Floor(limits.Y / MaxSecondaryHeight) * PrimaryItemCount);
+        visCount = Math.Max(visCount, 1);
+        VisibleCount = visCount;
     }
 }
