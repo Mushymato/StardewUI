@@ -10,6 +10,20 @@ internal partial record EdiblesViewModel(string HeaderText, ParsedItemData?[] It
     [Notify]
     private IList? activeItems;
 
+    [Notify]
+    private int count = 22;
+
+    public void AddRow()
+    {
+        Count += 11;
+    }
+
+    public void RemoveRow()
+    {
+        if (count > 11)
+            Count -= 11;
+    }
+
     public static EdiblesViewModel LoadFromGameData()
     {
         int[] edibleCategories =

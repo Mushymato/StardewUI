@@ -159,6 +159,13 @@ public partial class Scrollbar : ComponentView<Lane>
     }
 
     /// <inheritdoc/>
+    protected override void OnLayout()
+    {
+        base.OnLayout();
+        SyncPosition();
+    }
+
+    /// <inheritdoc/>
     public override void OnUpdate(TimeSpan elapsed)
     {
         if (Container != null && progressSetDebounce != null)

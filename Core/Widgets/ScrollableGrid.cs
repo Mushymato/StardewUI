@@ -32,17 +32,6 @@ public partial class ScrollableGrid : Grid, IScrollable
         PropertyChanged += OwnPropertyChanged;
     }
 
-    private void OwnPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(PrimaryItemCount))
-        {
-            scrollStep = scrollRowCount * PrimaryItemCount;
-            OnPropertyChanged(nameof(ScrollStep));
-            OnPropertyChanged(nameof(ScrollSize));
-            OnScrollChanged();
-        }
-    }
-
     /// <summary>
     /// The source collection, to be virtualized, if any.
     /// </summary>
@@ -67,6 +56,7 @@ public partial class ScrollableGrid : Grid, IScrollable
                 }
 
                 ListSlice items = new(value);
+                UpdateOverflow();
                 items.PropertyChanged += ItemsPropertyChanged;
                 VisibleItems = items;
                 visibleCount = items.Count = visibleCount;
@@ -96,6 +86,26 @@ public partial class ScrollableGrid : Grid, IScrollable
             else if (visibleCount != value)
             {
                 visibleCount = value;
+                OnPropertyChanged(nameof(VisibleCount));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Determines whether the slice can extend past the end of the source collection
+    /// </summary>
+    public bool ShowOverflow
+    {
+        get => VisibleItems is ListSlice l ? l.ShowOverflow : showOverflow;
+        set
+        {
+            if (VisibleItems is ListSlice l)
+            {
+                showOverflow = l.ShowOverflow = value;
+            }
+            else if (showOverflow != value)
+            {
+                showOverflow = value;
                 OnPropertyChanged(nameof(VisibleCount));
             }
         }
@@ -180,6 +190,7 @@ public partial class ScrollableGrid : Grid, IScrollable
     private int visibleCount = 1;
     private int scrollRowCount = 1;
     private float scrollStep = 1f;
+    private bool showOverflow;
 
     /// <inheritdoc/>
     public bool ScrollBackward()
@@ -200,12 +211,36 @@ public partial class ScrollableGrid : Grid, IScrollable
         }
     }
 
+    private void UpdateOverflow()
+    {
+        if (VisibleItems is not ListSlice l || Items is not IList items)
+            return;
+
+        l.ShowOverflow = showOverflow;
+
+        l.Margin =
+            items.Count % PrimaryItemCount is 0 ? 0 :
+            ((items.Count / PrimaryItemCount + 1) * PrimaryItemCount) - items.Count;
+    }
+
+    private void OwnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(PrimaryItemCount))
+        {
+            scrollStep = scrollRowCount * PrimaryItemCount;
+            UpdateOverflow();
+            OnPropertyChanged(nameof(ScrollStep));
+            OnPropertyChanged(nameof(ScrollSize));
+            OnScrollChanged();
+        }
+    }
+    
     private bool TrySetOffset(float value)
     {
         if (VisibleItems is not ListSlice l)
             return false;
 
-        var val = Math.Clamp((int)value, 0, (int)ScrollSize) / PrimaryItemCount * PrimaryItemCount;
+        var val = (int)((Math.Clamp(value, 0f, ScrollSize) / PrimaryItemCount) + .5f) * PrimaryItemCount;
         var old = l.Offset;
 
         if (val == old)
@@ -240,9 +275,11 @@ public partial class ScrollableGrid : Grid, IScrollable
 
     private void ItemsPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        var size = ScrollSize;
         switch (e.PropertyName)
         {
             case nameof(ListSlice.Count):
+                Progress = size is 0 ? 0 : Math.Clamp(ScrollOffset / size, 0, 1f);
                 OnPropertyChanged(nameof(VisibleCount));
                 OnPropertyChanged(nameof(ScrollSize));
                 OnScrollChanged();
@@ -251,11 +288,15 @@ public partial class ScrollableGrid : Grid, IScrollable
             case nameof(ListSlice.Offset):
                 if (!suppressOffsetChange)
                 {
-                    var size = ScrollSize;
                     Progress = size is 0 ? 0 : Math.Clamp(ScrollOffset / size, 0, 1f);
                     OnPropertyChanged(nameof(ScrollOffset));
                     OnScrollChanged();
                 }
+                break;
+
+            case nameof(ListSlice.ShowOverflow):
+                OnPropertyChanged(nameof(ShowOverflow));
+                showOverflow = ((ListSlice)sender!).ShowOverflow;
                 break;
 
             case nameof(ListSlice.Source):

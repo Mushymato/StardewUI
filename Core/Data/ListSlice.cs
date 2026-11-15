@@ -34,6 +34,15 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
                 DetachHandlers(field);
                 field = value;
                 AttachHandlers(field);
+
+                if (TryChangeCount(count, out var offsetChanged))
+                {
+                    OnPropertyChanged(nameof(Count));
+
+                    if (offsetChanged)
+                        OnPropertyChanged(nameof(Offset));
+                }
+
                 OnPropertyChanged();
                 OnCollectionChanged();
             }
@@ -59,6 +68,49 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
             var ind = index + Offset;
             if (ind < Source.Count)
                 Source[ind] = value;
+        }
+    }
+
+    /// <summary>
+    /// Determines how many elements the offset slice can extend past the end of the source collection.
+    /// </summary>
+    public int Margin
+    {
+        get;
+        set
+        {
+            if (field != value)
+            {
+                field = value;
+                OnPropertyChanged();
+
+                if (TryChangeCount(count, out var offsetChanged))
+                {
+                    OnPropertyChanged(nameof(Count));
+
+                    if (offsetChanged)
+                        OnPropertyChanged(nameof(Offset));
+
+                    OnCollectionChanged();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether or not items should be iterated past the end of the source collection.
+    /// </summary>
+    public bool ShowOverflow
+    {
+        get;
+        set
+        {
+            if (field != value)
+            {
+                field = value;
+                OnPropertyChanged();
+                OnCollectionChanged();
+            }
         }
     }
 
@@ -89,13 +141,17 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
     /// <inheritdoc/>
     public int Count
     {
-        get;
+        get => count;
         set
         {
-            if (field != value)
+            if (TryChangeCount(value, out var offsetChanged))
             {
-                field = value;
                 OnPropertyChanged();
+
+                if (offsetChanged)
+                    OnPropertyChanged(nameof(Offset));
+
+                OnCollectionChanged();
             }
         }
     }
@@ -103,13 +159,11 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
     /// <inheritdoc/>
     public int Offset
     {
-        get;
+        get => offset;
         set
         {
-            value = Math.Max(0, value);
-            if (field != value)
+            if (TryChangeOffset(value))
             {
-                field = value;
                 OnPropertyChanged();
                 OnCollectionChanged();
             }
@@ -127,6 +181,9 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
 
     /// <inheritdoc/>
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    private int offset;
+    private int count;
 
     /// <inheritdoc/>
     public int Add(object? value)
@@ -157,7 +214,7 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
     /// <inheritdoc/>
     public IEnumerator GetEnumerator()
     {
-        return new SliceEnumerator(Source, Offset, Count);
+        return new SliceEnumerator(Source, Offset, Count, ShowOverflow ? Margin : 0);
     }
 
     /// <inheritdoc/>
@@ -195,14 +252,44 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
         Source.RemoveAt(index + Offset);
     }
 
+    private bool TryChangeCount(int value, out bool offsetChanged)
+    {
+        offsetChanged = false;
+        value = Math.Clamp(value, 0, Source.Count + Margin);
+        if (count != value)
+        {
+            count = value;
+            offsetChanged = TryChangeOffset(offset);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryChangeOffset(int value)
+    {
+        value = Math.Clamp(value, 0, Source.Count + Margin - Count);
+        if (offset != value)
+        {
+            offset = value;
+            return true;
+        }
+        return false;
+    }
+
     private void SourcePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(IList.Count))
         {
-            if (Count >= Source.Count)
-                Offset = 0;
-            else
-                Offset = Math.Clamp(Offset, 0, Source.Count - Count);
+            if (TryChangeCount(count, out bool offsetChanged))
+            {
+                OnPropertyChanged(nameof(Count));
+
+                if (offsetChanged)
+                    OnPropertyChanged(nameof(Offset));
+
+                OnCollectionChanged();
+            }
         }
     }
 
@@ -247,7 +334,7 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
         GC.SuppressFinalize(this);
     }
 
-    private class SliceEnumerator(IList source, int offset, int count) : IEnumerator
+    private class SliceEnumerator(IList source, int offset, int count, int limit) : IEnumerator
     {
         public object? Current { get; private set; }
         private int index = offset - 1;
@@ -259,7 +346,10 @@ public class ListSlice : IList, INotifyCollectionChanged, INotifyPropertyChanged
                 return false;
 
             if (index >= source.Count)
-                Current = null;
+                if (index - source.Count < limit)
+                    Current = null;
+                else
+                    return false;
             else
                 Current = source[index];
 
