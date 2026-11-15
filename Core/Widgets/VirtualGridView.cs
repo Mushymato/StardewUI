@@ -69,6 +69,15 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
     }
 
     /// <summary>
+    /// Determines whether items past the end of the source collection are iterated as null or simply removed.
+    /// </summary>
+    public bool ShowOverflow
+    {
+        get => View.ShowOverflow;
+        set => View.ShowOverflow = value;
+    }
+
+    /// <summary>
     /// Specifies how to align each child <see cref="IView"/> horizontally within its respective cell, i.e. if the view
     /// is narrower than the cell's width.
     /// </summary>
@@ -137,19 +146,19 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
         set => View.FloatingElements = value;
     }
 
-	/// <summary>
-	/// Margins (whitespace outside border) for this view.
-	/// </summary>
-	public Edges Margin
+    /// <summary>
+    /// Margins (whitespace outside border) for this view.
+    /// </summary>
+    public Edges Margin
     {
         get => View.Margin;
         set => View.Margin = value;
     }
 
-	/// <summary>
-	/// Padding (whitespace inside border) for this view.
-	/// </summary>
-	public Edges Padding
+    /// <summary>
+    /// Padding (whitespace inside border) for this view.
+    /// </summary>
+    public Edges Padding
     {
         get => View.Padding;
         set => View.Padding = value;
@@ -268,7 +277,8 @@ public partial class VirtualGridView : ComponentView<ScrollableGrid>, IFloatCont
         nameof(PrimaryItemCount), nameof(ScrollStep), nameof(Progress), nameof(Children),
         nameof(GridAlignment), nameof(HorizontalItemAlignment), nameof(FloatingElements),
         nameof(Items), nameof(VisibleItems), nameof(VisibleCount), nameof(Wrap), 
-        nameof(ItemSpacing), nameof(VerticalItemAlignment), nameof(Margin), nameof(Padding)
+        nameof(ItemSpacing), nameof(VerticalItemAlignment), nameof(Margin), nameof(Padding),
+        nameof(ShowOverflow)
     ];
 
     /// <inheritdoc />
