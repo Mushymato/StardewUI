@@ -585,7 +585,7 @@ public partial class DropDownList<T> : ComponentView
             SetSearchText(text);
         }
 
-        public void HandleSpecialKey(Keys keyCode) { }
+        public void HandleSpecialKey(Keys keyCode, KeyboardModifier keyboardModifier) { }
 
         public void Activate()
         {
@@ -618,6 +618,25 @@ public partial class DropDownList<T> : ComponentView
                     break;
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        public string? ClipboardCopy()
+        {
+            return owner.SelectedOptionText;
+        }
+
+        /// <inheritdoc/>
+        public string? ClipboardCut()
+        {
+            // does not cut since that doesn't make sense here
+            return owner.SelectedOptionText;
+        }
+
+        /// <inheritdoc/>
+        public void SelectAll()
+        {
+            // selection not supported
         }
     }
 }

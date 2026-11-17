@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewUI.Animation;
 using StardewUI.Events;
@@ -535,17 +534,58 @@ public partial class TextInput : View, IKeyboardSubscriberOwnerView
         MoveCaretToCursor(cursorPosition, selecting: true);
     }
 
-    /// <inheritdoc/>
-    public void HandleSpecialKey(Keys key)
+    private void SeekWordBreakLeft()
     {
-        // TODO: add shift select range
+        if (CaretPosition == 0)
+            return;
+        for (int i = textBeforeCursor.Length - 2; i >= 0; --i)
+        {
+            if (!char.IsLetterOrDigit(textBeforeCursor[i]))
+            {
+                CaretPosition = i;
+                return;
+            }
+        }
+        CaretPosition = 0;
+    }
+
+    private void SeekWordBreakRight()
+    {
+        if (CaretPosition == Text.Length)
+            return;
+        for (int i = 1; i < textAfterCursor.Length - 1; ++i)
+        {
+            if (!char.IsLetterOrDigit(textAfterCursor[i]))
+            {
+                CaretPosition = textBeforeCursor.Length + i;
+                return;
+            }
+        }
+        CaretPosition = Text.Length;
+    }
+
+    /// <inheritdoc/>
+    public void HandleSpecialKey(Keys key, KeyboardModifier modifiers)
+    {
+        bool wordBreak = modifiers.HasFlag(KeyboardModifier.Control);
+        bool selecting = modifiers.HasFlag(KeyboardModifier.Shift);
         switch (key)
         {
             case Keys.Left:
-                CaretPosition--;
+                if (wordBreak)
+                    SeekWordBreakLeft();
+                else if (selecting)
+                    CaretSelectionSize--;
+                else
+                    CaretPosition--;
                 break;
             case Keys.Right:
-                CaretPosition++;
+                if (wordBreak)
+                    SeekWordBreakRight();
+                else if (selecting)
+                    CaretSelectionSize++;
+                else
+                    CaretPosition++;
                 break;
             case Keys.Home:
                 CaretPosition = 0;
@@ -660,14 +700,16 @@ public partial class TextInput : View, IKeyboardSubscriberOwnerView
         return true;
     }
 
-    private string? ClipboardCopy()
+    /// <inheritdoc/>
+    public string? ClipboardCopy()
     {
         if (CaretSelectionSize == 0)
             return null;
         return SelectedText;
     }
 
-    private string? ClipboardCut()
+    /// <inheritdoc/>
+    public string? ClipboardCut()
     {
         if (CaretSelectionSize == 0)
             return null;
@@ -677,7 +719,8 @@ public partial class TextInput : View, IKeyboardSubscriberOwnerView
         return selected;
     }
 
-    private void SelectAll()
+    /// <inheritdoc/>
+    public void SelectAll()
     {
         CaretPosition = 0;
         CaretSelectionSize = Text.Length;

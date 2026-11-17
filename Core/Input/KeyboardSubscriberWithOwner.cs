@@ -3,6 +3,26 @@ using Microsoft.Xna.Framework.Input;
 
 namespace StardewUI.Input;
 
+#if SDV17
+using StardewValley;
+#else
+/// <summary>KeyboardModifier backport</summary>
+[Flags]
+public enum KeyboardModifier
+{
+    /// <summary>No modifier</summary>
+    None = 0,
+    /// <summary>LeftShift or RightShift</summary>
+    Shift = 1,
+    /// <summary>LeftControl or RightControl</summary>
+    Control = 2,
+    /// <summary>LeftAlt or RightAlt</summary>
+    Alt = 4,
+    /// <remark>Mainly used for Mac system parity</remark>
+    System = 8
+}
+#endif
+
 /// <summary>
 /// An implementation of <see cref="IKeyboardSubscriber"/> that forwards keys to the owning <see cref="IKeyboardSubscriberOwnerView"/>.
 /// </summary>
@@ -87,12 +107,12 @@ public class KeyboardSubscriberWithOwner(IKeyboardSubscriberOwnerView owner, Gam
 
     private void KeyboardInput_KeyDown(object sender, KeyEventArgs e)
     {
-        owner.HandleSpecialKey(e.KeyCode);
+        owner.HandleSpecialKey(e.KeyCode, GetKeyboardModifier());
     }
 
     private void Window_KeyDown(object? sender, InputKeyEventArgs e)
     {
-        owner.HandleSpecialKey(e.Key);
+        owner.HandleSpecialKey(e.Key, GetKeyboardModifier());
     }
 
     // Same logic used in KeyboardDispatcher.
@@ -102,13 +122,38 @@ public class KeyboardSubscriberWithOwner(IKeyboardSubscriberOwnerView owner, Gam
             || Environment.OSVersion.Platform == PlatformID.Win32NT;
     }
 
+    private static KeyboardModifier GetKeyboardModifier()
+    {
+        // this mimics the base game KeyboardModifier logic in KeyboardDispatcher.Poll added for 1.6.16
+        // chose to do it ourselves here so that it also works for current version
+        KeyboardState keyboardState = Game1.input.GetKeyboardState();
+        KeyboardModifier keyboardModifier = KeyboardModifier.None;
+        if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
+        {
+            keyboardModifier |= KeyboardModifier.Shift;
+        }
+        if (keyboardState.IsKeyDown(Keys.LeftControl) || keyboardState.IsKeyDown(Keys.RightControl))
+        {
+            keyboardModifier |= KeyboardModifier.Control;
+        }
+        if (keyboardState.IsKeyDown(Keys.LeftAlt) || keyboardState.IsKeyDown(Keys.RightAlt))
+        {
+            keyboardModifier |= KeyboardModifier.Alt;
+        }
+        if (keyboardState.IsKeyDown(Keys.LeftWindows) || keyboardState.IsKeyDown(Keys.RightWindows))
+        {
+            keyboardModifier |= KeyboardModifier.System;
+        }
+        return keyboardModifier;
+    }
+
 #if SDV17
     /// <inheritdoc/>
     public void RecieveCommandInput(char command, KeyboardModifier modifiers)
     {
         // TODO: support Alt/Control + Backspace erasing a whole word
         if (Selected)
-            owner.Insert(command);
+            owner.InsertChar(command);
     }
 
     /// <inheritdoc/>
@@ -124,17 +169,17 @@ public class KeyboardSubscriberWithOwner(IKeyboardSubscriberOwnerView owner, Gam
         return Selected ? owner.ClipboardCopy() : null;
     }
 
+    /// <inheritdoc/>
     public string? ClipboardCut()
     {
         return Selected ? owner.ClipboardCut() : null;
     }
 
+    /// <inheritdoc/>
     public void SelectAll()
     {
         if (Selected)
-        {
             owner.SelectAll();
-        }
     }
 #else
 
